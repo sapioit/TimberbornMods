@@ -219,6 +219,9 @@
       <Compile Remove="Actions\DetonateDynamiteAction.cs" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="..\..\TimberbornMods.wiki\Automation-(scripting).md">
+        <Link>Mod\Automation-(scripting).md</Link>
+      </Content>
       <Content Include="..\TimberDev\Tools\enUS.csv">
         <Link>TimberDev\Tools\enUS.csv</Link>
       </Content>
