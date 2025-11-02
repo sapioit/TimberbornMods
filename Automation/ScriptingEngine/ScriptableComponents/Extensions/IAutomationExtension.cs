@@ -4,7 +4,11 @@
 
 namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Extensions;
 
-/// <summary>Marker interface for automation extensions.</summary>
+/// <summary>The base interface for automation extensions.</summary>
+/// <remarks>
+/// The descendants can add functionality to this interface as needed. The clients need to be aware of what they are
+/// requesting.
+/// </remarks>
 /// <seealso cref="AutomationExtensionsRegistry"/>
 public interface IAutomationExtension {
 }
