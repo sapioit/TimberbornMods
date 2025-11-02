@@ -8,7 +8,7 @@ using Timberborn.StatusSystem;
 using Timberborn.WorkSystem;
 using Timberborn.WorkSystemUI;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Patches;
 
 [HarmonyPatch(typeof(NoUnemployedStatus), nameof(NoUnemployedStatus.UpdateStatus))]
 static class NoUnemployedStatusPatch {

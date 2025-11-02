@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using HarmonyLib;
 using Timberborn.WaterBuildings;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Patches;
 
 [HarmonyPatch(typeof(Floodgate), nameof(Floodgate.Height), MethodType.Setter)]
 static class FloodgatePatch {

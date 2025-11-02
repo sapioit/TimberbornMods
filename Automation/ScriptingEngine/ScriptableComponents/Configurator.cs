@@ -3,7 +3,6 @@
 // License: Public Domain
 
 using Bindito.Core;
-using IgorZ.TimberDev.Utils;
 using Timberborn.TemplateSystem;
 using Timberborn.WaterBuildings;
 
@@ -12,10 +11,7 @@ namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 // ReSharper disable once UnusedType.Global
 [Context("Game")]
 sealed class Configurator : IConfigurator {
-  static readonly string PatchId = typeof(Configurator).AssemblyQualifiedName;
-
   public void Configure(IContainerDefinition containerDefinition) {
-    HarmonyPatcher.PatchRepeated(PatchId, typeof(FloodgatePatch), typeof(NoUnemployedStatusPatch));
     containerDefinition.Bind<SignalDispatcher>().AsTransient();
 
     // The building-specific components. 
