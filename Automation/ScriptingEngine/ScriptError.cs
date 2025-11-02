@@ -3,6 +3,7 @@
 // License: Public Domain
 
 using System;
+using IgorZ.Automation.ScriptingEngine.Parser;
 using Timberborn.BaseComponentSystem;
 using UnityDev.Utils.LogUtilsLite;
 
@@ -53,7 +54,14 @@ abstract class ScriptError : Exception {
   public class InternalError(string reason = null) : RuntimeError(InternalErrorLocKey, reason ?? "Internal error");
 
   /// <summary>The script source is invalid and can't be properly parsed.</summary>
-  public class ParsingError(string reason) : ScriptError(reason);
+  public class ParsingError : ScriptError {
+    /// <summary>The script source is invalid and can't be properly parsed.</summary>
+    public ParsingError(string reason) : base(reason) { }
+
+    /// <summary>The script source is invalid and can't be properly parsed at the token.</summary>
+    public ParsingError(TokenizerBase.Token token, string reason)
+        : base(reason + $" at {token.StartPos}-{token.EndPos-1}") { }
+  }
 
   /// <summary>The component state is not suitable for the expression.</summary>
   /// <remarks>
