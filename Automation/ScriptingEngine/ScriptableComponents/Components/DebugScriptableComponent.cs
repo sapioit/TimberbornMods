@@ -16,7 +16,7 @@ using Timberborn.InventorySystem;
 using Timberborn.ResourceCountingSystem;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class DebugScriptableComponent : ScriptableComponentBase {
 

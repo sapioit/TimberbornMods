@@ -9,7 +9,7 @@ using IgorZ.Automation.ScriptingEngine.Expressions;
 using Timberborn.BaseComponentSystem;
 using Timberborn.WorkSystem;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class WorkplaceScriptableComponent : ScriptableComponentBase {
 

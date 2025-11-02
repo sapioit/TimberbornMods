@@ -18,7 +18,7 @@ using Timberborn.EntitySystem;
 using Timberborn.SingletonSystem;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 class SignalDispatcher {
 

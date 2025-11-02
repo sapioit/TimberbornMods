@@ -26,9 +26,9 @@ using Timberborn.ToolSystem;
 using UnityDev.Utils.LogUtilsLite;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
-class DynamiteScriptableComponent : ScriptableComponentBase {
+sealed class DynamiteScriptableComponent : ScriptableComponentBase {
 
   const string DetonateActionLocKey = "IgorZ.Automation.Scriptable.Dynamite.Action.Detonate";
   const string DetonateAndRepeatActionLocKey = "IgorZ.Automation.Scriptable.Dynamite.Action.DetonateAndRepeat";

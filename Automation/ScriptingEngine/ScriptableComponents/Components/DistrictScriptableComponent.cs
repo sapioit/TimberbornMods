@@ -11,9 +11,9 @@ using Timberborn.Bots;
 using Timberborn.DwellingSystem;
 using Timberborn.GameDistricts;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
-class DistrictScriptableComponent : ScriptableComponentBase {
+sealed class DistrictScriptableComponent : ScriptableComponentBase {
 
   const string BotPopulationSignalLocKey = "IgorZ.Automation.Scriptable.District.Signal.Bots";
   const string BeaversPopulationSignalLocKey = "IgorZ.Automation.Scriptable.District.Signal.Beavers";

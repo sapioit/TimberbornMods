@@ -12,11 +12,11 @@ using Timberborn.Localization;
 using Timberborn.SingletonSystem;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 abstract class ScriptableComponentBase : ILoadableSingleton, IScriptable {
 
-  protected const string ArgumentMaxValueHintLocKey = "IgorZ.Automation.Scripting.Editor.ArgumentMaxValueHint";
+  const string ArgumentMaxValueHintLocKey = "IgorZ.Automation.Scripting.Editor.ArgumentMaxValueHint";
 
   #region API
 

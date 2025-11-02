@@ -10,9 +10,9 @@ using Timberborn.WaterBuildings;
 using Timberborn.WaterSourceSystem;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
-class FlowControlScriptableComponent : ScriptableComponentBase {
+sealed class FlowControlScriptableComponent : ScriptableComponentBase {
 
   const string OpenActionLocKey = "IgorZ.Automation.Scriptable.FlowControl.Action.Open";
   const string CloseActionLocKey = "IgorZ.Automation.Scriptable.FlowControl.Action.Close";

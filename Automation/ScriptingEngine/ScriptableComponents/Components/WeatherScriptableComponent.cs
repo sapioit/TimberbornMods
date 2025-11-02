@@ -18,7 +18,7 @@ using Timberborn.WorldPersistence;
 using UnityDev.Utils.LogUtilsLite;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class WeatherScriptableComponent : ScriptableComponentBase, IPostLoadableSingleton, ISaveableSingleton, IWeatherExtension {
 

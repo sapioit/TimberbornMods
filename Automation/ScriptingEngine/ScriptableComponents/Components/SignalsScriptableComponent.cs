@@ -13,9 +13,9 @@ using Timberborn.Persistence;
 using Timberborn.WorldPersistence;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
-class SignalsScriptableComponent : ScriptableComponentBase, ISaveableSingleton {
+sealed class SignalsScriptableComponent : ScriptableComponentBase, ISaveableSingleton {
 
   const string GetSignalLocKey = "IgorZ.Automation.Scriptable.Signals.Signal.Get";
   const string SetSignalActionLocKey = "IgorZ.Automation.Scriptable.Signals.Action.Set";

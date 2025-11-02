@@ -8,6 +8,7 @@ using System.Linq;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using IgorZ.Automation.Settings;
 using UnityDev.Utils.LogUtilsLite;
 

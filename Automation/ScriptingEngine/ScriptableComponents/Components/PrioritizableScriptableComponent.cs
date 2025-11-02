@@ -8,7 +8,7 @@ using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using Timberborn.Hauling;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class PrioritizableScriptableComponent : ScriptableComponentBase {
 

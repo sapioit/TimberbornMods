@@ -10,6 +10,7 @@ using System.Reflection;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using Timberborn.BaseComponentSystem;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;

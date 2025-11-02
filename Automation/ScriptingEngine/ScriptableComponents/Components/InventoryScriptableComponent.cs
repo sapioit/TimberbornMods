@@ -3,8 +3,8 @@
 // License: Public Domain
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
@@ -19,7 +19,7 @@ using Timberborn.StatusSystem;
 using Timberborn.Yielding;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class InventoryScriptableComponent : ScriptableComponentBase {
 

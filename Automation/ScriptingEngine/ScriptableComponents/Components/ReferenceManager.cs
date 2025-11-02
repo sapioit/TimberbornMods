@@ -8,7 +8,7 @@ using System.Linq;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 /// <summary>Helper class to track the registration of signals and actions.</summary>
 sealed class ReferenceManager {

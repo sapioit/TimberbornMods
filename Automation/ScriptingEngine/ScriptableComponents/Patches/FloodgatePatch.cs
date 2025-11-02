@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using HarmonyLib;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using Timberborn.WaterBuildings;
 
 namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Patches;

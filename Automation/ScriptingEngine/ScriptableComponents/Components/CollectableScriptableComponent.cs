@@ -4,8 +4,8 @@
 
 using System;
 using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
@@ -26,7 +26,7 @@ using Timberborn.Yielding;
 using UnityDev.Utils.LogUtilsLite;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class CollectableScriptableComponent : ScriptableComponentBase {
 

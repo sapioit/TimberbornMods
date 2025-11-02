@@ -10,7 +10,7 @@ using Timberborn.TickSystem;
 using Timberborn.WaterBuildings;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
 

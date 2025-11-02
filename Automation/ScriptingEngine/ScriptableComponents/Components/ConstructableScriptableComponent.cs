@@ -9,7 +9,7 @@ using Timberborn.BlockSystem;
 using Timberborn.ConstructionSites;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class ConstructableScriptableComponent : ScriptableComponentBase {
 

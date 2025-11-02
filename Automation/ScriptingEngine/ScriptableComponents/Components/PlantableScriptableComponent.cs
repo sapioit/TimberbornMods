@@ -19,7 +19,7 @@ using Timberborn.SingletonSystem;
 using Timberborn.TickSystem;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 sealed class PlantableScriptableComponent : ScriptableComponentBase, ITickableSingleton, IParallelTickableSingleton {
 

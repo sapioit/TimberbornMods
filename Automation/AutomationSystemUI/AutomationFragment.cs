@@ -12,6 +12,7 @@ using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.Automation.Settings;
 using IgorZ.TimberDev.UI;
