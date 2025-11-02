@@ -13,22 +13,25 @@ class HasComponentOperator : BoolOperator {
     throw new NotImplementedException();
   }
 
-  public static IExpression TryCreateFrom(ExpressionParser.Context context, string name, IList<IExpression> operands) {
-    return name switch {
-        HasSigName => new HasComponentOperator(context, name, operands),
-        HasActName => new HasComponentOperator(context, name, operands),
-        _ => null,
-    };
+  public enum OpType {
+    HasSignal,
+    HasAction,
   }
 
-  const string HasSigName = "?sig";
-  const string HasActName = "?act";
+  public readonly OpType OperatorType; 
+
+  public static HasComponentOperator CreateHasSignal(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.HasSignal, context, operands);
+
+  public static HasComponentOperator CreateHasAction(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.HasAction, context, operands); 
 
   readonly AutomationBehavior _component;
   readonly ScriptingService _scriptingService;
 
-  HasComponentOperator(ExpressionParser.Context context, string name, IList<IExpression> operands)
-      : base(name, operands) {
+  HasComponentOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
+      : base(opType == OpType.HasSignal ? "?sig" : "?act", operands) {
+    OperatorType = opType;
     AsserNumberOfOperandsRange(1, -1);
     _component = context.ScriptHost;
     _scriptingService = context.ScriptingService;
@@ -40,10 +43,10 @@ class HasComponentOperator : BoolOperator {
       }
       testStrings.Add(testName);
     }
-    Execute = name switch {
-        HasSigName => () => TrySignals(testStrings),
-        HasActName => () => TryActions(testStrings),
-        _ => throw new InvalidOperationException("Unknown operator name: " + name),
+    Execute = opType switch {
+        OpType.HasSignal => () => TrySignals(testStrings),
+        OpType.HasAction => () => TryActions(testStrings),
+        _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
     };
   }
 

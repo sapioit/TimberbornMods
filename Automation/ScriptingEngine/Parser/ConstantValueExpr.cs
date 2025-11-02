@@ -25,6 +25,14 @@ sealed class ConstantValueExpr : IValueExpr {
     return null;
   }
 
+  public static ConstantValueExpr CreateStringLiteral(string literal) {
+    return new ConstantValueExpr { ValueType = ScriptValue.TypeEnum.String, ValueFn = () => ScriptValue.Of(literal) };
+  }
+
+  public static ConstantValueExpr CreateNumericValue(int number) {
+    return new ConstantValueExpr { ValueType = ScriptValue.TypeEnum.Number, ValueFn = () => ScriptValue.Of(number) };
+  }
+
   /// <inheritdoc/>
   public string Serialize() {
     return ValueType switch {

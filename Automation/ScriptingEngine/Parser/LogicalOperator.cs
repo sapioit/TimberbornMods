@@ -17,9 +17,12 @@ class LogicalOperator : BoolOperator {
   const string AndOperatorName = "and";
   const string OrOperatorName = "or";
 
-  public static IExpression TryCreateFrom(string name, IList<IExpression> arguments) {
-    return name is AndOperatorName or OrOperatorName ? new LogicalOperator(name, arguments) : null;
+  public enum OpType {
+    And,
+    Or,
   }
+
+  public readonly OpType OperatorType;
 
   /// <inheritdoc/>
   public override string Describe() {
@@ -40,7 +43,12 @@ class LogicalOperator : BoolOperator {
     return string.Join(" " + displayName + " ", descriptions);
   }
 
-  LogicalOperator(string name, IList<IExpression> operands) : base(name, operands) {
+  public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands);
+  public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands);
+
+  LogicalOperator(OpType opType, IList<IExpression> operands)
+      : base(opType == OpType.And ? AndOperatorName : OrOperatorName, operands) {
+    OperatorType = opType;
     AsserNumberOfOperandsRange(2, -1);
     var boolOperands = new List<BoolOperator>();
     for (var i = 0; i < operands.Count; i++) {
@@ -50,10 +58,10 @@ class LogicalOperator : BoolOperator {
       }
       boolOperands.Add(result);
     }
-    Execute = name switch {
-        AndOperatorName => () => boolOperands.All(x => x.Execute()),
-        OrOperatorName => () => boolOperands.Any(x => x.Execute()),
-        _ => throw new InvalidOperationException("Unknown operator: " + name),
+    Execute = opType switch {
+        OpType.And => () => boolOperands.All(x => x.Execute()),
+        OpType.Or => () => boolOperands.Any(x => x.Execute()),
+        _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
     };
   }
 }

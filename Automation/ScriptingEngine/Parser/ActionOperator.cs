@@ -23,10 +23,6 @@ sealed class ActionOperator : AbstractOperator {
 
   readonly ActionDef _actionDef;
 
-  public static IExpression TryCreateFrom(ExpressionParser.Context context, string name, IList<IExpression> operands) {
-    return name == "act" ? new ActionOperator(context, name, operands) : null;
-  }
-
   /// <inheritdoc/>
   public override string Describe() {
     var args = new string[_actionDef.Arguments.Length];
@@ -47,9 +43,12 @@ sealed class ActionOperator : AbstractOperator {
     return string.Format(_actionDef.DisplayName, args);
   }
 
+  public static ActionOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
+      new(context, operands);
+
   static readonly Regex ActionNameRegexp = new("^([a-zA-Z][a-zA-Z0-9]+)(.[a-zA-Z][a-zA-Z0-9]+)*$");
 
-  ActionOperator(ExpressionParser.Context context, string name, IList<IExpression> operands) : base(name, operands) {
+  ActionOperator(ParserBase.Context context, IList<IExpression> operands) : base("act", operands) {
     if (Operands[0] is not SymbolExpr symbol || !ActionNameRegexp.IsMatch(symbol.Value)) {
       throw new ScriptError.ParsingError("Bad action name: " + Operands[0]);
     }

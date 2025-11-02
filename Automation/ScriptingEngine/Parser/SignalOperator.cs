@@ -29,15 +29,12 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
     return _signalDef.DisplayName;
   }
 
-  public static SignalOperator TryCreateFrom(
-      ExpressionParser.Context context, string name, IList<IExpression> operands) {
-    return name == "sig" ? new SignalOperator(context, name, operands) : null;
-  }
-
   static readonly Regex SignalNameRegexp = new("^([a-zA-Z][a-zA-Z0-9]+)(.[a-zA-Z][a-zA-Z0-9]+)*$");
 
-  SignalOperator(ExpressionParser.Context context, string name, IList<IExpression> operands)
-      : base(name, operands) {
+  public static SignalOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
+      new(context, operands);
+
+  SignalOperator(ParserBase.Context context, IList<IExpression> operands) : base("sig", operands) {
     AsserNumberOfOperandsExact(1);
     if (Operands[0] is not SymbolExpr symbol || !SignalNameRegexp.IsMatch(symbol.Value)) {
       throw new ScriptError.ParsingError("Bad signal name: " + Operands[0]);

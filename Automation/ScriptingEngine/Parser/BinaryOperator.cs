@@ -15,16 +15,18 @@ namespace IgorZ.Automation.ScriptingEngine.Parser;
 
 sealed class BinaryOperator : BoolOperator {
 
-  static readonly HashSet<string> Names = [ "eq", "ne", "gt", "lt", "ge", "le"];
+  public enum OpType {
+    Equal,
+    NotEqual,
+    GreaterThan,
+    GreaterThanOrEqual,
+    LessThan,
+    LessThanOrEqual,
+  }
 
+  public readonly OpType OperatorType;
   public IValueExpr Left => (IValueExpr)Operands[0];
   public IValueExpr Right => (IValueExpr)Operands[1];
-
-  readonly SignalDef _signalDef;
-
-  public static IExpression TryCreateFrom(ExpressionParser.Context context, string name, IList<IExpression> arguments) {
-    return Names.Contains(name) ? new BinaryOperator(context, name, arguments) : null;
-  }
 
   /// <inheritdoc/>
   public override string Describe() {
@@ -59,8 +61,26 @@ sealed class BinaryOperator : BoolOperator {
     return sb.ToString();
   }
 
-  BinaryOperator(ExpressionParser.Context context, string name, IList<IExpression> operands)
-      : base(name, operands) {
+  public static BinaryOperator CreateEq(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.Equal, context, operands);
+  public static BinaryOperator CreateNe(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.NotEqual, context, operands);
+  public static BinaryOperator CreateLt(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.LessThan, context, operands);
+  public static BinaryOperator CreateLe(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.LessThanOrEqual, context, operands);
+  public static BinaryOperator CreateGt(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.GreaterThan, context, operands);
+  public static BinaryOperator CreateGe(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.GreaterThanOrEqual, context, operands);
+
+  readonly SignalDef _signalDef;
+
+  static readonly List<string> Names = [ "eq", "ne", "gt", "lt", "ge", "le"];
+
+  BinaryOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
+      : base(Names[(int)opType], operands) {
+    OperatorType = opType;
     AsserNumberOfOperandsExact(2);
     if (Operands[0] is not IValueExpr left) {
       throw new ScriptError.ParsingError("Left operand must be a value, found: " + Operands[0]);
@@ -107,22 +127,23 @@ sealed class BinaryOperator : BoolOperator {
         }
       }
     }
+    //FIXME: use ComapreTo for eq/ne
     Execute = left.ValueType switch {
-        ScriptValue.TypeEnum.String => name switch {
-            "eq" => () => left.ValueFn().AsString == right.ValueFn().AsString,
-            "ne" => () => left.ValueFn().AsString != right.ValueFn().AsString,
-            _ => throw new ScriptError.ParsingError("Unsupported operator for string operands: " + name),
+        ScriptValue.TypeEnum.String => opType switch {
+            OpType.Equal => () => left.ValueFn().AsString == right.ValueFn().AsString,
+            OpType.NotEqual => () => left.ValueFn().AsString != right.ValueFn().AsString,
+            _ => throw new ScriptError.ParsingError("Unsupported operator for string operands: " + opType),
         },
-        ScriptValue.TypeEnum.Number => name switch {
-            "eq" => () => left.ValueFn().AsNumber == right.ValueFn().AsNumber,
-            "ne" => () => left.ValueFn().AsNumber != right.ValueFn().AsNumber,
-            "gt" => () => left.ValueFn().AsNumber > right.ValueFn().AsNumber,
-            "lt" => () => left.ValueFn().AsNumber < right.ValueFn().AsNumber,
-            "ge" => () => left.ValueFn().AsNumber >= right.ValueFn().AsNumber,
-            "le" => () => left.ValueFn().AsNumber <= right.ValueFn().AsNumber,
-            _ => throw new InvalidOperationException("Unknown operator: " + name),
+        ScriptValue.TypeEnum.Number => opType switch {
+            OpType.Equal => () => left.ValueFn().AsNumber == right.ValueFn().AsNumber,
+            OpType.NotEqual => () => left.ValueFn().AsNumber != right.ValueFn().AsNumber,
+            OpType.LessThan => () => left.ValueFn().AsNumber < right.ValueFn().AsNumber,
+            OpType.LessThanOrEqual => () => left.ValueFn().AsNumber <= right.ValueFn().AsNumber,
+            OpType.GreaterThan => () => left.ValueFn().AsNumber > right.ValueFn().AsNumber,
+            OpType.GreaterThanOrEqual => () => left.ValueFn().AsNumber >= right.ValueFn().AsNumber,
+            _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
         },
-        _ => throw new InvalidOperationException($"Value type is unspecified: {left}, {right}"),
+        _ => throw new ArgumentOutOfRangeException(nameof(ValueType), left.ValueType, null),
     };
   }
 }

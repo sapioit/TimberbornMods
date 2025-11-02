@@ -23,14 +23,9 @@ class ConcatOperator : AbstractOperator, IValueExpr {
     };
   }
 
-  public static IExpression TryCreateFrom(ExpressionParser.Context _, string name, IList<IExpression> operands) {
-    return name switch {
-        "concat" => new ConcatOperator(name, operands, 2, -1),
-        _ => null,
-    };
-  }
+  public static ConcatOperator Create(IList<IExpression> operands) => new(operands, 2, -1);
 
-  ConcatOperator(string name, IList<IExpression> operands, int minArgs, int maxArgs) : base(name, operands) {
+  ConcatOperator(IList<IExpression> operands, int minArgs, int maxArgs) : base("concat", operands) {
     AsserNumberOfOperandsRange(minArgs, maxArgs);
     var valueExprs = new List<IValueExpr>();
     for (var i = 0; i < operands.Count; i++) {

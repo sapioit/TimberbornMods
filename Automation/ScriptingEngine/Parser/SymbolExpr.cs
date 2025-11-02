@@ -7,10 +7,10 @@ using System.Text.RegularExpressions;
 
 namespace IgorZ.Automation.ScriptingEngine.Parser;
 
-class SymbolExpr : IExpression {
+sealed class SymbolExpr : IExpression {
 
   /// <summary>Symbol name.</summary>
-  public string Value { get; }
+  public readonly string Value;
 
   /// <inheritdoc/>
   public string Serialize() {
@@ -32,7 +32,9 @@ class SymbolExpr : IExpression {
     return $"{GetType().Name}#{Serialize()}";
   }
 
-  public SymbolExpr(string value) {
+  public static SymbolExpr Create(string value) => new(value);
+
+  SymbolExpr(string value) {
     CheckName(value);
     Value = value;
   }

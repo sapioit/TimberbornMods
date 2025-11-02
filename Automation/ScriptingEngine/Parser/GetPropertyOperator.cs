@@ -22,6 +22,13 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
     return $"ValueOf({symbol})";
   }
 
+  public enum OpType {
+    GetString,
+    GetNumber,
+  }
+
+  public readonly OpType OperatorType;
+
   /// <inheritdoc/>
   public ScriptValue.TypeEnum ValueType { get; }
   /// <inheritdoc/>
@@ -30,19 +37,20 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
   /// <summary>Tells if this operator accesses a list property.</summary>
   public bool IsList { get; }
 
-  public static IExpression TryCreateFrom(ExpressionParser.Context context, string name, IList<IExpression> operands) {
-    return name switch {
-        "getstr" => new GetPropertyOperator(ScriptValue.TypeEnum.String, context, name, operands),
-        "getnum" => new GetPropertyOperator(ScriptValue.TypeEnum.Number, context, name, operands),
-        _ => null,
-    };
-  }
+  public static GetPropertyOperator CreateGetNumber(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.GetNumber, context, operands);
+  public static GetPropertyOperator CreateGetString(ParserBase.Context context, IList<IExpression> operands) =>
+      new(OpType.GetString, context, operands);
 
-  GetPropertyOperator(ScriptValue.TypeEnum valueType, ExpressionParser.Context context,
-                      string name, IList<IExpression> operands)
-      : base(name, operands) {
+  GetPropertyOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
+      : base(opType == OpType.GetNumber ? "getnum" : "getstr", operands) {
+    OperatorType = opType;
+    ValueType = opType switch {
+        OpType.GetNumber => ScriptValue.TypeEnum.Number,
+        OpType.GetString => ScriptValue.TypeEnum.String,
+        _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
+    };
     AsserNumberOfOperandsRange(1, -1);
-    ValueType = valueType;
     if (Operands[0] is not SymbolExpr symbol) {
       throw new ScriptError.ParsingError("Expected a symbol: " + Operands[0]);
     }
@@ -72,7 +80,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
     if (listVal != null) {
       IsList = true;
       if (operands.Count == 1) {
-        if (valueType != ScriptValue.TypeEnum.Number) {
+        if (ValueType != ScriptValue.TypeEnum.Number) {
           throw new ScriptError.ParsingError("The list type counter cannot be accessed as string");
         }
         propValueFn = () => GetAsList(listObject).Count;
@@ -93,7 +101,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
     }
 
     var propType = propValueFn().GetType();
-    ValueFn = valueType switch {
+    ValueFn = ValueType switch {
         ScriptValue.TypeEnum.Number when propType == typeof(int) => () => ScriptValue.FromInt((int)propValueFn()),
         ScriptValue.TypeEnum.Number when propType == typeof(float) => () => ScriptValue.FromFloat((float)propValueFn()),
         ScriptValue.TypeEnum.Number when propType == typeof(bool) => () => ScriptValue.FromBool((bool)propValueFn()),
@@ -102,7 +110,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
         ScriptValue.TypeEnum.String when propType == typeof(string) => () => ScriptValue.Of((string)propValueFn()),
         ScriptValue.TypeEnum.String => throw new ScriptError.ParsingError(
             $"Property {symbol.Value} is of incompatible type: {propType}"),
-        _ => throw new InvalidOperationException("Unsupported value type: " + valueType)
+        _ => throw new ArgumentOutOfRangeException(nameof(ValueType), ValueType, null),
     };
   }
 

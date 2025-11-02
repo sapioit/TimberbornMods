@@ -18,6 +18,13 @@ class MathOperator : AbstractOperator, IValueExpr {
   const string MinOperatorName = "min";
   const string MaxOperatorName = "max";
   const string RoundOperatorName = "round";
+  const string NegateOperatorName = "neg";
+
+  public enum OpType {
+      Add, Subtract, Multiply, Divide, Modulus, Min, Max, Round, Negate,
+  }
+
+  public readonly OpType OperatorType;
 
   /// <inheritdoc/>
   public ScriptValue.TypeEnum ValueType => ScriptValue.TypeEnum.Number;
@@ -35,43 +42,46 @@ class MathOperator : AbstractOperator, IValueExpr {
         ModOperatorName => $"{Operands[0].Describe()} % {Operands[1].Describe()}",
         MinOperatorName or MaxOperatorName => $"{Name}({string.Join(", ", Operands.Select(x => x.Describe()))})",
         RoundOperatorName => $"Round({Operands[0].Describe()})",
+        NegateOperatorName => $"-({Operands[0].Describe()})",
         _ => throw new InvalidDataException("Unknown operator: " + Name),
     };
   }
 
-  public static IExpression TryCreateFrom(string name, IList<IExpression> arguments) {
-    return name switch {
-        AddOperatorName => new MathOperator(
-            name, arguments, 2, -1, args => args.Select(x => x.ValueFn()).Aggregate((a, b) => a + b)),
-        SubOperatorName => new MathOperator(
-            name, arguments, 2, 2, args => args[0].ValueFn() - args[1].ValueFn()),
-        MulOperatorName => new MathOperator(
-            name, arguments, 2, 2, args => args[0].ValueFn() * args[1].ValueFn()),
-        DivOperatorName => new MathOperator(
-            name, arguments, 2, 2, args => args[0].ValueFn() / args[1].ValueFn()),
-        ModOperatorName => new MathOperator(
-            name, arguments, 2, 2, args => ScriptValue.FromFloat(args[0].ValueFn().AsFloat % args[1].ValueFn().AsFloat)),
-        MinOperatorName => new MathOperator(
-            name, arguments, 2, -1, args => args.Select(x => x.ValueFn()).Min()),
-        MaxOperatorName => new MathOperator(
-            name, arguments, 2, -1, args => args.Select(x => x.ValueFn()).Max()),
-        RoundOperatorName => new MathOperator(
-            name, arguments, 1, 1, args => ScriptValue.FromInt(args[0].ValueFn().AsInt)),
-        _ => null,
-    };
-  }
+  public static MathOperator CreateAdd(IList<IExpression> arguments) => new(OpType.Add, arguments, 2, -1);
+  public static MathOperator CreateSubtract(IList<IExpression> arguments) => new(OpType.Subtract, arguments, 2, 2);
+  public static MathOperator CreateMultiply(IList<IExpression> arguments) => new(OpType.Multiply, arguments, 2, 2);
+  public static MathOperator CreateDivide(IList<IExpression> arguments) => new(OpType.Divide, arguments, 2, 2);
+  public static MathOperator CreateModulus(IList<IExpression> arguments) => new(OpType.Modulus, arguments, 2, 2);
+  public static MathOperator CreateMin(IList<IExpression> arguments) => new(OpType.Min, arguments, 2, -1);
+  public static MathOperator CreateMax(IList<IExpression> arguments) => new(OpType.Max, arguments, 2, -1);
+  public static MathOperator CreateRound(IList<IExpression> arguments) => new(OpType.Round, arguments, 1, 1);
+  public static MathOperator CreateNegate(IList<IExpression> arguments) => new(OpType.Negate, arguments, 1, 1);
 
-  MathOperator(string name, IList<IExpression> operands, int minArgs, int maxArgs,
-                         Func<IList<IValueExpr>, ScriptValue> function) : base(name, operands) {
+  static readonly string[] Names = ["add", "sub", "mul", "div", "mod", "min", "max", "round", "neg" ];
+
+  MathOperator(OpType opType, IList<IExpression> operands, int minArgs, int maxArgs) : base(Names[(int)opType], operands) {
+    OperatorType = opType;
     AsserNumberOfOperandsRange(minArgs, maxArgs);
-    var valueExprs = new List<IValueExpr>();
     for (var i = 0; i < operands.Count; i++) {
       var op = Operands[i];
       if (op is not IValueExpr { ValueType: ScriptValue.TypeEnum.Number } result) {
         throw new ScriptError.ParsingError($"Operand #{i + 1} must be a numeric value, found: {op}");
       }
-      valueExprs.Add(result);
     }
-    ValueFn = () => function(valueExprs);
+    if (operands is not IList<IValueExpr> args) {
+      throw new InvalidOperationException("Operands must be of type IValueExpr, but got " + operands.GetType());
+    }
+    ValueFn = opType switch {
+        OpType.Add => () => args.Select(x => x.ValueFn()).Aggregate((a, b) => a + b),
+        OpType.Subtract => () => args[0].ValueFn() - args[1].ValueFn(),
+        OpType.Multiply => () => args[0].ValueFn() * args[1].ValueFn(),
+        OpType.Divide => () => args[0].ValueFn() / args[1].ValueFn(),
+        OpType.Modulus => () => ScriptValue.FromFloat(args[0].ValueFn().AsFloat % args[1].ValueFn().AsFloat),
+        OpType.Min => () => args.Select(x => x.ValueFn()).Min(),
+        OpType.Max => () => args.Select(x => x.ValueFn()).Max(),
+        OpType.Round => () => ScriptValue.FromInt(args[0].ValueFn().AsInt),
+        OpType.Negate => () => ScriptValue.Of(-args[0].ValueFn().AsNumber),
+        _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
+    };
   }
 }
