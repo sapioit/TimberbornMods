@@ -214,7 +214,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
   // Used by the RulesEditor dialog.
   internal static BoolOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool onlyCheck = false) {
-    parsingResult = DependencyContainer.GetInstance<ExpressionParser>().Parse(expression, behavior);
+    parsingResult = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(expression, behavior);
     if (parsingResult.LastError != null) {
       if (!onlyCheck || parsingResult.LastScriptError is not ScriptError.BadStateError) {
         HostedDebugLog.Error(
@@ -257,7 +257,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       return true;
     }
     var needLogs = Keyboard.current.ctrlKey.isPressed;
-    var result = DependencyContainer.GetInstance<ExpressionParser>().Parse(Precondition, behavior);
+    var result = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(Precondition, behavior);
     if (result.ParsedExpression == null) {
       if (result.LastScriptError is not ScriptError.BadStateError) {
         HostedDebugLog.Error(behavior, "Failed to parse precondition: {0}\nError: {1}", Precondition, result.LastError);

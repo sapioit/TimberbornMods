@@ -12,7 +12,7 @@ using Token = IgorZ.Automation.ScriptingEngine.Parser.TokenizerBase.Token;
 namespace IgorZ.Automation.ScriptingEngine.Parser;
 
 /// <summary>Parser for the expressions in the scripting engine.</summary>
-sealed class ExpressionParser : ParserBase {
+sealed class LispSyntaxParser : ParserBase {
 
   #region ParserBase implementation
 

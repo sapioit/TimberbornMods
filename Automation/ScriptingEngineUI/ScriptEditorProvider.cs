@@ -69,11 +69,11 @@ sealed class ScriptEditorProvider : IEditorProvider {
   #region Implementation
 
   readonly UiFactory _uiFactory;
-  readonly ExpressionParser _expressionParser;
+  readonly LispSyntaxParser _lispSyntaxParser;
   
-  ScriptEditorProvider(UiFactory uiFactory, ExpressionParser expressionParser) {
+  ScriptEditorProvider(UiFactory uiFactory, LispSyntaxParser lispSyntaxParser) {
     _uiFactory = uiFactory;
-    _expressionParser = expressionParser;
+    _lispSyntaxParser = lispSyntaxParser;
   }
 
   bool RunRuleCheck(RuleRow ruleRow, TextField conditionEdit, TextField actionEdit) {
@@ -83,7 +83,7 @@ sealed class ScriptEditorProvider : IEditorProvider {
   }
 
   bool CheckExpressionAndShowError(RuleRow ruleRow, TextField expressionField, bool isCondition) {
-    var result = _expressionParser.Parse(expressionField.value, ruleRow.ActiveBuilding);
+    var result = _lispSyntaxParser.Parse(expressionField.value, ruleRow.ActiveBuilding);
     if (result.LastScriptError != null) {
       ruleRow.ReportError(result.LastScriptError);
       VisualEffects.SetTemporaryClass(expressionField, TestScriptStatusHighlightDurationMs, BadScriptClass);

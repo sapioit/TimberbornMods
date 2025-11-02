@@ -170,7 +170,7 @@ sealed class ScriptedAction : AutomationActionBase {
   // Used by the RulesEditor dialog.
   internal static ActionOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult) {
-    parsingResult = DependencyContainer.GetInstance<ExpressionParser>().Parse(expression, behavior);
+    parsingResult = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(expression, behavior);
     if (parsingResult.LastError != null) {
       HostedDebugLog.Error(behavior, "Failed to parse action: {0}\nError: {1}", expression, parsingResult.LastError);
       return null;
