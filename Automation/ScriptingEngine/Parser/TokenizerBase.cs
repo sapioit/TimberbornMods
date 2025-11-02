@@ -110,7 +110,7 @@ public abstract class TokenizerBase {
   }
 
   /// <summary>Splits the input and returns thу tokens.</summary>
-  /// <exception cref="TokenizerException">if cannot properly parse the tokens.</exception>
+  /// <exception cref="ScriptError.ParsingError">if cannot properly parse the tokens.</exception>
   public Queue<Token> Tokenize(string input) {
     var currentPos = 0;
     var tokens = new Queue<Token>();
@@ -170,14 +170,14 @@ public abstract class TokenizerBase {
           }
           if (symbol == '\\') {
             if (currentPos >= input.Length || input[currentPos] != closingSymbol) {
-              throw new TokenizerException("Bad string literal escaping", currentPos - 1, currentPos); 
+              throw new ScriptError.ParsingError($"Bad string literal escaping at {currentPos - 1}"); 
             }
             symbol = input[currentPos++];
           } 
           literal.Append(symbol);
         }
         if (!properlyTerminated) {
-          throw new TokenizerException("Unterminated string literal", startPos, currentPos);
+          throw new ScriptError.ParsingError($"Unterminated string literal at {startPos}-{currentPos - 1}");
         }
         CheckTokenTerminated(input, startPos, currentPos);
         tokens.Enqueue(new Token(literal.ToString(), Token.Type.StringLiteral, startPos, currentPos));
@@ -194,7 +194,7 @@ public abstract class TokenizerBase {
       // Capture a numeric constant value.
       if (tokenString[0] is >= '0' and <= '9' or '-') {
         if (!float.TryParse(tokenString, out _)) {
-          throw new TokenizerException($"Not a valid number: '{tokenString}'", tokenStartPos, currentPos);
+          throw new ScriptError.ParsingError($"Not a valid number '{tokenString}' at {tokenStartPos}-{currentPos - 1}");
         }
         CheckTokenTerminated(input, tokenStartPos, currentPos);
         tokens.Enqueue(new Token(tokenString, Token.Type.NumericValue, tokenStartPos, currentPos));
@@ -210,7 +210,7 @@ public abstract class TokenizerBase {
 
       // Capture identifier.
       if (!_identifierRegexp.IsMatch(tokenString)) {
-        throw new TokenizerException($"Invalid identifier: {tokenString}", tokenStartPos, currentPos);
+        throw new ScriptError.ParsingError($"Invalid identifier '{tokenString}' at {tokenStartPos}-{currentPos-1}");
       }
       CheckTokenTerminated(input, tokenStartPos, currentPos);
       tokens.Enqueue(new Token(tokenString, Token.Type.Identifier, tokenStartPos, currentPos));
@@ -225,10 +225,11 @@ public abstract class TokenizerBase {
   readonly Regex _identifierRegexp = new("^([a-zA-Z][a-zA-Z0-9]*)(.[a-zA-Z0-9]+)*$");
 
   void CheckTokenTerminated(string input, int startPos, int endPos) {
-    if (endPos < input.Length && !StopSymbols.Contains(input[endPos])) {
-      throw new TokenizerException(
-          $"Expected stop symbol at token end: {input.Substring(startPos, endPos - startPos)}", startPos, endPos);
+    if (endPos >= input.Length || StopSymbols.Contains(input[endPos])) {
+      return;
     }
+    var tokenString = input.Substring(startPos, endPos - startPos);
+    throw new ScriptError.ParsingError($"Expected stop symbol at token end: {tokenString} at {startPos}-{endPos-1}");
   }
 
   #endregion
