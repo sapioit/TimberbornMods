@@ -5,9 +5,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.Settings;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 abstract class AbstractOperator(string name, IList<IExpression> operands) : IExpression {
 

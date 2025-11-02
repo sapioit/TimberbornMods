@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.Settings;
 using IgorZ.TimberDev.Utils;

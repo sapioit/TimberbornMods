@@ -5,8 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using IgorZ.Automation.ScriptingEngine.Parser;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 sealed class SignalOperator : AbstractOperator, IValueExpr {
 

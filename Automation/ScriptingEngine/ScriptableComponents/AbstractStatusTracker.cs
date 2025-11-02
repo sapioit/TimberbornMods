@@ -3,6 +3,7 @@
 // License: Public Domain
 
 using Bindito.Core;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using Timberborn.BaseComponentSystem;
 

@@ -5,8 +5,9 @@
 using System;
 using System.Collections.Generic;
 using IgorZ.Automation.AutomationSystem;
+using IgorZ.Automation.ScriptingEngine.Parser;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class HasComponentOperator : BoolOperator {
   public override string Describe() {

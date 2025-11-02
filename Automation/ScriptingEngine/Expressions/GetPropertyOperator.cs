@@ -7,10 +7,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using Timberborn.BaseComponentSystem;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class GetPropertyOperator : AbstractOperator, IValueExpr {
   /// <inheritdoc/>

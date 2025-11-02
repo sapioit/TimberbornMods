@@ -4,7 +4,7 @@
 
 using System;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 interface IValueExpr : IExpression {
    public ScriptValue.TypeEnum ValueType { get; }

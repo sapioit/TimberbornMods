@@ -9,6 +9,7 @@ using System.Linq;
 using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using TimberApi.DependencyContainerSystem;
 using Timberborn.BlockObjectTools;

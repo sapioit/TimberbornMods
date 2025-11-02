@@ -2,6 +2,8 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+using IgorZ.Automation.ScriptingEngine.Expressions;
+
 namespace IgorZ.Automation.ScriptingEngine.Parser;
 
 readonly record struct ParsingResult {

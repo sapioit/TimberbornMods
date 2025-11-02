@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.Settings;
 using TimberApi.DependencyContainerSystem;
 using Timberborn.Localization;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 sealed class BinaryOperator : BoolOperator {
 

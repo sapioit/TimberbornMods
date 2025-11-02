@@ -8,7 +8,7 @@ using System.Linq;
 using TimberApi.DependencyContainerSystem;
 using Timberborn.Localization;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class LogicalOperator : BoolOperator {
 

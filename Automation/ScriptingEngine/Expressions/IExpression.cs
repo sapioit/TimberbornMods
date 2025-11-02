@@ -4,7 +4,7 @@
 
 using System;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 interface IExpression {
   /// <summary>Returns a string that can be parsed back to the rule.</summary>

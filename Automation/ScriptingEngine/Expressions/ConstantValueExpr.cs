@@ -3,8 +3,9 @@
 // License: Public Domain
 
 using System;
+using IgorZ.Automation.ScriptingEngine.Parser;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 sealed class ConstantValueExpr : IValueExpr {
 

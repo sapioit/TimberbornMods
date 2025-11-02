@@ -5,8 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using IgorZ.Automation.ScriptingEngine.Parser;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class ConcatOperator : AbstractOperator, IValueExpr {
 

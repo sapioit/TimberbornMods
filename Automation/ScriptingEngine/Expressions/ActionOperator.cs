@@ -6,11 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.Settings;
 using TimberApi.DependencyContainerSystem;
 using Timberborn.Localization;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 sealed class ActionOperator : AbstractOperator {
 
