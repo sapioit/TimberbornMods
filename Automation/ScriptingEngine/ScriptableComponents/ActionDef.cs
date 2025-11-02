@@ -2,7 +2,7 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 
 /// <summary>Definition of an action that can be executed by a script.</summary>
 record ActionDef {

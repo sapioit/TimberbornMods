@@ -7,7 +7,7 @@ using IgorZ.Automation.ScriptingEngine.Parser;
 using Timberborn.BaseComponentSystem;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.Core;
 
 /// <summary>Exception that is thrown when a script error occurs.</summary>
 /// <remarks>Such errors don't fail the game, but they cancel any script execution on the building.</remarks>

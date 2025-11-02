@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.TimberDev.UI;
 using UnityDev.Utils.LogUtilsLite;
 using UnityEngine;

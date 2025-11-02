@@ -10,7 +10,7 @@ using IgorZ.Automation.Conditions;
 using IgorZ.TimberDev.UI;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.Core;
 
 class TemplatingService {
 
@@ -129,6 +129,7 @@ class TemplatingService {
   readonly UiFactory _uiFactory;
 
   TemplatingService(UiFactory uiFactory) {
+    //FIXME: inject ILoc
     _uiFactory = uiFactory;
   }
 

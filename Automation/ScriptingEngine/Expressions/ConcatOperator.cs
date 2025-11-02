@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.ScriptingEngine.Core;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 

@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using IgorZ.Automation.ScriptingEngine.Parser;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 

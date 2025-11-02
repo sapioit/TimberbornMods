@@ -4,10 +4,10 @@
 
 using System;
 using IgorZ.Automation.AutomationSystem;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using IgorZ.Automation.ScriptingEngine.Parser;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 
 /// <summary>Interface for a component that can be used in the scripting engine.</summary>
 interface IScriptable {

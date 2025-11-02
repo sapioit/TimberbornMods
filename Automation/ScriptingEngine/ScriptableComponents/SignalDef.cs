@@ -2,7 +2,7 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 
 /// <summary>Definition of a signal that can be used in the scripting engine.</summary>
 sealed record SignalDef {

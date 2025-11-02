@@ -5,7 +5,6 @@
 using System;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using Timberborn.BlockSystem;
 using Timberborn.ConstructionSites;
 using UnityEngine;

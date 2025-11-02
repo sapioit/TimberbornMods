@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using Timberborn.BaseComponentSystem;

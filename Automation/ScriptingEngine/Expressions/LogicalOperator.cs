@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IgorZ.Automation.ScriptingEngine.Core;
 using TimberApi.DependencyContainerSystem;
 using Timberborn.Localization;
 

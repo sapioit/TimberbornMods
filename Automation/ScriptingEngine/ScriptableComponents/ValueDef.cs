@@ -4,13 +4,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.TimberDev.UI;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 
 /// <summary>Definition of an argument that can be passed to a script action or be returned from a signal.</summary>
 sealed record ValueDef {

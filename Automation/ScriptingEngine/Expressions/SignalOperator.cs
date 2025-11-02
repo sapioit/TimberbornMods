@@ -5,7 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 

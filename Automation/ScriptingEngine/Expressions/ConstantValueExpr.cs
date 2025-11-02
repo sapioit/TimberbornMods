@@ -3,7 +3,7 @@
 // License: Public Domain
 
 using System;
-using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.ScriptingEngine.Core;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 

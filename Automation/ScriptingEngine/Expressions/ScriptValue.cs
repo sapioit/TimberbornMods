@@ -4,10 +4,12 @@
 
 using System;
 using System.Linq;
+using IgorZ.Automation.ScriptingEngine.Core;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.TimberDev.UI;
 using UnityEngine;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 /// <summary>Value that can be passed around in the scripting engine.</summary>
 record struct ScriptValue : IComparable<ScriptValue> {

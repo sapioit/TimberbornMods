@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using Timberborn.Common;
 using Token = IgorZ.Automation.ScriptingEngine.Parser.TokenizerBase.Token;

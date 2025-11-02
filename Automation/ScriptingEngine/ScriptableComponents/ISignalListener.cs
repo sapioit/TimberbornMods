@@ -4,7 +4,7 @@
 
 using IgorZ.Automation.AutomationSystem;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 
 /// <summary>Interface for classes that listen to signal changes.</summary>
 /// <remarks>Listeners are only notified when the signal value actually changes.</remarks>

@@ -5,6 +5,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Core;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.TimberDev.UI;
 using Timberborn.CoreUI;
 using UnityEngine.UIElements;

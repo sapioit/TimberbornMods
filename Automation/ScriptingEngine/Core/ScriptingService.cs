@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.Settings;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.Core;
 
 /// <summary>Service that provides access to the scripting engine.</summary>
 sealed class ScriptingService {

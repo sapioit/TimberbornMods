@@ -6,6 +6,7 @@ using System;
 using System.Text.RegularExpressions;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 
 namespace IgorZ.Automation.ScriptingEngine.Parser;

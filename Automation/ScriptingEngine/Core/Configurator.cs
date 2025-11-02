@@ -4,7 +4,7 @@
 
 using Bindito.Core;
 
-namespace IgorZ.Automation.ScriptingEngine;
+namespace IgorZ.Automation.ScriptingEngine.Core;
 
 // ReSharper disable once UnusedType.Global
 [Context("Game")]
