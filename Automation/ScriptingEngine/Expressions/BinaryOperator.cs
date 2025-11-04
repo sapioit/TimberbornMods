@@ -89,7 +89,7 @@ sealed class BinaryOperator : BoolOperator {
   BinaryOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
       : base(Names[(int)opType], operands) {
     OperatorType = opType;
-    AsserNumberOfOperandsExact(2);
+    AssertNumberOfOperandsExact(2);
     if (Operands[0] is not IValueExpr left) {
       throw new ScriptError.ParsingError("Left operand must be a value, found: " + Operands[0]);
     }
@@ -135,7 +135,6 @@ sealed class BinaryOperator : BoolOperator {
         }
       }
     }
-    //FIXME: use ComapreTo for eq/ne
     Execute = left.ValueType switch {
         ScriptValue.TypeEnum.String => opType switch {
             OpType.Equal => () => left.ValueFn().AsString == right.ValueFn().AsString,

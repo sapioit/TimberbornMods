@@ -55,7 +55,7 @@ class LogicalOperator : BoolOperator {
   LogicalOperator(OpType opType, IList<IExpression> operands)
       : base(opType == OpType.And ? AndOperatorName : OrOperatorName, operands) {
     OperatorType = opType;
-    AsserNumberOfOperandsRange(2, -1);
+    AssertNumberOfOperandsRange(2, -1);
     var boolOperands = new List<BoolOperator>();
     for (var i = 0; i < operands.Count; i++) {
       var op = Operands[i];

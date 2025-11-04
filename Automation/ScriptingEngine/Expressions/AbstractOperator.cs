@@ -31,14 +31,14 @@ abstract class AbstractOperator(string name, IList<IExpression> operands) : IExp
     return $"{GetType().Name}";
   }
 
-  protected void AsserNumberOfOperandsExact(int expected) {//ASSERT
+  protected void AssertNumberOfOperandsExact(int expected) {
     var count = Operands.Count;
     if (expected != count) {
       throw new ScriptError.ParsingError($"Operator '{Name}' requires {expected} arguments, but got {count}");
     }
   }
 
-  protected void AsserNumberOfOperandsRange(int min, int max) {
+  protected void AssertNumberOfOperandsRange(int min, int max) {
     var count = Operands.Count;
     if (min >= 0 && count < min) {
       throw new ScriptError.ParsingError($"Operator '{Name}' requires at least {min} arguments, but got {count}");
