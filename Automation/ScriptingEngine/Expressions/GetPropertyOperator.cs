@@ -58,7 +58,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
         OpType.GetString => ScriptValue.TypeEnum.String,
         _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
     };
-    AsserNumberOfOperandsRange(1, -1);
+    AssertNumberOfOperandsRange(1, -1);
     if (Operands[0] is not SymbolExpr symbol) {
       throw new ScriptError.ParsingError("Expected a symbol: " + Operands[0]);
     }
@@ -93,7 +93,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
         }
         propValueFn = () => GetAsList(listObject).Count;
       } else {
-        AsserNumberOfOperandsExact(2);
+        AssertNumberOfOperandsExact(2);
         if (Operands[1] is not IValueExpr { ValueType: ScriptValue.TypeEnum.Number } indexExpr) {
           throw new ScriptError.ParsingError("Second operand must be a numeric value, found: " + Operands[1]);
         }

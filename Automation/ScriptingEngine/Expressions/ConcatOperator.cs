@@ -32,7 +32,7 @@ class ConcatOperator : AbstractOperator, IValueExpr {
   }
 
   ConcatOperator(IList<IExpression> operands, int minArgs, int maxArgs) : base("concat", operands) {
-    AsserNumberOfOperandsRange(minArgs, maxArgs);
+    AssertNumberOfOperandsRange(minArgs, maxArgs);
     var valueExprs = new List<IValueExpr>();
     for (var i = 0; i < operands.Count; i++) {
       var op = Operands[i];

@@ -67,7 +67,7 @@ sealed class ActionOperator : AbstractOperator {
     }
     ActionName = actionName;
     _actionDef = context.ScriptingService.GetActionDefinition(ActionName, context.ScriptHost);
-    AsserNumberOfOperandsExact(_actionDef.Arguments.Length + 1);
+    AssertNumberOfOperandsExact(_actionDef.Arguments.Length + 1);
     var argValues = new Func<ScriptValue>[_actionDef.Arguments.Length];
     for (var i = 0; i < _actionDef.Arguments.Length; i++) {
       var operand = Operands[i + 1];

@@ -39,7 +39,7 @@ class HasComponentOperator : BoolOperator {
   HasComponentOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
       : base(opType == OpType.HasSignal ? "?sig" : "?act", operands) {
     OperatorType = opType;
-    AsserNumberOfOperandsRange(1, -1);
+    AssertNumberOfOperandsRange(1, -1);
     _component = context.ScriptHost;
     _scriptingService = context.ScriptingService;
 

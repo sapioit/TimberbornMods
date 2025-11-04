@@ -135,7 +135,6 @@ sealed class BinaryOperator : BoolOperator {
         }
       }
     }
-    //FIXME: use ComapreTo for eq/ne
     Execute = left.ValueType switch {
         ScriptValue.TypeEnum.String => opType switch {
             OpType.Equal => () => left.ValueFn().AsString == right.ValueFn().AsString,
