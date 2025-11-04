@@ -5,9 +5,8 @@
 using System;
 using System.Text.RegularExpressions;
 using IgorZ.Automation.ScriptingEngine.Core;
-using IgorZ.Automation.ScriptingEngine.Expressions;
 
-namespace IgorZ.Automation.ScriptingEngine.Parser;
+namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 sealed class SymbolExpr : IExpression {
 
