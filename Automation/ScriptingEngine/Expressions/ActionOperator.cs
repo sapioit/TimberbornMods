@@ -49,6 +49,11 @@ sealed class ActionOperator : AbstractOperator {
   public static ActionOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
       new(context, operands);
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}";
+  }
+
   static readonly Regex ActionNameRegexp = new("^([a-zA-Z][a-zA-Z0-9]+)(.[a-zA-Z][a-zA-Z0-9]+)*$");
 
   ActionOperator(ParserBase.Context context, IList<IExpression> operands) : base("act", operands) {

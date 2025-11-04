@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using Timberborn.Common;
@@ -26,6 +27,17 @@ sealed class LispSyntaxParser : ParserBase {
       throw new ScriptError.ParsingError("Unexpected token at the end of the expression: " + tokens.Peek());
     }
     return result;
+  }
+
+  #endregion
+
+  #region API
+
+  /// <summary>Produces Lisp-like code text from the parsed expression.</summary>
+  public static string Decompile(IExpression expression) {
+    var sb = new StringBuilder();
+    DecompileInternal(sb, expression);
+    return sb.ToString();
   }
 
   #endregion
@@ -134,6 +146,77 @@ sealed class LispSyntaxParser : ParserBase {
       throw new ScriptError.ParsingError(op, err.Message);
     }
     return expr;
+  }
+
+  static void DecompileInternal(StringBuilder sb, IExpression expression) {
+    switch (expression) {
+      case AbstractOperator abstractOperator:
+        DecompileOperator(sb, abstractOperator);
+        break;
+      case ConstantValueExpr constExpr:
+        sb.Append(constExpr.ValueType switch {
+            ScriptValue.TypeEnum.String => $"'{constExpr.ValueFn().AsString}'",
+            ScriptValue.TypeEnum.Number => constExpr.ValueFn().AsNumber.ToString(),
+            _ => throw new InvalidOperationException($"Unsupported value type: {constExpr.ValueType}"),
+        });
+        break;
+      case SymbolExpr symbolExpr:
+        sb.Append(symbolExpr.Value);
+        break;
+      default:
+        throw new InvalidOperationException($"Unsupported expression type: {expression}");
+    }
+  }
+
+  static void DecompileOperator(StringBuilder sb, AbstractOperator abstractOperator) {
+    sb.Append("(");
+    var operatorName = abstractOperator switch {
+        HasComponentOperator hasComponentOperator => hasComponentOperator.OperatorType switch {
+            HasComponentOperator.OpType.HasSignal => HasSignalFunc,
+            HasComponentOperator.OpType.HasAction => HasActionFunc,
+            _ => throw new InvalidOperationException($"Unsupported operator: {hasComponentOperator}"),
+        },
+        BinaryOperator binaryOperator => binaryOperator.OperatorType switch {
+            BinaryOperator.OpType.Equal => EqOperator,
+            BinaryOperator.OpType.NotEqual => NeOperator,
+            BinaryOperator.OpType.GreaterThan => GtOperator,
+            BinaryOperator.OpType.GreaterThanOrEqual => GeOperator,
+            BinaryOperator.OpType.LessThan => LtOperator,
+            BinaryOperator.OpType.LessThanOrEqual => LeOperator,
+            _ => throw new InvalidOperationException($"Unsupported operator: {binaryOperator}"),
+        },
+        LogicalOperator logicalOperator => logicalOperator.OperatorType switch {
+            LogicalOperator.OpType.And => AndOperator,
+            LogicalOperator.OpType.Or => OrOperator,
+            _ => throw new InvalidOperationException($"Unsupported operator: {logicalOperator}"),
+        },
+        MathOperator mathOperator => mathOperator.OperatorType switch {
+            MathOperator.OpType.Add => AddOperator,
+            MathOperator.OpType.Subtract => SubOperator,
+            MathOperator.OpType.Multiply => MulOperator,
+            MathOperator.OpType.Divide => DivOperator,
+            MathOperator.OpType.Modulus => ModOperator,
+            MathOperator.OpType.Min => MinFunc,
+            MathOperator.OpType.Max => MaxFunc,
+            MathOperator.OpType.Round => RoundFunc,
+            _ => throw new InvalidOperationException($"Unsupported operator: {mathOperator}"),
+        },
+        SignalOperator => SigFunc,
+        ActionOperator => ActMethod,
+        GetPropertyOperator getPropertyOperator => getPropertyOperator.OperatorType switch {
+            GetPropertyOperator.OpType.GetString => GetStrFunc,
+            GetPropertyOperator.OpType.GetNumber => GetNumFunc,
+            _ => throw new InvalidOperationException($"Unsupported operator: {getPropertyOperator}"),
+        },
+        ConcatOperator => ConcatFunc,
+        _ => throw new InvalidOperationException($"Unsupported operator: {abstractOperator}"),
+    };
+    sb.Append(operatorName);
+    foreach (var operand in abstractOperator.Operands) {
+      sb.Append(" ");
+      DecompileInternal(sb, operand);
+    }
+    sb.Append(")");
   }
 
   #endregion

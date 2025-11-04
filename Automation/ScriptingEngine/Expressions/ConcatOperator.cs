@@ -26,6 +26,11 @@ class ConcatOperator : AbstractOperator, IValueExpr {
 
   public static ConcatOperator Create(IList<IExpression> operands) => new(operands, 2, -1);
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}";
+  }
+
   ConcatOperator(IList<IExpression> operands, int minArgs, int maxArgs) : base("concat", operands) {
     AsserNumberOfOperandsRange(minArgs, maxArgs);
     var valueExprs = new List<IValueExpr>();

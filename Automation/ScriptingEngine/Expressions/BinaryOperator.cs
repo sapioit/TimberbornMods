@@ -77,6 +77,11 @@ sealed class BinaryOperator : BoolOperator {
   public static BinaryOperator CreateGe(ParserBase.Context context, IList<IExpression> operands) =>
       new(OpType.GreaterThanOrEqual, context, operands);
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}({OperatorType})";
+  }
+
   readonly SignalDef _signalDef;
 
   static readonly List<string> Names = [ "eq", "ne", "gt", "lt", "ge", "le"];

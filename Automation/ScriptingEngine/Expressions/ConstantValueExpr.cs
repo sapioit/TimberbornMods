@@ -35,15 +35,6 @@ sealed class ConstantValueExpr : IValueExpr {
   }
 
   /// <inheritdoc/>
-  public string Serialize() {
-    return ValueType switch {
-        ScriptValue.TypeEnum.String => $"'{ValueFn().AsString}'",
-        ScriptValue.TypeEnum.Number => ValueFn().AsNumber.ToString(),
-        _ => $"ERROR:{ValueType}",
-    };
-  }
-
-  /// <inheritdoc/>
   public string Describe() {
     return ValueType switch {
         ScriptValue.TypeEnum.String => $"'{ValueFn().AsString}'",
@@ -59,6 +50,6 @@ sealed class ConstantValueExpr : IValueExpr {
 
   /// <inheritdoc/>
   public override string ToString() {
-    return $"{GetType().Name}#{Serialize()}";
+    return ValueFn().ToString();
   }
 }

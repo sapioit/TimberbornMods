@@ -14,11 +14,6 @@ sealed class SymbolExpr : IExpression {
   public readonly string Value;
 
   /// <inheritdoc/>
-  public string Serialize() {
-    return Value;
-  }
-
-  /// <inheritdoc/>
   public string Describe() {
     throw new NotImplementedException();
   }
@@ -30,7 +25,7 @@ sealed class SymbolExpr : IExpression {
 
   /// <inheritdoc/>
   public override string ToString() {
-    return $"{GetType().Name}#{Serialize()}";
+    return $"{GetType().Name}#{Value}";
   }
 
   public static SymbolExpr Create(string value) => new(value);

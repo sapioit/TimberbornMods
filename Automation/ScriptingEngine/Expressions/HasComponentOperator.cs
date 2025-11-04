@@ -28,6 +28,11 @@ class HasComponentOperator : BoolOperator {
   public static HasComponentOperator CreateHasAction(ParserBase.Context context, IList<IExpression> operands) =>
       new(OpType.HasAction, context, operands); 
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}({OperatorType})";
+  }
+
   readonly AutomationBehavior _component;
   readonly ScriptingService _scriptingService;
 

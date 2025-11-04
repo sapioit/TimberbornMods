@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.Settings;
@@ -15,19 +14,6 @@ abstract class AbstractOperator(string name, IList<IExpression> operands) : IExp
 
   public readonly string Name = name;
   public readonly IList<IExpression> Operands = operands;
-
-  /// <inheritdoc/>
-  public string Serialize() {
-    var sb = new StringBuilder();
-    sb.Append("(");
-    sb.Append(Name);
-    foreach (var operand in Operands) {
-      sb.Append(" ");
-      sb.Append(operand.Serialize());
-    }
-    sb.Append(")");
-    return sb.ToString();
-  }
 
   /// <inheritdoc/>
   public abstract string Describe();
@@ -42,10 +28,10 @@ abstract class AbstractOperator(string name, IList<IExpression> operands) : IExp
 
   /// <inheritdoc/>
   public override string ToString() {
-    return $"{GetType().Name}#{Serialize()}";
+    return $"{GetType().Name}";
   }
 
-  protected void AsserNumberOfOperandsExact(int expected) {
+  protected void AsserNumberOfOperandsExact(int expected) {//ASSERT
     var count = Operands.Count;
     if (expected != count) {
       throw new ScriptError.ParsingError($"Operator '{Name}' requires {expected} arguments, but got {count}");

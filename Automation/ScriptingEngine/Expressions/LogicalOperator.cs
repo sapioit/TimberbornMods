@@ -47,6 +47,11 @@ class LogicalOperator : BoolOperator {
   public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands);
   public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands);
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}({OperatorType})";
+  }
+
   LogicalOperator(OpType opType, IList<IExpression> operands)
       : base(opType == OpType.And ? AndOperatorName : OrOperatorName, operands) {
     OperatorType = opType;

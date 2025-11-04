@@ -6,11 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IgorZ.Automation.AutomationSystem;
-using IgorZ.Automation.ScriptingEngine;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
-using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
@@ -247,7 +245,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = _parsedExpression.Serialize();
+    Expression = LispSyntaxParser.Decompile(_parsedExpression);
     _registeredSignals = DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
     _canRunOnUnfinishedBuildings = _registeredSignals.Select(x => x.OnUnfinished).Aggregate((x, y) => x || y); 
   }

@@ -45,6 +45,11 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
   public static GetPropertyOperator CreateGetString(ParserBase.Context context, IList<IExpression> operands) =>
       new(OpType.GetString, context, operands);
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}({OperatorType})";
+  }
+
   GetPropertyOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
       : base(opType == OpType.GetNumber ? "getnum" : "getstr", operands) {
     OperatorType = opType;

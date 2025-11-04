@@ -58,6 +58,11 @@ class MathOperator : AbstractOperator, IValueExpr {
   public static MathOperator CreateRound(IList<IExpression> arguments) => new(OpType.Round, arguments, 1, 1);
   public static MathOperator CreateNegate(IList<IExpression> arguments) => new(OpType.Negate, arguments, 1, 1);
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}({OperatorType})";
+  }
+
   static readonly string[] Names = ["add", "sub", "mul", "div", "mod", "min", "max", "round", "neg" ];
 
   MathOperator(OpType opType, IList<IExpression> operands, int minArgs, int maxArgs) : base(Names[(int)opType], operands) {

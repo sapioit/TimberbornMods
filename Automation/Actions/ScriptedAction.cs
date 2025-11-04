@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using IgorZ.Automation.AutomationSystem;
-using IgorZ.Automation.ScriptingEngine;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
@@ -194,7 +193,7 @@ sealed class ScriptedAction : AutomationActionBase {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = _parsedExpression.Serialize();
+    Expression = LispSyntaxParser.Decompile(_parsedExpression);
     _installedActions = DependencyContainer.GetInstance<ScriptingService>().InstallActions(_parsedExpression, Behavior);
   }
 

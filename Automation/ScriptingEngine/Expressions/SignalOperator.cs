@@ -37,6 +37,11 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
   public static SignalOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
       new(context, operands);
 
+  /// <inheritdoc/>
+  public override string ToString() {
+    return $"{GetType().Name}";
+  }
+
   SignalOperator(ParserBase.Context context, IList<IExpression> operands) : base("sig", operands) {
     AsserNumberOfOperandsExact(1);
     if (Operands[0] is not SymbolExpr symbol || !SignalNameRegexp.IsMatch(symbol.Value)) {
