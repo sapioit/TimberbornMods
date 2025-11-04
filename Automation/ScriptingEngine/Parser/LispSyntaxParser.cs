@@ -33,6 +33,16 @@ sealed class LispSyntaxParser : ParserBase {
 
   #region API
 
+  /// <summary>Comparison operators to Lisp-syntax keyword map.</summary>
+  public static readonly Dictionary<BinaryOperator.OpType, string> ComparisonOperators = new() {
+      { BinaryOperator.OpType.Equal, EqOperator },
+      { BinaryOperator.OpType.NotEqual, NeOperator },
+      { BinaryOperator.OpType.GreaterThan, GtOperator },
+      { BinaryOperator.OpType.GreaterThanOrEqual, GeOperator },
+      { BinaryOperator.OpType.LessThan, LtOperator },
+      { BinaryOperator.OpType.LessThanOrEqual, LeOperator },
+  };
+
   /// <summary>Produces Lisp-like code text from the parsed expression.</summary>
   public static string Decompile(IExpression expression) {
     var sb = new StringBuilder();

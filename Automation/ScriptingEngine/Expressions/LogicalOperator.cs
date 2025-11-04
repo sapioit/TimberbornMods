@@ -15,8 +15,6 @@ class LogicalOperator : BoolOperator {
 
   const string AndOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.AndOperator";
   const string OrOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.OrOperator";
-  const string AndOperatorName = "and";
-  const string OrOperatorName = "or";
 
   public enum OpType {
     And,
@@ -28,14 +26,14 @@ class LogicalOperator : BoolOperator {
   /// <inheritdoc/>
   public override string Describe() {
     var loc = DependencyContainer.GetInstance<ILoc>();
-    var displayName = Name switch {
-        AndOperatorName => loc.T(AndOperatorLocKey),
-        OrOperatorName => loc.T(OrOperatorLocKey),
-        _ => throw new InvalidOperationException("Unknown operator: " + Name),
+    var displayName = OperatorType switch {
+        OpType.And => loc.T(AndOperatorLocKey),
+        OpType.Or => loc.T(OrOperatorLocKey),
+        _ => throw new InvalidOperationException($"Unknown operator: {OperatorType}"),
     };
     var descriptions = new List<string>();
     foreach (var operand in Operands) {
-      if (Name == AndOperatorName && operand is LogicalOperator { Name: OrOperatorName } logicalOperatorExpr) {
+      if (OperatorType == OpType.And && operand is LogicalOperator { OperatorType: OpType.Or } logicalOperatorExpr) {
         descriptions.Add($"({logicalOperatorExpr.Describe()})");
       } else {
         descriptions.Add(operand.Describe());
@@ -52,8 +50,7 @@ class LogicalOperator : BoolOperator {
     return $"{GetType().Name}({OperatorType})";
   }
 
-  LogicalOperator(OpType opType, IList<IExpression> operands)
-      : base(opType == OpType.And ? AndOperatorName : OrOperatorName, operands) {
+  LogicalOperator(OpType opType, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsRange(2, -1);
     var boolOperands = new List<BoolOperator>();

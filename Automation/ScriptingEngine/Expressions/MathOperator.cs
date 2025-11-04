@@ -4,23 +4,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using IgorZ.Automation.ScriptingEngine.Core;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class MathOperator : AbstractOperator, IValueExpr {
-  const string AddOperatorName = "add";
-  const string SubOperatorName = "sub";
-  const string MulOperatorName = "mul";
-  const string DivOperatorName = "div";
-  const string ModOperatorName = "mod";
-  const string MinOperatorName = "min";
-  const string MaxOperatorName = "max";
-  const string RoundOperatorName = "round";
-  const string NegateOperatorName = "neg";
-
   public enum OpType {
       Add, Subtract, Multiply, Divide, Modulus, Min, Max, Round, Negate,
   }
@@ -35,16 +24,17 @@ class MathOperator : AbstractOperator, IValueExpr {
 
   /// <inheritdoc/>
   public override string Describe() {
-    return Name switch {
-        AddOperatorName => $"({Operands.Select(x => x.Describe()).Aggregate((a, b) => a + " + " + b)})",
-        SubOperatorName => $"({Operands[0].Describe()} - {Operands[1].Describe()})",
-        MulOperatorName => $"{Operands[0].Describe()} × {Operands[1].Describe()}",
-        DivOperatorName => $"{Operands[0].Describe()} ÷ {Operands[1].Describe()}",
-        ModOperatorName => $"{Operands[0].Describe()} % {Operands[1].Describe()}",
-        MinOperatorName or MaxOperatorName => $"{Name}({string.Join(", ", Operands.Select(x => x.Describe()))})",
-        RoundOperatorName => $"Round({Operands[0].Describe()})",
-        NegateOperatorName => $"-({Operands[0].Describe()})",
-        _ => throw new InvalidDataException("Unknown operator: " + Name),
+    return OperatorType switch {
+        OpType.Add => $"({Operands.Select(x => x.Describe()).Aggregate((a, b) => a + " + " + b)})",
+        OpType.Subtract => $"({Operands[0].Describe()} - {Operands[1].Describe()})",
+        OpType.Multiply => $"{Operands[0].Describe()} × {Operands[1].Describe()}",
+        OpType.Divide => $"{Operands[0].Describe()} ÷ {Operands[1].Describe()}",
+        OpType.Modulus => $"{Operands[0].Describe()} % {Operands[1].Describe()}",
+        OpType.Min => $"min({string.Join(", ", Operands.Select(x => x.Describe()))})",
+        OpType.Max => $"max({string.Join(", ", Operands.Select(x => x.Describe()))})",
+        OpType.Round => $"round({Operands[0].Describe()})",
+        OpType.Negate => $"-({Operands[0].Describe()})",
+        _ => throw new InvalidOperationException($"Unknown operator: {OperatorType}"),
     };
   }
 
@@ -63,9 +53,7 @@ class MathOperator : AbstractOperator, IValueExpr {
     return $"{GetType().Name}({OperatorType})";
   }
 
-  static readonly string[] Names = ["add", "sub", "mul", "div", "mod", "min", "max", "round", "neg" ];
-
-  MathOperator(OpType opType, IList<IExpression> operands, int minArgs, int maxArgs) : base(Names[(int)opType], operands) {
+  MathOperator(OpType opType, IList<IExpression> operands, int minArgs, int maxArgs) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsRange(minArgs, maxArgs);
     for (var i = 0; i < operands.Count; i++) {

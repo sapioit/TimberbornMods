@@ -42,7 +42,7 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
     return $"{GetType().Name}";
   }
 
-  SignalOperator(ParserBase.Context context, IList<IExpression> operands) : base("sig", operands) {
+  SignalOperator(ParserBase.Context context, IList<IExpression> operands) : base(operands) {
     AssertNumberOfOperandsExact(1);
     if (Operands[0] is not SymbolExpr symbol || !SignalNameRegexp.IsMatch(symbol.Value)) {
       throw new ScriptError.ParsingError("Bad signal name: " + Operands[0]);

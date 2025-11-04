@@ -35,19 +35,19 @@ sealed class BinaryOperator : BoolOperator {
   public override string Describe() {
     // Special case: check for if the signal has changed (equals to itself).
     if (Left is SignalOperator leftSignal && Right is SignalOperator rightSignal
-        && leftSignal.SignalName == rightSignal.SignalName && Name == "eq") {
+        && leftSignal.SignalName == rightSignal.SignalName && OperatorType == OpType.Equal) {
       return leftSignal.Describe();
     }
     var sb = new StringBuilder();
     sb.Append(Left.Describe());
-    sb.Append(Name switch {
-        "eq" => " = ",
-        "ne" => " \u2260 ",
-        "gt" => " > ",
-        "lt" => " < ",
-        "ge" => " \u2265 ",
-        "le" => " \u2264 ",
-        _ => throw new InvalidOperationException("Unknown operator: " + Name),
+    sb.Append(OperatorType switch {
+        OpType.Equal => " = ",
+        OpType.NotEqual => " \u2260 ",
+        OpType.GreaterThan => " > ",
+        OpType.LessThan => " < ",
+        OpType.GreaterThanOrEqual => " \u2265 ",
+        OpType.LessThanOrEqual => " \u2264 ",
+        _ => throw new InvalidOperationException("Unknown operator: " + this),
     });
     if (EntityPanelSettings.EvalValuesInConditions || Right is ConstantValueExpr) {
       string rightValue;
@@ -84,10 +84,7 @@ sealed class BinaryOperator : BoolOperator {
 
   readonly SignalDef _signalDef;
 
-  static readonly List<string> Names = [ "eq", "ne", "gt", "lt", "ge", "le"];
-
-  BinaryOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
-      : base(Names[(int)opType], operands) {
+  BinaryOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsExact(2);
     if (Operands[0] is not IValueExpr left) {

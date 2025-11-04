@@ -36,8 +36,7 @@ class HasComponentOperator : BoolOperator {
   readonly AutomationBehavior _component;
   readonly ScriptingService _scriptingService;
 
-  HasComponentOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
-      : base(opType == OpType.HasSignal ? "?sig" : "?act", operands) {
+  HasComponentOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsRange(1, -1);
     _component = context.ScriptHost;

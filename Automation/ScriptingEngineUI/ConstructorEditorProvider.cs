@@ -5,7 +5,6 @@
 using System;
 using System.Linq;
 using IgorZ.Automation.AutomationSystem;
-using IgorZ.Automation.ScriptingEngine;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
@@ -134,7 +133,8 @@ sealed class ConstructorEditorProvider : IEditorProvider {
       throw new InvalidOperationException("Binary operator is expected, but found: " + ruleRow.ParsedCondition);
     }
     conditionConstructor.SignalSelector.SelectedValue = (binaryOperatorExpr.Left as SignalOperator)!.FullSignalName;
-    conditionConstructor.OperatorSelector.SelectedValue = binaryOperatorExpr.Name;
+    conditionConstructor.OperatorSelector.SelectedValue =
+        LispSyntaxParser.ComparisonOperators[binaryOperatorExpr.OperatorType];
     if (binaryOperatorExpr.Right is not ConstantValueExpr constantValue) {
       throw new InvalidOperationException("Constant value is expected");
     }

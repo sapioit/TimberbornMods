@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using IgorZ.Automation.ScriptingEngine.Core;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
@@ -19,9 +18,7 @@ class ConcatOperator : AbstractOperator, IValueExpr {
 
   /// <inheritdoc/>
   public override string Describe() {
-    return Name switch {
-        _ => throw new InvalidDataException("Unknown operator: " + Name),
-    };
+    throw new InvalidOperationException($"Unknown operator: {this}");
   }
 
   public static ConcatOperator Create(IList<IExpression> operands) => new(operands, 2, -1);
@@ -31,7 +28,7 @@ class ConcatOperator : AbstractOperator, IValueExpr {
     return $"{GetType().Name}";
   }
 
-  ConcatOperator(IList<IExpression> operands, int minArgs, int maxArgs) : base("concat", operands) {
+  ConcatOperator(IList<IExpression> operands, int minArgs, int maxArgs) : base(operands) {
     AssertNumberOfOperandsRange(minArgs, maxArgs);
     var valueExprs = new List<IValueExpr>();
     for (var i = 0; i < operands.Count; i++) {

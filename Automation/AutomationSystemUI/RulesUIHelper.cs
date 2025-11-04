@@ -199,7 +199,9 @@ class RulesUIHelper {
         || action.Operands[1] is not ConstantValueExpr { ValueType: ScriptValue.TypeEnum.String } actionExpr
         || action.Operands[2] is not SignalOperator actionSignalOperator
         || condition is not BinaryOperator {
-            Name: "eq", Left: SignalOperator leftSignalOperator, Right: SignalOperator rightSignalOperator,
+            OperatorType: BinaryOperator.OpType.Equal,
+            Left: SignalOperator leftSignalOperator,
+            Right: SignalOperator rightSignalOperator,
         }
         || leftSignalOperator.SignalName != rightSignalOperator.SignalName
         || leftSignalOperator.SignalName != actionSignalOperator.SignalName) {

@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Parser;
-using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using Timberborn.BaseComponentSystem;
 
@@ -50,8 +49,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
     return $"{GetType().Name}({OperatorType})";
   }
 
-  GetPropertyOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands)
-      : base(opType == OpType.GetNumber ? "getnum" : "getstr", operands) {
+  GetPropertyOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     ValueType = opType switch {
         OpType.GetNumber => ScriptValue.TypeEnum.Number,
