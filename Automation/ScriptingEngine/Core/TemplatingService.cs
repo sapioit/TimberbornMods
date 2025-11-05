@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
-using IgorZ.TimberDev.UI;
+using Timberborn.Localization;
 using UnityDev.Utils.LogUtilsLite;
 
 namespace IgorZ.Automation.ScriptingEngine.Core;
@@ -64,22 +64,21 @@ class TemplatingService {
 
       var conditionLineNumber = lineNumber;
       if (!line.StartsWith(ConditionPrefix)) {
-        throw new ImportError(conditionLineNumber, _uiFactory.T(ExpectedConditionErrorLocKey));
+        throw new ImportError(conditionLineNumber, _loc.T(ExpectedConditionErrorLocKey));
       }
       var conditionExpression = line[ConditionPrefix.Length..];
 
       line = TakeNextLine(lines, ref lineNumber);
       var actionLineNumber = lineNumber;
       if (!line.StartsWith(ActionPrefix)) {
-        throw new ImportError(actionLineNumber, _uiFactory.T(ExpectedActionErrorLocKey));
+        throw new ImportError(actionLineNumber, _loc.T(ExpectedActionErrorLocKey));
       }
       var actionExpression = line[ActionPrefix.Length..];
 
       condition.SetExpression(conditionExpression);
       if (!condition.IsValidAt(activeBuilding) && !allowErrors) {
         if (!skipFailedRules) {
-          throw new ImportError(
-              conditionLineNumber, _uiFactory.T(ConditionNotApplicableErrorLocKey, conditionExpression));
+          throw new ImportError(conditionLineNumber, _loc.T(ConditionNotApplicableErrorLocKey, conditionExpression));
         }
         skippedRules++;
         continue; // Skip invalid conditions
@@ -88,7 +87,7 @@ class TemplatingService {
       action.SetExpression(actionExpression);
       if (!action.IsValidAt(activeBuilding) && !allowErrors) {
         if (!skipFailedRules) {
-          throw new ImportError(actionLineNumber, _uiFactory.T(ActionNotApplicableErrorLocKey, actionExpression));
+          throw new ImportError(actionLineNumber, _loc.T(ActionNotApplicableErrorLocKey, actionExpression));
         }
         skippedRules++;
         continue; // Skip invalid actions
@@ -126,11 +125,10 @@ class TemplatingService {
 
   #region Implementation
 
-  readonly UiFactory _uiFactory;
+  readonly ILoc _loc; 
 
-  TemplatingService(UiFactory uiFactory) {
-    //FIXME: inject ILoc
-    _uiFactory = uiFactory;
+  TemplatingService(ILoc loc) {
+    _loc = loc;
   }
 
   string TakeNextLine(string[] lines, ref int index, bool dontFail = false) {
@@ -164,13 +162,13 @@ class TemplatingService {
     }
     if (multiLineCommentCloseTag != null) {
       DebugEx.Warning("Multi-line comment not closed at {0}", index);
-      throw new ImportError(index, _uiFactory.T(UnclosedMultiLineCommentErrorLocKey));
+      throw new ImportError(index, _loc.T(UnclosedMultiLineCommentErrorLocKey));
     }
     if (dontFail) {
       return null; // No more lines to process
     }
     DebugEx.Warning("More lines requested, but none available at {0}", index);
-    throw new ImportError(index, _uiFactory.T(IncompleteDeclarationErrorLocKey));
+    throw new ImportError(index, _loc.T(IncompleteDeclarationErrorLocKey));
   }
 
   #endregion
