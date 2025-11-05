@@ -75,7 +75,7 @@ sealed class BinaryOperator : BoolOperator {
       if (constantValueExpr != null && ResultValueDef.CompatibilityOptions != null) {
         var value = constantValueExpr.ValueFn().AsString;
         if (ResultValueDef.CompatibilityOptions.TryGetValue(value, out var replaceOption)) {
-          constantValueExpr = ConstantValueExpr.TryCreateFrom($"'{replaceOption}'");
+          constantValueExpr = ConstantValueExpr.CreateStringLiteral(replaceOption);
           DebugEx.Warning("BinaryOperator: Replacing constant value '{0}' with '{1}' for signal {2}",
                           value, replaceOption, signalDef.ScriptName);
           if (Operands[0] == otherArgExpr) {
