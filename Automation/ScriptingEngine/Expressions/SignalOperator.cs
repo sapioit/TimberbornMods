@@ -18,19 +18,13 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
   public string FullSignalName => ((SymbolExpr)Operands[0]).Value;
   public readonly string SignalName;
   public bool OnUnfinished => SignalName.Contains(OnUnfinishedNamePrefix);
+  public readonly SignalDef SignalDef;
 
   /// <inheritdoc/>
-  public ScriptValue.TypeEnum ValueType { get; }
+  public ScriptValue.TypeEnum ValueType => SignalDef.Result.ValueType;
 
   /// <inheritdoc/>
   public Func<ScriptValue> ValueFn { get; }
-
-  readonly SignalDef _signalDef;
-
-  /// <inheritdoc/>
-  public override string Describe() {
-    return _signalDef.DisplayName;
-  }
 
   static readonly Regex SignalNameRegexp = new("^([a-zA-Z][a-zA-Z0-9]+)(.[a-zA-Z][a-zA-Z0-9]+)*$");
 
@@ -48,8 +42,7 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
       throw new ScriptError.ParsingError("Bad signal name: " + Operands[0]);
     }
     SignalName = symbol.Value;
-    _signalDef = context.ScriptingService.GetSignalDefinition(SignalName, context.ScriptHost);
-    ValueType = _signalDef.Result.ValueType;
+    SignalDef = context.ScriptingService.GetSignalDefinition(SignalName, context.ScriptHost);
     ValueFn = context.ScriptingService.GetSignalSource(SignalName, context.ScriptHost);
   }
 }

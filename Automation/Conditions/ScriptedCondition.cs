@@ -10,6 +10,7 @@ using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
+using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
 using TimberApi.DependencyContainerSystem;
@@ -38,8 +39,9 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       if (_lastScriptError != null) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(_lastScriptError));
       }
+      var expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
       try {
-        var describe = _parsedExpression.Describe();
+        var describe = expressionDescriber.DescribeExpression(_parsedExpression);
         return ConditionState ? CommonFormats.HighlightGreen(describe) : CommonFormats.HighlightYellow(describe); 
       } catch (ScriptError.RuntimeError e) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(e.LocKey));

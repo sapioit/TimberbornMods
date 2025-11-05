@@ -11,9 +11,6 @@ using IgorZ.Automation.ScriptingEngine.Parser;
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class HasComponentOperator : BoolOperator {
-  public override string Describe() {
-    throw new NotImplementedException();
-  }
 
   public enum OpType {
     HasSignal,

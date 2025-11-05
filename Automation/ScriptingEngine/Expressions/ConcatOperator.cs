@@ -16,11 +16,6 @@ class ConcatOperator : AbstractOperator, IValueExpr {
   /// <inheritdoc/>
   public Func<ScriptValue> ValueFn { get; }
 
-  /// <inheritdoc/>
-  public override string Describe() {
-    throw new InvalidOperationException($"Unknown operator: {this}");
-  }
-
   public static ConcatOperator Create(IList<IExpression> operands) => new(operands, 2, -1);
 
   /// <inheritdoc/>
@@ -30,21 +25,21 @@ class ConcatOperator : AbstractOperator, IValueExpr {
 
   ConcatOperator(IList<IExpression> operands, int minArgs, int maxArgs) : base(operands) {
     AssertNumberOfOperandsRange(minArgs, maxArgs);
-    var valueExprs = new List<IValueExpr>();
+    var arguments = new List<IValueExpr>();
     for (var i = 0; i < operands.Count; i++) {
       var op = Operands[i];
       if (op is not IValueExpr result) {
         throw new ScriptError.ParsingError($"Operand #{i + 1} must be a value, found: {op}");
       }
-      valueExprs.Add(result);
+      arguments.Add(result);
     }
     ValueFn = () => {
       var result = "";
-      foreach (var valueExpr in valueExprs) {
-        if (valueExpr.ValueType == ScriptValue.TypeEnum.Number) {
-          result += valueExpr.ValueFn().AsFloat.ToString("0.##");
+      foreach (var argument in arguments) {
+        if (argument.ValueType == ScriptValue.TypeEnum.Number) {
+          result += argument.ValueFn().AsFloat.ToString("0.##");
         } else {
-          result += valueExpr.ValueFn().AsString;
+          result += argument.ValueFn().AsString;
         }
       }
       return ScriptValue.Of(result);

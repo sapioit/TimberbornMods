@@ -15,9 +15,6 @@ abstract class AbstractOperator(IList<IExpression> operands) : IExpression {
   public readonly IList<IExpression> Operands = operands;
 
   /// <inheritdoc/>
-  public abstract string Describe();
-
-  /// <inheritdoc/>
   public void VisitNodes(Action<IExpression> visitorFn) {
     visitorFn(this);
     foreach (var expression in Operands) {

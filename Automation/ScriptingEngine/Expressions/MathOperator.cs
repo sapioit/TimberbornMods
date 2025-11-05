@@ -22,22 +22,6 @@ class MathOperator : AbstractOperator, IValueExpr {
   /// <inheritdoc/>
   public Func<ScriptValue> ValueFn { get; }
 
-  /// <inheritdoc/>
-  public override string Describe() {
-    return OperatorType switch {
-        OpType.Add => $"({Operands.Select(x => x.Describe()).Aggregate((a, b) => a + " + " + b)})",
-        OpType.Subtract => $"({Operands[0].Describe()} - {Operands[1].Describe()})",
-        OpType.Multiply => $"{Operands[0].Describe()} × {Operands[1].Describe()}",
-        OpType.Divide => $"{Operands[0].Describe()} ÷ {Operands[1].Describe()}",
-        OpType.Modulus => $"{Operands[0].Describe()} % {Operands[1].Describe()}",
-        OpType.Min => $"min({string.Join(", ", Operands.Select(x => x.Describe()))})",
-        OpType.Max => $"max({string.Join(", ", Operands.Select(x => x.Describe()))})",
-        OpType.Round => $"round({Operands[0].Describe()})",
-        OpType.Negate => $"-({Operands[0].Describe()})",
-        _ => throw new InvalidOperationException($"Unknown operator: {OperatorType}"),
-    };
-  }
-
   public static MathOperator CreateAdd(IList<IExpression> arguments) => new(OpType.Add, arguments, 2, -1);
   public static MathOperator CreateSubtract(IList<IExpression> arguments) => new(OpType.Subtract, arguments, 2, 2);
   public static MathOperator CreateMultiply(IList<IExpression> arguments) => new(OpType.Multiply, arguments, 2, 2);

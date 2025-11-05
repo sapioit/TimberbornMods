@@ -15,14 +15,6 @@ using Timberborn.BaseComponentSystem;
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class GetPropertyOperator : AbstractOperator, IValueExpr {
-  /// <inheritdoc/>
-  public override string Describe() {
-    var symbol = (Operands[0] as SymbolExpr)!.Value;
-    if (IsList) {
-      return Operands.Count == 1 ? $"Count({symbol})" : $"GetElement({symbol}, {Operands[0].Describe()})";
-    }
-    return $"ValueOf({symbol})";
-  }
 
   public enum OpType {
     GetString,

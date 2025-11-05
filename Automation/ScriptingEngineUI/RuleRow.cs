@@ -8,10 +8,8 @@ using System.Linq;
 using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
-using IgorZ.Automation.ScriptingEngine;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.TimberDev.UI;
 using TimberApi.DependencyContainerSystem;
 using Timberborn.CoreUI;
@@ -103,8 +101,10 @@ sealed class RuleRow {
 
   public event EventHandler OnStateChanged;
 
+  //FIXME: think about injection?
   public RuleRow(IEnumerable<IEditorProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
     _uiFactory = uiFactory;
+    _expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
     ActiveBuilding = activeBuilding;
     _editorProviders = editors.ToArray();
 
@@ -256,6 +256,7 @@ sealed class RuleRow {
   #region Implementation
 
   readonly UiFactory _uiFactory;
+  readonly ExpressionDescriber _expressionDescriber;
   readonly IEditorProvider[] _editorProviders;
 
   readonly VisualElement _sidePanel;
@@ -321,7 +322,7 @@ sealed class RuleRow {
       return CommonFormats.HighlightRed(_uiFactory.T(ParseErrorLocKey));
     }
     try {
-      var description = expression.Describe();
+      var description = _expressionDescriber.DescribeExpression(expression);
       if (expression is BoolOperator boolOperator && boolOperator.Execute()) {
         return CommonFormats.HighlightGreen(description);
       }

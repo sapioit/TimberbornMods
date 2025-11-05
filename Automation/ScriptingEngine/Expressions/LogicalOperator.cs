@@ -6,15 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IgorZ.Automation.ScriptingEngine.Core;
-using TimberApi.DependencyContainerSystem;
-using Timberborn.Localization;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
 class LogicalOperator : BoolOperator {
-
-  const string AndOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.AndOperator";
-  const string OrOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.OrOperator";
 
   public enum OpType {
     And,
@@ -22,25 +17,6 @@ class LogicalOperator : BoolOperator {
   }
 
   public readonly OpType OperatorType;
-
-  /// <inheritdoc/>
-  public override string Describe() {
-    var loc = DependencyContainer.GetInstance<ILoc>();
-    var displayName = OperatorType switch {
-        OpType.And => loc.T(AndOperatorLocKey),
-        OpType.Or => loc.T(OrOperatorLocKey),
-        _ => throw new InvalidOperationException($"Unknown operator: {OperatorType}"),
-    };
-    var descriptions = new List<string>();
-    foreach (var operand in Operands) {
-      if (OperatorType == OpType.And && operand is LogicalOperator { OperatorType: OpType.Or } logicalOperatorExpr) {
-        descriptions.Add($"({logicalOperatorExpr.Describe()})");
-      } else {
-        descriptions.Add(operand.Describe());
-      }
-    }
-    return string.Join(" " + displayName + " ", descriptions);
-  }
 
   public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands);
   public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands);

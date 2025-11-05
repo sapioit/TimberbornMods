@@ -14,11 +14,6 @@ sealed class SymbolExpr : IExpression {
   public readonly string Value;
 
   /// <inheritdoc/>
-  public string Describe() {
-    throw new NotImplementedException();
-  }
-
-  /// <inheritdoc/>
   public void VisitNodes(Action<IExpression> visitorFn) {
     visitorFn(this);
   }

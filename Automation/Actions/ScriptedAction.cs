@@ -8,6 +8,7 @@ using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
 using TimberApi.DependencyContainerSystem;
@@ -37,8 +38,9 @@ sealed class ScriptedAction : AutomationActionBase {
       if (_lastScriptError != null) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(_lastScriptError));
       }
+      var expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
       try {
-        return CommonFormats.HighlightYellow(_parsedExpression.Describe());
+        return CommonFormats.HighlightYellow(expressionDescriber.DescribeExpression(_parsedExpression));
       } catch (ScriptError.RuntimeError e) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(e.LocKey));
       }

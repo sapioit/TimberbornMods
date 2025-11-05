@@ -5,13 +5,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.Settings;
-using TimberApi.DependencyContainerSystem;
-using Timberborn.Localization;
 using UnityDev.Utils.LogUtilsLite;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
@@ -30,39 +27,7 @@ sealed class BinaryOperator : BoolOperator {
   public readonly OpType OperatorType;
   public IValueExpr Left => (IValueExpr)Operands[0];
   public IValueExpr Right => (IValueExpr)Operands[1];
-
-  /// <inheritdoc/>
-  public override string Describe() {
-    // Special case: check for if the signal has changed (equals to itself).
-    if (Left is SignalOperator leftSignal && Right is SignalOperator rightSignal
-        && leftSignal.SignalName == rightSignal.SignalName && OperatorType == OpType.Equal) {
-      return leftSignal.Describe();
-    }
-    var sb = new StringBuilder();
-    sb.Append(Left.Describe());
-    sb.Append(OperatorType switch {
-        OpType.Equal => " = ",
-        OpType.NotEqual => " \u2260 ",
-        OpType.GreaterThan => " > ",
-        OpType.LessThan => " < ",
-        OpType.GreaterThanOrEqual => " \u2265 ",
-        OpType.LessThanOrEqual => " \u2264 ",
-        _ => throw new InvalidOperationException("Unknown operator: " + this),
-    });
-    if (EntityPanelSettings.EvalValuesInConditions || Right is ConstantValueExpr) {
-      string rightValue;
-      try {
-        rightValue = Right.ValueFn().FormatValue(_signalDef?.Result);
-      } catch (ScriptError.BadValue e) {
-        rightValue = DependencyContainer.GetInstance<ILoc>().T(e.LocKey);
-      }
-      sb.Append(rightValue);
-    } else {
-      sb.Append(Right.Describe());
-    }
-
-    return sb.ToString();
-  }
+  public readonly ValueDef ResultValueDef;
 
   public static BinaryOperator CreateEq(ParserBase.Context context, IList<IExpression> operands) =>
       new(OpType.Equal, context, operands);
@@ -82,8 +47,6 @@ sealed class BinaryOperator : BoolOperator {
     return $"{GetType().Name}({OperatorType})";
   }
 
-  readonly SignalDef _signalDef;
-
   BinaryOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsExact(2);
@@ -96,23 +59,25 @@ sealed class BinaryOperator : BoolOperator {
     if (left.ValueType != right.ValueType) {
       throw new ScriptError.ParsingError($"Arguments type mismatch: {left.ValueType} != {right.ValueType}");
     }
+    SignalDef signalDef = null;
     if (left is SignalOperator leftSignal) {
-      _signalDef = context.ScriptingService.GetSignalDefinition(leftSignal.SignalName, context.ScriptHost);
+      signalDef = context.ScriptingService.GetSignalDefinition(leftSignal.SignalName, context.ScriptHost);
     } else if (right is SignalOperator rightSignal) {
-      _signalDef = context.ScriptingService.GetSignalDefinition(rightSignal.SignalName, context.ScriptHost);
+      signalDef = context.ScriptingService.GetSignalDefinition(rightSignal.SignalName, context.ScriptHost);
     }
-    if (_signalDef != null) {
+    if (signalDef != null) {
       var otherArgExpr = left is SignalOperator ? right : left;
-      _signalDef.Result.ArgumentValidator?.Invoke(otherArgExpr);
-      var constantValueExpr = VerifyConstantValueExpr(_signalDef.Result, otherArgExpr);
+      ResultValueDef = signalDef.Result;
+      signalDef.Result.ArgumentValidator?.Invoke(otherArgExpr);
+      var constantValueExpr = VerifyConstantValueExpr(ResultValueDef, otherArgExpr);
 
       // Options compatibility support.
-      if (constantValueExpr != null && _signalDef.Result.CompatibilityOptions != null) {
+      if (constantValueExpr != null && ResultValueDef.CompatibilityOptions != null) {
         var value = constantValueExpr.ValueFn().AsString;
-        if (_signalDef.Result.CompatibilityOptions.TryGetValue(value, out var replaceOption)) {
+        if (ResultValueDef.CompatibilityOptions.TryGetValue(value, out var replaceOption)) {
           constantValueExpr = ConstantValueExpr.TryCreateFrom($"'{replaceOption}'");
           DebugEx.Warning("BinaryOperator: Replacing constant value '{0}' with '{1}' for signal {2}",
-                          value, replaceOption, _signalDef.ScriptName);
+                          value, replaceOption, signalDef.ScriptName);
           if (Operands[0] == otherArgExpr) {
             Operands[0] = constantValueExpr;
             left = constantValueExpr;
@@ -123,10 +88,10 @@ sealed class BinaryOperator : BoolOperator {
         }
       }
 
-      if (constantValueExpr != null && _signalDef.Result.Options != null
+      if (constantValueExpr != null && ResultValueDef.Options != null
           && ScriptEngineSettings.CheckOptionsArguments) {
         var value = constantValueExpr.ValueFn().AsString;
-        var allowedValues = _signalDef.Result.Options.Select(x => x.Value).ToArray();
+        var allowedValues = ResultValueDef.Options.Select(x => x.Value).ToArray();
         if (!allowedValues.Contains(value)) {
           throw new ScriptError.ParsingError($"Unexpected value: {value}. Allowed: {string.Join(", ", allowedValues)}");
         }

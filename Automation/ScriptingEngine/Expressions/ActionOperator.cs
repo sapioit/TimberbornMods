@@ -10,8 +10,6 @@ using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.Settings;
-using TimberApi.DependencyContainerSystem;
-using Timberborn.Localization;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
@@ -23,28 +21,7 @@ sealed class ActionOperator : AbstractOperator {
   public readonly string ActionName;
   public readonly bool ExecuteOnce; 
   public readonly Action Execute;
-
-  readonly ActionDef _actionDef;
-
-  /// <inheritdoc/>
-  public override string Describe() {
-    var args = new string[_actionDef.Arguments.Length];
-    for (var i = 0; i < _actionDef.Arguments.Length; i++) {
-      var operand = Operands[i + 1] as IValueExpr;
-      if (EntityPanelSettings.EvalValuesInActionArguments) {
-        ScriptValue value;
-        try {
-          value = operand!.ValueFn();
-        } catch (ScriptError.BadValue e) {
-          return DependencyContainer.GetInstance<ILoc>().T(e.LocKey);
-        }
-        args[i] = value.FormatValue(_actionDef.Arguments[i]);
-      } else {
-        args[i] = operand!.Describe();
-      }
-    }
-    return string.Format(_actionDef.DisplayName, args);
-  }
+  public readonly ActionDef ActionDef;
 
   public static ActionOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
       new(context, operands);
@@ -66,15 +43,15 @@ sealed class ActionOperator : AbstractOperator {
       actionName = actionName[..^ActOnceNameSuffix.Length];
     }
     ActionName = actionName;
-    _actionDef = context.ScriptingService.GetActionDefinition(ActionName, context.ScriptHost);
-    AssertNumberOfOperandsExact(_actionDef.Arguments.Length + 1);
-    var argValues = new Func<ScriptValue>[_actionDef.Arguments.Length];
-    for (var i = 0; i < _actionDef.Arguments.Length; i++) {
+    ActionDef = context.ScriptingService.GetActionDefinition(ActionName, context.ScriptHost);
+    AssertNumberOfOperandsExact(ActionDef.Arguments.Length + 1);
+    var argValues = new Func<ScriptValue>[ActionDef.Arguments.Length];
+    for (var i = 0; i < ActionDef.Arguments.Length; i++) {
       var operand = Operands[i + 1];
       if (operand is not IValueExpr valueExpr) {
         throw new ScriptError.ParsingError($"Argument #{i + 1} must be a value, but found: {operand}");
       }
-      var argDef = _actionDef.Arguments[i];
+      var argDef = ActionDef.Arguments[i];
       if (argDef.ValueType != valueExpr.ValueType) {
         throw new ScriptError.ParsingError(
             $"Argument #{i + 1} must be of type '{argDef.ValueType}', but found: {valueExpr.ValueType}");
