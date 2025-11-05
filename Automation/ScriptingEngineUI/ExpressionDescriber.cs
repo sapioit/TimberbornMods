@@ -23,13 +23,14 @@ sealed class ExpressionDescriber {
   /// <exception cref="ScriptError.RuntimeError">if values need to be calculated, but it results in error.</exception>
   public string DescribeExpression(IExpression expression) {
     return expression switch {
-        ConstantValueExpr constantValueExpr => DescribeConstantValueExpr(constantValueExpr),
+        ActionOperator actionOperator => DescribeActionOperator(actionOperator),
         BinaryOperator binaryOperator => DescribeComparisonOperator(binaryOperator),
+        ConcatOperator concatOperator => DescribeConcatOperator(concatOperator),
+        ConstantValueExpr constantValueExpr => DescribeScriptValue(constantValueExpr.ValueFn()),
         GetPropertyOperator getProperty => DescribeGetPropertyOperator(getProperty),
         LogicalOperator logicalOperator => DescribeLogicalOperator(logicalOperator),
         MathOperator mathOperator => DescribeMathOperator(mathOperator),
         SignalOperator signalOperator => DescribeSignalOperator(signalOperator),
-        ActionOperator actionOperator => DescribeActionOperator(actionOperator),
         _ => expression.ToString(),
     };
   }
@@ -42,11 +43,11 @@ sealed class ExpressionDescriber {
     _loc = loc;
   }
 
-  string DescribeConstantValueExpr(ConstantValueExpr op) {
-    return op.ValueType switch {
-        ScriptValue.TypeEnum.String => $"'{op.ValueFn().AsString}'",
-        ScriptValue.TypeEnum.Number => op.ValueFn().AsFloat.ToString("0.0#"),
-        _ => $"ERROR:{op.ValueType}",
+  string DescribeScriptValue(ScriptValue scriptValue) {
+    return scriptValue.ValueType switch {
+        ScriptValue.TypeEnum.String => $"'{scriptValue.AsString}'",
+        ScriptValue.TypeEnum.Number => scriptValue.AsFloat.ToString("0.0#"),
+        _ => $"ERROR:{scriptValue.ValueType}",
     };
   }
 
@@ -112,16 +113,30 @@ sealed class ExpressionDescriber {
 
   string DescribeMathOperator(MathOperator op) {
     return op.OperatorType switch {
-        MathOperator.OpType.Add => $"({op.Operands.Select(DescribeExpression).Aggregate((a, b) => a + " + " + b)})",
-        MathOperator.OpType.Subtract => $"({DescribeExpression(op.Operands[0])} - {DescribeExpression(op.Operands[1])})",
-        MathOperator.OpType.Multiply => $"{DescribeExpression(op.Operands[0])} × {DescribeExpression(op.Operands[1])}",
-        MathOperator.OpType.Divide => $"{DescribeExpression(op.Operands[0])} ÷ {DescribeExpression(op.Operands[1])}",
-        MathOperator.OpType.Modulus => $"{DescribeExpression(op.Operands[0])} % {DescribeExpression(op.Operands[1])}",
-        MathOperator.OpType.Min => $"min({string.Join(", ", op.Operands.Select(DescribeExpression))})",
-        MathOperator.OpType.Max => $"max({string.Join(", ", op.Operands.Select(DescribeExpression))})",
-        MathOperator.OpType.Round => $"round({DescribeExpression(op.Operands[0])})",
-        MathOperator.OpType.Negate => $"-({DescribeExpression(op.Operands[0])})",
+        MathOperator.OpType.Add => "(" + MaybeCollapseMathOp(op, " + ") + ")",
+        MathOperator.OpType.Subtract => "(" + MaybeCollapseMathOp(op, " - ") + ")",
+        MathOperator.OpType.Multiply => MaybeCollapseMathOp(op, " × "),
+        MathOperator.OpType.Divide => MaybeCollapseMathOp(op, " ÷ "),
+        MathOperator.OpType.Modulus => MaybeCollapseMathOp(op, " % "),
+        MathOperator.OpType.Min => $"min({MaybeCollapseMathOp(op, ", ")})",
+        MathOperator.OpType.Max => $"max({MaybeCollapseMathOp(op, ", ")})",
+        MathOperator.OpType.Round => $"round({MaybeCollapseMathOp(op, "")})",
+        MathOperator.OpType.Negate => $"-({MaybeCollapseMathOp(op, "")})",
         _ => throw new InvalidOperationException($"Unknown operator: {op.OperatorType}"),
+    };
+  }
+
+  string MaybeCollapseMathOp(MathOperator mathOperator, string separator) {
+    return IsConstantValueOperand(mathOperator)
+        ? DescribeScriptValue(mathOperator.ValueFn())
+        : mathOperator.Operands.Select(DescribeExpression).Aggregate((a, b) => a + separator + b);
+  }
+
+  bool IsConstantValueOperand(IExpression operand) {
+    return operand switch {
+        ConstantValueExpr => true,
+        MathOperator mathOperator => mathOperator.Operands.All(IsConstantValueOperand),
+        _ => false,
     };
   }
 
@@ -146,6 +161,10 @@ sealed class ExpressionDescriber {
       }
     }
     return string.Format(op.ActionDef.DisplayName, args);
+  }
+
+  string DescribeConcatOperator(ConcatOperator op) {
+    return op.ValueFn().AsString;  // Always evaluate.
   }
 
   #endregion
