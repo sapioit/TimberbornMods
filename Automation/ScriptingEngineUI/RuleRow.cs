@@ -101,7 +101,6 @@ sealed class RuleRow {
 
   public event EventHandler OnStateChanged;
 
-  //FIXME: think about injection?
   public RuleRow(IEnumerable<IEditorProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
     _uiFactory = uiFactory;
     _expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
