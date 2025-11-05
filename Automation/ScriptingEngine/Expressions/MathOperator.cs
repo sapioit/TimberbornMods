@@ -56,14 +56,13 @@ class MathOperator : AbstractOperator, IValueExpr {
   MathOperator(OpType opType, IList<IExpression> operands, int minArgs, int maxArgs) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsRange(minArgs, maxArgs);
+    var args = new List<IValueExpr>();
     for (var i = 0; i < operands.Count; i++) {
       var op = Operands[i];
       if (op is not IValueExpr { ValueType: ScriptValue.TypeEnum.Number } result) {
         throw new ScriptError.ParsingError($"Operand #{i + 1} must be a numeric value, found: {op}");
       }
-    }
-    if (operands is not IList<IValueExpr> args) {
-      throw new InvalidOperationException("Operands must be of type IValueExpr, but got " + operands.GetType());
+      args.Add(result);
     }
     ValueFn = opType switch {
         OpType.Add => () => args.Select(x => x.ValueFn()).Aggregate((a, b) => a + b),
