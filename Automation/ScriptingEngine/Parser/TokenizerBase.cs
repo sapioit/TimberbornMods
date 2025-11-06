@@ -77,12 +77,13 @@ public abstract class TokenizerBase {
   protected virtual string Whitespaces { get; } = " \r\n\t";
 
   /// <summary>Strings that consist of non-stop symbols.</summary>
-  /// <remarks>Keywords are strings reserved by the parser. They must end at EOF or a stop symbol.</remarks>
+  /// <remarks>Keywords are strings, reserved by the parser. They must end at EOF or a stop symbol.</remarks>
   protected abstract HashSet<string> Keywords { get; }
 
   /// <summary>Special kind of keywords that can contain stop symbols.</summary>
   /// <remarks>
-  /// The check for such keywords is much less efficient that for the regular keywords, so keep this list short.
+  /// <see cref="StopSymbols"/> can be a part of such keywords, but not the <see cref="Whitespaces"/>! The check for
+  /// such keywords is much less efficient than for the regular keywords, so try to keep this list short.
   /// </remarks>
   protected abstract string[] StopSymbolsKeywords { get; }
 
