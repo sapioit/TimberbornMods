@@ -124,38 +124,32 @@ sealed class LispSyntaxParser : ParserBase {
 
     // The sequence below should be ordered by the frequency of the usage. The operators that are more likely to be
     // used in the game should come first.
-    IExpression expr;
-    try {
-      expr = op.Value switch {
-          HasSignalFunc => HasComponentOperator.CreateHasSignal(CurrentContext, operands),
-          HasActionFunc => HasComponentOperator.CreateHasAction(CurrentContext, operands),
-          EqOperator => BinaryOperator.CreateEq(CurrentContext, operands),
-          NeOperator => BinaryOperator.CreateNe(CurrentContext, operands),
-          LtOperator => BinaryOperator.CreateLt(CurrentContext, operands),
-          LeOperator => BinaryOperator.CreateLe(CurrentContext, operands),
-          GtOperator => BinaryOperator.CreateGt(CurrentContext, operands),
-          GeOperator => BinaryOperator.CreateGe(CurrentContext, operands),
-          AndOperator => LogicalOperator.CreateAnd(operands),
-          OrOperator => LogicalOperator.CreateOr(operands),
-          AddOperator => MathOperator.CreateAdd(operands),
-          SubOperator => MathOperator.CreateSubtract(operands),
-          MulOperator => MathOperator.CreateMultiply(operands),
-          DivOperator => MathOperator.CreateDivide(operands),
-          ModOperator => MathOperator.CreateModulus(operands),
-          MinFunc => MathOperator.CreateMin(operands),
-          MaxFunc => MathOperator.CreateMax(operands),
-          RoundFunc => MathOperator.CreateRound(operands),
-          SigFunc => SignalOperator.Create(CurrentContext, operands),
-          ActMethod => ActionOperator.Create(CurrentContext, operands),
-          GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, operands),
-          GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, operands),
-          ConcatFunc => ConcatOperator.Create(operands),
-          _ => throw new InvalidOperationException("Operator token not recognized: " + op),
-      };
-    } catch (ScriptError.ParsingError err) {
-      throw new ScriptError.ParsingError(op, err.Message);
-    }
-    return expr;
+    return op.Value switch {
+        HasSignalFunc => HasComponentOperator.CreateHasSignal(CurrentContext, operands),
+        HasActionFunc => HasComponentOperator.CreateHasAction(CurrentContext, operands),
+        EqOperator => BinaryOperator.CreateEq(CurrentContext, operands),
+        NeOperator => BinaryOperator.CreateNe(CurrentContext, operands),
+        LtOperator => BinaryOperator.CreateLt(CurrentContext, operands),
+        LeOperator => BinaryOperator.CreateLe(CurrentContext, operands),
+        GtOperator => BinaryOperator.CreateGt(CurrentContext, operands),
+        GeOperator => BinaryOperator.CreateGe(CurrentContext, operands),
+        AndOperator => LogicalOperator.CreateAnd(operands),
+        OrOperator => LogicalOperator.CreateOr(operands),
+        AddOperator => MathOperator.CreateAdd(operands),
+        SubOperator => MathOperator.CreateSubtract(operands),
+        MulOperator => MathOperator.CreateMultiply(operands),
+        DivOperator => MathOperator.CreateDivide(operands),
+        ModOperator => MathOperator.CreateModulus(operands),
+        MinFunc => MathOperator.CreateMin(operands),
+        MaxFunc => MathOperator.CreateMax(operands),
+        RoundFunc => MathOperator.CreateRound(operands),
+        SigFunc => SignalOperator.Create(CurrentContext, operands),
+        ActMethod => ActionOperator.Create(CurrentContext, operands),
+        GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, operands),
+        GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, operands),
+        ConcatFunc => ConcatOperator.Create(operands),
+        _ => throw new InvalidOperationException("Operator token not recognized: " + op),
+    };
   }
 
   static void DecompileInternal(StringBuilder sb, IExpression expression) {
