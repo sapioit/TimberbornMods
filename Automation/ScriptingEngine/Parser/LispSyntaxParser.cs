@@ -232,7 +232,7 @@ sealed class LispSyntaxParser : ParserBase {
     protected override string StringQuotes => "'";
 
     /// <inheritdoc/>
-    protected override string StopSymbols => " ()";
+    protected override string StopSymbols => "()";
 
     /// <inheritdoc/>
     protected override HashSet<string> Keywords => [

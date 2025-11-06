@@ -17,22 +17,24 @@ namespace IgorZ.Automation.ScriptingEngine.Parser;
 /// <see cref="TokenizerBase"/> and provide the abstract members in the descendants.
 /// </p>
 /// <p>
-/// In a normal case, every token has to be terminated by a symbol from <see cref="StopSymbols"/> or by EOF. The leading
-/// space symbols are always stripped, but the space symbol still needs to be present in the stop symbols.
+/// In a normal case, every token has to be terminated by a symbol from <see cref="StopSymbols"/>,
+/// <see cref="Whitespaces"/> or by EOF. The leading whitespaces are stripped.
 /// </p>
 /// <p>Below is the order of consuming tokens. The first match is the winner.
 /// <list type="number">
 /// <item>
-/// Special syntax <see cref="StopSymbolsKeywords"/>. Such keywords can contain stop symbols. If such a keyword ends
-/// with a stop symbol, then this will be the token break. Otherwise, a normal stop symbol is required at the end to
-/// separate the next token. The type of such matches is <see cref="Token.Type.Keyword"/>.
+/// The leading symbols from <see cref="Whitespaces"/> are skipped until the first symbols that is not in this list. In
+/// all the other means, the whitespaces are considered to <i>regular stop symbols</i> down below of this list.
+/// </item>
+/// <item>
+/// Special syntax <see cref="StopSymbolsKeywords"/>. Such keywords can contain stop symbols (but not whitespaces!). If
+/// such a keyword ends with a stop symbol, then this will be the token break. Otherwise, a normal stop symbol is
+/// required at the end to separate the next token, and it will become a token itself. The type of such matches is
+/// <see cref="Token.Type.Keyword"/>.
 /// </item>
 /// <item>
 /// Stop symbols, listed in <see cref="StopSymbols"/>. They separate tokens from each other, but they are also tokens.
-/// Each such symbol is captured as <see cref="Token.Type.StopSymbol"/>. The space symbol must always be
-/// present there, and it has a special handling: it separates tokens, but it doesn't produce a token by itself. Also,
-/// if it's repeated multiple times in a row, all the instances are removed. The "normal" stop symbol will produce a
-/// sequence of tokens if repeated.
+/// Each such symbol is captured as <see cref="Token.Type.StopSymbol"/>.
 /// </item>
 /// <item>
 /// If a token, wrapped by stop symbols, starts and ends with <see cref="StringQuotes"/> symbols, then it's captured as
@@ -67,10 +69,12 @@ public abstract class TokenizerBase {
   /// <remarks>The opening and closing symbols must be the same.</remarks>
   protected abstract string StringQuotes { get; }
 
-  /// <summary>Symbols that should be present at the end of the keywords and identifiers.</summary>
-  /// <remarks>These symbols themselves can get captured as tokens, unless they are a part of keyword.</remarks>
+  /// <summary>Symbols that break the input to tokens and becomes tokens themselves.</summary>
   /// <seealso cref="StopSymbolsKeywords"/>
   protected abstract string StopSymbols { get; }
+
+  /// <summary>Stop symbols that break the input to tokens, but don't become tokens themselves.</summary>
+  protected virtual string Whitespaces { get; } = " \r\n\t";
 
   /// <summary>Strings that consist of non-stop symbols.</summary>
   /// <remarks>Keywords are strings reserved by the parser. They must end at EOF or a stop symbol.</remarks>
@@ -116,8 +120,8 @@ public abstract class TokenizerBase {
     var currentPos = 0;
     var tokens = new Queue<Token>();
     while (currentPos < input.Length) {
-      // Skip the leading spaces.
-      while (currentPos < input.Length && input[currentPos] == ' ') {
+      // Skip the leading whitespaces.
+      while (currentPos < input.Length && Whitespaces.Contains(input[currentPos])) {
         currentPos++;
       }
       if (currentPos >= input.Length) {
@@ -185,9 +189,10 @@ public abstract class TokenizerBase {
         continue;
       }
 
-      // Capture a normal token, that consists of non-stop symbols and ends te EOF or a stop symbol.
+      // Capture a normal token, that consists of non-stop symbols and ends at EOF or a stop symbol.
       var tokenStartPos = currentPos;
-      while (currentPos < input.Length && !StopSymbols.Contains(input[currentPos])) {
+      while (currentPos < input.Length
+             && !StopSymbols.Contains(input[currentPos]) && !Whitespaces.Contains(input[currentPos])) {
         currentPos++;
       }
       var tokenString = input.Substring(tokenStartPos, currentPos - tokenStartPos);
@@ -226,7 +231,7 @@ public abstract class TokenizerBase {
   readonly Regex _identifierRegexp = new("^([a-zA-Z][a-zA-Z0-9]*)(.[a-zA-Z0-9]+)*$");
 
   void CheckTokenTerminated(string input, int startPos, int endPos) {
-    if (endPos >= input.Length || StopSymbols.Contains(input[endPos])) {
+    if (endPos >= input.Length || StopSymbols.Contains(input[endPos]) || Whitespaces.Contains(input[endPos])) {
       return;
     }
     var tokenString = input.Substring(startPos, endPos - startPos);
