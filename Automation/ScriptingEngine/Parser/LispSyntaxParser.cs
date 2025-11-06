@@ -24,7 +24,7 @@ sealed class LispSyntaxParser : ParserBase {
     var tokens = _tokenizer.Tokenize(input);
     var result = ReadFromTokens(tokens);
     if (!tokens.IsEmpty()) {
-      throw new ScriptError.ParsingError("Unexpected token at the end of the expression: " + tokens.Peek());
+      throw new ScriptError.ParsingError("Unexpected token at the end of the expression: " + tokens.Peek().Value);
     }
     return result;
   }
