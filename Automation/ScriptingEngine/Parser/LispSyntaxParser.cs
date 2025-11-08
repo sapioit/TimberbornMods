@@ -99,7 +99,7 @@ sealed class LispSyntaxParser : ParserBase {
       case Token.Type.Keyword:
         throw new ScriptError.ParsingError(token, $"Unexpected keyword '{token.Value}'");
       case Token.Type.StopSymbol:
-        break;
+        break; // Will be handed outside this switch.
       default:
         throw new InvalidOperationException($"Unknown token type: {token.TokenType}");
     }
