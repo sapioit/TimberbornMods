@@ -60,7 +60,7 @@ abstract class ScriptError : Exception {
 
     /// <summary>The script source is invalid and can't be properly parsed at the token.</summary>
     public ParsingError(TokenizerBase.Token token, string reason)
-        : base(reason + $" at {token.StartPos}-{token.EndPos-1}") { }
+        : base($"{reason}. Token '{token.Value}' at {token.StartPos}-{token.EndPos-1}") { }
   }
 
   /// <summary>The component state is not suitable for the expression.</summary>
