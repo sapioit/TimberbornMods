@@ -137,6 +137,10 @@ public abstract class TokenizerBase {
         if (testKeyword.Length > symbolsLeft) {
           continue;
         }
+        var endPos = currentPos + testKeyword.Length;
+        if (endPos < input.Length && !StopSymbols.Contains(input[endPos]) && !Whitespaces.Contains(input[endPos])) {
+          continue; // Partial match.
+        }
         var testInput = input.Substring(currentPos, testKeyword.Length);
         if (testInput == testKeyword) {
           stopSymbolsKeyword = testKeyword;
@@ -146,9 +150,6 @@ public abstract class TokenizerBase {
       if (stopSymbolsKeyword != null) {
         var startPos = currentPos;
         currentPos += stopSymbolsKeyword.Length;
-        if (!StopSymbols.Contains(stopSymbolsKeyword[^1])) {
-          CheckTokenTerminated(input, startPos, currentPos);
-        }
         tokens.Enqueue(new Token(stopSymbolsKeyword, Token.Type.Keyword, startPos, currentPos));
         continue;
       }
