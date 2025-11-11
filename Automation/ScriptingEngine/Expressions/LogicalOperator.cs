@@ -14,21 +14,23 @@ class LogicalOperator : BoolOperator {
   public enum OpType {
     And,
     Or,
+    Not,
   }
 
   public readonly OpType OperatorType;
 
-  public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands);
-  public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands);
+  public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands, 2, -1);
+  public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands, 2, -1);
+  public static LogicalOperator CreateNot(IExpression operand) => new(OpType.Not, [operand], 1, 1);
 
   /// <inheritdoc/>
   public override string ToString() {
     return $"{GetType().Name}({OperatorType})";
   }
 
-  LogicalOperator(OpType opType, IList<IExpression> operands) : base(operands) {
+  LogicalOperator(OpType opType, IList<IExpression> operands, int minArgs, int maxArgs) : base(operands) {
     OperatorType = opType;
-    AssertNumberOfOperandsRange(2, -1);
+    AssertNumberOfOperandsRange(minArgs, maxArgs);
     var boolOperands = new List<BoolOperator>();
     for (var i = 0; i < operands.Count; i++) {
       var op = Operands[i];
@@ -40,6 +42,7 @@ class LogicalOperator : BoolOperator {
     Execute = opType switch {
         OpType.And => () => boolOperands.All(x => x.Execute()),
         OpType.Or => () => boolOperands.Any(x => x.Execute()),
+        OpType.Not => () => !boolOperands[0].Execute(), 
         _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
     };
   }
