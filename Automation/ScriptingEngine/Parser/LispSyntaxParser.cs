@@ -42,8 +42,8 @@ sealed class LispSyntaxParser : ParserBase {
       { BinaryOperator.OpType.LessThanOrEqual, LeOperator },
   };
 
-  /// <summary>Produces Lisp-like code text from the parsed expression.</summary>
-  public static string Decompile(IExpression expression) {
+  /// <inheritdoc/>
+  public override string Decompile(IExpression expression) {
     var sb = new StringBuilder();
     DecompileInternal(sb, expression);
     return sb.ToString();

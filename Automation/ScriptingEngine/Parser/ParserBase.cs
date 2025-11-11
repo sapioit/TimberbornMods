@@ -33,10 +33,16 @@ abstract class ParserBase {
     }
   }
 
+  /// <summary>Serializes expression back to the parsable form.</summary>
+  public abstract string Decompile(IExpression expression);
+
   /// <summary>Processes the string input into an expression.</summary>
   protected abstract IExpression ProcessString(string input);
 
   protected Context CurrentContext { get; private set; }
+
+  #region Implementation
+
   ScriptingService _scriptingService;
 
   [Inject]
@@ -69,4 +75,6 @@ abstract class ParserBase {
         _ => throw new InvalidOperationException("Unsupported type: " + value.ValueType),
     };
   }
+
+  #endregion
 }
