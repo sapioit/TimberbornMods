@@ -86,8 +86,8 @@ sealed class ExpressionDescriber {
   string DescribeGetPropertyOperator(GetPropertyOperator op) {
     var symbol = (op.Operands[0] as SymbolExpr)!.Value;
     if (op.IsList) {
-      return op.Operands.Count == 1 ?
-          $"Count({symbol})"
+      return op.Operands.Count == 1
+          ? $"Count({symbol})"
           : $"GetElement({symbol}, {DescribeExpression(op.Operands[0])})";
     }
     return $"ValueOf({symbol})";
@@ -97,12 +97,12 @@ sealed class ExpressionDescriber {
     var displayName = op.OperatorType switch {
         LogicalOperator.OpType.And => _loc.T(AndOperatorLocKey),
         LogicalOperator.OpType.Or => _loc.T(OrOperatorLocKey),
-        _ => throw new InvalidOperationException($"Unknown operator: {op.OperatorType}"),
+        _ => throw new InvalidOperationException($"Unsupported operator: {op.OperatorType}"),
     };
     var descriptions = new List<string>();
     foreach (var operand in op.Operands) {
       if (op.OperatorType == LogicalOperator.OpType.And
-          && operand is LogicalOperator { OperatorType: LogicalOperator.OpType.Or } logicalOperatorExpr) {
+          && operand is LogicalOperator { OperatorType: LogicalOperator.OpType.Or }) {
         descriptions.Add($"({DescribeExpression(operand)})");
       } else {
         descriptions.Add(DescribeExpression(operand));
