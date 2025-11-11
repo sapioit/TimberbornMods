@@ -3,6 +3,7 @@
 // License: Public Domain
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using IgorZ.Automation.ScriptingEngine.Core;
@@ -118,6 +119,10 @@ public abstract class TokenizerBase {
   /// <summary>Splits the input and returns thу tokens.</summary>
   /// <exception cref="ScriptError.ParsingError">if cannot properly parse the tokens.</exception>
   public Queue<Token> Tokenize(string input) {
+    // No matter how many comments are left, this will be forgotten anyway. The longer strings must come before the
+    // shorter ones to prevent partial match!
+    _sortedStopSymbolsKeywords ??= StopSymbolsKeywords.OrderByDescending(x => x.Length).ToArray();
+
     var currentPos = 0;
     var tokens = new Queue<Token>();
     while (currentPos < input.Length) {
@@ -131,26 +136,30 @@ public abstract class TokenizerBase {
       var symbol = input[currentPos];
 
       // Keyword that contain stop symbols. Not performance efficient.
-      string stopSymbolsKeyword = null;
       var symbolsLeft = input.Length - currentPos;
-      foreach (var testKeyword in StopSymbolsKeywords) {
+      string testInput = null;
+      var matchFound = false;
+      foreach (var testKeyword in _sortedStopSymbolsKeywords) {
         if (testKeyword.Length > symbolsLeft) {
           continue;
         }
         var endPos = currentPos + testKeyword.Length;
-        if (endPos < input.Length && !StopSymbols.Contains(input[endPos]) && !Whitespaces.Contains(input[endPos])) {
+        if (!StopSymbols.Contains(testKeyword[^1])
+            && endPos < input.Length && !StopSymbols.Contains(input[endPos]) && !Whitespaces.Contains(input[endPos])) {
           continue; // Partial match.
         }
-        var testInput = input.Substring(currentPos, testKeyword.Length);
+        if (testInput == null || testInput.Length != testKeyword.Length) {
+          testInput = input.Substring(currentPos, testKeyword.Length);
+        }
         if (testInput == testKeyword) {
-          stopSymbolsKeyword = testKeyword;
+          matchFound = true;
           break;
         }
       }
-      if (stopSymbolsKeyword != null) {
+      if (matchFound) {
         var startPos = currentPos;
-        currentPos += stopSymbolsKeyword.Length;
-        tokens.Enqueue(new Token(stopSymbolsKeyword, Token.Type.Keyword, startPos, currentPos));
+        currentPos += testInput.Length;
+        tokens.Enqueue(new Token(testInput, Token.Type.Keyword, startPos, currentPos));
         continue;
       }
 
@@ -231,6 +240,8 @@ public abstract class TokenizerBase {
   #region Implementation
 
   readonly Regex _identifierRegexp = new("^([a-zA-Z][a-zA-Z0-9]*)(.[a-zA-Z0-9]+)*$");
+
+  string[] _sortedStopSymbolsKeywords;
 
   void CheckTokenTerminated(string input, int startPos, int endPos) {
     if (endPos >= input.Length || StopSymbols.Contains(input[endPos]) || Whitespaces.Contains(input[endPos])) {
