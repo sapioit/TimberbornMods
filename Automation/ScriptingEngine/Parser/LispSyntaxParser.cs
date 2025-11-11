@@ -90,17 +90,17 @@ sealed class LispSyntaxParser : ParserBase {
       case Token.Type.NumericValue:
         return int.TryParse(token.Value, out var value)
             ? ConstantValueExpr.CreateNumericValue(value)
-            : throw new ScriptError.ParsingError(token, $"Not a valid integer number: {token.Value}");
+            : throw new ScriptError.ParsingError(token, "Not a valid integer number");
       case Token.Type.StringLiteral:
         return ConstantValueExpr.CreateStringLiteral(token.Value);
       case Token.Type.Identifier:
         return SymbolExpr.Create(token.Value);
       case Token.Type.Keyword:
-        throw new ScriptError.ParsingError(token, $"Unexpected keyword '{token.Value}'");
+        throw new ScriptError.ParsingError(token, "Unexpected keyword");
       case Token.Type.StopSymbol:
         break; // Will be handed outside this switch.
       default:
-        throw new InvalidOperationException($"Unknown token type: {token.TokenType}");
+        throw new InvalidOperationException($"Unknown token type: {token}");
     }
     if (token.Value != "(") {
       throw new ScriptError.ParsingError(token, $"Expected '('");
@@ -108,7 +108,7 @@ sealed class LispSyntaxParser : ParserBase {
     CheckHasMoreTokens(tokens);
     var op = tokens.Dequeue();
     if (op.TokenType != Token.Type.Keyword) {
-      throw new ScriptError.ParsingError(token, $"Not a valid operator '{op.Value}'");
+      throw new ScriptError.ParsingError(token, "Not a valid operator");
     }
     CheckHasMoreTokens(tokens);
     var operands = new List<IExpression>();
@@ -119,7 +119,7 @@ sealed class LispSyntaxParser : ParserBase {
     if (operands.Count == 0) {
       throw new ScriptError.ParsingError(token, "Empty operator expression");
     }
-    tokens.Dequeue(); // ")"
+    tokens.Dequeue();// ")"
 
     // The sequence below should be ordered by the frequency of the usage. The operators that are more likely to be
     // used in the game should come first.
