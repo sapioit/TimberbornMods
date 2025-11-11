@@ -30,7 +30,7 @@ class MathOperator : AbstractOperator, IValueExpr {
   public static MathOperator CreateMin(IList<IExpression> arguments) => new(OpType.Min, arguments, 2, -1);
   public static MathOperator CreateMax(IList<IExpression> arguments) => new(OpType.Max, arguments, 2, -1);
   public static MathOperator CreateRound(IList<IExpression> arguments) => new(OpType.Round, arguments, 1, 1);
-  public static MathOperator CreateNegate(IList<IExpression> arguments) => new(OpType.Negate, arguments, 1, 1);
+  public static MathOperator CreateNegate(IExpression argument) => new(OpType.Negate, [argument], 1, 1);
 
   /// <inheritdoc/>
   public override string ToString() {
