@@ -12,7 +12,7 @@ using IgorZ.Automation.ScriptingEngine.Expressions;
 namespace IgorZ.Automation.ScriptingEngine.Parser;
 
 abstract class ParserBase {
-  public record Context {
+  internal record Context {
     public AutomationBehavior ScriptHost { get; init; }
     public ScriptingService ScriptingService { get; init; }
   }
