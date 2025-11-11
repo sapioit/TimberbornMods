@@ -31,10 +31,8 @@ sealed class ActionOperator : AbstractOperator {
     return $"{GetType().Name}";
   }
 
-  static readonly Regex ActionNameRegexp = new("^([a-zA-Z][a-zA-Z0-9]+)(.[a-zA-Z][a-zA-Z0-9]+)*$");
-
   ActionOperator(ParserBase.Context context, IList<IExpression> operands) : base(operands) {
-    if (Operands[0] is not SymbolExpr symbol || !ActionNameRegexp.IsMatch(symbol.Value)) {
+    if (Operands[0] is not SymbolExpr symbol) {
       throw new ScriptError.ParsingError("Bad action name: " + Operands[0]);
     }
     var actionName = symbol.Value;

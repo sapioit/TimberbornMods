@@ -26,8 +26,6 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
   /// <inheritdoc/>
   public Func<ScriptValue> ValueFn { get; }
 
-  static readonly Regex SignalNameRegexp = new("^([a-zA-Z][a-zA-Z0-9]+)(.[a-zA-Z][a-zA-Z0-9]+)*$");
-
   public static SignalOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
       new(context, operands);
 
@@ -38,7 +36,7 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
 
   SignalOperator(ParserBase.Context context, IList<IExpression> operands) : base(operands) {
     AssertNumberOfOperandsExact(1);
-    if (Operands[0] is not SymbolExpr symbol || !SignalNameRegexp.IsMatch(symbol.Value)) {
+    if (Operands[0] is not SymbolExpr symbol) {
       throw new ScriptError.ParsingError("Bad signal name: " + Operands[0]);
     }
     SignalName = symbol.Value;
