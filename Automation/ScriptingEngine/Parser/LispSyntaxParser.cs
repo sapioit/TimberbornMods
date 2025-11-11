@@ -63,11 +63,13 @@ sealed class LispSyntaxParser : ParserBase {
   const string GeOperator = "ge";
   const string AndOperator = "and";
   const string OrOperator = "or";
+  const string NotOperator = "not";
   const string AddOperator = "add";
   const string SubOperator = "sub";
   const string MulOperator = "mul";
   const string DivOperator = "div";
   const string ModOperator = "mod";
+  const string NegOperator = "neg";
   const string MinFunc = "min";
   const string MaxFunc = "max";
   const string RoundFunc = "round";
@@ -134,11 +136,13 @@ sealed class LispSyntaxParser : ParserBase {
         GeOperator => BinaryOperator.CreateGe(CurrentContext, operands),
         AndOperator => LogicalOperator.CreateAnd(operands),
         OrOperator => LogicalOperator.CreateOr(operands),
+        NotOperator => LogicalOperator.CreateNot(operands[0]),
         AddOperator => MathOperator.CreateAdd(operands),
         SubOperator => MathOperator.CreateSubtract(operands),
         MulOperator => MathOperator.CreateMultiply(operands),
         DivOperator => MathOperator.CreateDivide(operands),
         ModOperator => MathOperator.CreateModulus(operands),
+        NegOperator => MathOperator.CreateNegate(operands[0]),
         MinFunc => MathOperator.CreateMin(operands),
         MaxFunc => MathOperator.CreateMax(operands),
         RoundFunc => MathOperator.CreateRound(operands),
@@ -191,6 +195,7 @@ sealed class LispSyntaxParser : ParserBase {
         LogicalOperator logicalOperator => logicalOperator.OperatorType switch {
             LogicalOperator.OpType.And => AndOperator,
             LogicalOperator.OpType.Or => OrOperator,
+            LogicalOperator.OpType.Not => NotOperator,
             _ => throw new InvalidOperationException($"Unsupported operator: {logicalOperator}"),
         },
         MathOperator mathOperator => mathOperator.OperatorType switch {
@@ -199,6 +204,7 @@ sealed class LispSyntaxParser : ParserBase {
             MathOperator.OpType.Multiply => MulOperator,
             MathOperator.OpType.Divide => DivOperator,
             MathOperator.OpType.Modulus => ModOperator,
+            MathOperator.OpType.Negate => NegOperator,
             MathOperator.OpType.Min => MinFunc,
             MathOperator.OpType.Max => MaxFunc,
             MathOperator.OpType.Round => RoundFunc,
@@ -240,9 +246,9 @@ sealed class LispSyntaxParser : ParserBase {
         // Binary operators
         EqOperator, NeOperator, LtOperator, LeOperator, GtOperator, GeOperator,
         // Logical operators.
-        AndOperator, OrOperator,
+        AndOperator, OrOperator, NotOperator,
         // Math operators.
-        AddOperator, SubOperator, MulOperator, DivOperator, ModOperator,
+        AddOperator, SubOperator, MulOperator, DivOperator, ModOperator, NegOperator,
         MinFunc, MaxFunc, RoundFunc,
         // Signal/action operators.
         SigFunc, ActMethod,
