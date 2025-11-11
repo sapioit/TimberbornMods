@@ -30,7 +30,7 @@ sealed class SymbolExpr : IExpression {
     Value = value;
   }
 
-  static readonly Regex SymbolRegex = new(@"^(?!\.)([A-Za-z][A-Za-z0-9]+\.?)*([A-Za-z][A-Za-z0-9]*)$");
+  static readonly Regex SymbolRegex = new(@"^(?!\.)([A-Za-z][A-Za-z0-9]*\.?)*([A-Za-z][A-Za-z0-9]*)$");
 
   /// <summary>
   /// Verifies if the name consists of alphanumeric symbols and doesn't have leading or trailing dots.
