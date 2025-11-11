@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Text;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using Timberborn.Common;
 using Token = IgorZ.Automation.ScriptingEngine.Parser.TokenizerBase.Token;
 
 namespace IgorZ.Automation.ScriptingEngine.Parser;
@@ -23,8 +22,8 @@ sealed class LispSyntaxParser : ParserBase {
   protected override IExpression ProcessString(string input) {
     var tokens = _tokenizer.Tokenize(input);
     var result = ReadFromTokens(tokens);
-    if (!tokens.IsEmpty()) {
-      throw new ScriptError.ParsingError("Unexpected token at the end of the expression: " + tokens.Peek().Value);
+    if (tokens.Count > 0) {
+      throw new ScriptError.ParsingError(tokens.Peek(), "Unexpected token at the end of the expression");
     }
     return result;
   }
@@ -79,7 +78,7 @@ sealed class LispSyntaxParser : ParserBase {
   const string ConcatFunc = "concat";
 
   static void CheckHasMoreTokens(Queue<Token> tokens) {
-    if (tokens.IsEmpty()) {
+    if (tokens.Count == 0) {
       throw new ScriptError.ParsingError("Unexpected EOF while reading expression");
     }
   }
