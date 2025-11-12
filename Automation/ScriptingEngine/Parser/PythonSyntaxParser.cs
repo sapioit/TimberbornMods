@@ -179,7 +179,9 @@ class PythonSyntaxParser : ParserBase {
       throw new ScriptError.ParsingError(token, "Expected opening bracket");
     }
     var arguments = new List<IExpression>();
+    Token? firstToken = null;
     while (tokens.Count > 0 || tokens.Peek() is not { TokenType: Token.Type.StopSymbol, Value: ")" }) {
+      firstToken ??= tokens.Peek();
       arguments.Add(ParseExpressionInternal(-1, tokens));
       var terminator = PopToken(tokens);
       if (terminator is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
@@ -193,12 +195,19 @@ class PythonSyntaxParser : ParserBase {
       arguments.Insert(0, SymbolExpr.Create(opToken.Value)); 
       return ActionOperator.Create(CurrentContext, arguments);
     }
+    if (opToken.Value is GetNumFunc or GetStrFunc) {
+      if (firstToken is not { TokenType: Token.Type.StringLiteral }) {
+        throw new ScriptError.ParsingError(firstToken ?? opToken, "Expected string literal");
+      }
+      arguments[0] = SymbolExpr.Create(firstToken.Value.Value);
+      return opToken.Value == GetStrFunc
+          ? GetPropertyOperator.CreateGetString(CurrentContext, arguments)
+          : GetPropertyOperator.CreateGetNumber(CurrentContext, arguments);
+    }
     return opToken.Value switch {
         MinFunc => MathOperator.CreateMin(arguments),
         MaxFunc => MathOperator.CreateMax(arguments),
         RoundFunc => MathOperator.CreateRound(arguments),
-        GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, arguments),
-        GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, arguments),
         ConcatFunc => ConcatOperator.Create(arguments),
         _ => throw new InvalidOperationException($"Unexpected keyword token: {opToken}"),
     };
