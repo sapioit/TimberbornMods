@@ -50,11 +50,11 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
     };
     AssertNumberOfOperandsRange(1, -1);
     if (Operands[0] is not SymbolExpr symbol) {
-      throw new ScriptError.ParsingError("Expected a symbol: " + Operands[0]);
+      throw new ScriptError.ParsingError($"Expected a symbol: {Operands[0]}");
     }
     var parts = symbol.Value.Split('.');
     if (parts.Length != 2) {
-      throw new ScriptError.ParsingError("Bad property name: " + Operands[0]);
+      throw new ScriptError.ParsingError($"Bad property name: {Operands[0]}");
     }
 
     var propValueFn = context.ScriptingService.GetPropertySource(symbol.Value, context.ScriptHost);
@@ -85,7 +85,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
       } else {
         AssertNumberOfOperandsExact(2);
         if (Operands[1] is not IValueExpr { ValueType: ScriptValue.TypeEnum.Number } indexExpr) {
-          throw new ScriptError.ParsingError("Second operand must be a numeric value, found: " + Operands[1]);
+          throw new ScriptError.ParsingError($"Second operand must be a numeric value, found: {Operands[1]}");
         }
         propValueFn = () => {
           var list = GetAsList(listObject);
@@ -96,18 +96,21 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
           return list[index];
         };
       }
+    } else {
+      AssertNumberOfOperandsExact(1);
     }
 
     var propType = propValueFn().GetType();
+    var propTypeName = IsList ? $"List({propType})" : propType.ToString();
     ValueFn = ValueType switch {
         ScriptValue.TypeEnum.Number when propType == typeof(int) => () => ScriptValue.FromInt((int)propValueFn()),
         ScriptValue.TypeEnum.Number when propType == typeof(float) => () => ScriptValue.FromFloat((float)propValueFn()),
         ScriptValue.TypeEnum.Number when propType == typeof(bool) => () => ScriptValue.FromBool((bool)propValueFn()),
         ScriptValue.TypeEnum.Number => throw new ScriptError.ParsingError(
-            $"Property {symbol.Value} is of incompatible type: {propType}"),
+            $"Property {symbol.Value} is of incompatible type: {propTypeName}"),
         ScriptValue.TypeEnum.String when propType == typeof(string) => () => ScriptValue.Of((string)propValueFn()),
         ScriptValue.TypeEnum.String => throw new ScriptError.ParsingError(
-            $"Property {symbol.Value} is of incompatible type: {propType}"),
+            $"Property {symbol.Value} is of incompatible type: {propTypeName}"),
         _ => throw new ArgumentOutOfRangeException(nameof(ValueType), ValueType, null),
     };
   }
@@ -145,7 +148,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
     var sampleValue = list[0];
     if (GoodTypes.All(x => !x.IsAssignableFrom(sampleValue.GetType()))) {
       // The list values aren't trivial. We can't handle them.
-      return null;
+      throw new ScriptError.ParsingError($"Unsupported list type: {sampleValue.GetType()}");
     }
     list.Sort();
     return list;
