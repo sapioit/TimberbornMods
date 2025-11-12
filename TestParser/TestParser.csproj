@@ -1,10 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Nullable>disable</Nullable>
-        <LangVersion>latest</LangVersion>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{CD9EA9B6-88C7-417F-B9AC-B43FF6522221}</ProjectGuid>
         <OutputType>Exe</OutputType>
+        <RootNamespace>TestParser</RootNamespace>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <LangVersion>12</LangVersion>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="..\Automation\ScriptingEngine\Core\ScriptError.cs">
+        <Link>Stubs\ScriptError.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\TokenizerBase.cs">
+        <Link>TokenizerBase.cs</Link>
+      </Compile>
+    </ItemGroup>
 
 </Project>

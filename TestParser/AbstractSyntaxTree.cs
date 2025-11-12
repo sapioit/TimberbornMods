@@ -17,8 +17,9 @@ public record OperatorNode(OperatorNode.OpType Operator) : IAstNode {
     Minus,
     Multiply,
     Divide,
+    Modulus,
     Not,
-    Negative,
+    Negate,
   }
 
   public OpType Operator { get; } = Operator;
@@ -39,7 +40,11 @@ public record VariableNode(string Name) : IAstNode {
   public string Name { get; } = Name;
 }
 
-public record ValueNode(string Value) : IAstNode {
+public record StringValueNode(string Value) : IAstNode {
+  public string Value { get; } = Value;
+}
+
+public record NumberValueNode(string Value) : IAstNode {
   public string Value { get; } = Value;
 }
 
