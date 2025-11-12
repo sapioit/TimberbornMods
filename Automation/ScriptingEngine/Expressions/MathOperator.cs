@@ -22,7 +22,9 @@ class MathOperator : AbstractOperator, IValueExpr {
   /// <inheritdoc/>
   public Func<ScriptValue> ValueFn { get; }
 
-  public static MathOperator CreateAdd(IList<IExpression> arguments) => new(OpType.Add, arguments, 2, -1);
+  //FIXME: Return back when supported in Python & Describe
+  //public static MathOperator CreateAdd(IList<IExpression> arguments) => new(OpType.Add, arguments, 2, -1);
+  public static MathOperator CreateAdd(IList<IExpression> arguments) => new(OpType.Add, arguments, 2, 2);
   public static MathOperator CreateSubtract(IList<IExpression> arguments) => new(OpType.Subtract, arguments, 2, 2);
   public static MathOperator CreateMultiply(IList<IExpression> arguments) => new(OpType.Multiply, arguments, 2, 2);
   public static MathOperator CreateDivide(IList<IExpression> arguments) => new(OpType.Divide, arguments, 2, 2);
