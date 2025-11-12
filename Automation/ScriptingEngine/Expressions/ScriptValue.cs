@@ -91,7 +91,7 @@ record struct ScriptValue : IComparable<ScriptValue> {
   /// <remarks>
   /// For example, value "1234" means "12.34f". The maximum possible precision is two digits after the point.
   /// </remarks>
-  /// <exception cref="ScriptError">if the value is not numeric.</exception>
+  /// <exception cref="ScriptError">if the value is not a number.</exception>
   public int AsNumber {
     get {
       if (!_number.HasValue) {
@@ -102,13 +102,15 @@ record struct ScriptValue : IComparable<ScriptValue> {
   }
 
   /// <summary>Current numeric value as a float.</summary>
+  /// <exception cref="ScriptError">if the value is not a number.</exception>
   public float AsFloat => AsNumber / 100f;
 
   /// <summary>Current numeric value as an integer.</summary>
+  /// <exception cref="ScriptError">if the value is not a number.</exception>
   public int AsInt => Mathf.RoundToInt(AsNumber / 100f);
 
   /// <summary>Current string value.</summary>
-  /// <exception cref="ScriptError">if the value is a string.</exception>
+  /// <exception cref="ScriptError">if the value is not a string.</exception>
   public string AsString {
     get {
       if (_string == null) {
