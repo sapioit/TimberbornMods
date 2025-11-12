@@ -20,9 +20,9 @@ class PythonSyntaxParser : ParserBase {
 
   protected override IExpression ProcessString(string input) {
     var tokens = _tokenizer.Tokenize(input);
-    var result = ParseExpressionInternal(0, tokens);
+    var result = ParseExpressionInternal(-1, tokens);
     if (tokens.Count > 0) {
-      throw new ScriptError.ParsingError(tokens.Peek(), "Unexpected token at the end of the expression");
+      throw new InvalidOperationException("Unexpected token at the end of the expression: " + tokens.Peek());
     }
     return result;
   }
@@ -33,7 +33,7 @@ class PythonSyntaxParser : ParserBase {
 
   /// <inheritdoc/>
   public override string Decompile(IExpression expression) {
-    return DecompileInternal(expression, 0);
+    return DecompileInternal(expression);
   }
 
   #endregion
@@ -75,9 +75,9 @@ class PythonSyntaxParser : ParserBase {
       { GeOperator, 4 },
       { AddOperator, 5 },
       { SubOperator, 5 },
-      { ModOperator, 6 },
+      { ModOperator, 7 },
       { DivOperator, 7 },
-      { MulOperator, 8 },
+      { MulOperator, 7 },
   };
 
   IExpression ParseExpressionInternal(int parentPrecedence, Queue<Token> tokens) {
@@ -90,7 +90,7 @@ class PythonSyntaxParser : ParserBase {
       if (!InfixOperatorsPrecedence.TryGetValue(opName.Value, out var precedence)) {
         throw new Exception("Unexpected operator keyword: " + opName);
       }
-      if (parentPrecedence > precedence) {
+      if (parentPrecedence >= precedence) {
         return left;
       }
       tokens.Dequeue(); // Consume operator.
@@ -166,7 +166,11 @@ class PythonSyntaxParser : ParserBase {
       }
       subExpressionTokens.Enqueue(subToken);
     }
-    return ParseExpressionInternal(0, subExpressionTokens);
+    var res = ParseExpressionInternal(-1, subExpressionTokens);
+    if (subExpressionTokens.Count > 0) {
+      throw new InvalidOperationException("Unexpected token inside teh group: " + subExpressionTokens.Peek());
+    }
+    return res;
   }
 
   IExpression ConsumeOperator(Token opToken, Queue<Token> tokens) {
@@ -181,7 +185,7 @@ class PythonSyntaxParser : ParserBase {
     }
     var arguments = new List<IExpression>();
     while (tokens.Count > 0 || tokens.Peek() is not { TokenType: Token.Type.StopSymbol, Value: ")" }) {
-      arguments.Add(ParseExpressionInternal(0, tokens));
+      arguments.Add(ParseExpressionInternal(-1, tokens));
       var terminator = PopToken(tokens);
       if (terminator is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
         break;
@@ -211,9 +215,9 @@ class PythonSyntaxParser : ParserBase {
         : tokens.Dequeue();
   }
 
-  static string DecompileInternal(IExpression expression, int parentOrder) {
+  static string DecompileInternal(IExpression expression) {
     return expression switch {
-        AbstractOperator abstractOperator => DecompileOperator(abstractOperator, parentOrder),
+        AbstractOperator abstractOperator => DecompileOperator(abstractOperator),
         ConstantValueExpr constExpr => constExpr.ValueType switch {
             ScriptValue.TypeEnum.String => $"'{constExpr.ValueFn().AsString}'",
             ScriptValue.TypeEnum.Number => constExpr.ValueFn().AsFloat.ToString("0.##"),
@@ -224,7 +228,7 @@ class PythonSyntaxParser : ParserBase {
     };
   }
 
-  static string DecompileOperator(AbstractOperator expression, int parentOrder) {
+  static string DecompileOperator(AbstractOperator expression) {
     // Signals. They are technically variables: My.variable.name1
     if (expression is SignalOperator signalOperator) {
       return signalOperator.SignalName;
@@ -241,26 +245,29 @@ class PythonSyntaxParser : ParserBase {
         GetPropertyOperator getPropertyOperator => getPropertyOperator.OperatorType switch {
             GetPropertyOperator.OpType.GetNumber => GetNumFunc,
             GetPropertyOperator.OpType.GetString => GetStrFunc,
-            _ => throw new InvalidOperationException($"Unsupported operator: {getPropertyOperator.OperatorType}"),
+            _ => throw new InvalidOperationException($"Unsupported operator: {getPropertyOperator}"),
         },
         ConcatOperator => ConcatFunc,
         ActionOperator actionOperator => actionOperator.ActionName,
         _ => null,
     };
     if (funcName != null) {
-      var args = string.Join(", ", expression.Operands.Select(a => DecompileInternal(a, 0)));
+      var args = string.Join(", ", expression.Operands.Select(DecompileInternal));
       return $"{funcName}({args})";
     }
 
     // Unary operators.
     if (expression is LogicalOperator { OperatorType: LogicalOperator.OpType.Not }) {
-      return $"{NotOperator} {DecompileInternal(expression.Operands[0], InfixOperatorsPrecedence[NotOperator])}";
+      var value = DecompileLeft(expression.Operands[0], expression);
+      return $"{NotOperator} {value}";
     }
     if (expression is MathOperator { OperatorType: MathOperator.OpType.Negate }) {
-      return $"{SubOperator}{DecompileInternal(expression.Operands[0], 0)}";
+      var value = DecompileLeft(expression.Operands[0], expression);
+      return $"{SubOperator}{value}";
     }
 
     // Binary operators: a + b
+    //FIXME: add, or, and - can have many arguments.
     if (expression.Operands.Count != 2) {
       throw new InvalidOperationException(
           $"Unexpected number of arguments {expression.Operands.Count} in {expression}");
@@ -290,15 +297,23 @@ class PythonSyntaxParser : ParserBase {
         },
         _ => throw new InvalidOperationException($"Unexpected expression type: {expression}"),
     };
-    var nodePrecedence = InfixOperatorsPrecedence[opName];
-    //FIXME: add, or, and - can have many arguments.
-    var leftValue = DecompileInternal(expression.Operands[0], nodePrecedence);
-    var rightValue = DecompileInternal(expression.Operands[1], nodePrecedence);
-    var res = $"{leftValue} {opName} {rightValue}";
-    if (parentOrder > InfixOperatorsPrecedence[opName]) {
-      res = "(" +  res + ")";
-    }
-    return res;
+    var leftValue = DecompileLeft(expression.Operands[0], expression);
+    var rightValue = DecompileRight(expression.Operands[1], expression);
+    return $"{leftValue} {opName} {rightValue}";
+  }
+
+  static string DecompileLeft(IExpression operand, IExpression parent) {
+    var value = DecompileInternal(operand);
+    return InfixExpressionUtil.ResolvePrecedence(parent) > InfixExpressionUtil.ResolvePrecedence(operand)
+        ? $"({value})"
+        : value;
+  }
+
+  static string DecompileRight(IExpression operand, IExpression parent) {
+    var value = DecompileInternal(operand);
+    return InfixExpressionUtil.ResolvePrecedence(parent) >= InfixExpressionUtil.ResolvePrecedence(operand)
+        ? $"({value})"
+        : value;
   }
 
   #endregion
