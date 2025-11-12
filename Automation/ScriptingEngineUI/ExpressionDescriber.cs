@@ -18,6 +18,7 @@ sealed class ExpressionDescriber {
 
   const string AndOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.AndOperator";
   const string OrOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.OrOperator";
+  const string NotOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.NotOperator";
 
   /// <summary>Returns a human-friendly description of the expression.</summary>
   /// <exception cref="ScriptError.RuntimeError">if values need to be calculated, but it results in error.</exception>
@@ -94,6 +95,9 @@ sealed class ExpressionDescriber {
   }
 
   string DescribeLogicalOperator(LogicalOperator op) {
+    if (op.OperatorType == LogicalOperator.OpType.Not) {
+      return $"{_loc.T(NotOperatorLocKey)} ({DescribeExpression(op.Operands[0])})";
+    }
     var displayName = op.OperatorType switch {
         LogicalOperator.OpType.And => _loc.T(AndOperatorLocKey),
         LogicalOperator.OpType.Or => _loc.T(OrOperatorLocKey),

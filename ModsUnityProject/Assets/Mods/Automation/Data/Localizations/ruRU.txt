@@ -165,6 +165,7 @@ IgorZ.Automation.Scriptable.Workplace.Action.RemoveWorkers,"снять рабо�
 IgorZ.Automation.Scriptable.Workplace.Action.SetWorkers,"назначить {0} работников","Name of the action that sets the number of workers in the workshop"
 IgorZ.Automation.Scripting.Expressions.AndOperator,"и","String to join components of the expression with condition AND. Used to represent the condition in the panel"
 IgorZ.Automation.Scripting.Expressions.OrOperator,"или","String to join components of the expression with condition OR. Used to represent the condition in the panel"
+IgorZ.Automation.Scripting.Expressions.NotOperator,"НЕ","NOT operator name to represent the condition in the panel"
 IgorZ.Automation.Scripting.Expressions.ParseError,"ОШИБКА ОБРАБОТКИ","String to show when the scriptable condition or action cannot be parsed"
 =,=,"Rules editor strings"
 IgorZ.Automation.Scripting.Editor.ActionLabel,"Тогда",
