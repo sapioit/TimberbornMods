@@ -120,20 +120,15 @@ class PythonSyntaxParser : ParserBase {
   IExpression ConsumeValueOperand(Queue<Token> tokens) {
     var token = PopToken(tokens);
 
-    // Keywords are not allowed unless they are unary operators.
-    if (token.TokenType == Token.Type.Keyword) {
-      switch (token.Value) {
-        case NotOperator:
-          return LogicalOperator.CreateNot(ParseExpressionInternal(InfixOperatorsPrecedence[NotOperator], tokens));
-        case SubOperator: {
-          var operand = ConsumeValueOperand(tokens);
-          return operand is ConstantValueExpr constantValueExpr
-              ? ConstantValueExpr.CreateNumericValue(-constantValueExpr.ValueFn().AsNumber) 
-              : MathOperator.CreateNegate(operand);
-        }
-        default:
-          throw new ScriptError.ParsingError(token, "Unexpected token");
-      }
+    // Unary operators.
+    if (token is { TokenType: Token.Type.Keyword, Value: NotOperator }) {
+      return LogicalOperator.CreateNot(ParseExpressionInternal(InfixOperatorsPrecedence[NotOperator], tokens));
+    }
+    if (token is { TokenType: Token.Type.Keyword, Value: SubOperator }) {
+      var operand = ConsumeValueOperand(tokens);
+      return operand is ConstantValueExpr constantValueExpr
+          ? ConstantValueExpr.CreateNumericValue(-constantValueExpr.ValueFn().AsNumber)
+          : MathOperator.CreateNegate(operand);
     }
 
     // Simple values. Kind of.
