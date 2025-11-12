@@ -74,7 +74,7 @@ sealed class ExpressionDescriber {
         BinaryOperator.OpType.LessThanOrEqual => " \u2264 ",
         _ => throw new InvalidOperationException("Unknown operator: " + this),
     });
-    if (EntityPanelSettings.EvalValuesInConditions || op.Right is ConstantValueExpr) {
+    if (EntityPanelSettings.EvalValuesInConditions || IsConstantValueOperand(op.Right)) {
       string rightValue;
       try {
         rightValue = op.Right.ValueFn().FormatValue(op.ResultValueDef);
