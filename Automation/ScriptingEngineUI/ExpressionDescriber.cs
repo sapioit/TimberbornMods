@@ -3,11 +3,11 @@
 // License: Public Domain
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
+using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.Settings;
 using Timberborn.Localization;
 
@@ -23,17 +23,7 @@ sealed class ExpressionDescriber {
   /// <summary>Returns a human-friendly description of the expression.</summary>
   /// <exception cref="ScriptError.RuntimeError">if values need to be calculated, but it results in error.</exception>
   public string DescribeExpression(IExpression expression) {
-    return expression switch {
-        ActionOperator actionOperator => DescribeActionOperator(actionOperator),
-        BinaryOperator binaryOperator => DescribeComparisonOperator(binaryOperator),
-        ConcatOperator concatOperator => DescribeConcatOperator(concatOperator),
-        ConstantValueExpr constantValueExpr => DescribeScriptValue(constantValueExpr.ValueFn()),
-        GetPropertyOperator getProperty => DescribeGetPropertyOperator(getProperty),
-        LogicalOperator logicalOperator => DescribeLogicalOperator(logicalOperator),
-        MathOperator mathOperator => DescribeMathOperator(mathOperator),
-        SignalOperator signalOperator => DescribeSignalOperator(signalOperator),
-        _ => expression.ToString(),
-    };
+    return DescribeExpressionInternal(expression);
   }
 
   #region Implementation
@@ -44,6 +34,21 @@ sealed class ExpressionDescriber {
     _loc = loc;
   }
 
+  string DescribeExpressionInternal(IExpression expression) {
+    return expression switch {
+        ActionOperator actionOperator => DescribeActionOperator(actionOperator),
+        BinaryOperator binaryOperator => DescribeComparisonOperator(binaryOperator),
+        ConcatOperator concatOperator => concatOperator.ValueFn().AsString,
+        ConstantValueExpr constantValueExpr => DescribeScriptValue(constantValueExpr.ValueFn()),
+        GetPropertyOperator getProperty => DescribeGetPropertyOperator(getProperty),
+        LogicalOperator logicalOperator => DescribeLogicalOperator(logicalOperator),
+        MathOperator mathOperator => DescribeMathOperator(mathOperator),
+        SignalOperator signalOperator => signalOperator.SignalDef.DisplayName,
+        _ => expression.ToString(),
+    };
+  }
+
+  //FIXME: use base expression type
   string DescribeScriptValue(ScriptValue scriptValue) {
     return scriptValue.ValueType switch {
         ScriptValue.TypeEnum.String => $"'{scriptValue.AsString}'",
@@ -53,13 +58,13 @@ sealed class ExpressionDescriber {
   }
 
   string DescribeComparisonOperator(BinaryOperator op) {
-    // Special case: check for if the signal has changed (equals to itself).
+    // Special case: check for if "signal changed" binding (signal equals to itself).
     if (op.Left is SignalOperator leftSignal && op.Right is SignalOperator rightSignal
         && leftSignal.SignalName == rightSignal.SignalName && op.OperatorType == BinaryOperator.OpType.Equal) {
-      return DescribeExpression(leftSignal);
+      return DescribeExpressionInternal(leftSignal);
     }
     var sb = new StringBuilder();
-    sb.Append(DescribeExpression(op.Left));
+    sb.Append(DescribeLeft(op.Left, op));
     sb.Append(op.OperatorType switch {
         BinaryOperator.OpType.Equal => " = ",
         BinaryOperator.OpType.NotEqual => " \u2260 ",
@@ -78,7 +83,7 @@ sealed class ExpressionDescriber {
       }
       sb.Append(rightValue);
     } else {
-      sb.Append(DescribeExpression(op.Right));
+      sb.Append(DescribeRight(op.Right, op));
     }
 
     return sb.ToString();
@@ -89,63 +94,74 @@ sealed class ExpressionDescriber {
     if (op.IsList) {
       return op.Operands.Count == 1
           ? $"Count({symbol})"
-          : $"GetElement({symbol}, {DescribeExpression(op.Operands[0])})";
+          : $"GetElement({symbol}, {DescribeExpressionInternal(op.Operands[1])})";
     }
     return $"ValueOf({symbol})";
   }
 
   string DescribeLogicalOperator(LogicalOperator op) {
     if (op.OperatorType == LogicalOperator.OpType.Not) {
-      return $"{_loc.T(NotOperatorLocKey)} ({DescribeExpression(op.Operands[0])})";
+      var value = DescribeLeft(op.Operands[0], op);
+      return $"{_loc.T(NotOperatorLocKey)} {value}";
+    }
+    //FIXME: support multi argument versions.
+    if (op.Operands.Count != 2) {
+      throw new InvalidOperationException(
+          $"Unexpected number of arguments {op.Operands.Count} in {op}");
     }
     var displayName = op.OperatorType switch {
         LogicalOperator.OpType.And => _loc.T(AndOperatorLocKey),
         LogicalOperator.OpType.Or => _loc.T(OrOperatorLocKey),
         _ => throw new InvalidOperationException($"Unsupported operator: {op.OperatorType}"),
     };
-    var descriptions = new List<string>();
-    foreach (var operand in op.Operands) {
-      if (op.OperatorType == LogicalOperator.OpType.And
-          && operand is LogicalOperator { OperatorType: LogicalOperator.OpType.Or }) {
-        descriptions.Add($"({DescribeExpression(operand)})");
-      } else {
-        descriptions.Add(DescribeExpression(operand));
-      }
-    }
-    return string.Join(" " + displayName + " ", descriptions);
+    var leftValue = DescribeLeft(op.Operands[0], op);
+    var rightValue = DescribeRight(op.Operands[1], op);
+    return $"{leftValue} {displayName} {rightValue}";
   }
 
   string DescribeMathOperator(MathOperator op) {
-    return op.OperatorType switch {
-        MathOperator.OpType.Add => "(" + MaybeCollapseMathOp(op, " + ") + ")",
-        MathOperator.OpType.Subtract => "(" + MaybeCollapseMathOp(op, " - ") + ")",
-        MathOperator.OpType.Multiply => MaybeCollapseMathOp(op, " × "),
-        MathOperator.OpType.Divide => MaybeCollapseMathOp(op, " ÷ "),
-        MathOperator.OpType.Modulus => MaybeCollapseMathOp(op, " % "),
-        MathOperator.OpType.Min => $"min({MaybeCollapseMathOp(op, ", ")})",
-        MathOperator.OpType.Max => $"max({MaybeCollapseMathOp(op, ", ")})",
-        MathOperator.OpType.Round => $"round({MaybeCollapseMathOp(op, "")})",
-        MathOperator.OpType.Negate => $"-({MaybeCollapseMathOp(op, "")})",
+    if (IsConstantValueOperand(op)) {
+      return DescribeScriptValue(op.ValueFn());
+    }
+
+    // Functions don't need precedence check.
+    var funcName = op.OperatorType switch {
+        MathOperator.OpType.Min => "Min",
+        MathOperator.OpType.Max => "Max",
+        MathOperator.OpType.Round => "Round",
+        // For constants, the negate operator should have been resolved above.
+        MathOperator.OpType.Negate => "-",
+        _ => null,
+    };
+    if (funcName != null) {
+      var value = string.Join(", ", op.Operands.Select(DescribeExpressionInternal));
+      return $"{funcName}({value})";
+    }
+
+    //FIXME: support multi argument versions.
+    if (op.Operands.Count != 2) {
+      throw new InvalidOperationException(
+          $"Unexpected number of arguments {op.Operands.Count} in {op}");
+    }
+    var opName = op.OperatorType switch {
+        MathOperator.OpType.Add => " + ",
+        MathOperator.OpType.Subtract => " - ",
+        MathOperator.OpType.Multiply => " × ",
+        MathOperator.OpType.Divide => " ÷ ",
+        MathOperator.OpType.Modulus => " % ",
         _ => throw new InvalidOperationException($"Unknown operator: {op.OperatorType}"),
     };
+    var leftValue = DescribeLeft(op.Operands[0], op);
+    var rightValue = DescribeRight(op.Operands[1], op);
+    return $"{leftValue} {opName} {rightValue}";
   }
 
-  string MaybeCollapseMathOp(MathOperator mathOperator, string separator) {
-    return IsConstantValueOperand(mathOperator)
-        ? DescribeScriptValue(mathOperator.ValueFn())
-        : mathOperator.Operands.Select(DescribeExpression).Aggregate((a, b) => a + separator + b);
-  }
-
-  bool IsConstantValueOperand(IExpression operand) {
+  static bool IsConstantValueOperand(IExpression operand) {
     return operand switch {
         ConstantValueExpr => true,
         MathOperator mathOperator => mathOperator.Operands.All(IsConstantValueOperand),
         _ => false,
     };
-  }
-
-  string DescribeSignalOperator(SignalOperator op) {
-    return op.SignalDef.DisplayName;
   }
 
   string DescribeActionOperator(ActionOperator op) {
@@ -161,14 +177,24 @@ sealed class ExpressionDescriber {
         }
         args[i] = value.FormatValue(op.ActionDef.Arguments[i]);
       } else {
-        args[i] = DescribeExpression(operand);
+        args[i] = DescribeExpressionInternal(operand);
       }
     }
     return string.Format(op.ActionDef.DisplayName, args);
   }
 
-  string DescribeConcatOperator(ConcatOperator op) {
-    return op.ValueFn().AsString;  // Always evaluate.
+  string DescribeLeft(IExpression operand, IExpression parent) {
+    var value = DescribeExpressionInternal(operand);
+    return InfixExpressionUtil.ResolvePrecedence(parent) > InfixExpressionUtil.ResolvePrecedence(operand)
+        ? $"({value})"
+        : value;
+  }
+
+  string DescribeRight(IExpression operand, IExpression parent) {
+    var value = DescribeExpressionInternal(operand);
+    return InfixExpressionUtil.ResolvePrecedence(parent) >= InfixExpressionUtil.ResolvePrecedence(operand)
+        ? $"({value})"
+        : value;
   }
 
   #endregion
