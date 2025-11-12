@@ -88,7 +88,7 @@ class PythonSyntaxParser : ParserBase {
         return left;
       }
       if (!InfixOperatorsPrecedence.TryGetValue(opName.Value, out var precedence)) {
-        throw new Exception("Unexpected operator keyword: " + opName);
+        throw new ScriptError.ParsingError(opName, "Expected operator");
       }
       if (parentPrecedence >= precedence) {
         return left;
@@ -109,7 +109,7 @@ class PythonSyntaxParser : ParserBase {
           DivOperator => MathOperator.CreateDivide(operands),
           MulOperator => MathOperator.CreateMultiply(operands),
           ModOperator => MathOperator.CreateModulus(operands),
-          _ => throw new Exception("Unexpected operator keyword: " + opName),
+          _ => throw new ScriptError.ParsingError(opName, "Expected operator"),
       };
     }
     return left;
@@ -139,7 +139,7 @@ class PythonSyntaxParser : ParserBase {
             : throw new ScriptError.ParsingError(token, "Not a valid float number"),
         Token.Type.Identifier or Token.Type.Keyword => ConsumeOperator(token, tokens),
         Token.Type.StopSymbol => ConsumeGroup(token, tokens),
-        _ => throw new Exception($"Unexpected token type: {token.TokenType}"),
+        _ => throw new Exception($"Unexpected token: {token}"),
     };
   }
 
@@ -163,7 +163,7 @@ class PythonSyntaxParser : ParserBase {
     }
     var res = ParseExpressionInternal(-1, subExpressionTokens);
     if (subExpressionTokens.Count > 0) {
-      throw new InvalidOperationException("Unexpected token inside teh group: " + subExpressionTokens.Peek());
+      throw new InvalidOperationException("Unexpected token inside the group: " + subExpressionTokens.Peek());
     }
     return res;
   }
