@@ -11,5 +11,6 @@ namespace IgorZ.Automation.ScriptingEngine.Parser;
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<LispSyntaxParser>().AsSingleton();
+    containerDefinition.Bind<PythonSyntaxParser>().AsSingleton();
   }
 }
