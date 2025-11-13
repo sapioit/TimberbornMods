@@ -156,7 +156,7 @@ class PythonSyntaxParser {
         : tokens.Dequeue();
   }
 
-  static readonly Dictionary<OperatorNode.OpType, string> PythonOperatorsTypes = new() {
+  static readonly Dictionary<OperatorNode.OpType, string> PythonOperators = new() {
       { OperatorNode.OpType.And, "and" },
       { OperatorNode.OpType.Or, "or" },
       { OperatorNode.OpType.Equal, "==" },
@@ -178,7 +178,7 @@ class PythonSyntaxParser {
     return DeconstructNode(node);
   }
 
-  string DeconstructNode(IAstNode node) {
+  static string DeconstructNode(IAstNode node) {
     if (node is NumberValueNode numberValueNode) {
       return numberValueNode.Value;
     }
@@ -193,29 +193,30 @@ class PythonSyntaxParser {
       return variableNode.Name;
     }
     if (node is UnaryOperatorNode unaryOperatorNode) {
-      var opName = PythonOperatorsTypes[unaryOperatorNode.Operator];
-      return $"{opName} {DeconstructNode(unaryOperatorNode.Operand)}";
+      var opName = PythonOperators[unaryOperatorNode.Operator];
+      var opDesc = DeconstructLeft(unaryOperatorNode.Operand, unaryOperatorNode);
+      return $"{opName} {opDesc}";
     }
     if (node is BinaryOperatorNode binaryOperatorNode) {
-      var nodePrecedence = ResolvePrecedence(binaryOperatorNode);
-      var leftValue = DeconstructNode(binaryOperatorNode.LeftOperand);
-      if (nodePrecedence > ResolvePrecedence(binaryOperatorNode.LeftOperand)) {
-        leftValue = "(" + leftValue + ")";
-      }
-      var rightValue = DeconstructNode(binaryOperatorNode.RightOperand);
-      if (nodePrecedence >= ResolvePrecedence(binaryOperatorNode.RightOperand)) {
-        rightValue = "(" + rightValue + ")";
-      }
-      var opName = PythonOperatorsTypes[binaryOperatorNode.Operator];
-      if (opName == null) {
-        throw new Exception("Unknown operator: " + binaryOperatorNode.Operator);
-      }
+      var opName = PythonOperators[binaryOperatorNode.Operator];
+      var leftValue = DeconstructLeft(binaryOperatorNode.LeftOperand, binaryOperatorNode);
+      var rightValue = DeconstructRight(binaryOperatorNode.RightOperand, binaryOperatorNode);
       return $"{leftValue} {opName} {rightValue}";
     }
     throw new InvalidOperationException("Unexpected node type: " + node);
   }
 
-  public static int ResolvePrecedence(IAstNode expression) {
+  static string DeconstructLeft(IAstNode operand, IAstNode parent) {
+    var value = DeconstructNode(operand);
+    return ResolvePrecedence(parent) > ResolvePrecedence(operand) ? $"({value})" : value;
+  }
+
+  static string DeconstructRight(IAstNode operand, IAstNode parent) {
+    var value = DeconstructNode(operand);
+    return ResolvePrecedence(parent) >= ResolvePrecedence(operand) ? $"({value})" : value;
+  }
+
+  static int ResolvePrecedence(IAstNode expression) {
     return expression switch {
         BinaryOperatorNode { Operator: OperatorNode.OpType.Or} => 0,
         BinaryOperatorNode { Operator: OperatorNode.OpType.And} => 1,
