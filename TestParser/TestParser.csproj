@@ -8,16 +8,293 @@
         <RootNamespace>TestParser</RootNamespace>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <LangVersion>12</LangVersion>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net8.0-windows</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" />
+      <PackageReference Include="IndexRange" Version="1.0.3" />
+      <PackageReference Include="protobuf-net" Version="3.0.0" />
+      <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
+      <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Timberborn.*.dll" Publicize="true" />
+      <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Unity*.dll" Publicize="false"/>
+      <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Bindito.*.dll" Publicize="false"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\Automation\AutomationSystem\AutomationServiceReadyEvent.cs">
+        <Link>Import\AutomationSystem\AutomationServiceReadyEvent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\AutomationSystem\IAutomationAction.cs">
+        <Link>Import\AutomationSystem\IAutomationAction.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\AutomationSystem\IAutomationCondition.cs">
+        <Link>Import\AutomationSystem\IAutomationCondition.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\AutomationSystem\IAutomationConditionListener.cs">
+        <Link>Import\AutomationSystem\IAutomationConditionListener.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Core\ScriptError.cs">
-        <Link>Stubs\ScriptError.cs</Link>
+        <Link>Import\Core\ScriptError.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Core\ScriptingService.cs">
+        <Link>Import\Core\ScriptingService.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\AbstractOperator.cs">
+        <Link>Import\Expressions\AbstractOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\ActionOperator.cs">
+        <Link>Import\Expressions\ActionOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\BinaryOperator.cs">
+        <Link>Import\Expressions\BinaryOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\BoolOperator.cs">
+        <Link>Import\Expressions\BoolOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\ConcatOperator.cs">
+        <Link>Import\Expressions\ConcatOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\ConstantValueExpr.cs">
+        <Link>Import\Expressions\ConstantValueExpr.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\ExpressionContext.cs">
+        <Link>Import\Expressions\ExpressionContext.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\GetPropertyOperator.cs">
+        <Link>Import\Expressions\GetPropertyOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\HasComponentOperator.cs">
+        <Link>Import\Expressions\HasComponentOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\IExpression.cs">
+        <Link>Import\Expressions\IExpression.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\IValueExpr.cs">
+        <Link>Import\Expressions\IValueExpr.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\LogicalOperator.cs">
+        <Link>Import\Expressions\LogicalOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\MathOperator.cs">
+        <Link>Import\Expressions\MathOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\ScriptValue.cs">
+        <Link>Import\Expressions\ScriptValue.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\SignalOperator.cs">
+        <Link>Import\Expressions\SignalOperator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\SymbolExpr.cs">
+        <Link>Import\Expressions\SymbolExpr.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\InfixExpressionUtil.cs">
+        <Link>Import\Parser\InfixExpressionUtil.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\ParserBase.cs">
+        <Link>Import\Parser\ParserBase.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\ParsingResult.cs">
+        <Link>Import\Parser\ParsingResult.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\PythonSyntaxParser.cs">
+        <Link>Import\Parser\PythonSyntaxParser.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\TokenizerBase.cs">
         <Link>TokenizerBase.cs</Link>
       </Compile>
+      <Compile Remove="WIP\AbstractSyntaxTree.cs" />
+      <Compile Remove="WIP\AstHandler.cs" />
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\ActionDef.cs">
+        <Link>Import\ScriptableComponents\ActionDef.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\AbstractStatusTracker.cs">
+        <Link>Import\ScriptableComponents\Components\AbstractStatusTracker.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\CollectableScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\CollectableScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\Configurator.cs">
+        <Link>Import\ScriptableComponents\Components\Configurator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ConstructableScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\ConstructableScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DebugScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\DebugScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DistrictScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\DistrictScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DynamiteScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\DynamiteScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\FloodgateScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\FloodgateScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\FlowControlScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\FlowControlScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\InventoryScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\InventoryScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ISignalListener.cs">
+        <Link>Import\ScriptableComponents\Components\ISignalListener.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PausableScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\PausableScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PlantableScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\PlantableScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PrioritizableScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\PrioritizableScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ReferenceManager.cs">
+        <Link>Import\ScriptableComponents\Components\ReferenceManager.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ScriptableComponentBase.cs">
+        <Link>Import\ScriptableComponents\Components\ScriptableComponentBase.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\SignalDispatcher.cs">
+        <Link>Import\ScriptableComponents\Components\SignalDispatcher.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\SignalsScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\SignalsScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\StreamGaugeScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\StreamGaugeScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\WeatherScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\WeatherScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\WorkplaceScriptableComponent.cs">
+        <Link>Import\ScriptableComponents\Components\WorkplaceScriptableComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\AutomationExtensionsRegistry.cs">
+        <Link>Import\ScriptableComponents\Extensions\AutomationExtensionsRegistry.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\Configurator.cs">
+        <Link>Import\ScriptableComponents\Extensions\Configurator.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\IAutomationExtension.cs">
+        <Link>Import\ScriptableComponents\Extensions\IAutomationExtension.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\IWeatherExtension.cs">
+        <Link>Import\ScriptableComponents\Extensions\IWeatherExtension.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\IScriptable.cs">
+        <Link>Import\ScriptableComponents\IScriptable.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\SignalDef.cs">
+        <Link>Import\ScriptableComponents\SignalDef.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\ValueDef.cs">
+        <Link>Import\ScriptableComponents\ValueDef.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\Utils\DynamicClassSerializer.cs">
+        <Link>Import\Utils\DynamicClassSerializer.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\Utils\IGameSerializable.cs">
+        <Link>Import\Utils\IGameSerializable.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\Utils\SpecToSaveObjectConverter.cs">
+        <Link>Import\Utils\SpecToSaveObjectConverter.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\Utils\StaticClassSerializer.cs">
+        <Link>Import\Utils\StaticClassSerializer.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\AbstractDialog.cs">
+        <Link>Import\TimberDev\UI\AbstractDialog.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\CommonFormats.cs">
+        <Link>Import\TimberDev\UI\CommonFormats.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\Configurator.cs">
+        <Link>Import\TimberDev\UI\Configurator.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\DropdownItem.cs">
+        <Link>Import\TimberDev\UI\DropdownItem.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\PanelFragmentPatcher.cs">
+        <Link>Import\TimberDev\UI\PanelFragmentPatcher.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\PreciseSliderWrapper.cs">
+        <Link>Import\TimberDev\UI\PreciseSliderWrapper.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\ResizableDropdownElement.cs">
+        <Link>Import\TimberDev\UI\ResizableDropdownElement.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\UiFactory.cs">
+        <Link>Import\TimberDev\UI\UiFactory.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\VisualEffects.cs">
+        <Link>Import\TimberDev\UI\VisualEffects.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\UI\VisualElementExtensions.cs">
+        <Link>Import\TimberDev\UI\VisualElementExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\ComponentsAccessor.cs">
+        <Link>Import\TimberDev\Utils\ComponentsAccessor.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\Configurator.cs">
+        <Link>Import\TimberDev\Utils\Configurator.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\CounterProfiler.cs">
+        <Link>Import\TimberDev\Utils\CounterProfiler.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\FeatureController.cs">
+        <Link>Import\TimberDev\Utils\FeatureController.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\IObjectLoaderExtensions.cs">
+        <Link>Import\TimberDev\Utils\IObjectLoaderExtensions.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\PausedStopwatch.cs">
+        <Link>Import\TimberDev\Utils\PausedStopwatch.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\PrefabPatcher.cs">
+        <Link>Import\TimberDev\Utils\PrefabPatcher.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\ProtoSerializer.cs">
+        <Link>Import\TimberDev\Utils\ProtoSerializer.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\StaticBindings.cs">
+        <Link>Import\TimberDev\Utils\StaticBindings.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\TickDelayAction.cs">
+        <Link>Import\TimberDev\Utils\TickDelayAction.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\TicksProfiler.cs">
+        <Link>Import\TimberDev\Utils\TicksProfiler.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\TimedUpdater.cs">
+        <Link>Import\TimberDev\Utils\TimedUpdater.cs</Link>
+      </Compile>
+      <Compile Include="..\UnityDevLite\DebugEx.cs">
+        <Link>Import\UnityDevLite\DebugEx.cs</Link>
+      </Compile>
+      <Compile Include="..\UnityDevLite\HostedDebugLog.cs">
+        <Link>Import\UnityDevLite\HostedDebugLog.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="WIP\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\TimberDev\UI\enUS.csv">
+        <Link>Import\TimberDev\UI\enUS.csv</Link>
+      </Content>
+      <Content Include="..\TimberDev\UI\README.txt">
+        <Link>Import\TimberDev\UI\README.txt</Link>
+      </Content>
+      <Content Include="..\TimberDev\UI\ruRU.csv">
+        <Link>Import\TimberDev\UI\ruRU.csv</Link>
+      </Content>
+      <Content Include="..\TimberDev\UI\TimberDevStyle.uss">
+        <Link>Import\TimberDev\UI\TimberDevStyle.uss</Link>
+      </Content>
     </ItemGroup>
 
 </Project>
