@@ -34,6 +34,9 @@
       <Compile Include="..\Automation\AutomationSystem\IAutomationConditionListener.cs">
         <Link>Import\AutomationSystem\IAutomationConditionListener.cs</Link>
       </Compile>
+      <Compile Include="..\Automation\ScriptingEngineUI\ExpressionDescriber.cs">
+        <Link>Import\ScriptingEngineUI\ExpressionDescriber.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Core\ScriptError.cs">
         <Link>Import\ScriptingEngine\Core\ScriptError.cs</Link>
       </Compile>
@@ -88,8 +91,14 @@
       <Compile Include="..\Automation\ScriptingEngine\Expressions\SymbolExpr.cs">
         <Link>Import\ScriptingEngine\Expressions\SymbolExpr.cs</Link>
       </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\Configurator.cs">
+        <Link>Import\ScriptingEngine\Parser\Configurator.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\InfixExpressionUtil.cs">
         <Link>Import\Parser\InfixExpressionUtil.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\LispSyntaxParser.cs">
+        <Link>Import\ScriptingEngine\Parser\LispSyntaxParser.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\ParserBase.cs">
         <Link>Import\Parser\ParserBase.cs</Link>
@@ -269,9 +278,6 @@
       </Compile>
       <Compile Include="..\TimberDev\Utils\TimedUpdater.cs">
         <Link>Import\TimberDev\Utils\TimedUpdater.cs</Link>
-      </Compile>
-      <Compile Include="..\UnityDevLite\DebugEx.cs">
-        <Link>Import\UnityDevLite\DebugEx.cs</Link>
       </Compile>
       <Compile Include="..\UnityDevLite\HostedDebugLog.cs">
         <Link>Import\UnityDevLite\HostedDebugLog.cs</Link>
