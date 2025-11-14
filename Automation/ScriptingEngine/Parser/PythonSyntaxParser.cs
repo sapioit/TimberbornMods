@@ -144,26 +144,10 @@ class PythonSyntaxParser : ParserBase {
   }
 
   IExpression ConsumeGroup(Token stopSymbol, Queue<Token> tokens) {
-    if (stopSymbol.Value != "(") {
-      throw new ScriptError.ParsingError(stopSymbol, "Unexpected token");
-    }
-    var subExpressionTokens = new Queue<Token>();
-    var parenCount = 1;
-    while (parenCount > 0) {
-      var subToken = PopToken(tokens);
-      if (subToken is { TokenType: Token.Type.StopSymbol, Value: "(" }) {
-        parenCount++;
-      } else if (subToken is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
-        parenCount--;
-        if (parenCount == 0) {
-          break;
-        }
-      }
-      subExpressionTokens.Enqueue(subToken);
-    }
+    var subExpressionTokens = CaptureGroup(stopSymbol, tokens);
     var res = ParseExpressionInternal(-1, subExpressionTokens);
     if (subExpressionTokens.Count > 0) {
-      throw new InvalidOperationException("Unexpected token inside the group: " + subExpressionTokens.Peek());
+      throw new ScriptError.ParsingError(subExpressionTokens.Peek(), "Unexpected token");
     }
     return res;
   }
@@ -174,19 +158,15 @@ class PythonSyntaxParser : ParserBase {
         return SignalOperator.Create(CurrentContext, [SymbolExpr.Create(opToken.Value)]);
       }
     }
-    var token = PopToken(tokens);
-    if (token is not { TokenType: Token.Type.StopSymbol, Value: "(" }) {
-      throw new ScriptError.ParsingError(token, "Expected opening bracket");
-    }
+    var groupTokens = CaptureGroup(PopToken(tokens), tokens);
     var arguments = new List<IExpression>();
-    Token? firstToken = null;
-    while (tokens.Count > 0 || tokens.Peek() is not { TokenType: Token.Type.StopSymbol, Value: ")" }) {
-      firstToken ??= tokens.Peek();
-      arguments.Add(ParseExpressionInternal(-1, tokens));
-      var terminator = PopToken(tokens);
-      if (terminator is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
+    Token? firstToken = groupTokens.Count > 0  ? groupTokens.Peek() : null;
+    while (groupTokens.Count > 0) {
+      arguments.Add(ParseExpressionInternal(-1, groupTokens));
+      if (groupTokens.Count == 0) {
         break;
       }
+      var terminator = PopToken(groupTokens);
       if (terminator is not { TokenType: Token.Type.StopSymbol, Value: "," }) {
         throw new ScriptError.ParsingError(terminator, "Expected comma");
       }
@@ -211,6 +191,27 @@ class PythonSyntaxParser : ParserBase {
         ConcatFunc => ConcatOperator.Create(arguments),
         _ => throw new InvalidOperationException($"Unexpected keyword token: {opToken}"),
     };
+  }
+
+  Queue<Token> CaptureGroup(Token stopSymbol, Queue<Token> tokens) {
+    if (stopSymbol.Value != "(") {
+      throw new ScriptError.ParsingError(stopSymbol, "Unexpected token");
+    }
+    var subExpressionTokens = new Queue<Token>();
+    var parenCount = 1;
+    while (parenCount > 0) {
+      var subToken = PopToken(tokens);
+      if (subToken is { TokenType: Token.Type.StopSymbol, Value: "(" }) {
+        parenCount++;
+      } else if (subToken is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
+        parenCount--;
+        if (parenCount == 0) {
+          break;
+        }
+      }
+      subExpressionTokens.Enqueue(subToken);
+    }
+    return subExpressionTokens;
   }
 
   static Token PopToken(Queue<Token> tokens) {
