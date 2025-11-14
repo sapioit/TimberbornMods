@@ -35,58 +35,58 @@
         <Link>Import\AutomationSystem\IAutomationConditionListener.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Core\ScriptError.cs">
-        <Link>Import\Core\ScriptError.cs</Link>
+        <Link>Import\ScriptingEngine\Core\ScriptError.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Core\ScriptingService.cs">
-        <Link>Import\Core\ScriptingService.cs</Link>
+        <Link>Import\ScriptingEngine\Core\ScriptingService.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\AbstractOperator.cs">
-        <Link>Import\Expressions\AbstractOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\AbstractOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\ActionOperator.cs">
-        <Link>Import\Expressions\ActionOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\ActionOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\BinaryOperator.cs">
-        <Link>Import\Expressions\BinaryOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\BinaryOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\BoolOperator.cs">
-        <Link>Import\Expressions\BoolOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\BoolOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\ConcatOperator.cs">
-        <Link>Import\Expressions\ConcatOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\ConcatOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\ConstantValueExpr.cs">
-        <Link>Import\Expressions\ConstantValueExpr.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\ConstantValueExpr.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\ExpressionContext.cs">
-        <Link>Import\Expressions\ExpressionContext.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\ExpressionContext.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\GetPropertyOperator.cs">
-        <Link>Import\Expressions\GetPropertyOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\GetPropertyOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\HasComponentOperator.cs">
-        <Link>Import\Expressions\HasComponentOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\HasComponentOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\IExpression.cs">
-        <Link>Import\Expressions\IExpression.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\IExpression.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\IValueExpr.cs">
-        <Link>Import\Expressions\IValueExpr.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\IValueExpr.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\LogicalOperator.cs">
-        <Link>Import\Expressions\LogicalOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\LogicalOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\MathOperator.cs">
-        <Link>Import\Expressions\MathOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\MathOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\ScriptValue.cs">
-        <Link>Import\Expressions\ScriptValue.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\ScriptValue.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\SignalOperator.cs">
-        <Link>Import\Expressions\SignalOperator.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\SignalOperator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\SymbolExpr.cs">
-        <Link>Import\Expressions\SymbolExpr.cs</Link>
+        <Link>Import\ScriptingEngine\Expressions\SymbolExpr.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\InfixExpressionUtil.cs">
         <Link>Import\Parser\InfixExpressionUtil.cs</Link>
@@ -106,91 +106,91 @@
       <Compile Remove="WIP\AbstractSyntaxTree.cs" />
       <Compile Remove="WIP\AstHandler.cs" />
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\ActionDef.cs">
-        <Link>Import\ScriptableComponents\ActionDef.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\ActionDef.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\AbstractStatusTracker.cs">
-        <Link>Import\ScriptableComponents\Components\AbstractStatusTracker.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\AbstractStatusTracker.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\CollectableScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\CollectableScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\CollectableScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\Configurator.cs">
-        <Link>Import\ScriptableComponents\Components\Configurator.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\Configurator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ConstructableScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\ConstructableScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\ConstructableScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DebugScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\DebugScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\DebugScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DistrictScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\DistrictScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\DistrictScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DynamiteScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\DynamiteScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\DynamiteScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\FloodgateScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\FloodgateScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\FloodgateScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\FlowControlScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\FlowControlScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\FlowControlScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\InventoryScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\InventoryScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\InventoryScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ISignalListener.cs">
-        <Link>Import\ScriptableComponents\Components\ISignalListener.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\ISignalListener.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PausableScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\PausableScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\PausableScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PlantableScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\PlantableScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\PlantableScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PrioritizableScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\PrioritizableScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\PrioritizableScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ReferenceManager.cs">
-        <Link>Import\ScriptableComponents\Components\ReferenceManager.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\ReferenceManager.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ScriptableComponentBase.cs">
-        <Link>Import\ScriptableComponents\Components\ScriptableComponentBase.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\ScriptableComponentBase.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\SignalDispatcher.cs">
-        <Link>Import\ScriptableComponents\Components\SignalDispatcher.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\SignalDispatcher.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\SignalsScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\SignalsScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\SignalsScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\StreamGaugeScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\StreamGaugeScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\StreamGaugeScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\WeatherScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\WeatherScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\WeatherScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\WorkplaceScriptableComponent.cs">
-        <Link>Import\ScriptableComponents\Components\WorkplaceScriptableComponent.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\WorkplaceScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\AutomationExtensionsRegistry.cs">
-        <Link>Import\ScriptableComponents\Extensions\AutomationExtensionsRegistry.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Extensions\AutomationExtensionsRegistry.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\Configurator.cs">
-        <Link>Import\ScriptableComponents\Extensions\Configurator.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Extensions\Configurator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\IAutomationExtension.cs">
-        <Link>Import\ScriptableComponents\Extensions\IAutomationExtension.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Extensions\IAutomationExtension.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\IWeatherExtension.cs">
-        <Link>Import\ScriptableComponents\Extensions\IWeatherExtension.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\Extensions\IWeatherExtension.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\IScriptable.cs">
-        <Link>Import\ScriptableComponents\IScriptable.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\IScriptable.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\SignalDef.cs">
-        <Link>Import\ScriptableComponents\SignalDef.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\SignalDef.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\ValueDef.cs">
-        <Link>Import\ScriptableComponents\ValueDef.cs</Link>
+        <Link>Import\ScriptingEngine\ScriptableComponents\ValueDef.cs</Link>
       </Compile>
       <Compile Include="..\Automation\Utils\DynamicClassSerializer.cs">
         <Link>Import\Utils\DynamicClassSerializer.cs</Link>
@@ -279,6 +279,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Import\ScriptingEngine\" />
       <Folder Include="WIP\" />
     </ItemGroup>
 
