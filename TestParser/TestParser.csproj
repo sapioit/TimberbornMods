@@ -109,11 +109,11 @@
       <Compile Include="..\Automation\ScriptingEngine\Parser\PythonSyntaxParser.cs">
         <Link>Import\Parser\PythonSyntaxParser.cs</Link>
       </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\Parser\TokenizerBase.cs">
-        <Link>TokenizerBase.cs</Link>
-      </Compile>
       <Compile Remove="WIP\AbstractSyntaxTree.cs" />
       <Compile Remove="WIP\AstHandler.cs" />
+      <Compile Include="..\Automation\ScriptingEngine\Parser\TokenizerBase.cs">
+        <Link>Import\ScriptingEngine\Parser\TokenizerBase.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\ActionDef.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\ActionDef.cs</Link>
       </Compile>
