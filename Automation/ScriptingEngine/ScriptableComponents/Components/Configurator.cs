@@ -12,6 +12,8 @@ namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 [Context("Game")]
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
+    containerDefinition.Bind<SignalDispatcher>().AsTransient();
+
     // The building-specific components. 
     containerDefinition.Bind<ConstructableScriptableComponent>().AsSingleton();
     containerDefinition.Bind<DynamiteScriptableComponent>().AsSingleton();
