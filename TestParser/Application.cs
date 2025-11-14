@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using IgorZ.Automation.AutomationSystem;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Parser;
 
 namespace TestParser;
@@ -15,7 +16,7 @@ public class Application {
       // "1 * (2 / 3)",
       // "1 * 2 / 3",
       // "(1 * 2) / 3",
-      "1 % 2 % 3",
+      //"1 % 2 % 3",
       // "1 % (2 % 3)",
       // "(1 % 2) % 3",
       // "(1 % 2) / 3",
@@ -30,18 +31,23 @@ public class Application {
       // "(Inventory.OutputGood.Water == 100 and Inventory.OutputGood.Water == 200 or Inventory.OutputGood.Water == 300)",
       // "test(Inventory.OutputGood.Water == 100 and Inventory.OutputGood.Water == 200 or Inventory.OutputGood.Water == 300)",
       // "Inventory.OutputGood.Water >= 100 and not (100 == 200 % 23 + 1 or 10 != 10)",
-      //"Inventory.OutputGood.Water >= -100 and not 100 == 200 % 23 + 1 or 10 != 10 or Signals.Set('yellow', 12)",
+      "Inventory.OutputGood.Water >= -100 and not 100 == 200 % 23 + 1 or 10 != 10 or Signals.Set('yellow', 12)",
   ];
 
   void Run() {
     var parser = new PythonSyntaxParser();
+    parser.InjectDependencies(new ScriptingService());
     var behavior = new AutomationBehavior();
     foreach (var testFormula in _testSamples) {
       Console.WriteLine("Test: " + testFormula);
       var result = parser.Parse(testFormula, behavior);
       var expression = result.ParsedExpression;
-      Console.WriteLine("Deconstruct: " + parser.Decompile(expression));
-      Console.WriteLine(expression);
+      if (expression != null) {
+        Console.WriteLine("Deconstruct: " + parser.Decompile(expression));
+        Console.WriteLine(expression);
+      } else {
+        Console.WriteLine(result.LastScriptError);
+      }
       Console.WriteLine();
     }
   }
