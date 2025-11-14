@@ -276,6 +276,7 @@
       <Compile Include="..\UnityDevLite\HostedDebugLog.cs">
         <Link>Import\UnityDevLite\HostedDebugLog.cs</Link>
       </Compile>
+      <Compile Remove="WIP\PythonSyntaxParser.cs" />
     </ItemGroup>
 
     <ItemGroup>

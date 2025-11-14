@@ -66,14 +66,14 @@ class PythonSyntaxParser {
         return operand;
       }
       if (!BinaryOperatorsNames.TryGetValue(opName.Value, out var opType)) {
-        throw new ScriptError.ParsingError(opName, "Unknown operator");
+        throw new ScriptError.ParsingError(opName, "Expected operator");
       }
       var opOrder = InfixOperatorsPrecedence[opType];
       if (parentOrder >= opOrder) {
         return operand;
       }
       tokens.Dequeue(); // Consume operator.
-      operand = new BinaryOperatorNode(opType, operand, ParseExpressionInternal(opOrder, tokens));
+      operand = new BinaryOperatorNode(opName.Value, opType, operand, ParseExpressionInternal(opOrder, tokens));
     }
     return operand;
   }
@@ -84,18 +84,24 @@ class PythonSyntaxParser {
     var token = PopToken(tokens);
     // Keywords are not allowed unless they are unary operators.
     if (token.TokenType == Token.Type.Keyword) {
-      return token.Value switch {
-          "-" => new StringValueNode("-" + ConsumeOperand(tokens)),
-          "not" => new UnaryOperatorNode(
-              OperatorNode.OpType.Not,
-              ParseExpressionInternal(InfixOperatorsPrecedence[OperatorNode.OpType.Not], tokens)),
-          _ => throw new ScriptError.ParsingError(token, "Unexpected token"),
-      };
+      if (token.Value == "-") {//FIXME: use constant
+        var maybeNumber = PreviewToken(tokens);
+        if (maybeNumber.TokenType == Token.Type.NumericValue) {
+          PopToken(tokens);
+          return new NumberValueNode("-" + maybeNumber.Value);
+        }
+        return new UnaryOperatorNode(token.Value, OperatorNode.OpType.Negate, ConsumeOperand(tokens));
+      }
+      if (token.Value == "not") {  //FIXME: use constant
+        var operand = ParseExpressionInternal(InfixOperatorsPrecedence[OperatorNode.OpType.Not], tokens);
+        return new UnaryOperatorNode(token.Value, OperatorNode.OpType.Not, operand);
+      }
+      throw new ScriptError.ParsingError(token, "Unexpected token");
     }
     return token.TokenType switch {
         Token.Type.StringLiteral => new StringValueNode(token.Value),
         Token.Type.NumericValue => new NumberValueNode(token.Value),
-        Token.Type.Identifier or Token.Type.Keyword => ConsumeOperator(token, tokens),
+        Token.Type.Identifier => ConsumeOperator(token, tokens),
         Token.Type.StopSymbol => ConsumeGroup(token, tokens),
         _ => throw new Exception($"Unexpected token type: {token.TokenType}")
     };
@@ -154,6 +160,12 @@ class PythonSyntaxParser {
     return tokens.Count == 0
         ? throw new ScriptError.ParsingError("Unexpected EOF while reading expression")
         : tokens.Dequeue();
+  }
+
+  static Token PreviewToken(Queue<Token> tokens) {
+    return tokens.Count == 0
+        ? throw new ScriptError.ParsingError("Unexpected EOF while reading expression")
+        : tokens.Peek();
   }
 
   static readonly Dictionary<OperatorNode.OpType, string> PythonOperators = new() {
@@ -243,7 +255,7 @@ class PythonSyntaxParser {
 
   class Tokenizer : TokenizerBase {
     /// <inheritdoc/>
-    protected override string StringQuotes => "\"";
+    protected override string StringQuotes => "\"'";
 
     /// <inheritdoc/>
     protected override string StopSymbols => "(),+-/*%=<>";
