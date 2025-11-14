@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IgorZ.Automation.ScriptingEngine.Core;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.Settings;
 using UnityDev.Utils.LogUtilsLite;
@@ -29,17 +28,17 @@ sealed class BinaryOperator : BoolOperator {
   public IValueExpr Right => (IValueExpr)Operands[1];
   public readonly ValueDef ResultValueDef;
 
-  public static BinaryOperator CreateEq(ParserBase.Context context, IList<IExpression> operands) =>
+  public static BinaryOperator CreateEq(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.Equal, context, operands);
-  public static BinaryOperator CreateNe(ParserBase.Context context, IList<IExpression> operands) =>
+  public static BinaryOperator CreateNe(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.NotEqual, context, operands);
-  public static BinaryOperator CreateLt(ParserBase.Context context, IList<IExpression> operands) =>
+  public static BinaryOperator CreateLt(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.LessThan, context, operands);
-  public static BinaryOperator CreateLe(ParserBase.Context context, IList<IExpression> operands) =>
+  public static BinaryOperator CreateLe(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.LessThanOrEqual, context, operands);
-  public static BinaryOperator CreateGt(ParserBase.Context context, IList<IExpression> operands) =>
+  public static BinaryOperator CreateGt(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.GreaterThan, context, operands);
-  public static BinaryOperator CreateGe(ParserBase.Context context, IList<IExpression> operands) =>
+  public static BinaryOperator CreateGe(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.GreaterThanOrEqual, context, operands);
 
   /// <inheritdoc/>
@@ -47,7 +46,7 @@ sealed class BinaryOperator : BoolOperator {
     return $"{GetType().Name}({OperatorType})";
   }
 
-  BinaryOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands) : base(operands) {
+  BinaryOperator(OpType opType, ExpressionContext context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsExact(2);
     if (Operands[0] is not IValueExpr left) {

@@ -19,10 +19,10 @@ class HasComponentOperator : BoolOperator {
 
   public readonly OpType OperatorType; 
 
-  public static HasComponentOperator CreateHasSignal(ParserBase.Context context, IList<IExpression> operands) =>
+  public static HasComponentOperator CreateHasSignal(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.HasSignal, context, operands);
 
-  public static HasComponentOperator CreateHasAction(ParserBase.Context context, IList<IExpression> operands) =>
+  public static HasComponentOperator CreateHasAction(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.HasAction, context, operands); 
 
   /// <inheritdoc/>
@@ -33,7 +33,7 @@ class HasComponentOperator : BoolOperator {
   readonly AutomationBehavior _component;
   readonly ScriptingService _scriptingService;
 
-  HasComponentOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands) : base(operands) {
+  HasComponentOperator(OpType opType, ExpressionContext context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsRange(1, -1);
     _component = context.ScriptHost;

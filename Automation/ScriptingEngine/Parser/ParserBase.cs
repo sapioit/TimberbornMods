@@ -12,14 +12,10 @@ using IgorZ.Automation.ScriptingEngine.Expressions;
 namespace IgorZ.Automation.ScriptingEngine.Parser;
 
 abstract class ParserBase {
-  internal record Context {
-    public AutomationBehavior ScriptHost { get; init; }
-    public ScriptingService ScriptingService { get; init; }
-  }
 
   /// <summary>Parses expression for the given context.</summary>
   public ParsingResult Parse(string input, AutomationBehavior scriptHost) {
-    CurrentContext = new Context { ScriptHost = scriptHost, ScriptingService = _scriptingService };
+    CurrentContext = new ExpressionContext { ScriptHost = scriptHost, ScriptingService = _scriptingService };
     try {
       if (input.Contains("{%")) {
         input = Preprocess(input);
@@ -39,7 +35,7 @@ abstract class ParserBase {
   /// <summary>Processes the string input into an expression.</summary>
   protected abstract IExpression ProcessString(string input);
 
-  protected Context CurrentContext { get; private set; }
+  protected ExpressionContext CurrentContext { get; private set; }
 
   #region Implementation
 

@@ -4,9 +4,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using IgorZ.Automation.ScriptingEngine.Core;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
@@ -27,6 +25,7 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
   public Func<ScriptValue> ValueFn { get; }
 
   public static SignalOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
+  public static SignalOperator Create(ExpressionContext context, IList<IExpression> operands) =>
       new(context, operands);
 
   /// <inheritdoc/>
@@ -34,7 +33,7 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
     return $"{GetType().Name}";
   }
 
-  SignalOperator(ParserBase.Context context, IList<IExpression> operands) : base(operands) {
+  SignalOperator(ExpressionContext context, IList<IExpression> operands) : base(operands) {
     AssertNumberOfOperandsExact(1);
     if (Operands[0] is not SymbolExpr symbol) {
       throw new ScriptError.ParsingError("Bad signal name: " + Operands[0]);

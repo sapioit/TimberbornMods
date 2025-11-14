@@ -23,7 +23,7 @@ sealed class ActionOperator : AbstractOperator {
   public readonly Action Execute;
   public readonly ActionDef ActionDef;
 
-  public static ActionOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
+  public static ActionOperator Create(ExpressionContext context, IList<IExpression> operands) =>
       new(context, operands);
 
   /// <inheritdoc/>
@@ -31,7 +31,7 @@ sealed class ActionOperator : AbstractOperator {
     return $"{GetType().Name}";
   }
 
-  ActionOperator(ParserBase.Context context, IList<IExpression> operands) : base(operands) {
+  ActionOperator(ExpressionContext context, IList<IExpression> operands) : base(operands) {
     if (Operands[0] is not SymbolExpr symbol) {
       throw new ScriptError.ParsingError("Bad action name: " + Operands[0]);
     }

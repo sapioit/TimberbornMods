@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using IgorZ.Automation.ScriptingEngine.Core;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using Timberborn.BaseComponentSystem;
 
@@ -31,9 +30,9 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
   /// <summary>Tells if this operator accesses a list property.</summary>
   public bool IsList { get; }
 
-  public static GetPropertyOperator CreateGetNumber(ParserBase.Context context, IList<IExpression> operands) =>
+  public static GetPropertyOperator CreateGetNumber(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.GetNumber, context, operands);
-  public static GetPropertyOperator CreateGetString(ParserBase.Context context, IList<IExpression> operands) =>
+  public static GetPropertyOperator CreateGetString(ExpressionContext context, IList<IExpression> operands) =>
       new(OpType.GetString, context, operands);
 
   /// <inheritdoc/>
@@ -41,7 +40,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
     return $"{GetType().Name}({OperatorType})";
   }
 
-  GetPropertyOperator(OpType opType, ParserBase.Context context, IList<IExpression> operands) : base(operands) {
+  GetPropertyOperator(OpType opType, ExpressionContext context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     ValueType = opType switch {
         OpType.GetNumber => ScriptValue.TypeEnum.Number,
