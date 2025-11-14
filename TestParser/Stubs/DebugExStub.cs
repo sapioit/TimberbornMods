@@ -37,7 +37,7 @@ static class DebugEx {
   /// <seealso cref="Log"/>
   public static void Info(string format, params object[] args) {
     if (VerbosityLevel >= LogLevel.Info) {
-      Console.WriteLine("[INFO] " + format, args);
+      Console.WriteLine("[Log-INFO] " + format, args);
     }
   }
 
@@ -45,7 +45,7 @@ static class DebugEx {
   /// <inheritdoc cref="Info"/>
   public static void Fine(string format, params object[] args) {
     if (VerbosityLevel >= LogLevel.Fine) {
-      Console.WriteLine("[FINE] " + format, args);
+      Console.WriteLine("[Log-FINE] " + format, args);
     }
   }
 
@@ -53,7 +53,7 @@ static class DebugEx {
   /// <inheritdoc cref="Info"/>
   public static void Warning(string format, params object[] args) {
     if (VerbosityLevel >= LogLevel.Warning) {
-      Console.WriteLine("[WARNING] " + format, args);
+      Console.WriteLine("[Log-WARNING] " + format, args);
     }
   }
 
@@ -61,7 +61,7 @@ static class DebugEx {
   /// <inheritdoc cref="Info"/>
   public static void Error(string format, params object[] args) {
     if (VerbosityLevel >= LogLevel.Error) {
-      Console.WriteLine("[ERROR] " + format, args);
+      Console.WriteLine("[Log-ERROR] " + format, args);
     }
   }
 
