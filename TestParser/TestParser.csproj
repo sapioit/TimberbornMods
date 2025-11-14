@@ -91,26 +91,26 @@
       <Compile Include="..\Automation\ScriptingEngine\Expressions\SymbolExpr.cs">
         <Link>Import\ScriptingEngine\Expressions\SymbolExpr.cs</Link>
       </Compile>
+      <Compile Remove="WIP\AbstractSyntaxTree.cs" />
+      <Compile Remove="WIP\AstHandler.cs" />
       <Compile Include="..\Automation\ScriptingEngine\Parser\Configurator.cs">
         <Link>Import\ScriptingEngine\Parser\Configurator.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\InfixExpressionUtil.cs">
-        <Link>Import\Parser\InfixExpressionUtil.cs</Link>
+        <Link>Import\ScriptingEngine\Parser\InfixExpressionUtil.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\LispSyntaxParser.cs">
         <Link>Import\ScriptingEngine\Parser\LispSyntaxParser.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\ParserBase.cs">
-        <Link>Import\Parser\ParserBase.cs</Link>
+        <Link>Import\ScriptingEngine\Parser\ParserBase.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\ParsingResult.cs">
-        <Link>Import\Parser\ParsingResult.cs</Link>
+        <Link>Import\ScriptingEngine\Parser\ParsingResult.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\PythonSyntaxParser.cs">
-        <Link>Import\Parser\PythonSyntaxParser.cs</Link>
+        <Link>Import\ScriptingEngine\Parser\PythonSyntaxParser.cs</Link>
       </Compile>
-      <Compile Remove="WIP\AbstractSyntaxTree.cs" />
-      <Compile Remove="WIP\AstHandler.cs" />
       <Compile Include="..\Automation\ScriptingEngine\Parser\TokenizerBase.cs">
         <Link>Import\ScriptingEngine\Parser\TokenizerBase.cs</Link>
       </Compile>
@@ -283,11 +283,6 @@
         <Link>Import\UnityDevLite\HostedDebugLog.cs</Link>
       </Compile>
       <Compile Remove="WIP\PythonSyntaxParser.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Import\ScriptingEngine\" />
-      <Folder Include="WIP\" />
     </ItemGroup>
 
     <ItemGroup>
