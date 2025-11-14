@@ -185,7 +185,7 @@ public abstract class TokenizerBase {
             break;
           }
           if (symbol == '\\') {
-            if (currentPos >= input.Length || input[currentPos] != closingSymbol) {
+            if (currentPos >= input.Length || input[currentPos] != closingSymbol && input[currentPos] != '\\') {
               throw new ScriptError.ParsingError($"Bad string literal escaping at {currentPos - 1}"); 
             }
             symbol = input[currentPos++];
