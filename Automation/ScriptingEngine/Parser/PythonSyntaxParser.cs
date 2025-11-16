@@ -80,13 +80,13 @@ class PythonSyntaxParser : ParserBase {
       { MulOperator, 7 },
   };
 
+  static readonly string[] GroupTerminator = [ ")" ];
+  static readonly string[] ArgumentsTerminators = [ ")", "," ];
+
   IExpression ParseExpressionInternal(int parentPrecedence, Queue<Token> tokens) {
     var left = ConsumeValueOperand(tokens);
     while (tokens.Count > 0) {
       var opName = tokens.Peek();
-      if (opName.TokenType == Token.Type.StopSymbol) {
-        return left;
-      }
       if (!InfixOperatorsPrecedence.TryGetValue(opName.Value, out var precedence)) {
         throw new ScriptError.ParsingError(opName, "Expected operator");
       }
@@ -131,25 +131,23 @@ class PythonSyntaxParser : ParserBase {
           : MathOperator.CreateNegate(operand);
     }
 
-    // Simple values. Kind of.
+    // Expression group: ( ... )
+    if (token is { TokenType: Token.Type.StopSymbol, Value: "(" }) {
+      if (PreviewToken(tokens) is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
+        throw new ScriptError.ParsingError(token, "Expected value or operator");
+      }
+      return ConsumeSequence(tokens, GroupTerminator, out _);
+    }
+
+    // Simple values, functions and actions.
     return token.TokenType switch {
         Token.Type.StringLiteral => ConstantValueExpr.CreateStringLiteral(token.Value),
         Token.Type.NumericValue => float.TryParse(token.Value, out var value)
             ? ConstantValueExpr.CreateNumericValue(Mathf.RoundToInt(value * 100))
             : throw new ScriptError.ParsingError(token, "Not a valid float number"),
         Token.Type.Identifier or Token.Type.Keyword => ConsumeOperator(token, tokens),
-        Token.Type.StopSymbol => ConsumeGroup(token, tokens),
         _ => throw new Exception($"Unexpected token: {token}"),
     };
-  }
-
-  IExpression ConsumeGroup(Token stopSymbol, Queue<Token> tokens) {
-    var subExpressionTokens = CaptureGroup(stopSymbol, tokens);
-    var res = ParseExpressionInternal(-1, subExpressionTokens);
-    if (subExpressionTokens.Count > 0) {
-      throw new ScriptError.ParsingError(subExpressionTokens.Peek(), "Unexpected token");
-    }
-    return res;
   }
 
   IExpression ConsumeOperator(Token opToken, Queue<Token> tokens) {
@@ -158,17 +156,17 @@ class PythonSyntaxParser : ParserBase {
         return SignalOperator.Create(CurrentContext, [SymbolExpr.Create(opToken.Value)]);
       }
     }
-    var groupTokens = CaptureGroup(PopToken(tokens), tokens);
+    var open = PopToken(tokens);
+    if (open is not { TokenType: Token.Type.StopSymbol, Value: "(" }) {
+      throw new ScriptError.ParsingError(opToken, "Expected opening parenthesis");
+    }
     var arguments = new List<IExpression>();
-    Token? firstToken = groupTokens.Count > 0  ? groupTokens.Peek() : null;
-    while (groupTokens.Count > 0) {
-      arguments.Add(ParseExpressionInternal(-1, groupTokens));
-      if (groupTokens.Count == 0) {
-        break;
-      }
-      var terminator = PopToken(groupTokens);
-      if (terminator is not { TokenType: Token.Type.StopSymbol, Value: "," }) {
-        throw new ScriptError.ParsingError(terminator, "Expected comma");
+    if (PreviewToken(tokens) is not { TokenType: Token.Type.StopSymbol, Value: ")" }) {
+      while (true) {
+        arguments.Add(ConsumeSequence(tokens, ArgumentsTerminators, out var terminator));
+        if (terminator is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
+          break;
+        }
       }
     }
     if (opToken.TokenType == Token.Type.Identifier) {
@@ -176,10 +174,6 @@ class PythonSyntaxParser : ParserBase {
       return ActionOperator.Create(CurrentContext, arguments);
     }
     if (opToken.Value is GetNumFunc or GetStrFunc) {
-      if (firstToken is not { TokenType: Token.Type.StringLiteral }) {
-        throw new ScriptError.ParsingError(firstToken ?? opToken, "Expected string literal");
-      }
-      arguments[0] = SymbolExpr.Create(firstToken.Value.Value);
       return opToken.Value == GetStrFunc
           ? GetPropertyOperator.CreateGetString(CurrentContext, arguments)
           : GetPropertyOperator.CreateGetNumber(CurrentContext, arguments);
@@ -193,31 +187,38 @@ class PythonSyntaxParser : ParserBase {
     };
   }
 
-  Queue<Token> CaptureGroup(Token stopSymbol, Queue<Token> tokens) {
-    if (stopSymbol.Value != "(") {
-      throw new ScriptError.ParsingError(stopSymbol, "Unexpected token");
-    }
-    var subExpressionTokens = new Queue<Token>();
-    var parenCount = 1;
-    while (parenCount > 0) {
-      var subToken = PopToken(tokens);
-      if (subToken is { TokenType: Token.Type.StopSymbol, Value: "(" }) {
+  IExpression ConsumeSequence(Queue<Token> tokens, string[] terminators, out Token terminator) {
+    var sequence = new Queue<Token>();
+    var parenCount = 0;
+    while (true) {
+      var token = PopToken(tokens);
+      if (parenCount == 0 && token.TokenType == Token.Type.StopSymbol && terminators.Contains(token.Value)) {
+        terminator = token;
+        break;
+      } 
+      if (token is { TokenType: Token.Type.StopSymbol, Value: "(" }) {
         parenCount++;
-      } else if (subToken is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
-        parenCount--;
+      } else if (token is { TokenType: Token.Type.StopSymbol, Value: ")" }) {
         if (parenCount == 0) {
-          break;
+          throw new ScriptError.ParsingError("Unexpected EOF while reading sequence");
         }
+        parenCount--;
       }
-      subExpressionTokens.Enqueue(subToken);
+      sequence.Enqueue(token);
     }
-    return subExpressionTokens;
+    return ParseExpressionInternal(-1, sequence);
   }
 
   static Token PopToken(Queue<Token> tokens) {
     return tokens.Count == 0
         ? throw new ScriptError.ParsingError("Unexpected EOF while reading expression")
         : tokens.Dequeue();
+  }
+
+  static Token PreviewToken(Queue<Token> tokens) {
+    return tokens.Count == 0
+        ? throw new ScriptError.ParsingError("Unexpected EOF while reading expression")
+        : tokens.Peek();
   }
 
   static string DecompileInternal(IExpression expression) {
