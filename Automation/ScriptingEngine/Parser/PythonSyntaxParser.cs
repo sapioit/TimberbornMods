@@ -223,7 +223,7 @@ class PythonSyntaxParser : ParserBase {
     return expression switch {
         AbstractOperator abstractOperator => DecompileOperator(abstractOperator),
         ConstantValueExpr constExpr => constExpr.ValueType switch {
-            ScriptValue.TypeEnum.String => $"'{constExpr.ValueFn().AsString}'",
+            ScriptValue.TypeEnum.String => $"'{constExpr.ValueFn().AsString.Replace(@"\", @"\\").Replace("'", @"\'")}'",
             ScriptValue.TypeEnum.Number => constExpr.ValueFn().AsFloat.ToString("0.##"),
             _ => throw new InvalidOperationException($"Unsupported value type: {constExpr.ValueType}"),
         },
