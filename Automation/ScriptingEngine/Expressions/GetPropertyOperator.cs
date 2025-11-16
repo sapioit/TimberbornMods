@@ -69,7 +69,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
       var propertyName = parts[1];
       var property = component.GetType().GetProperty(propertyName);
       if (property == null) {
-        throw new ScriptError.ParsingError($"Property {propertyName} not found on component {componentName}");
+        throw new ScriptError.ParsingError($"Property not found: '{fullPropertyName}'");
       }
       propValueFn = () => property.GetValue(component)
           ?? (property.PropertyType == typeof(string) ? "NULL" : Activator.CreateInstance(property.PropertyType));
