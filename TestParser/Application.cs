@@ -43,9 +43,10 @@ public class Application {
        "max(12, 13, 14)/ (min (1-(2-3),2,3) / Signals.Var2)",
        "100 >= -200",
        "Signals.Set('yellow', 12)",
+       "concat(1, '-test', 2) == '1-test-2'",
   ];
 
-  readonly List<string> _mathTests = [
+  readonly List<string> _equationTests = [
       "1.5 * (20 / -5) == -6.00",
       "1.5 * -(20 / -5) == 6.00",
       "-1.5 * -(20 / -5) == -6.00",
@@ -61,9 +62,26 @@ public class Application {
       "1.006 == 1.01",
       "1 + 0.006 == 1.01",
       "1.003 + 0.003 == 1",
+      "round(1.01) == 1",
+      "round(1.61) == 2",
+      "min(1,2,3) == 1",
+      "max(1,2,3) == 3",
+      "-1 == (0 - 1)",
+      "getstr('Foobar.str') == 'test'",
+      "getstr('Foobar.strOverridden') == 'overridden'",
+      "getnum('Foobar.numInt') == 123",
+      "getnum('Foobar.numFloat') == 123.33",
+      "getnum('Foobar.strList') == 2",
+      "getstr('Foobar.strList', 1) == 'two'",
+      "getnum('Foobar.numList', 1) == 2",
+      "getnum('Foobar.boolFalse') == 0",
+      "getnum('Foobar.boolTrue') == 1",
   ];
 
   readonly List<string> _badScriptSamples = [
+      "1 + ()",
+      "1 + ((1)",
+      "1 + (1))",
       "1 + (1 + 2 + )",
       "1 + (1 + 2 + 3",
       "1 + (1 + 2 3)",
@@ -82,6 +100,15 @@ public class Application {
       "Signals.Set 1, 2, 3)",
       "max(12, 13, 14)/ (min (1-(2-3),2,3) / Test.Var1) + (Signals.Set(\"yellow1\", 34))",
       "(12 * 1 - 2) * 3 + 3 / 2 / (32 + 4) * 7 + \"te'st\" + loh.loh<=1",
+      "getnum('test')",  // Bad name format. Must be: foo.bar.
+      "getstr('Foobar.numInt')",
+      "getnum('Foobar.str)",
+      "getstr('Foobar.strList')",
+      "getnum('foobar.numList', 2)",  // Index out of range.
+      "concat()",
+      "min(1)",
+      "max(2)",
+      "round()",
   ];
 
   readonly List<string> _diffSamples = [
@@ -98,6 +125,17 @@ public class Application {
 
   void Run() {
     RegisterComponents();
+    PatchStubs.Apply();
+    var behavior = new AutomationBehavior();
+
+    //var debugStr = "( 12 * 1 - 2 ) * 3 + 3 / 2 / ( 32 + 4 ) * max(12, 13, 14) / min(1,2,3)";
+    var debugStr = "min(1,2,3)";
+    var testParser = _container.GetInstance<PythonSyntaxParser>();
+    var testResult = testParser.Parse(debugStr, behavior);
+    if (testResult.LastScriptError != null) {
+      throw testResult.LastScriptError;
+    }
+
     RunGoodScriptSamples(showErrorsOnly: true);
     RunBadScriptSamples(showErrorsOnly: true);
     RunMathExpressions(showErrorsOnly: true);
@@ -105,7 +143,6 @@ public class Application {
     var pyParser = _container.GetInstance<PythonSyntaxParser>();
     var lispParser = _container.GetInstance<LispSyntaxParser>();
     var describer = _container.GetInstance<ExpressionDescriber>();
-    var behavior = new AutomationBehavior();
     foreach (var testFormula in _diffSamples) {
       Console.WriteLine("Test: " + testFormula);
       var result = pyParser.Parse(testFormula, behavior);
@@ -125,9 +162,9 @@ public class Application {
   void RunMathExpressions(bool showErrorsOnly = false) {
     var pyParser = _container.GetInstance<PythonSyntaxParser>();
     var behavior = new AutomationBehavior();
-    Console.WriteLine("Math expressions must pass:");
+    Console.WriteLine("Equations must pass:");
     var success = 0;
-    foreach (var testFormula in _mathTests) {
+    foreach (var testFormula in _equationTests) {
       var result = pyParser.Parse(testFormula, behavior);
       if (result.ParsedExpression == null) {
         Console.WriteLine("[FAIL] Pattern: " + testFormula);
@@ -149,7 +186,7 @@ public class Application {
         Console.WriteLine("[PASS] Pattern: " + testFormula);
       }
     }
-    Console.WriteLine($"{success} of {_mathTests.Count} test samples passed\n");
+    Console.WriteLine($"{success} of {_equationTests.Count} test samples passed\n");
   }
 
   void RunGoodScriptSamples(bool showErrorsOnly = false) {
@@ -210,6 +247,7 @@ public class Application {
 
     var scriptingService = _container.GetInstance<ScriptingService>();
     scriptingService.RegisterScriptable(_container.GetInstance<SignalsScriptableComponent>());
+    scriptingService.RegisterScriptable(_container.GetInstance<FoobarScriptingComponent>());
   }
 
   class ComponentsConfigurator : IConfigurator {
@@ -218,6 +256,7 @@ public class Application {
       containerDefinition.Bind<SignalDispatcher>().AsSingleton();
       containerDefinition.Bind<ScriptingService>().AsSingleton();
       containerDefinition.Bind<SignalsScriptableComponent>().AsSingleton();
+      containerDefinition.Bind<FoobarScriptingComponent>().AsSingleton();
     }
   }
 }
