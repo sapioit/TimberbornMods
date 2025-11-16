@@ -33,7 +33,7 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
 
   /// <inheritdoc/>
   public override string ToString() {
-    return $"{GetType().Name}";
+    return $"{GetType().Name}('{FullSignalName}')";
   }
 
   SignalOperator(ExpressionContext context, IList<IExpression> operands) : base(operands) {

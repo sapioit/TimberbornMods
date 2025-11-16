@@ -28,7 +28,7 @@ sealed class ActionOperator : AbstractOperator {
 
   /// <inheritdoc/>
   public override string ToString() {
-    return $"{GetType().Name}";
+    return $"{GetType().Name}('{FullActionName}')";
   }
 
   ActionOperator(ExpressionContext context, IList<IExpression> operands) : base(operands) {
