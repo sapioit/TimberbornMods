@@ -142,36 +142,37 @@ class PythonSyntaxParser : ParserBase {
 
     // Signals ("variables" in Python syntax): Floodgate.Height
     if (token.TokenType == Token.Type.Identifier && (tokens.Count == 0 || !IsGroupOpenToken(tokens.Peek()))) {
-      return SignalOperator.Create(CurrentContext, token.Value);//LOH!
+      return SignalOperator.Create(CurrentContext, token.Value);
     }
 
-    // Values, functions and actions.
-    return token.TokenType switch {
-        Token.Type.StringLiteral => ConstantValueExpr.CreateStringLiteral(token.Value),
-        Token.Type.NumericValue => float.TryParse(token.Value, out var value)
-            ? ConstantValueExpr.CreateNumericValue(Mathf.RoundToInt(value * 100))
-            : throw new ScriptError.ParsingError(token, "Not a valid float number"),
-        Token.Type.Identifier => SignalOperator.Create(CurrentContext, token.Value),
-        Token.Type.Keyword => ConsumeFunctions(token, tokens),
-        _ => throw new Exception($"Unexpected token: {token}"),
-    };
-  }
-
-  IExpression ConsumeFunctions(Token opToken, Queue<Token> tokens) {
-    var arguments = ConsumeArgumentsGroup(tokens);
-    if (opToken.TokenType == Token.Type.Identifier) {
-      arguments.Insert(0, SymbolExpr.Create(opToken.Value)); 
-      return ActionOperator.Create(CurrentContext, arguments);
+    // Constant values.
+    if (token.TokenType == Token.Type.StringLiteral) {
+      return ConstantValueExpr.CreateStringLiteral(token.Value);
     }
-    return opToken.Value switch {
-        MinFunc => MathOperator.CreateMin(arguments),
-        MaxFunc => MathOperator.CreateMax(arguments),
-        RoundFunc => MathOperator.CreateRound(arguments),
-        ConcatFunc => ConcatOperator.Create(arguments),
-        GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, arguments),
-        GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, arguments),
-        _ => throw new InvalidOperationException($"Unexpected token: {opToken}"),
-    };
+    if (token.TokenType == Token.Type.NumericValue) {
+      return float.TryParse(token.Value, out var value)
+          ? ConstantValueExpr.CreateNumericValue(Mathf.RoundToInt(value * 100))
+          : throw new ScriptError.ParsingError(token, "Not a valid float number");
+    }
+
+    // Functions and actions.
+    if (token.TokenType is Token.Type.Identifier or Token.Type.Keyword) {
+      var arguments = ConsumeArgumentsGroup(tokens);
+      if (token.TokenType == Token.Type.Identifier) {
+        arguments.Insert(0, SymbolExpr.Create(token.Value)); 
+        return ActionOperator.Create(CurrentContext, arguments);
+      }
+      return token.Value switch {
+          MinFunc => MathOperator.CreateMin(arguments),
+          MaxFunc => MathOperator.CreateMax(arguments),
+          RoundFunc => MathOperator.CreateRound(arguments),
+          ConcatFunc => ConcatOperator.Create(arguments),
+          GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, arguments),
+          GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, arguments),
+          _ => throw new ScriptError.ParsingError(token, "Expected value or operator"),
+      };
+    }
+    throw new Exception($"Unexpected token: {token}");
   }
 
   IExpression ConsumeSequence(Queue<Token> tokens, string[] terminators, out Token terminator) {
@@ -263,6 +264,7 @@ class PythonSyntaxParser : ParserBase {
             _ => null,
         },
         GetPropertyOperator getPropertyOperator => getPropertyOperator.OperatorType switch {
+            // FIXME: fix first operand to literal
             GetPropertyOperator.OpType.GetNumber => GetNumFunc,
             GetPropertyOperator.OpType.GetString => GetStrFunc,
             _ => throw new InvalidOperationException($"Unsupported operator: {getPropertyOperator}"),
