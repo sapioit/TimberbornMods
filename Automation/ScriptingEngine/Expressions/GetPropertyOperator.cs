@@ -48,15 +48,18 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
         _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
     };
     AssertNumberOfOperandsRange(1, -1);
-    if (Operands[0] is not SymbolExpr symbol) {
-      throw new ScriptError.ParsingError($"Expected a symbol: {Operands[0]}");
-    }
-    var parts = symbol.Value.Split('.');
+    var fullPropertyName = Operands[0] switch {
+        //FIXME: handle it in the Lisp parser.
+        SymbolExpr symbol => symbol.Value,
+        ConstantValueExpr constantValueExpr => constantValueExpr.ValueFn().AsString,
+        _ => throw new InvalidOperationException($"Unexpected token: {Operands[0]}"),
+    };
+    var parts = fullPropertyName.Split('.');
     if (parts.Length != 2) {
       throw new ScriptError.ParsingError($"Bad property name: {Operands[0]}");
     }
 
-    var propValueFn = context.ScriptingService.GetPropertySource(symbol.Value, context.ScriptHost);
+    var propValueFn = context.ScriptingService.GetPropertySource(fullPropertyName, context.ScriptHost);
     if (propValueFn == null) {
       var componentName = parts[0];
       var component = GetComponentByName(context.ScriptHost, componentName);
@@ -106,10 +109,10 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
         ScriptValue.TypeEnum.Number when propType == typeof(float) => () => ScriptValue.FromFloat((float)propValueFn()),
         ScriptValue.TypeEnum.Number when propType == typeof(bool) => () => ScriptValue.FromBool((bool)propValueFn()),
         ScriptValue.TypeEnum.Number => throw new ScriptError.ParsingError(
-            $"Property {symbol.Value} is of incompatible type: {propTypeName}"),
+            $"Property {fullPropertyName} is of incompatible type: {propTypeName}"),
         ScriptValue.TypeEnum.String when propType == typeof(string) => () => ScriptValue.Of((string)propValueFn()),
         ScriptValue.TypeEnum.String => throw new ScriptError.ParsingError(
-            $"Property {symbol.Value} is of incompatible type: {propTypeName}"),
+            $"Property {fullPropertyName} is of incompatible type: {propTypeName}"),
         _ => throw new ArgumentOutOfRangeException(nameof(ValueType), ValueType, null),
     };
   }

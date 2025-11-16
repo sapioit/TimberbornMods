@@ -24,7 +24,10 @@ sealed class SignalOperator : AbstractOperator, IValueExpr {
   /// <inheritdoc/>
   public Func<ScriptValue> ValueFn { get; }
 
-  public static SignalOperator Create(ParserBase.Context context, IList<IExpression> operands) =>
+  public static SignalOperator Create(ExpressionContext context, string name) =>
+      new(context, [SymbolExpr.Create(name)]);
+
+  // FIXME: deprecate
   public static SignalOperator Create(ExpressionContext context, IList<IExpression> operands) =>
       new(context, operands);
 

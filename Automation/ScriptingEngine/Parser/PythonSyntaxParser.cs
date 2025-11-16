@@ -140,48 +140,37 @@ class PythonSyntaxParser : ParserBase {
       return ConsumeSequence(tokens, GroupTerminator, out _);
     }
 
-    // Simple values, functions and actions.
+    // Signals ("variables" in Python syntax): Floodgate.Height
+    if (token.TokenType == Token.Type.Identifier && (tokens.Count == 0 || !IsGroupOpenToken(tokens.Peek()))) {
+      return SignalOperator.Create(CurrentContext, token.Value);//LOH!
+    }
+
+    // Values, functions and actions.
     return token.TokenType switch {
         Token.Type.StringLiteral => ConstantValueExpr.CreateStringLiteral(token.Value),
         Token.Type.NumericValue => float.TryParse(token.Value, out var value)
             ? ConstantValueExpr.CreateNumericValue(Mathf.RoundToInt(value * 100))
             : throw new ScriptError.ParsingError(token, "Not a valid float number"),
-        Token.Type.Identifier or Token.Type.Keyword => ConsumeOperator(token, tokens),
+        Token.Type.Identifier => SignalOperator.Create(CurrentContext, token.Value),
+        Token.Type.Keyword => ConsumeFunctions(token, tokens),
         _ => throw new Exception($"Unexpected token: {token}"),
     };
   }
 
-  IExpression ConsumeOperator(Token opToken, Queue<Token> tokens) {
-    if (opToken.TokenType == Token.Type.Identifier && (tokens.Count == 0 || !IsGroupOpenToken(tokens.Peek()))) {
-      return SignalOperator.Create(CurrentContext, [SymbolExpr.Create(opToken.Value)]);
-    }
-    if (!IsGroupOpenToken(PopToken(tokens))) {
-      throw new ScriptError.ParsingError(opToken, "Expected opening parenthesis");
-    }
-    var arguments = new List<IExpression>();
-    if (!IsGroupCloseToken(PreviewToken(tokens))) {
-      while (true) {
-        arguments.Add(ConsumeSequence(tokens, ArgumentsTerminators, out var terminator));
-        if (IsGroupCloseToken(terminator)) {
-          break;
-        }
-      }
-    }
+  IExpression ConsumeFunctions(Token opToken, Queue<Token> tokens) {
+    var arguments = ConsumeArgumentsGroup(tokens);
     if (opToken.TokenType == Token.Type.Identifier) {
       arguments.Insert(0, SymbolExpr.Create(opToken.Value)); 
       return ActionOperator.Create(CurrentContext, arguments);
-    }
-    if (opToken.Value is GetNumFunc or GetStrFunc) {
-      return opToken.Value == GetStrFunc
-          ? GetPropertyOperator.CreateGetString(CurrentContext, arguments)
-          : GetPropertyOperator.CreateGetNumber(CurrentContext, arguments);
     }
     return opToken.Value switch {
         MinFunc => MathOperator.CreateMin(arguments),
         MaxFunc => MathOperator.CreateMax(arguments),
         RoundFunc => MathOperator.CreateRound(arguments),
         ConcatFunc => ConcatOperator.Create(arguments),
-        _ => throw new InvalidOperationException($"Unexpected keyword token: {opToken}"),
+        GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, arguments),
+        GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, arguments),
+        _ => throw new InvalidOperationException($"Unexpected token: {opToken}"),
     };
   }
 
@@ -217,6 +206,33 @@ class PythonSyntaxParser : ParserBase {
     return tokens.Count == 0
         ? throw new ScriptError.ParsingError("Unexpected EOF while reading expression")
         : tokens.Peek();
+  }
+
+  IList<IExpression> ConsumeArgumentsGroup(Queue<Token> tokens) {
+    var openToken = PopToken(tokens);
+    if (!IsGroupOpenToken(openToken)) {
+      throw new ScriptError.ParsingError(openToken, "Expected opening parenthesis");
+    }
+    var arguments = new List<IExpression>();
+    if (!IsGroupCloseToken(PreviewToken(tokens))) {
+      while (true) {
+        arguments.Add(ConsumeSequence(tokens, ArgumentsTerminators, out var terminator));
+        if (IsGroupCloseToken(terminator)) {
+          break;
+        }
+      }
+    }
+    return arguments;
+  }
+
+  [MethodImpl(MethodImplOptions.AggressiveInlining)]
+  static bool IsGroupOpenToken(Token token) {
+    return token is { TokenType: Token.Type.StopSymbol, Value: "(" };
+  }
+
+  [MethodImpl(MethodImplOptions.AggressiveInlining)]
+  static bool IsGroupCloseToken(Token token) {
+    return token is { TokenType: Token.Type.StopSymbol, Value: ")" };
   }
 
   static string DecompileInternal(IExpression expression) {
@@ -320,16 +336,6 @@ class PythonSyntaxParser : ParserBase {
     return InfixExpressionUtil.ResolvePrecedence(parent) >= InfixExpressionUtil.ResolvePrecedence(operand)
         ? $"({value})"
         : value;
-  }
-
-  [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  static bool IsGroupOpenToken(Token token) {
-    return token is { TokenType: Token.Type.StopSymbol, Value: "(" };
-  }
-
-  [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  static bool IsGroupCloseToken(Token token) {
-    return token is { TokenType: Token.Type.StopSymbol, Value: ")" };
   }
 
   #endregion
