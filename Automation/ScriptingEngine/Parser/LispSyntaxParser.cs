@@ -16,11 +16,11 @@ sealed class LispSyntaxParser : ParserBase {
 
   #region ParserBase implementation
 
-  readonly TokenizerBase _tokenizer = new Tokenizer();
+  static readonly TokenizerBase Tokenizer = new LispSyntaxTokenizer();
 
   /// <inheritdoc/>
   protected override IExpression ProcessString(string input) {
-    var tokens = _tokenizer.Tokenize(input);
+    var tokens = Tokenizer.Tokenize(input);
     var result = ReadFromTokens(tokens);
     if (tokens.Count > 0) {
       throw new ScriptError.ParsingError(tokens.Peek(), "Unexpected token at the end of the expression");
@@ -121,7 +121,7 @@ sealed class LispSyntaxParser : ParserBase {
     if (operands.Count == 0) {
       throw new ScriptError.ParsingError(token, "Empty operator expression");
     }
-    tokens.Dequeue();// ")"
+    tokens.Dequeue();  // ")"
 
     // The sequence below should be ordered by the frequency of the usage. The operators that are more likely to be
     // used in the game should come first.
@@ -176,7 +176,7 @@ sealed class LispSyntaxParser : ParserBase {
   }
 
   static void DecompileOperator(StringBuilder sb, AbstractOperator abstractOperator) {
-    sb.Append("(");
+    sb.Append('(');
     var operatorName = abstractOperator switch {
         HasComponentOperator hasComponentOperator => hasComponentOperator.OperatorType switch {
             HasComponentOperator.OpType.HasSignal => HasSignalFunc,
@@ -222,17 +222,17 @@ sealed class LispSyntaxParser : ParserBase {
     };
     sb.Append(operatorName);
     foreach (var operand in abstractOperator.Operands) {
-      sb.Append(" ");
+      sb.Append(' ');
       DecompileInternal(sb, operand);
     }
-    sb.Append(")");
+    sb.Append(')');
   }
 
   #endregion
 
   #region Tokenizer
 
-  class Tokenizer : TokenizerBase {
+  class LispSyntaxTokenizer : TokenizerBase {
     /// <inheritdoc/>
     protected override string StringQuotes => "'";
 

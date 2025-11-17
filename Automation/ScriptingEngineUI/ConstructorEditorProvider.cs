@@ -143,7 +143,7 @@ sealed class ConstructorEditorProvider : IEditorProvider {
 
   static string PrepareConstantValue(ScriptValue value) {
     return value.ValueType == ScriptValue.TypeEnum.Number
-        ? (value.AsNumber / 100f).ToString("0.##")
+        ? value.AsFloat.ToString("0.##")
         : value.AsString;
   }
 

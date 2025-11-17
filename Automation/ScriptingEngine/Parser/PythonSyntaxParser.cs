@@ -17,10 +17,10 @@ class PythonSyntaxParser : ParserBase {
 
   #region ParserBase implementation
 
-  readonly TokenizerBase _tokenizer = new Tokenizer();
+  static readonly TokenizerBase Tokenizer = new PythonSyntaxTokenizer();
 
   protected override IExpression ProcessString(string input) {
-    var tokens = _tokenizer.Tokenize(input);
+    var tokens = Tokenizer.Tokenize(input);
     var result = ParseExpressionInternal(-1, tokens);
     if (tokens.Count > 0) {
       throw new InvalidOperationException("Unexpected token at the end of the expression: " + tokens.Peek());
@@ -344,7 +344,7 @@ class PythonSyntaxParser : ParserBase {
 
   #region Tokenizer
 
-  class Tokenizer : TokenizerBase {
+  class PythonSyntaxTokenizer : TokenizerBase {
     /// <inheritdoc/>
     protected override string StringQuotes => "'\"";
 
