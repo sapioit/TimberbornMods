@@ -64,7 +64,7 @@ sealed class ConstructorEditorProvider : IEditorProvider {
     if (condition.Left is not SignalOperator signal || condition.Right is not ConstantValueExpr) {
       return false;
     }
-    if (!_scriptingService.GetSignalNamesForBuilding(ruleRow.ActiveBuilding).Contains(signal.FullSignalName)
+    if (!_scriptingService.GetSignalNamesForBuilding(ruleRow.ActiveBuilding).Contains(signal.SignalName)
         || !_scriptingService.GetActionNamesForBuilding(ruleRow.ActiveBuilding).Contains(action.FullActionName)) {
       return false;
     }
@@ -132,7 +132,7 @@ sealed class ConstructorEditorProvider : IEditorProvider {
     if (ruleRow.ParsedCondition is not BinaryOperator binaryOperatorExpr) {
       throw new InvalidOperationException("Binary operator is expected, but found: " + ruleRow.ParsedCondition);
     }
-    conditionConstructor.SignalSelector.SelectedValue = (binaryOperatorExpr.Left as SignalOperator)!.FullSignalName;
+    conditionConstructor.SignalSelector.SelectedValue = (binaryOperatorExpr.Left as SignalOperator)!.SignalName;
     conditionConstructor.OperatorSelector.SelectedValue =
         LispSyntaxParser.ComparisonOperators[binaryOperatorExpr.OperatorType];
     if (binaryOperatorExpr.Right is not ConstantValueExpr constantValue) {
