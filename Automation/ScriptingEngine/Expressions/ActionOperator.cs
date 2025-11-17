@@ -5,9 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using IgorZ.Automation.ScriptingEngine.Core;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
 using IgorZ.Automation.Settings;
 
@@ -17,35 +15,33 @@ sealed class ActionOperator : AbstractOperator {
 
   const string ActOnceNameSuffix = ".Once";
 
-  public string FullActionName => ((SymbolExpr)Operands[0]).Value;
+  public readonly string FullActionName;
   public readonly string ActionName;
   public readonly bool ExecuteOnce; 
   public readonly Action Execute;
   public readonly ActionDef ActionDef;
 
-  public static ActionOperator Create(ExpressionContext context, IList<IExpression> operands) =>
-      new(context, operands);
+  public static ActionOperator Create(ExpressionContext context, string actionName, IList<IExpression> operands) {
+    return new ActionOperator(context, actionName, operands);
+  }
 
   /// <inheritdoc/>
   public override string ToString() {
     return $"{GetType().Name}('{FullActionName}')";
   }
 
-  ActionOperator(ExpressionContext context, IList<IExpression> operands) : base(operands) {
-    if (Operands[0] is not SymbolExpr symbol) {
-      throw new ScriptError.ParsingError("Bad action name: " + Operands[0]);
-    }
-    var actionName = symbol.Value;
+  ActionOperator(ExpressionContext context, string actionName, IList<IExpression> operands) : base(operands) {
+    FullActionName = actionName;
     if (actionName.EndsWith(ActOnceNameSuffix)) {
       ExecuteOnce = true;
       actionName = actionName[..^ActOnceNameSuffix.Length];
     }
     ActionName = actionName;
     ActionDef = context.ScriptingService.GetActionDefinition(ActionName, context.ScriptHost);
-    AssertNumberOfOperandsExact(ActionDef.Arguments.Length + 1);
+    AssertNumberOfOperandsExact(ActionDef.Arguments.Length);
     var argValues = new Func<ScriptValue>[ActionDef.Arguments.Length];
     for (var i = 0; i < ActionDef.Arguments.Length; i++) {
-      var operand = Operands[i + 1];
+      var operand = Operands[i];
       if (operand is not IValueExpr valueExpr) {
         throw new ScriptError.ParsingError($"Argument #{i + 1} must be a value, but found: {operand}");
       }

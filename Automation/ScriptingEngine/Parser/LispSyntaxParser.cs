@@ -123,8 +123,17 @@ sealed class LispSyntaxParser : ParserBase {
     }
     tokens.Dequeue();  // ")"
 
-    // The sequence below should be ordered by the frequency of the usage. The operators that are more likely to be
-    // used in the game should come first.
+    if (op.Value == SigFunc) {
+      return operands.Count != 1
+          ? throw new ScriptError.ParsingError($"Operator '{SigFunc}' requires one argument")
+          : SignalOperator.Create(CurrentContext, GetSymbolName(operands, 0));
+    }
+    if (op.Value == ActMethod) {
+      return operands.Count < 1
+          ? throw new ScriptError.ParsingError($"Operator '{ActMethod}' requires one or more arguments")
+          : ActionOperator.Create(CurrentContext, GetSymbolName(operands, 0), operands[1..]);
+    }
+
     return op.Value switch {
         HasSignalFunc => HasComponentOperator.CreateHasSignal(CurrentContext, operands),
         HasActionFunc => HasComponentOperator.CreateHasAction(CurrentContext, operands),
@@ -146,13 +155,19 @@ sealed class LispSyntaxParser : ParserBase {
         MinFunc => MathOperator.CreateMin(operands),
         MaxFunc => MathOperator.CreateMax(operands),
         RoundFunc => MathOperator.CreateRound(operands),
-        SigFunc => SignalOperator.Create(CurrentContext, operands),
-        ActMethod => ActionOperator.Create(CurrentContext, operands),
         GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, operands),
         GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, operands),
         ConcatFunc => ConcatOperator.Create(operands),
         _ => throw new InvalidOperationException("Operator token not recognized: " + op),
     };
+  }
+
+  static string GetSymbolName(IList<IExpression> operands, int index) {
+    var operand = operands[index];
+    if (operand is not SymbolExpr symbolExpr) {
+      throw new ScriptError.ParsingError($"Expected symbol in argument #{index + 1}, but got :{operand}");
+    }
+    return symbolExpr.Value;
   }
 
   static void DecompileInternal(StringBuilder sb, IExpression expression) {
@@ -210,8 +225,8 @@ sealed class LispSyntaxParser : ParserBase {
             MathOperator.OpType.Round => RoundFunc,
             _ => throw new InvalidOperationException($"Unsupported operator: {mathOperator}"),
         },
-        SignalOperator => SigFunc,
-        ActionOperator => ActMethod,
+        SignalOperator sigOperator => $"{SigFunc} {sigOperator.SignalName}",
+        ActionOperator actOperator => $"{ActMethod} {actOperator.FullActionName}",
         GetPropertyOperator getPropertyOperator => getPropertyOperator.OperatorType switch {
             GetPropertyOperator.OpType.GetString => GetStrFunc,
             GetPropertyOperator.OpType.GetNumber => GetNumFunc,

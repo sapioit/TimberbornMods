@@ -140,9 +140,12 @@ class PythonSyntaxParser : ParserBase {
       return ConsumeSequence(tokens, GroupTerminator, out _);
     }
 
-    // Signals ("variables" in Python syntax): Floodgate.Height
-    if (token.TokenType == Token.Type.Identifier && (tokens.Count == 0 || !IsGroupOpenToken(tokens.Peek()))) {
-      return SignalOperator.Create(CurrentContext, token.Value);
+    // Signals ("variables" in Python syntax) and actions ("functions" in Pyhton):
+    // Floodgate.Height, Floodgate.SetHeight(12)
+    if (token.TokenType == Token.Type.Identifier) {
+      return tokens.Count == 0 || !IsGroupOpenToken(tokens.Peek())
+          ? SignalOperator.Create(CurrentContext, token.Value)
+          : ActionOperator.Create(CurrentContext, token.Value, ConsumeArgumentsGroup(tokens));
     }
 
     // Constant values.
@@ -155,13 +158,9 @@ class PythonSyntaxParser : ParserBase {
           : throw new ScriptError.ParsingError(token, "Not a valid float number");
     }
 
-    // Functions and actions.
-    if (token.TokenType is Token.Type.Identifier or Token.Type.Keyword) {
+    // Standard functions.
+    if (token.TokenType is Token.Type.Keyword) {
       var arguments = ConsumeArgumentsGroup(tokens);
-      if (token.TokenType == Token.Type.Identifier) {
-        arguments.Insert(0, SymbolExpr.Create(token.Value)); 
-        return ActionOperator.Create(CurrentContext, arguments);
-      }
       return token.Value switch {
           MinFunc => MathOperator.CreateMin(arguments),
           MaxFunc => MathOperator.CreateMax(arguments),
