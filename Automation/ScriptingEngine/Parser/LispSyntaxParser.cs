@@ -131,7 +131,14 @@ sealed class LispSyntaxParser : ParserBase {
     if (op.Value == ActMethod) {
       return operands.Count < 1
           ? throw new ScriptError.ParsingError($"Operator '{ActMethod}' requires one or more arguments")
-          : ActionOperator.Create(CurrentContext, GetSymbolName(operands, 0), operands[1..]);
+          : ActionOperator.Create(CurrentContext, GetSymbolName(operands, 0), operands.GetRange(1, operands.Count - 1));
+    }
+
+    // Special handling to the Symbol argument.
+    if (op.Value is GetStrFunc or GetNumFunc) {
+      operands[0] = operands[0] is SymbolExpr symbolExpr
+          ? ConstantValueExpr.CreateStringLiteral(symbolExpr.Value)
+          : throw new ScriptError.ParsingError($"Expected property name, but got: {operands[0]}");
     }
 
     return op.Value switch {
@@ -235,6 +242,12 @@ sealed class LispSyntaxParser : ParserBase {
         ConcatOperator => ConcatFunc,
         _ => throw new InvalidOperationException($"Unsupported operator: {abstractOperator}"),
     };
+
+    // Special handling to the Symbol argument.
+    if (operatorName is GetStrFunc or GetNumFunc) {
+      abstractOperator.Operands[0] = SymbolExpr.Create(abstractOperator.GetStringLiteral(0));
+    }
+
     sb.Append(operatorName);
     foreach (var operand in abstractOperator.Operands) {
       sb.Append(' ');
