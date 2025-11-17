@@ -111,7 +111,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
     }
     _lastValidatedBehavior = behavior;
     if (CheckPrecondition(behavior)) {
-      var expression = ParseAndValidate(Expression, behavior, out var parsingResult, onlyCheck: true);
+      var expression = ParseAndValidate(Expression, behavior, out var parsingResult, checkOnly: true);
       _lastValidationResult = expression != null;
       if (parsingResult.LastScriptError is ScriptError.BadStateError error) {
         DebugEx.Fine("Expression '{0}' is not valid at {1}: {2}", Expression, behavior, error.Message);
@@ -213,10 +213,10 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
 
   // Used by the RulesEditor dialog.
   internal static BoolOperator ParseAndValidate(
-      string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool onlyCheck = false) {
+      string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool checkOnly = false) {
     parsingResult = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(expression, behavior);
     if (parsingResult.LastError != null) {
-      if (!onlyCheck || parsingResult.LastScriptError is not ScriptError.BadStateError) {
+      if (!checkOnly || parsingResult.LastScriptError is not ScriptError.BadStateError) {
         HostedDebugLog.Error(
             behavior, "Failed to parse condition: {0}\nError: {1}", expression, parsingResult.LastError);
       }
