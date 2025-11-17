@@ -235,6 +235,23 @@ public abstract partial class TokenizerBase {
     return tokens;
   }
 
+  /// <summary>Returns a quoted and properly escaped string.</summary>
+  /// <param name="input">The plain string to quote.</param>
+  /// <param name="quoteSymbol">
+  /// Symbol to use for quotes. If not provided, then the first symbol from <see cref="StringQuotes"/> will be used.
+  /// </param>
+  public string EscapeString(string input, char? quoteSymbol = null) {
+    var quote = quoteSymbol ?? StringQuotes[0];
+    input = input.Replace(@"\", @"\\");
+    for (var i = StringQuotes.Length - 1; i >= 0; i--) {
+      var symbol = StringQuotes[i];
+      if (symbol == quote) {
+        input = input.Replace(symbol.ToString(), $"\\{symbol}");
+      }
+    }
+    return $"{quote}{input}{quote}";
+  }
+
   #endregion
 
   #region Implementation
