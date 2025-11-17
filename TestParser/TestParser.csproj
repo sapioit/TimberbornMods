@@ -8,12 +8,13 @@
         <RootNamespace>TestParser</RootNamespace>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <LangVersion>12</LangVersion>
-        <TargetFramework>net8.0-windows</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" />
       <PackageReference Include="IndexRange" Version="1.0.3" />
+      <PackageReference Include="Lib.Harmony" Version="2.4.2" />
       <PackageReference Include="protobuf-net" Version="3.0.0" />
       <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
       <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Timberborn.*.dll" Publicize="true" />

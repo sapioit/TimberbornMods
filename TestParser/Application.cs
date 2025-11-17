@@ -44,6 +44,10 @@ public class Application {
        "100 >= -200",
        "Signals.Set('yellow', 12)",
        "concat(1, '-test', 2) == '1-test-2'",
+       "getnum('Foobar.numInt')",
+       "getnum('Foobar.numFloat')",
+       "getnum('Foobar.strList')",
+       "getnum('Foobar.boolFalse')",
   ];
 
   readonly List<string> _equationTests = [
@@ -128,35 +132,9 @@ public class Application {
     PatchStubs.Apply();
     var behavior = new AutomationBehavior();
 
-    //var debugStr = "( 12 * 1 - 2 ) * 3 + 3 / 2 / ( 32 + 4 ) * max(12, 13, 14) / min(1,2,3)";
-    var debugStr = "min(1,2,3)";
-    var testParser = _container.GetInstance<PythonSyntaxParser>();
-    var testResult = testParser.Parse(debugStr, behavior);
-    if (testResult.LastScriptError != null) {
-      throw testResult.LastScriptError;
-    }
-
     RunGoodScriptSamples(showErrorsOnly: true);
     RunBadScriptSamples(showErrorsOnly: true);
     RunMathExpressions(showErrorsOnly: true);
-
-    var pyParser = _container.GetInstance<PythonSyntaxParser>();
-    var lispParser = _container.GetInstance<LispSyntaxParser>();
-    var describer = _container.GetInstance<ExpressionDescriber>();
-    foreach (var testFormula in _diffSamples) {
-      Console.WriteLine("Test: " + testFormula);
-      var result = pyParser.Parse(testFormula, behavior);
-      var expression = result.ParsedExpression;
-      if (expression != null) {
-        Console.WriteLine("pyParser.Decompile: " + pyParser.Decompile(expression));
-        Console.WriteLine("lispParser.Decompile: " + lispParser.Decompile(expression));
-        Console.WriteLine("Describe: " + describer.DescribeExpression(expression));
-        Console.WriteLine("Expression: " + expression);
-      } else {
-        Console.WriteLine(result.LastError);
-      }
-      Console.WriteLine();
-    }
   }
 
   void RunMathExpressions(bool showErrorsOnly = false) {
@@ -191,27 +169,34 @@ public class Application {
 
   void RunGoodScriptSamples(bool showErrorsOnly = false) {
     var pyParser = _container.GetInstance<PythonSyntaxParser>();
+    var lispParser = _container.GetInstance<LispSyntaxParser>();
     var behavior = new AutomationBehavior();
     Console.WriteLine("Samples that must pass:");
     var success = 0;
     foreach (var testFormula in _goodScriptSamples) {
       var result = pyParser.Parse(testFormula, behavior);
-      if (result.LastScriptError == null) {
-        var decompile =  pyParser.Decompile(result.ParsedExpression);
-        result = pyParser.Parse(decompile, behavior);
-        if (result.LastScriptError == null) {
-          success++;
-          if (showErrorsOnly) {
-            continue;
-          }
-          Console.WriteLine("[PASS] Pattern: " + testFormula);
-        } else {
-          Console.WriteLine("[FAIL] Pattern: " + testFormula);
-          Console.WriteLine("  * Decompiled: " + decompile);
-        }
-      } else {
+      if (result.LastScriptError != null) {
         Console.WriteLine("[FAIL] Pattern: " + testFormula);
-        Console.WriteLine("  * Error: " + result.LastError);
+        Console.WriteLine($"  * Python parse error: {result.LastError}");
+        continue;
+      }
+      var decompile =  pyParser.Decompile(result.ParsedExpression);
+      result = pyParser.Parse(decompile, behavior);
+      if (result.LastScriptError != null) {
+        Console.WriteLine("[FAIL] Pattern: " + testFormula);
+        Console.WriteLine($"  * Python decompiled parse error: {decompile} => {result.LastError}");
+        continue;
+      }
+      decompile = lispParser.Decompile(result.ParsedExpression);
+      result = lispParser.Parse(decompile, behavior);
+      if (result.LastScriptError != null) {
+        Console.WriteLine("[FAIL] Pattern: " + testFormula);
+        Console.WriteLine($"  * Lisp decompiled parse error: {decompile} => {result.LastError}");
+        continue;
+      }
+      success++;
+      if (!showErrorsOnly) {
+        Console.WriteLine("[PASS] Pattern: " + testFormula);
       }
     }
     Console.WriteLine($"{success} of {_goodScriptSamples.Count} test samples passed\n");
