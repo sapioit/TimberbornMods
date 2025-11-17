@@ -62,7 +62,7 @@ namespace IgorZ.Automation.ScriptingEngine.Parser;
 /// </list>
 /// </p>
 /// </remarks>
-public abstract partial class TokenizerBase {
+abstract class TokenizerBase {
 
   #region Inheritables
 
@@ -226,7 +226,7 @@ public abstract partial class TokenizerBase {
       }
 
       // Capture identifier.
-      if (!IdentifierRegexp().IsMatch(tokenString)) {
+      if (!IdentifierRegexp.IsMatch(tokenString)) {
         throw new ScriptError.ParsingError($"Invalid identifier '{tokenString}' at {tokenStartPos}-{currentPos-1}");
       }
       CheckTokenTerminated(input, tokenStartPos, currentPos);
@@ -256,8 +256,7 @@ public abstract partial class TokenizerBase {
 
   #region Implementation
 
-  [GeneratedRegex("^([a-zA-Z][a-zA-Z0-9]*)(.[a-zA-Z0-9]+)*$")]
-  private static partial Regex IdentifierRegexp();
+  static readonly Regex IdentifierRegexp = new("^([a-zA-Z][a-zA-Z0-9]*)(.[a-zA-Z0-9]+)*$");
 
   string[] _sortedStopSymbolsKeywords;
 
