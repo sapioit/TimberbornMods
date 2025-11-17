@@ -92,8 +92,8 @@ sealed class ExpressionDescriber {
     var fullProperptyName = op.GetStringLiteral(0);
     if (op.IsList) {
       return op.Operands.Count == 1
-          ? $"Count({symbol})"
-          : $"GetElement({symbol}, {DescribeExpressionInternal(op.Operands[1])})";
+          ? $"Count({fullProperptyName})"
+          : $"GetElement({fullProperptyName}, {DescribeExpressionInternal(op.Operands[1])})";
     }
     return $"ValueOf({fullProperptyName})";
   }
@@ -139,7 +139,6 @@ sealed class ExpressionDescriber {
 
     //FIXME: support multi argument versions.
     if (op.Operands.Count != 2) {
-      throw new InvalidOperationException(
       throw new InvalidOperationException($"Unexpected number of arguments {op.Operands.Count} in {op}");
     }
     var opName = op.OperatorType switch {
@@ -166,7 +165,7 @@ sealed class ExpressionDescriber {
   string DescribeActionOperator(ActionOperator op) {
     var args = new string[op.ActionDef.Arguments.Length];
     for (var i = 0; i < op.ActionDef.Arguments.Length; i++) {
-      var operand = op.Operands[i + 1] as IValueExpr;
+      var operand = op.Operands[i] as IValueExpr;
       if (EntityPanelSettings.EvalValuesInActionArguments) {
         ScriptValue value;
         try {
