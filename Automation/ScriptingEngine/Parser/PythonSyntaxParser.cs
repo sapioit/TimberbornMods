@@ -243,7 +243,6 @@ class PythonSyntaxParser : ParserBase {
             ScriptValue.TypeEnum.Number => constExpr.ValueFn().AsFloat.ToString("0.##"),
             _ => throw new InvalidOperationException($"Unsupported value type: {constExpr.ValueType}"),
         },
-        SymbolExpr symbolExpr => symbolExpr.Value,
         _ => throw new InvalidOperationException($"Unsupported expression type: {expression}"),
     };
   }
@@ -263,7 +262,6 @@ class PythonSyntaxParser : ParserBase {
             _ => null,
         },
         GetPropertyOperator getPropertyOperator => getPropertyOperator.OperatorType switch {
-            // FIXME: fix first operand to literal
             GetPropertyOperator.OpType.GetNumber => GetNumFunc,
             GetPropertyOperator.OpType.GetString => GetStrFunc,
             _ => throw new InvalidOperationException($"Unsupported operator: {getPropertyOperator}"),
