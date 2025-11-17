@@ -48,12 +48,7 @@ class GetPropertyOperator : AbstractOperator, IValueExpr {
         _ => throw new ArgumentOutOfRangeException(nameof(opType), opType, null),
     };
     AssertNumberOfOperandsRange(1, -1);
-    var fullPropertyName = Operands[0] switch {
-        //FIXME: handle it in the Lisp parser.
-        SymbolExpr symbol => symbol.Value,
-        ConstantValueExpr constantValueExpr => constantValueExpr.ValueFn().AsString,
-        _ => throw new InvalidOperationException($"Unexpected token: {Operands[0]}"),
-    };
+    var fullPropertyName = GetStringLiteral(0);
     var parts = fullPropertyName.Split('.');
     if (parts.Length != 2) {
       throw new ScriptError.ParsingError($"Bad property name: {Operands[0]}");

@@ -7,7 +7,6 @@ using System.Linq;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.Settings;
 using Timberborn.Persistence;
 using Timberborn.WorldPersistence;
@@ -85,7 +84,7 @@ sealed class SignalsScriptableComponent : ScriptableComponentBase, ISaveableSing
   /// <inheritdoc/>
   public override void InstallAction(ActionOperator actionOperator, AutomationBehavior behavior) {
     if (actionOperator.ActionName == SetActionName) {
-      var signalName = GetSignalSignalNamePrefix + ((ConstantValueExpr)actionOperator.Operands[1]).ValueFn().AsString;
+      var signalName = GetSignalSignalNamePrefix + actionOperator.GetStringLiteral(0);
       _signalDispatcher.RegisterSignalProvider(signalName, behavior, actionOperator);
     }
   }
@@ -93,7 +92,7 @@ sealed class SignalsScriptableComponent : ScriptableComponentBase, ISaveableSing
   /// <inheritdoc/>
   public override void UninstallAction(ActionOperator actionOperator, AutomationBehavior behavior) {
     if (actionOperator.ActionName == SetActionName) {
-      var signalName = GetSignalSignalNamePrefix + ((ConstantValueExpr)actionOperator.Operands[1]).ValueFn().AsString;
+      var signalName = GetSignalSignalNamePrefix + actionOperator.GetStringLiteral(0);
       _signalDispatcher.UnregisterSignalProvider(signalName, behavior, actionOperator);
     }
   }

@@ -48,7 +48,6 @@ sealed class ExpressionDescriber {
     };
   }
 
-  //FIXME: use base expression type
   string DescribeScriptValue(ScriptValue scriptValue) {
     return scriptValue.ValueType switch {
         ScriptValue.TypeEnum.String => $"'{scriptValue.AsString}'",
@@ -90,13 +89,13 @@ sealed class ExpressionDescriber {
   }
 
   string DescribeGetPropertyOperator(GetPropertyOperator op) {
-    var symbol = (op.Operands[0] as SymbolExpr)!.Value;
+    var fullProperptyName = op.GetStringLiteral(0);
     if (op.IsList) {
       return op.Operands.Count == 1
           ? $"Count({symbol})"
           : $"GetElement({symbol}, {DescribeExpressionInternal(op.Operands[1])})";
     }
-    return $"ValueOf({symbol})";
+    return $"ValueOf({fullProperptyName})";
   }
 
   string DescribeLogicalOperator(LogicalOperator op) {
@@ -141,7 +140,7 @@ sealed class ExpressionDescriber {
     //FIXME: support multi argument versions.
     if (op.Operands.Count != 2) {
       throw new InvalidOperationException(
-          $"Unexpected number of arguments {op.Operands.Count} in {op}");
+      throw new InvalidOperationException($"Unexpected number of arguments {op.Operands.Count} in {op}");
     }
     var opName = op.OperatorType switch {
         MathOperator.OpType.Add => " + ",
