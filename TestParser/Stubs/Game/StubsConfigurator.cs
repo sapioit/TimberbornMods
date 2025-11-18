@@ -3,7 +3,7 @@ using Timberborn.Localization;
 using Timberborn.SingletonSystem;
 using Timberborn.WorldPersistence;
 
-namespace TestParser.Stubs;
+namespace TestParser.Stubs.Game;
 
 class StubsConfigurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {

@@ -2,7 +2,7 @@
 using Timberborn.Persistence;
 using Timberborn.WorldPersistence;
 
-namespace TestParser;
+namespace TestParser.Stubs.Game;
 
 class SingletonLoaderStub : ISingletonLoader {
   public IObjectLoader GetSingleton(SingletonKey key) {

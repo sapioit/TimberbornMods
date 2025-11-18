@@ -8,6 +8,7 @@ using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using IgorZ.Automation.ScriptingEngineUI;
 using TestParser.Stubs;
+using TestParser.Stubs.Game;
 
 namespace TestParser;
 

@@ -2,7 +2,7 @@
 using Timberborn.Localization;
 using UnityDev.Utils.LogUtilsLite;
 
-namespace TestParser;
+namespace TestParser.Stubs.Game;
 
 class LocStub : ILoc {
   Dictionary<string, string> _localization= [];

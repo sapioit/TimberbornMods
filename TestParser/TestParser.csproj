@@ -106,6 +106,9 @@
       <Compile Include="..\Automation\ScriptingEngine\Parser\ParserBase.cs">
         <Link>Import\ScriptingEngine\Parser\ParserBase.cs</Link>
       </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Parser\ParserFactory.cs">
+        <Link>Import\ScriptingEngine\Parser\ParserFactory.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Parser\ParsingResult.cs">
         <Link>Import\ScriptingEngine\Parser\ParsingResult.cs</Link>
       </Compile>
