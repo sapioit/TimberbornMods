@@ -29,7 +29,7 @@ sealed class RuleRow {
   const string EditModeStyle = "editmode-rule";
   const string OriginalRuleStyle = "original-rule";
   const string ModifiedRuleStyle = "modified-rule";
-  const string DeletedTextStyle = "automation-deleted-text";
+  const string DeletedTextStyle = "automation-red-text";
 
   #region API
 
@@ -339,6 +339,7 @@ sealed class RuleRow {
 
   void SetTemplateFamily(string templateFamily) {
     _templateFamily = templateFamily;
+    CheckIfModified();
     if (templateFamily != null && _originalTemplateFamily != null && templateFamily != _originalTemplateFamily) {
       // Editing the template family is not supported yet.
       throw new NotImplementedException("Editing the template family is not supported yet.");
