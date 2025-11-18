@@ -129,9 +129,8 @@ sealed class LispSyntaxParser : ParserBase {
           : SignalOperator.Create(CurrentContext, GetSymbolName(operands, 0));
     }
     if (op.Value == ActMethod) {
-      return operands.Count < 1
-          ? throw new ScriptError.ParsingError($"Operator '{ActMethod}' requires one or more arguments")
-          : ActionOperator.Create(CurrentContext, GetSymbolName(operands, 0), operands.GetRange(1, operands.Count - 1));
+      return ActionOperator.Create(
+          CurrentContext, GetSymbolName(operands, 0), operands.GetRange(1, operands.Count - 1));
     }
 
     // Special handling to the Symbol argument.
