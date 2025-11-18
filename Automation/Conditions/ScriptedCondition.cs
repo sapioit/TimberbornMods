@@ -211,8 +211,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
   BoolOperator _parsedExpression;
   List<SignalOperator> _registeredSignals;
 
-  // Used by the RulesEditor dialog.
-  internal static BoolOperator ParseAndValidate(
+  static BoolOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool checkOnly = false) {
     var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
     var conditionOperator = parserFactory.ParseCondition(

@@ -36,7 +36,7 @@ class ConditionConstructor : BaseConstructor {
 
   public string Validate() => ValueSelector.Validate();
 
-  public string GetScript() {
+  public string GetLispScript() {
     var arg = SignalSelector.SelectedValue;
     var op = OperatorSelector.SelectedValue;
     var val = ValueSelector.GetScriptValue();

@@ -168,8 +168,7 @@ sealed class ScriptedAction : AutomationActionBase {
   ActionOperator _parsedExpression;
   List<ActionOperator> _installedActions;
 
-  // Used by the RulesEditor dialog.
-  internal static ActionOperator ParseAndValidate(
+  static ActionOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult) {
     var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
     var actionOperator = parserFactory.ParseAction(

@@ -8,6 +8,7 @@ using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.Settings;
 using IgorZ.TimberDev.UI;
 using UnityEngine.UIElements;
 
@@ -43,8 +44,8 @@ sealed class ConstructorEditorProvider : IEditorProvider {
         ruleRow.ReportError(error);
         return;
       }
-      ruleRow.ConditionExpression = ruleConstructor.ConditionConstructor.GetScript();
-      ruleRow.ActionExpression = ruleConstructor.ActionConstructor.GetScript();
+      ruleRow.ConditionExpression = ToDefaultSyntax(ruleConstructor.ConditionConstructor.GetLispScript(), ruleRow);
+      ruleRow.ActionExpression = ToDefaultSyntax(ruleConstructor.ActionConstructor.GetLispScript(), ruleRow);
       ruleRow.SwitchToViewMode();
     };
     root.Q<Button>("DiscardScriptBtn").clicked += ruleRow.DiscardChangesAndSwitchToViewMode;
@@ -81,10 +82,12 @@ sealed class ConstructorEditorProvider : IEditorProvider {
 
   readonly UiFactory _uiFactory;
   readonly ScriptingService _scriptingService;
+  readonly ParserFactory _parserFactory;
   
-  ConstructorEditorProvider(UiFactory uiFactory, ScriptingService scriptingService) {
+  ConstructorEditorProvider(UiFactory uiFactory, ScriptingService scriptingService, ParserFactory parserFactory) {
     _uiFactory = uiFactory;
     _scriptingService = scriptingService;
+    _parserFactory = parserFactory;
   }
 
   void PopulateConstructor(AutomationBehavior behavior, RuleConstructor ruleConstructor) {
@@ -104,6 +107,17 @@ sealed class ConstructorEditorProvider : IEditorProvider {
             Arguments = t.Arguments.Select(v => new ArgumentDefinition(_uiFactory, v)).ToArray(),
         });
     ruleConstructor.ActionConstructor.SetDefinitions(actions);
+  }
+
+  string ToDefaultSyntax(string lispSyntax, RuleRow ruleRow) {
+    if (ScriptEditorSettings.DefaultScriptSyntax == ScriptEditorSettings.ScriptSyntax.Lisp) {
+      return lispSyntax;
+    }
+    var result = _parserFactory.LispSyntaxParser.Parse(lispSyntax, ruleRow.ActiveBuilding);
+    if (result.LastScriptError != null) {
+      throw result.LastScriptError;  // Not expected!
+    }
+    return _parserFactory.DefaultParser.Decompile(result.ParsedExpression);
   }
 
   static void PopulateAction(RuleRow ruleRow, RuleConstructor ruleConstructor) {

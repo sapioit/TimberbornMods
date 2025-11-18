@@ -43,7 +43,7 @@ sealed class ScriptEditorSettings : BaseSettings<ScriptEditorSettings> {
     Lisp,
   }
 
-  public static ScriptSyntax DefaultScriptSyntax { get; private set; } = ScriptSyntax.Lisp;
+  public static ScriptSyntax DefaultScriptSyntax { get; private set; } = ScriptSyntax.Python;
   public LimitedStringModSetting DefaultScriptSyntaxInternal { get; } = new(
       0, [
           new LimitedStringModSettingValue(nameof(ScriptSyntax.Python), DefaultScriptSyntaxPythonLocKey),
