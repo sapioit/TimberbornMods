@@ -214,25 +214,15 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
   // Used by the RulesEditor dialog.
   internal static BoolOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool checkOnly = false) {
-    parsingResult = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(expression, behavior);
-    if (parsingResult.LastError != null) {
-      if (!checkOnly || parsingResult.LastScriptError is not ScriptError.BadStateError) {
-        HostedDebugLog.Error(
-            behavior, "Failed to parse condition: {0}\nError: {1}", expression, parsingResult.LastError);
-      }
-      return null;
+    var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
+    var conditionOperator = parserFactory.ParseCondition(
+        expression, behavior, out parsingResult, preferredParser: parserFactory.LispSyntaxParser);
+    if (parsingResult.LastError != null
+        && (!checkOnly || parsingResult.LastScriptError is not ScriptError.BadStateError)) {
+      HostedDebugLog.Error(
+          behavior, "Failed to parse condition: {0}\nError: {1}", expression, parsingResult.LastError);
     }
-    if (parsingResult.ParsedExpression is not BoolOperator result) {
-      HostedDebugLog.Error(behavior, "Expression is not a boolean operator: {0}", parsingResult.ParsedExpression);
-      return null;
-    }
-    var hasSignals = false;
-    result.VisitNodes(x => { hasSignals |= x is SignalOperator; });
-    if (!hasSignals) {
-      HostedDebugLog.Error(behavior, "Condition has no signals: {0}", expression);
-      return null;
-    }
-    return result;
+    return conditionOperator;
   }
 
   void ParseAndApply() {
@@ -247,7 +237,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = LispSyntaxParser.Decompile(_parsedExpression);
+    Expression = DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
     _registeredSignals = DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
     _canRunOnUnfinishedBuildings = _registeredSignals.Select(x => x.OnUnfinished).Aggregate((x, y) => x || y); 
   }

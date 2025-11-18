@@ -63,6 +63,11 @@ abstract class ScriptError : Exception {
         : base($"{reason}. Token '{token.Value}' at {token.StartPos}-{token.EndPos-1}") { }
   }
 
+  /// <summary>Parsing error with a localizable reason.</summary>
+  public class LocParsingError(string locKey, string reason) : ParsingError(reason) {
+    public string LocKey { get; } = locKey;
+  }
+
   /// <summary>The component state is not suitable for the expression.</summary>
   /// <remarks>
   /// This error is only produced during the parsing stage. If the component state becomes bad after the successful

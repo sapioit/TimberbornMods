@@ -171,14 +171,11 @@ sealed class ScriptedAction : AutomationActionBase {
   // Used by the RulesEditor dialog.
   internal static ActionOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult) {
-    parsingResult = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(expression, behavior);
+    var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
+    var actionOperator = parserFactory.ParseAction(
+        expression, behavior, out parsingResult, preferredParser: parserFactory.LispSyntaxParser);
     if (parsingResult.LastError != null) {
       HostedDebugLog.Error(behavior, "Failed to parse action: {0}\nError: {1}", expression, parsingResult.LastError);
-      return null;
-    }
-    if (parsingResult.ParsedExpression is not ActionOperator actionOperator) {
-      HostedDebugLog.Error(behavior, "Expression is not an action operator: {0}", parsingResult.ParsedExpression);
-      return null;
     }
     return actionOperator;
   }
@@ -195,7 +192,7 @@ sealed class ScriptedAction : AutomationActionBase {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = LispSyntaxParser.Decompile(_parsedExpression);
+    Expression = DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
     _installedActions = DependencyContainer.GetInstance<ScriptingService>().InstallActions(_parsedExpression, Behavior);
   }
 

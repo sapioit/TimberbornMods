@@ -12,5 +12,6 @@ sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<LispSyntaxParser>().AsSingleton();
     containerDefinition.Bind<PythonSyntaxParser>().AsSingleton();
+    containerDefinition.Bind<ParserFactory>().AsSingleton();
   }
 }
