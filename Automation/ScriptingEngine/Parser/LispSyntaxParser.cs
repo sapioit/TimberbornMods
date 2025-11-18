@@ -244,12 +244,13 @@ sealed class LispSyntaxParser : ParserBase {
     };
 
     // Special handling to the Symbol argument.
+    var operands = abstractOperator.Operands;
     if (operatorName is GetStrFunc or GetNumFunc) {
-      abstractOperator.Operands[0] = SymbolExpr.Create(abstractOperator.GetStringLiteral(0));
+      operands[0] = SymbolExpr.Create(abstractOperator.GetStringLiteral(0));
     }
 
     sb.Append(operatorName);
-    foreach (var operand in abstractOperator.Operands) {
+    foreach (var operand in operands) {
       sb.Append(' ');
       DecompileInternal(sb, operand);
     }
