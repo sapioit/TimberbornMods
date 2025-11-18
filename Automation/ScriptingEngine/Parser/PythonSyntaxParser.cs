@@ -213,15 +213,15 @@ class PythonSyntaxParser : ParserBase {
     if (!IsGroupOpenToken(openToken)) {
       throw new ScriptError.ParsingError(openToken, "Expected opening parenthesis");
     }
-    var arguments = new List<IExpression>();
-    if (!IsGroupCloseToken(PreviewToken(tokens))) {
-      while (true) {
-        arguments.Add(ConsumeSequence(tokens, ArgumentsTerminators, out var terminator));
-        if (IsGroupCloseToken(terminator)) {
-          break;
-        }
-      }
+    if (IsGroupCloseToken(PreviewToken(tokens))) {
+      PopToken(tokens);  // Consume ")"
+      return [];
     }
+    var arguments = new List<IExpression>();
+    Token terminator;
+    do {
+      arguments.Add(ConsumeSequence(tokens, ArgumentsTerminators, out terminator));
+    } while (!IsGroupCloseToken(terminator));
     return arguments;
   }
 
