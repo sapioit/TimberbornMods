@@ -89,13 +89,13 @@ sealed class ExpressionDescriber {
   }
 
   string DescribeGetPropertyOperator(GetPropertyOperator op) {
-    var fullProperptyName = op.GetStringLiteral(0);
+    var fullPropertyName = op.GetStringLiteral(0);
     if (op.IsList) {
       return op.Operands.Count == 1
-          ? $"Count({fullProperptyName})"
-          : $"GetElement({fullProperptyName}, {DescribeExpressionInternal(op.Operands[1])})";
+          ? $"Count({fullPropertyName})"
+          : $"GetElement({fullPropertyName}, {DescribeExpressionInternal(op.Operands[1])})";
     }
-    return $"ValueOf({fullProperptyName})";
+    return $"ValueOf({fullPropertyName})";
   }
 
   string DescribeLogicalOperator(LogicalOperator op) {
