@@ -68,8 +68,8 @@ sealed class ConstructorEditorProvider : IEditorProvider {
         || !_scriptingService.GetActionNamesForBuilding(ruleRow.ActiveBuilding).Contains(action.FullActionName)) {
       return false;
     }
-    if (signal.Operands.Count != 1 || action.Operands.Count > 2
-        || action.Operands.Count == 2 && action.Operands[1] is not ConstantValueExpr) {
+    if (signal.Operands.Count != 0 || action.Operands.Count > 1
+        || action.Operands.Count == 1 && action.Operands[0] is not ConstantValueExpr) {
       return false;
     }
     return true;
@@ -112,13 +112,13 @@ sealed class ConstructorEditorProvider : IEditorProvider {
     }
     var actionConstructor = ruleConstructor.ActionConstructor;
     actionConstructor.ActionSelector.SelectedValue = ruleRow.ParsedAction.FullActionName;
-    if (ruleRow.ParsedAction.Operands.Count == 1) {
+    if (ruleRow.ParsedAction.Operands.Count == 0) {
       return;
     }
-    if (ruleRow.ParsedAction.Operands.Count > 2) {
+    if (ruleRow.ParsedAction.Operands.Count > 1) {
       throw new InvalidOperationException("At most one argument is expected");
     }
-    if (ruleRow.ParsedAction.Operands[1] is not ConstantValueExpr constantValue) {
+    if (ruleRow.ParsedAction.Operands[0] is not ConstantValueExpr constantValue) {
       throw new InvalidOperationException("Constant value is expected");
     }
     actionConstructor.ArgumentConstructor.Value = PrepareConstantValue(constantValue.ValueFn());

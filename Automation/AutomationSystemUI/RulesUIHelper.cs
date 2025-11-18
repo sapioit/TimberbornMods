@@ -8,11 +8,10 @@ using System.Linq;
 using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
-using IgorZ.Automation.ScriptingEngine;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngine.ScriptableComponents;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using Timberborn.Localization;
 using UnityDev.Utils.LogUtilsLite;
 
@@ -195,9 +194,9 @@ class RulesUIHelper {
   static (string buildingSignal, string customSignal) TryGetSignalMapping(ScriptedAction scriptedAction) {
     var action = scriptedAction.ParsingResult.ParsedExpression as ActionOperator;
     var condition = ((ScriptedCondition)scriptedAction.Condition).ParsingResult.ParsedExpression;
-    if (action is not { ActionName: "Signals.Set" }
-        || action.Operands[1] is not ConstantValueExpr { ValueType: ScriptValue.TypeEnum.String } actionExpr
-        || action.Operands[2] is not SignalOperator actionSignalOperator
+    if (action is not { ActionName: SignalsScriptableComponent.SetActionName }
+        || action.Operands[0] is not ConstantValueExpr { ValueType: ScriptValue.TypeEnum.String } actionExpr
+        || action.Operands[1] is not SignalOperator actionSignalOperator
         || condition is not BinaryOperator {
             OperatorType: BinaryOperator.OpType.Equal,
             Left: SignalOperator leftSignalOperator,

@@ -20,7 +20,8 @@ sealed class SignalsScriptableComponent : ScriptableComponentBase, ISaveableSing
   const string SetSignalActionLocKey = "IgorZ.Automation.Scriptable.Signals.Action.Set";
 
   const string GetSignalSignalNamePrefix = "Signals.";
-  const string SetActionName = "Signals.Set";
+  // Used by RulesUIHelper.
+  internal const string SetActionName = "Signals.Set";
 
   #region ScriptableComponentBase implementation
 
