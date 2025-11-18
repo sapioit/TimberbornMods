@@ -49,6 +49,7 @@ public class Application {
        "getnum('Foobar.numFloat')",
        "getnum('Foobar.strList')",
        "getnum('Foobar.boolFalse')",
+       "Foobar.EmptyAction()",
   ];
 
   readonly List<string> _equationTests = [
@@ -116,22 +117,11 @@ public class Application {
       "round()",
   ];
 
-  readonly List<string> _diffSamples = [
-      // "Inventory.OutputGood.Water == 100 and Inventory.OutputGood.Water == 200 or Inventory.OutputGood.Water == 300",
-      // "(Inventory.OutputGood.Water == 100 and Inventory.OutputGood.Water == 200 or Inventory.OutputGood.Water == 300)",
-      // "test(Inventory.OutputGood.Water == 100 and Inventory.OutputGood.Water == 200 or Inventory.OutputGood.Water == 300)",
-      // "Inventory.OutputGood.Water >= 100 and not (100 == 200 % 23 + 1 or 10 != 10)",
-      //"Inventory.OutputGood.Water >= -100 and not 100 == 200 % 23 + 1 or 10 != 10 or Signals.Set('yellow', 12)",
-      //"Signals.Set('yellow', 12)",
-      "Signals.Set('yellow', 12)",
-  ];
-
   IContainer _container;
 
   void Run() {
     RegisterComponents();
     PatchStubs.Apply();
-    var behavior = new AutomationBehavior();
 
     RunGoodScriptSamples(showErrorsOnly: true);
     RunBadScriptSamples(showErrorsOnly: true);
