@@ -131,12 +131,12 @@ sealed class RuleRow {
   public void Initialize(ScriptedCondition condition, ScriptedAction action) {
     _originalConditionExpression = condition.ParsingResult.ParsedExpression != null
         ? _parserFactory.DefaultParser.Decompile(condition.ParsingResult.ParsedExpression)
-        : condition.Expression;
+        : ParserFactory.LispSyntaxPrefix + condition.Expression;
     ConditionExpression = _originalConditionExpression;
 
     _originalActionExpression = action.ParsingResult.ParsedExpression != null
         ? _parserFactory.DefaultParser.Decompile(action.ParsingResult.ParsedExpression)
-        : action.Expression;
+        : ParserFactory.LispSyntaxPrefix + action.Expression;
     ActionExpression = _originalActionExpression;
 
     _originalTemplateFamily = action.TemplateFamily;
