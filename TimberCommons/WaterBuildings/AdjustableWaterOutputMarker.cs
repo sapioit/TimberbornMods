@@ -13,7 +13,7 @@ namespace IgorZ.TimberCommons.WaterBuildings;
 
 /// <summary>This component shows an output level indicator.</summary>
 /// <remarks>
-/// It will be added to any building with <see cref="AdjustableWaterOutput"/> component with teh default settings.
+/// It will be added to any building with <see cref="AdjustableWaterOutput"/> component with the default settings.
 /// However, if it's already on the prefab, it wil retain the settings. 
 /// </remarks>
 sealed class AdjustableWaterOutputMarker : BaseComponent, ISelectionListener {
