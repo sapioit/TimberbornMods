@@ -84,6 +84,13 @@ public class Application {
       "getnum('Foobar.boolTrue') == 1",
   ];
 
+  readonly List<string> _multiArgumentOperatorsTests = [
+      "1 + 2 + (3 + 4)",
+      "1 + 2 + (3 - 4)",
+      "1 == 1 and 2 == 2 and (3 == 3 or 4 == 4)",
+      "1 == 1 or 2 == 2 or 3 == 3 and 4 == 4",
+  ];
+
   readonly List<string> _badScriptSamples = [
       "1 + ()",
       "1 + ((1)",
@@ -120,20 +127,25 @@ public class Application {
   IContainer _container;
 
   void Run() {
+    const bool showErrorsOnly = true;
     RegisterComponents();
     PatchStubs.Apply();
 
-    RunGoodScriptSamples(showErrorsOnly: true);
-    RunBadScriptSamples(showErrorsOnly: true);
-    RunMathExpressions(showErrorsOnly: true);
+    // TestOneStatement("1 + 2 + 3");
+
+    RunGoodScriptSamples(_goodScriptSamples, showErrorsOnly);
+    RunBadScriptSamples(_badScriptSamples, showErrorsOnly);
+    RunEquationTests(_equationTests, showErrorsOnly);
+    RunMultiArgumentOperatorsTests(_multiArgumentOperatorsTests, showErrorsOnly);
   }
 
-  void RunMathExpressions(bool showErrorsOnly = false) {
+  void RunEquationTests(IList<string> samples, bool showErrorsOnly = false) {
     var pyParser = _container.GetInstance<PythonSyntaxParser>();
+    var lispParser = _container.GetInstance<LispSyntaxParser>();
     var behavior = new AutomationBehavior();
     Console.WriteLine("Equations must pass:");
     var success = 0;
-    foreach (var testFormula in _equationTests) {
+    foreach (var testFormula in samples) {
       var result = pyParser.Parse(testFormula, behavior);
       if (result.ParsedExpression == null) {
         Console.WriteLine("[FAIL] Pattern: " + testFormula);
@@ -150,21 +162,66 @@ public class Application {
         Console.WriteLine("  * Evaluated to FALSE");
         continue;
       }
+      try {
+        pyParser.Decompile(result.ParsedExpression);
+        lispParser.Decompile(result.ParsedExpression);
+      } catch (Exception) {
+        Console.WriteLine("[EXCEPTION] Pattern: " + testFormula);
+        throw;
+      }
       success++;
       if (!showErrorsOnly) {
         Console.WriteLine("[PASS] Pattern: " + testFormula);
       }
     }
-    Console.WriteLine($"{success} of {_equationTests.Count} test samples passed\n");
+    Console.WriteLine($"{success} of {samples.Count} test samples passed\n");
   }
 
-  void RunGoodScriptSamples(bool showErrorsOnly = false) {
+  void RunMultiArgumentOperatorsTests(IList<string> samples, bool showErrorsOnly = false) {
+    var pyParser = _container.GetInstance<PythonSyntaxParser>();
+    var lispParser = _container.GetInstance<LispSyntaxParser>();
+    var behavior = new AutomationBehavior();
+    Console.WriteLine("Multi-argument operators must pass:");
+    var success = 0;
+    foreach (var testFormula in samples) {
+      var result = pyParser.Parse(testFormula, behavior);
+      if (result.ParsedExpression == null) {
+        Console.WriteLine("[FAIL] Pattern: " + testFormula);
+        Console.WriteLine("  * Error: " + result.LastError);
+        continue;
+      }
+      if (result.ParsedExpression is not AbstractOperator abstractOperator) {
+        Console.WriteLine("[FAIL] Pattern: " + testFormula);
+        Console.WriteLine("  * Not an operator: " + result.ParsedExpression);
+        continue;
+      }
+      if (abstractOperator.Operands.Count < 3) {
+        Console.WriteLine("[FAIL] Pattern: " + testFormula);
+        Console.WriteLine($"  * Too few operands: {abstractOperator}, operands={abstractOperator.Operands}");
+        continue;
+      }
+      try {
+        pyParser.Decompile(result.ParsedExpression);
+        lispParser.Decompile(result.ParsedExpression);
+      } catch (Exception) {
+        Console.WriteLine("[EXCEPTION] Pattern: " + testFormula);
+        throw;
+      }
+      success++;
+      if (!showErrorsOnly) {
+        Console.WriteLine("[PASS] Pattern: " + testFormula);
+      }
+    }
+    Console.WriteLine($"{success} of {samples.Count} test samples passed\n");
+  }
+
+  void RunGoodScriptSamples(IList<string> samples, bool showErrorsOnly = false) {
     var pyParser = _container.GetInstance<PythonSyntaxParser>();
     var lispParser = _container.GetInstance<LispSyntaxParser>();
     var behavior = new AutomationBehavior();
     Console.WriteLine("Samples that must pass:");
     var success = 0;
-    foreach (var testFormula in _goodScriptSamples) {
+    foreach (var testFormula in samples) {
       var result = pyParser.Parse(testFormula, behavior);
       if (result.LastScriptError != null) {
         Console.WriteLine("[FAIL] Pattern: " + testFormula);
@@ -190,27 +247,40 @@ public class Application {
         Console.WriteLine("[PASS] Pattern: " + testFormula);
       }
     }
-    Console.WriteLine($"{success} of {_goodScriptSamples.Count} test samples passed\n");
+    Console.WriteLine($"{success} of {samples.Count} test samples passed\n");
   }
 
-  void RunBadScriptSamples(bool showErrorsOnly = false) {
+  void RunBadScriptSamples(IList<string> samples, bool showErrorsOnly = false) {
     var pyParser = _container.GetInstance<PythonSyntaxParser>();
     var behavior = new AutomationBehavior();
     Console.WriteLine("Samples that must fail:");
     var success = 0;
-    foreach (var testFormula in _badScriptSamples) {
+    foreach (var testFormula in samples) {
       var result = pyParser.Parse(testFormula, behavior);
-      if (result.LastScriptError != null) {
-        success++;
-        if (showErrorsOnly) {
-          continue;
-        }
+      if (result.LastScriptError == null) {
+        Console.WriteLine("[FAIL] Pattern: " + testFormula);
+        Console.WriteLine("  * Didn't fail: " + result.ParsedExpression);
+        continue;
+      }
+      success++;
+      if (!showErrorsOnly) {
         Console.WriteLine("[PASS] Pattern: " + testFormula);
       }
-      Console.WriteLine("[FAIL] Pattern: " + testFormula);
-      Console.WriteLine("  * Expression: " + result.ParsedExpression);
     }
-    Console.WriteLine($"{success} of {_badScriptSamples.Count} test samples passed\n");
+    Console.WriteLine($"{success} of {samples.Count} test samples passed\n");
+  }
+
+  void TestOneStatement(string input) {
+    var pyParser = _container.GetInstance<PythonSyntaxParser>();
+    var lispParser = _container.GetInstance<LispSyntaxParser>();
+    var behavior = new AutomationBehavior();
+    Console.WriteLine("Testing: " + input);
+    var result = pyParser.Parse(input, behavior);
+    if (result.ParsedExpression == null) {
+      throw result.LastScriptError;
+    }
+    Console.WriteLine("Decompiled Python: " + pyParser.Decompile(result.ParsedExpression));
+    Console.WriteLine("Decompiled Lisp: " + lispParser.Decompile(result.ParsedExpression));
   }
 
   void RegisterComponents() {
