@@ -64,7 +64,7 @@ record struct ScriptValue : IComparable<ScriptValue> {
   }
 
   public static ScriptValue operator *(ScriptValue left, ScriptValue right) {
-    return new ScriptValue { _number = left.AsNumber * right.AsNumber / 100 };
+    return new ScriptValue { _number = Mathf.RoundToInt(left.AsNumber * right.AsNumber / 100f) };
   }
 
   /// <exception cref="ScriptError">if dividing by zero.</exception>
@@ -72,7 +72,7 @@ record struct ScriptValue : IComparable<ScriptValue> {
     if (right.AsNumber == 0) {
       throw new ScriptError.DivisionByZero();
     }
-    return new ScriptValue { _number = left.AsNumber * 100 / right.AsNumber};
+    return new ScriptValue { _number = Mathf.RoundToInt(left.AsNumber * 100f / right.AsNumber) };
   }
 
   public int CompareTo(ScriptValue other) {
