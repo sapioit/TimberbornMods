@@ -19,12 +19,8 @@ class LogicalOperator : BoolOperator {
 
   public readonly OpType OperatorType;
 
-  //FIXME: Return back when supported in Python & Describe
-  //public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands, 2, -1);
-  public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands, 2, 2);
-  //FIXME: Return back when supported in Python & Describe
-  //public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands, 2, -1);
-  public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands, 2, 2);
+  public static LogicalOperator CreateOr(IList<IExpression> operands) => new(OpType.Or, operands, 2, -1);
+  public static LogicalOperator CreateAnd(IList<IExpression> operands) => new(OpType.And, operands, 2, -1);
   public static LogicalOperator CreateNot(IExpression operand) => new(OpType.Not, [operand], 1, 1);
 
   /// <inheritdoc/>
