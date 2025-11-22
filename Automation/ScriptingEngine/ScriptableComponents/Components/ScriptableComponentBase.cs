@@ -45,11 +45,6 @@ abstract class ScriptableComponentBase : ILoadableSingleton, IScriptable {
   }
 
   /// <inheritdoc/>
-  public virtual Func<object> GetPropertySource(string name, AutomationBehavior behavior) {
-    return null;
-  }
-
-  /// <inheritdoc/>
   public virtual string[] GetActionNamesForBuilding(AutomationBehavior behavior) => [];
 
   /// <inheritdoc/>

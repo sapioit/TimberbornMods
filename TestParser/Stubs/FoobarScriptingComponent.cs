@@ -12,14 +12,6 @@ sealed class FoobarScriptingComponent : ScriptableComponentBase {
   const string EmptyActionName = "Foobar.EmptyAction";
 
   /// <inheritdoc/>
-  public override Func<object> GetPropertySource(string name, AutomationBehavior behavior) {
-    return name switch {
-        "Foobar.strOverridden" => () => "overridden",
-        _ => null,
-    };
-  }
-
-  /// <inheritdoc/>
   public override ActionDef GetActionDefinition(string name, AutomationBehavior behavior) {
     return name switch {
         EmptyActionName => new ActionDef {
