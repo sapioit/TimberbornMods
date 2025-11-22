@@ -44,6 +44,9 @@
       <Compile Include="..\Automation\ScriptingEngine\Core\ScriptingService.cs">
         <Link>Import\ScriptingEngine\Core\ScriptingService.cs</Link>
       </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\AbstractFunction.cs">
+        <Link>Import\ScriptingEngine\Expressions\AbstractFunction.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\AbstractOperator.cs">
         <Link>Import\ScriptingEngine\Expressions\AbstractOperator.cs</Link>
       </Compile>
@@ -64,6 +67,9 @@
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\ExpressionContext.cs">
         <Link>Import\ScriptingEngine\Expressions\ExpressionContext.cs</Link>
+      </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\Expressions\GetPropertyFunction.cs">
+        <Link>Import\ScriptingEngine\Expressions\GetPropertyFunction.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\GetPropertyOperator.cs">
         <Link>Import\ScriptingEngine\Expressions\GetPropertyOperator.cs</Link>

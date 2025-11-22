@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Timberborn.BaseComponentSystem;
+using Timberborn.Common;
 
 namespace TestParser.Stubs;
 
@@ -13,6 +14,8 @@ sealed class Foobar : BaseComponent {
   public bool boolFalse => false;
   public bool boolTrue => true;
   public string str => "test";
-  public IList<string> strList => ["one", "two"];
-  public IList<int> numList => [1, 2];
+  public List<string> strList => ["one", "two"];
+  public List<int> numList => [1, 2];
+  public IEnumerable<int> numEnumerable => [1, 2];
+  public ReadOnlyHashSet<int> numReadOnlyHashSet => new([1, 2]);  // Timberborn specific type.
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
@@ -74,7 +75,6 @@ public class Application {
       "max(1,2,3) == 3",
       "-1 == (0 - 1)",
       "getstr('Foobar.str') == 'test'",
-      "getstr('Foobar.strOverridden') == 'overridden'",
       "getnum('Foobar.numInt') == 123",
       "getnum('Foobar.numFloat') == 123.33",
       "getnum('Foobar.strList') == 2",
@@ -114,10 +114,14 @@ public class Application {
       "max(12, 13, 14)/ (min (1-(2-3),2,3) / Test.Var1) + (Signals.Set(\"yellow1\", 34))",
       "(12 * 1 - 2) * 3 + 3 / 2 / (32 + 4) * 7 + \"te'st\" + loh.loh<=1",
       "getnum('test')",  // Bad name format. Must be: foo.bar.
-      "getstr('Foobar.numInt')",
-      "getnum('Foobar.str)",
+      "getstr('Foobar.numInt') == 'foo'",  // getstr auto detects value type.
+      "getnum('Foobar.str') == 1",  // getnum auto detects value type.
       "getstr('Foobar.strList')",
       "getnum('foobar.numList', 2)",  // Index out of range.
+      "getnum('foobar.numList', 1, 1)",
+      "getnum(1)",
+      "getnum(Signals.Var1)", // must be a string literal
+      //FIXME: try non-value index or non-constant name.
       "concat()",
       "min(1)",
       "max(2)",
@@ -131,7 +135,7 @@ public class Application {
     RegisterComponents();
     PatchStubs.Apply();
 
-    // TestOneStatement("1 + 2 + 3");
+    //TestOneStatement("getnum(Signals.Var1)");
 
     RunGoodScriptSamples(_goodScriptSamples, showErrorsOnly);
     RunBadScriptSamples(_badScriptSamples, showErrorsOnly);
@@ -278,6 +282,11 @@ public class Application {
     var result = pyParser.Parse(input, behavior);
     if (result.ParsedExpression == null) {
       throw result.LastScriptError;
+    }
+    if (result.ParsedExpression is BoolOperator boolOperator && !boolOperator.Execute()) {
+      Console.WriteLine("[FAIL] Pattern: " + input);
+      Console.WriteLine("  * Boolean operator executed to FALSE");
+      return;
     }
     Console.WriteLine("Decompiled Python: " + pyParser.Decompile(result.ParsedExpression));
     Console.WriteLine("Decompiled Lisp: " + lispParser.Decompile(result.ParsedExpression));
