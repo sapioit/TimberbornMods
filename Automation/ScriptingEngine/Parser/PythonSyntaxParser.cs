@@ -159,6 +159,9 @@ class PythonSyntaxParser : ParserBase {
     // Signals ("variables" in Python syntax) and actions ("functions" in Python):
     // Floodgate.Height, Floodgate.SetHeight(12)
     if (token.TokenType == Token.Type.Identifier) {
+      if (!token.Value.Contains(".")) {
+        throw new ScriptError.ParsingError(token, "Unknown function");
+      }
       return tokens.Count == 0 || !IsGroupOpenToken(tokens.Peek())
           ? SignalOperator.Create(CurrentContext, token.Value)
           : ActionOperator.Create(CurrentContext, token.Value, ConsumeArgumentsGroup(tokens));
