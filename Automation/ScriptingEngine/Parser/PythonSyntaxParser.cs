@@ -62,6 +62,9 @@ class PythonSyntaxParser : ParserBase {
   const string RoundFunc = "round";
   const string GetStrFunc = "getstr";
   const string GetNumFunc = "getnum";
+  const string GetValueFunc = "getvalue";
+  const string GetElementFunc = "getelement";
+  const string GetLenFunc = "getlen";
   const string ConcatFunc = "concat";
 
   static readonly Dictionary<string, int> InfixOperatorsPrecedence = new() {
@@ -177,20 +180,35 @@ class PythonSyntaxParser : ParserBase {
           : throw new ScriptError.ParsingError(token, "Not a valid float number");
     }
 
-    // Standard functions.
-    if (token.TokenType is Token.Type.Keyword) {
-      var arguments = ConsumeArgumentsGroup(tokens);
-      return token.Value switch {
-          MinFunc => MathOperator.CreateMin(arguments),
-          MaxFunc => MathOperator.CreateMax(arguments),
-          RoundFunc => MathOperator.CreateRound(arguments),
-          ConcatFunc => ConcatOperator.Create(arguments),
-          GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, arguments),
-          GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, arguments),
-          _ => throw new ScriptError.ParsingError(token, "Expected value or operator"),
-      };
+    if (token.TokenType != Token.Type.Keyword) {
+      throw new Exception($"Unexpected token: {token}");
     }
-    throw new Exception($"Unexpected token: {token}");
+
+    // Functions.
+    var arguments = ConsumeArgumentsGroup(tokens);
+    if (token.Value == GetValueFunc) {
+      AssertNumberOfOperandsExact(token, arguments, 1);
+      return GetPropertyFunction.CreateGetOrdinary(CurrentContext, UnwrapStringLiteralExpr(token, arguments, 0));
+    }
+    if (token.Value == GetElementFunc) {
+      AssertNumberOfOperandsExact(token, arguments, 2);
+      return GetPropertyFunction.CreateGetCollectionElement(
+          CurrentContext, UnwrapStringLiteralExpr(token, arguments, 0), arguments[1]);
+    }
+    if (token.Value == GetLenFunc) {
+      AssertNumberOfOperandsExact(token, arguments, 1);
+      return GetPropertyFunction.CreateGetCollectionLength(
+          CurrentContext, UnwrapStringLiteralExpr(token, arguments, 0));
+    }
+    return token.Value switch {
+        MinFunc => MathOperator.CreateMin(arguments),
+        MaxFunc => MathOperator.CreateMax(arguments),
+        RoundFunc => MathOperator.CreateRound(arguments),
+        ConcatFunc => ConcatOperator.Create(arguments),
+        GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, arguments),
+        GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, arguments),
+        _ => throw new ScriptError.ParsingError(token, "Unknown function"),
+    };
   }
 
   IExpression ConsumeSequence(Queue<Token> tokens, string[] terminators, out Token terminator) {
@@ -256,6 +274,7 @@ class PythonSyntaxParser : ParserBase {
 
   static string DecompileInternal(IExpression expression) {
     return expression switch {
+        AbstractFunction abstractFunction => DecompileFunction(abstractFunction),
         AbstractOperator abstractOperator => DecompileOperator(abstractOperator),
         ConstantValueExpr constExpr => constExpr.ValueType switch {
             ScriptValue.TypeEnum.String => Tokenizer.EscapeString(constExpr.ValueFn().AsString),
@@ -336,6 +355,20 @@ class PythonSyntaxParser : ParserBase {
     return $"{leftValue} {opName} {rightValue}";
   }
 
+  static string DecompileFunction(AbstractFunction function) {
+    if (function is GetPropertyFunction getPropertyFunction) {
+      var propertyName = getPropertyFunction.PropertyFullName;
+      return getPropertyFunction.FunctionName switch {
+          GetPropertyFunction.FuncName.Value => $"{GetValueFunc}('{propertyName}')",
+          GetPropertyFunction.FuncName.Element =>
+              $"{GetElementFunc}('{propertyName}', {DecompileInternal(getPropertyFunction.IndexExpr)})",
+          GetPropertyFunction.FuncName.Length => $"{GetLenFunc}('{propertyName}')",
+          _ => throw new InvalidOperationException($"Unexpected GetPropertyFunction: {propertyName}"),
+      };
+    }
+    throw new InvalidOperationException($"Unsupported expression type: {function}");
+  }
+
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   static string DecompileLeft(IExpression operand, IExpression parent) {
     var value = DecompileInternal(operand);
@@ -370,7 +403,7 @@ class PythonSyntaxParser : ParserBase {
         // Math functions.
         MinFunc, MaxFunc, RoundFunc,
         // Get property operators.
-        GetStrFunc, GetNumFunc,
+        GetStrFunc, GetNumFunc, GetValueFunc, GetElementFunc, GetLenFunc,
         // Concat operator.
         ConcatFunc,
     ];

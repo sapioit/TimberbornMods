@@ -3,15 +3,19 @@
 // License: Public Domain
 
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
+using Token = IgorZ.Automation.ScriptingEngine.Parser.TokenizerBase.Token;
 
 namespace IgorZ.Automation.ScriptingEngine.Parser;
 
 abstract class ParserBase {
+
+  #region API
 
   /// <summary>Parses expression for the given context.</summary>
   public ParsingResult Parse(string input, AutomationBehavior scriptHost) {
@@ -32,10 +36,40 @@ abstract class ParserBase {
   /// <summary>Serializes expression back to the parsable form.</summary>
   public abstract string Decompile(IExpression expression);
 
+  #endregion
+
+  #region Inherited
+
   /// <summary>Processes the string input into an expression.</summary>
   protected abstract IExpression ProcessString(string input);
 
   protected ExpressionContext CurrentContext { get; private set; }
+
+  protected static void AssertNumberOfOperandsExact(Token token, IList<IExpression> arguments, int expected) {
+    var count = arguments.Count;
+    if (expected != count) {
+      throw new ScriptError.ParsingError(token, $"Expected exactly {expected} arguments, but got {count}");
+    }
+  }
+
+  protected static string GetSymbolValue(Token token, IList<IExpression> operands, int index) {
+    var operand = operands[index];
+    if (operand is not SymbolExpr symbolExpr) {
+      throw new ScriptError.ParsingError(token, $"Expected symbol at position #{index + 1}, but got: {operand}");
+    }
+    return symbolExpr.Value;
+  }
+
+  protected static string UnwrapStringLiteralExpr(Token token, IList<IExpression> expressions, int index) {
+    if (index >= expressions.Count) {
+      throw new ScriptError.ParsingError(token, $"Not enough arguments");
+    }
+    return expressions[index] is ConstantValueExpr { ValueType: ScriptValue.TypeEnum.String } constantValueExpr
+        ? constantValueExpr.ValueFn().AsString
+        : throw new ScriptError.ParsingError(token, $"Expected string literal at position {index + 1}");
+  }
+
+  #endregion
 
   #region Implementation
 

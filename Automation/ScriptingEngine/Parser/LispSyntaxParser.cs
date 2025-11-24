@@ -77,6 +77,9 @@ sealed class LispSyntaxParser : ParserBase {
   const string ActMethod = "act";
   const string GetStrFunc = "getstr";
   const string GetNumFunc = "getnum";
+  const string GetValueFunc = "getvalue";
+  const string GetElementFunc = "getelement";
+  const string GetLenFunc = "getlen";
   const string ConcatFunc = "concat";
 
   static void CheckHasMoreTokens(Queue<Token> tokens) {
@@ -124,13 +127,12 @@ sealed class LispSyntaxParser : ParserBase {
     tokens.Dequeue();  // ")"
 
     if (op.Value == SigFunc) {
-      return operands.Count != 1
-          ? throw new ScriptError.ParsingError($"Operator '{SigFunc}' requires one argument")
-          : SignalOperator.Create(CurrentContext, GetSymbolName(operands, 0));
+      AssertNumberOfOperandsExact(op, operands, 1);
+      return SignalOperator.Create(CurrentContext, GetSymbolValue(op, operands, 0));
     }
     if (op.Value == ActMethod) {
       return ActionOperator.Create(
-          CurrentContext, GetSymbolName(operands, 0), operands.GetRange(1, operands.Count - 1));
+          CurrentContext, GetSymbolValue(op, operands, 0), operands.GetRange(1, operands.Count - 1));
     }
 
     // Special handling to the Symbol argument.
@@ -140,6 +142,22 @@ sealed class LispSyntaxParser : ParserBase {
           : throw new ScriptError.ParsingError($"Expected property name, but got: {operands[0]}");
     }
 
+    // Fixed arguments functions.
+    if (op.Value == GetValueFunc) {
+      AssertNumberOfOperandsExact(op, operands, 1);
+      return GetPropertyFunction.CreateGetOrdinary(CurrentContext, GetSymbolValue(op, operands, 0));
+    }
+    if (op.Value == GetElementFunc) {
+      AssertNumberOfOperandsExact(op, operands, 2);
+      return GetPropertyFunction.CreateGetCollectionElement(
+          CurrentContext, GetSymbolValue(op, operands, 0), operands[1]);
+    }
+    if (op.Value == GetLenFunc) {
+      AssertNumberOfOperandsExact(op, operands, 1);
+      return GetPropertyFunction.CreateGetCollectionLength(CurrentContext, GetSymbolValue(op, operands, 0));
+    }
+
+    // Functions that validate operands internally.
     return op.Value switch {
         HasSignalFunc => HasComponentOperator.CreateHasSignal(CurrentContext, operands),
         HasActionFunc => HasComponentOperator.CreateHasAction(CurrentContext, operands),
@@ -168,16 +186,11 @@ sealed class LispSyntaxParser : ParserBase {
     };
   }
 
-  static string GetSymbolName(IList<IExpression> operands, int index) {
-    var operand = operands[index];
-    if (operand is not SymbolExpr symbolExpr) {
-      throw new ScriptError.ParsingError($"Expected symbol in argument #{index + 1}, but got :{operand}");
-    }
-    return symbolExpr.Value;
-  }
-
   static void DecompileInternal(StringBuilder sb, IExpression expression) {
     switch (expression) {
+      case AbstractFunction abstractFunction:
+        DecompileFunction(sb, abstractFunction);
+        break;
       case AbstractOperator abstractOperator:
         DecompileOperator(sb, abstractOperator);
         break;
@@ -193,6 +206,32 @@ sealed class LispSyntaxParser : ParserBase {
         break;
       default:
         throw new InvalidOperationException($"Unsupported expression type: {expression}");
+    }
+  }
+
+  static void DecompileFunction(StringBuilder sb, AbstractFunction function) {
+    switch (function) {
+      case GetPropertyFunction getPropertyFunction: {
+        string res;
+        switch (getPropertyFunction.FunctionName) {
+          case GetPropertyFunction.FuncName.Value:
+            sb.Append($"({GetValueFunc} {getPropertyFunction.PropertyFullName})");
+            break;
+          case GetPropertyFunction.FuncName.Element:
+            sb.Append($"({GetElementFunc} {getPropertyFunction.PropertyFullName} ");
+            DecompileInternal(sb, getPropertyFunction.IndexExpr);
+            sb.Append(")");
+            break;
+          case GetPropertyFunction.FuncName.Length:
+            sb.Append($"({GetLenFunc} {getPropertyFunction.PropertyFullName})");
+            break;
+          default:
+            throw new InvalidOperationException($"Unexpected GetPropertyFunction: {getPropertyFunction.FunctionName}");
+        }
+        return;
+      }
+      default:
+        throw new InvalidOperationException($"Unsupported expression type: {function}");
     }
   }
 
@@ -281,7 +320,7 @@ sealed class LispSyntaxParser : ParserBase {
         // Signal/action operators.
         SigFunc, ActMethod,
         // Get property operators.
-        GetStrFunc, GetNumFunc,
+        GetStrFunc, GetNumFunc, GetValueFunc, GetElementFunc, GetLenFunc,
         // Concat operator.
         ConcatFunc,
     ];

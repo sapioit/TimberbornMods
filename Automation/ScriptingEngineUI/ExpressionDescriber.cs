@@ -3,6 +3,7 @@
 // License: Public Domain
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IgorZ.Automation.ScriptingEngine.Core;
@@ -36,6 +37,7 @@ sealed class ExpressionDescriber {
 
   string DescribeExpressionInternal(IExpression expression) {
     return expression switch {
+        AbstractFunction abstractFunction => DescribeFunction(abstractFunction),
         ActionOperator actionOperator => DescribeActionOperator(actionOperator),
         BinaryOperator binaryOperator => DescribeComparisonOperator(binaryOperator),
         ConcatOperator concatOperator => concatOperator.ValueFn().AsString,
@@ -86,6 +88,21 @@ sealed class ExpressionDescriber {
     }
 
     return sb.ToString();
+  }
+
+  string DescribeFunction(AbstractFunction function) {
+    if (function is GetPropertyFunction getPropertyFunction) {
+      var propertyName = getPropertyFunction.PropertyFullName;
+      return getPropertyFunction.FunctionName switch {
+          GetPropertyFunction.FuncName.Value => $"ValueOf({propertyName})",
+          GetPropertyFunction.FuncName.Element =>
+              $"GetElement({propertyName}, {DescribeExpressionInternal(getPropertyFunction.IndexExpr)})",
+          GetPropertyFunction.FuncName.Length => $"Count({propertyName})",
+          _ => throw new InvalidOperationException(
+              $"Unexpected GetPropertyFunction type: {getPropertyFunction.FunctionName}")
+      };
+    }
+    throw new InvalidOperationException($"Unexpected function: {function}");
   }
 
   string DescribeGetPropertyOperator(GetPropertyOperator op) {
