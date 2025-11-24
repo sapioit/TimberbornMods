@@ -5,7 +5,12 @@ using UnityDev.Utils.LogUtilsLite;
 namespace TestParser.Stubs.Game;
 
 class LocStub : ILoc {
-  Dictionary<string, string> _localization= [];
+  Dictionary<string, string> _localization = new() {
+      { "IgorZ.Automation.Scripting.Expressions.AndOperator", "AND" },
+      { "IgorZ.Automation.Scripting.Expressions.OrOperator", "OR" },
+      { "IgorZ.Automation.Scriptable.Signals.Signal.Get", "Signal({0})" },
+      { "IgorZ.Automation.Scriptable.Signals.Action.Set", "SetSignal({0})" },
+  };
 
   readonly Dictionary<string, TextLocalizationWrapper> _localizationCache = new();
 

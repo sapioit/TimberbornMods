@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
@@ -22,38 +21,60 @@ public class Application {
   readonly Dictionary<string, string> _localizations = new();
 
   readonly List<string> _goodScriptSamples = [
-       "1 * (2 / 3)",
-       "1 * 2 / 3",
-       "(1 * 2) / 3",
-      "1 % 2 % 3",
-       "1 % (2 % 3)",
-       "(1 % 2) % 3",
-       "(1 % 2) / 3",
-       "1 % 2 / 3",
-       "( 12 * 1 - 2 ) * 3 + 3 / 2 / ( 32 + 4 ) * 7",
-       "\"te'st\" == 'te\\'st'",
-       "'te\"st' == \"te\\\"st\"",
-       @"'te\\st' == 'te\\st'",
-       "'test' != 'test2'",
-       "-1.",
-       "12.",
-       "123.0",
-       "-123.0",
-       "123.-10",  // 123.0 - 10
-       "( 12 * 1 - 2 ) * 3 + 3 / 2 / ( 32 + 4 ) * max(12, 13, 14) / min(1,2,3)",
-       "max(12, 13, 14)/ (min ((1-2)-3,2,3) / Signals.Var1)",
-       "max(12, 13, 14)/ (min (1-(2-3),2,3) / Signals.Var2)",
-       "100 >= -200",
-       "Signals.Set('yellow', 12)",
-       "concat(1, '-test-', 2) == '1-test-2'",
-       "getnum('Foobar.numInt')",
-       "getnum('Foobar.numFloat')",
-       "getnum('Foobar.strList')",
-       "getnum('Foobar.boolFalse')",
-       "Foobar.EmptyAction()",
-  ];
+      // String constants
+      "\"te'st\" == 'te\\'st'",
+      "'te\"st' == \"te\\\"st\"",
+      @"'te\\st' == 'te\\st'",
+      "'test' != 'test2'",
 
-  readonly List<string> _equationTests = [
+      // Number constants
+      "-1. == -1",
+      "12. == 12",
+      "123.0 == 123",
+      "-123.0 == -123",
+      "123.-10 == 113",  // 123.0 - 10
+
+      // Custom signals.
+      "Signals.Set('yellow', 12)",
+      "Signals.Set('yellow', Signals.Var1 + 123)",
+
+      // Actions
+      "Foobar.EmptyAction()",
+      "Foobar.OneArgumentAction(1)",
+      "Foobar.OneArgumentAction(Signals.Var1 + 123)",
+
+      // Concat function.
+      "concat(1, '-test-', 2) == '1-test-2'",
+      "concat(Signals.Var1, '-test-', 1+2+3) == '0-test-6'",
+
+      // Get property operator.
+      "getstr('Foobar.str') == 'test'",
+      "getnum('Foobar.numInt') == 123",
+      "getnum('Foobar.numFloat') == 123.33",
+      "getnum('Foobar.strList') == 2",
+      "getstr('Foobar.strList', 1) == 'two'",
+      "getstr('Foobar.strList', Signals.Var1 + 1) == 'two'",
+      "getnum('Foobar.numList', 1) == 2",
+      "getnum('Foobar.boolFalse') == 0",
+      "getnum('Foobar.boolTrue') == 1",
+      "getvalue('Foobar.str') == 'test'",
+      "getvalue('Foobar.numInt') == 123",
+      "getvalue('Foobar.numFloat') == 123.33",
+      "getvalue('Foobar.boolFalse') == 0",
+      "getvalue('Foobar.boolTrue') == 1",
+      "getlen('Foobar.strList') == 2",
+      "getelement('Foobar.strList', 1) == 'two'",
+      "getelement('Foobar.numList', 1) == 2",
+
+      // Multi-argument operators.
+      "1 + 2 + (3 + 4)",
+      "(1 + 2) + 3 + 4",
+      "1 + 2 + (3 - 4)",
+      "1 == 1 and 2 == 2 and (3 == 3 or 4 == 4)",
+      "1 == 1 or 2 == 2 or 3 == 3 and 4 == 4",
+
+      // Math equations
+      "100 >= -200",
       "1.5 * (20 / -5) == -6.00",
       "1.5 * -(20 / -5) == 6.00",
       "-1.5 * -(20 / -5) == -6.00",
@@ -65,7 +86,13 @@ public class Application {
       "1 - (2 - 3) == 2",
       "1 - 2 > -2",
       "1 - 2 >= -1",
-      "1.001 == 1.00", // FIXME: probably fail on such constants?
+      "21 % 5 % 3 == 1",
+      "(21 % 5) % 3 == 1",
+      "21 % (5 % 3) == 1",
+      "21 % 5 * 3 == 3",
+      "(21 % 5) * 3 == 3",
+      "21 % (5 * 3) == 6",
+      "1.001 == 1.00",  // FIXME: probably fail on such constants?
       "1.006 == 1.01",
       "1 + 0.006 == 1.01",
       "1.003 + 0.003 == 1",
@@ -74,22 +101,19 @@ public class Application {
       "min(1,2,3) == 1",
       "max(1,2,3) == 3",
       "-1 == (0 - 1)",
-      "getstr('Foobar.str') == 'test'",
-      "getnum('Foobar.numInt') == 123",
-      "getnum('Foobar.numFloat') == 123.33",
-      "getnum('Foobar.strList') == 2",
-      "getstr('Foobar.strList', 1) == 'two'",
-      "getnum('Foobar.numList', 1) == 2",
-      "getnum('Foobar.boolFalse') == 0",
-      "getnum('Foobar.boolTrue') == 1",
-  ];
 
-  readonly List<string> _multiArgumentOperatorsTests = [
-      "1 + 2 + (3 + 4)",
-      "(1 + 2) + 3 + 4",
-      "1 + 2 + (3 - 4)",
-      "1 == 1 and 2 == 2 and (3 == 3 or 4 == 4)",
-      "1 == 1 or 2 == 2 or 3 == 3 and 4 == 4",
+      // Math functions.
+      "max(12, 13, 14) == 14",
+      "min(12, 13, 14) == 12",
+      "max(10+4, 10+3, 10+2) == 14",
+      "min(10+4, 10+3, 10+2) == 12",
+      "round(1) == 1",
+      "round(1.333) == 1",
+      "round(1.555) == 2",
+      "round(1/3) == 0",
+      "round(4/3) == 1",
+      "round(2/3) == 1",
+      "round(5/3) == 2",
   ];
 
   readonly List<string> _badScriptSamples = [
@@ -139,12 +163,10 @@ public class Application {
     PatchStubs.Apply();
 
     // TestOneStatement("1 + 2 + 3 + 4", out var reports);
-    // Console.Write(string.Join("\n", reports));
+    // Console.WriteLine(string.Join("\n", reports));
 
     RunGoodScriptSamples(_goodScriptSamples, showErrorsOnly);
-    RunGoodScriptSamples(_equationTests, showErrorsOnly);
-    RunGoodScriptSamples(_multiArgumentOperatorsTests, showErrorsOnly);
-    // RunBadScriptSamples(_badScriptSamples, showErrorsOnly);
+    RunBadScriptSamples(_badScriptSamples, showErrorsOnly);
   }
 
   void RunGoodScriptSamples(IList<string> samples, bool showErrorsOnly = false) {
@@ -191,53 +213,67 @@ public class Application {
     reports.Add($"Testing: {input}");
     var result = pyParser.Parse(input, behavior);
     if (result.ParsedExpression == null) {
-      reports.Add($"  * Failed to parse input as Python: {result.LastScriptError}");
+      reports.Add($"  * ERROR: Failed to parse input as Python: {result.LastError}");
       return false;
     }
 
-    var decompiled1 = pyParser.Decompile(result.ParsedExpression);
-    reports.Add($"Decompiled Python: {decompiled1}");
-    result = pyParser.Parse(decompiled1, behavior);
-    if (result.LastScriptError != null) {
-      reports.Add($"  * Failed to parse decompiled Python: {result.LastScriptError}");
-      return false;
-    }
-    var decompiled2 = pyParser.Decompile(result.ParsedExpression);
-    if (decompiled1 != decompiled2) {
-      reports.Add($"  * ERROR: {decompiled1} is not {decompiled2}");
-    }
-
-    decompiled1 = lispParser.Decompile(result.ParsedExpression);
+    var decompiled1 = lispParser.Decompile(result.ParsedExpression);
     reports.Add($"Decompiled Lisp: {decompiled1}");
     result = lispParser.Parse(decompiled1, behavior);
     if (result.LastScriptError != null) {
-      reports.Add($"  * Failed to parse decompiled Python: {result.LastScriptError}");
+      reports.Add($"  * ERROR: Failed to parse decompiled Python: {result.LastError}");
       return false;
     }
-    decompiled2 = lispParser.Decompile(result.ParsedExpression);
+    TryMakeDescription(result.ParsedExpression, reports);
+    res &= TryBooleanOperator(result.ParsedExpression, reports);
+    var decompiled2 = lispParser.Decompile(result.ParsedExpression);
     if (decompiled1 != decompiled2) {
       reports.Add($"  * ERROR: {decompiled1} is not {decompiled2}");
       res = false;
     }
 
-    if (result.ParsedExpression is BoolOperator boolOperator) {
-      try {
-        if (!boolOperator.Execute()) {
-          reports.Add($"  * Boolean operator executed to FALSE");
-          res = false;
-        }
-      } catch (ScriptError e) {
-        reports.Add($"  * Failed executing boolean operator: {e.Message}");
-        res = false;
-      }
+    decompiled1 = pyParser.Decompile(result.ParsedExpression);
+    reports.Add($"Decompiled Python: {decompiled1}");
+    result = pyParser.Parse(decompiled1, behavior);
+    if (result.LastScriptError != null) {
+      reports.Add($"  * ERROR: Failed to parse decompiled Python: {result.LastError}");
+      return false;
+    }
+    TryMakeDescription(result.ParsedExpression, reports);
+    res &= TryBooleanOperator(result.ParsedExpression, reports);
+    decompiled2 = pyParser.Decompile(result.ParsedExpression);
+    if (decompiled1 != decompiled2) {
+      reports.Add($"  * ERROR: {decompiled1} is not {decompiled2}");
     }
 
+    return res;
+  }
+
+  void TryMakeDescription(IExpression expr, List<string> reports) {
     var describer = _container.GetInstance<ExpressionDescriber>();
     try {
-      var description = describer.DescribeExpression(result.ParsedExpression);
+      var description = describer.DescribeExpression(expr);
       reports.Add($"  * Description: {description}");
     } catch (Exception e) {
       reports.Add($"  * Failed making description: {e.Message}");
+    }
+  }
+
+  bool TryBooleanOperator(IExpression expr, List<string> reports) {
+    if (expr is not BoolOperator boolOperator) {
+      return true;
+    }
+    var res = true;
+    try {
+      if (!boolOperator.Execute()) {
+        reports.Add($"  * ERROR: Boolean operator executed to FALSE");
+        res = false;
+      } else {
+        reports.Add($"  * Boolean operator executed to TRUE");
+      }
+    } catch (ScriptError e) {
+      reports.Add($"  * ERROR: Failed executing boolean operator: {e.Message}");
+      res = false;
     }
     return res;
   }

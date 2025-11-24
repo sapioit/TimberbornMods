@@ -10,6 +10,7 @@ sealed class FoobarScriptingComponent : ScriptableComponentBase {
   public override string Name => "Foobar";
 
   const string EmptyActionName = "Foobar.EmptyAction";
+  const string OneArgumentActionName = "Foobar.OneArgumentAction";
 
   /// <inheritdoc/>
   public override ActionDef GetActionDefinition(string name, AutomationBehavior behavior) {
@@ -19,6 +20,15 @@ sealed class FoobarScriptingComponent : ScriptableComponentBase {
             DisplayName = "EmptyActionName",
             Arguments = [],
         },
+        OneArgumentActionName => new ActionDef {
+            ScriptName = OneArgumentActionName,
+            DisplayName = "OneArgumentActionName",
+            Arguments = [
+                new ValueDef {
+                    ValueType = ScriptValue.TypeEnum.Number,
+                },
+            ],
+        },
         _ => throw new UnknownActionException(name),
     };
   }
@@ -27,6 +37,7 @@ sealed class FoobarScriptingComponent : ScriptableComponentBase {
   public override Action<ScriptValue[]> GetActionExecutor(string name, AutomationBehavior behavior) {
     return name switch {
         EmptyActionName => args => {},
+        OneArgumentActionName => args => {},
         _ => throw new UnknownActionException(name),
     };
   }
