@@ -44,7 +44,7 @@ sealed class ExpressionDescriber {
         LogicalOperator logicalOperator => DescribeLogicalOperator(logicalOperator),
         MathOperator mathOperator => DescribeMathOperator(mathOperator),
         SignalOperator signalOperator => signalOperator.SignalDef.DisplayName,
-        _ => expression.ToString(),
+        _ => throw new ScriptError.ParsingError($"Unexpected expression: {expression}"),
     };
   }
 
@@ -89,13 +89,13 @@ sealed class ExpressionDescriber {
   }
 
   string DescribeGetPropertyOperator(GetPropertyOperator op) {
-    var fullPropertyName = op.GetStringLiteral(0);
+    var propertyName = op.GetStringLiteral(0);
     if (op.IsList) {
       return op.Operands.Count == 1
-          ? $"Count({fullPropertyName})"
-          : $"GetElement({fullPropertyName}, {DescribeExpressionInternal(op.Operands[1])})";
+          ? $"Count({propertyName})"
+          : $"GetElement({propertyName}, {DescribeExpressionInternal(op.Operands[1])})";
     }
-    return $"ValueOf({fullPropertyName})";
+    return $"ValueOf({propertyName})";
   }
 
   string DescribeLogicalOperator(LogicalOperator op) {
