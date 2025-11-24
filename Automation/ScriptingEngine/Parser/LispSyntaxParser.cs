@@ -210,28 +210,23 @@ sealed class LispSyntaxParser : ParserBase {
   }
 
   static void DecompileFunction(StringBuilder sb, AbstractFunction function) {
-    switch (function) {
-      case GetPropertyFunction getPropertyFunction: {
-        string res;
-        switch (getPropertyFunction.FunctionName) {
-          case GetPropertyFunction.FuncName.Value:
-            sb.Append($"({GetValueFunc} {getPropertyFunction.PropertyFullName})");
-            break;
-          case GetPropertyFunction.FuncName.Element:
-            sb.Append($"({GetElementFunc} {getPropertyFunction.PropertyFullName} ");
-            DecompileInternal(sb, getPropertyFunction.IndexExpr);
-            sb.Append(")");
-            break;
-          case GetPropertyFunction.FuncName.Length:
-            sb.Append($"({GetLenFunc} {getPropertyFunction.PropertyFullName})");
-            break;
-          default:
-            throw new InvalidOperationException($"Unexpected GetPropertyFunction: {getPropertyFunction.FunctionName}");
-        }
-        return;
-      }
+    if (function is not GetPropertyFunction getPropertyFunction) {
+      throw new InvalidOperationException($"Unsupported expression type: {function}");
+    }
+    switch (getPropertyFunction.FunctionName) {
+      case GetPropertyFunction.FuncName.Value:
+        sb.Append($"({GetValueFunc} {getPropertyFunction.PropertyFullName})");
+        break;
+      case GetPropertyFunction.FuncName.Element:
+        sb.Append($"({GetElementFunc} {getPropertyFunction.PropertyFullName} ");
+        DecompileInternal(sb, getPropertyFunction.IndexExpr);
+        sb.Append(")");
+        break;
+      case GetPropertyFunction.FuncName.Length:
+        sb.Append($"({GetLenFunc} {getPropertyFunction.PropertyFullName})");
+        break;
       default:
-        throw new InvalidOperationException($"Unsupported expression type: {function}");
+        throw new InvalidOperationException($"Unexpected GetPropertyFunction: {getPropertyFunction.FunctionName}");
     }
   }
 
