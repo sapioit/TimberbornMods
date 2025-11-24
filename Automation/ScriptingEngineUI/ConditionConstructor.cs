@@ -4,7 +4,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Expressions;
+using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.TimberDev.UI;
 using Timberborn.CoreUI;
 using UnityEngine.UIElements;
@@ -35,7 +36,7 @@ class ConditionConstructor : BaseConstructor {
 
   public string Validate() => ValueSelector.Validate();
 
-  public string GetScript() {
+  public string GetLispScript() {
     var arg = SignalSelector.SelectedValue;
     var op = OperatorSelector.SelectedValue;
     var val = ValueSelector.GetScriptValue();
@@ -47,17 +48,17 @@ class ConditionConstructor : BaseConstructor {
   #region Implementation
 
   static readonly DropdownItem<string>[] StringOperators = [
-      new() { Value = "eq", Text = "=" },
-      new() { Value = "ne", Text = "\u2260" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.Equal], Text = "=" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.NotEqual], Text = "\u2260" },
   ];
 
   static readonly DropdownItem<string>[] NumberOperators = [
-      new() { Value = "eq", Text = "=" },
-      new() { Value = "ne", Text = "\u2260" },
-      new() { Value = "gt", Text = ">" },
-      new() { Value = "lt", Text = "<" },
-      new() { Value = "ge", Text = "\u2265" },
-      new() { Value = "le", Text = "\u2264" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.Equal], Text = "=" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.NotEqual], Text = "\u2260" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.GreaterThan], Text = ">" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.LessThan], Text = "<" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.GreaterThanOrEqual], Text = "\u2265" },
+      new() { Value = LispSyntaxParser.ComparisonOperators[BinaryOperator.OpType.LessThanOrEqual], Text = "\u2264" },
   ];
 
   ConditionDefinition _selectedDefinition;

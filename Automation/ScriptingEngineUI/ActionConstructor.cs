@@ -39,7 +39,7 @@ sealed class ActionConstructor : BaseConstructor {
     };
   }
 
-  public string GetScript() {
+  public string GetLispScript() {
     var action = ActionSelector.SelectedValue;
     var def = _actionDefinitions.First(x => x.Name.Value == action);
     if (def.Arguments.Length == 0) {

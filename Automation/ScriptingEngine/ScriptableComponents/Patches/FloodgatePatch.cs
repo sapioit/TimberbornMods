@@ -1,0 +1,24 @@
+﻿// Timberborn Mod: Automation
+// Author: igor.zavoychinskiy@gmail.com
+// License: Public Domain
+
+using System.Diagnostics.CodeAnalysis;
+using HarmonyLib;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
+using Timberborn.WaterBuildings;
+
+namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Patches;
+
+[HarmonyPatch(typeof(Floodgate), nameof(Floodgate.Height), MethodType.Setter)]
+static class FloodgatePatch {
+  [SuppressMessage("ReSharper", "InconsistentNaming")]
+  static void Postfix(bool __runOriginal, Floodgate __instance, float value) {
+    if (!__runOriginal) {
+      return;  // The other patches must follow the same style to properly support the skip logic!
+    }
+    var automationTracker = __instance.GetComponentFast<FloodgateScriptableComponent.HeightChangeTracker>();
+    if (automationTracker) {
+      automationTracker.OnHeighChanged();
+    }
+  }
+}

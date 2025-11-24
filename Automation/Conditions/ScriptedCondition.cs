@@ -6,8 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IgorZ.Automation.AutomationSystem;
-using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Core;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
+using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
 using TimberApi.DependencyContainerSystem;
@@ -36,8 +39,9 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       if (_lastScriptError != null) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(_lastScriptError));
       }
+      var expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
       try {
-        var describe = _parsedExpression.Describe();
+        var describe = expressionDescriber.DescribeExpression(_parsedExpression);
         return ConditionState ? CommonFormats.HighlightGreen(describe) : CommonFormats.HighlightYellow(describe); 
       } catch (ScriptError.RuntimeError e) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(e.LocKey));
@@ -107,7 +111,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
     }
     _lastValidatedBehavior = behavior;
     if (CheckPrecondition(behavior)) {
-      var expression = ParseAndValidate(Expression, behavior, out var parsingResult, onlyCheck: true);
+      var expression = ParseAndValidate(Expression, behavior, out var parsingResult, checkOnly: true);
       _lastValidationResult = expression != null;
       if (parsingResult.LastScriptError is ScriptError.BadStateError error) {
         DebugEx.Fine("Expression '{0}' is not valid at {1}: {2}", Expression, behavior, error.Message);
@@ -207,28 +211,17 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
   BoolOperator _parsedExpression;
   List<SignalOperator> _registeredSignals;
 
-  // Used by the RulesEditor dialog.
-  internal static BoolOperator ParseAndValidate(
-      string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool onlyCheck = false) {
-    parsingResult = DependencyContainer.GetInstance<ExpressionParser>().Parse(expression, behavior);
-    if (parsingResult.LastError != null) {
-      if (!onlyCheck || parsingResult.LastScriptError is not ScriptError.BadStateError) {
-        HostedDebugLog.Error(
-            behavior, "Failed to parse condition: {0}\nError: {1}", expression, parsingResult.LastError);
-      }
-      return null;
+  static BoolOperator ParseAndValidate(
+      string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool checkOnly = false) {
+    var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
+    var conditionOperator = parserFactory.ParseCondition(
+        expression, behavior, out parsingResult, preferredParser: parserFactory.LispSyntaxParser);
+    if (parsingResult.LastError != null
+        && (!checkOnly || parsingResult.LastScriptError is not ScriptError.BadStateError)) {
+      HostedDebugLog.Error(
+          behavior, "Failed to parse condition: {0}\nError: {1}", expression, parsingResult.LastError);
     }
-    if (parsingResult.ParsedExpression is not BoolOperator result) {
-      HostedDebugLog.Error(behavior, "Expression is not a boolean operator: {0}", parsingResult.ParsedExpression);
-      return null;
-    }
-    var hasSignals = false;
-    result.VisitNodes(x => { hasSignals |= x is SignalOperator; });
-    if (!hasSignals) {
-      HostedDebugLog.Error(behavior, "Condition has no signals: {0}", expression);
-      return null;
-    }
-    return result;
+    return conditionOperator;
   }
 
   void ParseAndApply() {
@@ -243,7 +236,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = _parsedExpression.Serialize();
+    Expression = DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
     _registeredSignals = DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
     _canRunOnUnfinishedBuildings = _registeredSignals.Select(x => x.OnUnfinished).Aggregate((x, y) => x || y); 
   }
@@ -253,7 +246,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       return true;
     }
     var needLogs = Keyboard.current.ctrlKey.isPressed;
-    var result = DependencyContainer.GetInstance<ExpressionParser>().Parse(Precondition, behavior);
+    var result = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(Precondition, behavior);
     if (result.ParsedExpression == null) {
       if (result.LastScriptError is not ScriptError.BadStateError) {
         HostedDebugLog.Error(behavior, "Failed to parse precondition: {0}\nError: {1}", Precondition, result.LastError);

@@ -26,7 +26,7 @@ sealed class ScriptEngineSettings : BaseSettings<ScriptEngineSettings> {
   public override string HeaderLocKey => HeaderStringLocKey;
 
   /// <inheritdoc />
-  public override int Order => 1;
+  public override int Order => 2;
 
   /// <inheritdoc />
   public override ModSettingsContext ChangeableOn => ModSettingsContext.MainMenu | ModSettingsContext.Game;

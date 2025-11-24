@@ -4,8 +4,8 @@
     <Style src="project://database/Assets/Resources/UI/Views/Core/CoreStyle.uss?fileID=7433441132597879392&amp;guid=1ccf410b2ed5dbb4ba82c75edf2281bc&amp;type=3#CoreStyle" />
     <Style src="project://database/Assets/Resources/UI/Views/Common/CommonStyle.uss?fileID=7433441132597879392&amp;guid=b4f82a476dd88444986fd884c9037b1f&amp;type=3#CommonStyle" />
     <Style src="project://database/Assets/Mods/Automation/AssetBundles/Resources/UI/Views/IgorZ.Automation/RulesEditorStyle.uss?fileID=7433441132597879392&amp;guid=82ba7710a5bad1b489b53edd629e2a56&amp;type=3#RulesEditorStyle" />
-    <Style src="project://database/Assets/Mods/Automation/AssetBundles/Resources/UI/Views/IgorZ.Automation/TimberDevStyle.uss?fileID=7433441132597879392&amp;guid=86824deb2a4bc844cbec48367a164254&amp;type=3#TimberDevStyle[UNSUPPORTED_IN_UI_BUILDER]" />
-    <Style src="project://database/Assets/Mods/Automation/AssetBundles/Resources/UI/Views/IgorZ.Automation/AutomationCore.uss?fileID=7433441132597879392&amp;guid=3ff053cc6d97b6c4eb9edeaf49c3c4f7&amp;type=3#AutomationCore" />
+    <Style src="project://database/Assets/Mods/Automation/AssetBundles/Resources/UI/Views/IgorZ.Automation/TimberDevStyle.uss?fileID=7433441132597879392&amp;guid=86824deb2a4bc844cbec48367a164254&amp;type=3#TimberDevStyle" />
+    <Style src="project://database/Assets/Mods/Automation/AssetBundles/Resources/UI/Views/IgorZ.Automation/AutomationCoreStyle.uss?fileID=7433441132597879392&amp;guid=3ff053cc6d97b6c4eb9edeaf49c3c4f7&amp;type=3#AutomationCoreStyle" />
     <engine:VisualElement name="RuleContainer" class="original-rule" style="margin-bottom: 10px;">
         <engine:VisualElement style="flex-grow: 1; flex-direction: row; align-items: center;">
             <engine:VisualElement name="SidePanel" style="align-items: center; margin-right: 5px;">
@@ -26,7 +26,7 @@
             <engine:VisualElement name="TemplateFamilySection" style="flex-direction: row; align-items: center;">
                 <Timberborn.CoreUI.NineSliceButton name="RemoveTemplateBtn" class="button-cross button-click" style="width: 16px; height: 16px;" />
                 <Timberborn.CoreUI.NineSliceButton name="RevertTemplateBtn" class="automation-button-undo button-click" style="width: 16px; height: 16px;" />
-                <Timberborn.CoreUI.NineSliceLabel text="TemplateFamilyName" name="TemplateFamilyName" class="game-text-small automation-deleted-text" style="margin-left: 2px;" />
+                <Timberborn.CoreUI.NineSliceLabel text="TemplateFamilyName" name="TemplateFamilyName" class="game-text-small automation-red-text" style="margin-left: 2px;" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="Notifications" style="align-items: flex-start; margin-top: 5px;">

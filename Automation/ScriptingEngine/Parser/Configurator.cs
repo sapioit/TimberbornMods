@@ -10,6 +10,8 @@ namespace IgorZ.Automation.ScriptingEngine.Parser;
 [Context("Game")]
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
-    containerDefinition.Bind<ExpressionParser>().AsSingleton();
+    containerDefinition.Bind<LispSyntaxParser>().AsSingleton();
+    containerDefinition.Bind<PythonSyntaxParser>().AsSingleton();
+    containerDefinition.Bind<ParserFactory>().AsSingleton();
   }
 }

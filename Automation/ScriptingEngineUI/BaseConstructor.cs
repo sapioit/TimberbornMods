@@ -4,6 +4,8 @@
 
 using System;
 using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Core;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.TimberDev.UI;
 using UnityEngine;
 using UnityEngine.UIElements;

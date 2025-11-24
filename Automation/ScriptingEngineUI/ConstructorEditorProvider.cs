@@ -5,8 +5,10 @@
 using System;
 using System.Linq;
 using IgorZ.Automation.AutomationSystem;
-using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Core;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.Settings;
 using IgorZ.TimberDev.UI;
 using UnityEngine.UIElements;
 
@@ -42,8 +44,8 @@ sealed class ConstructorEditorProvider : IEditorProvider {
         ruleRow.ReportError(error);
         return;
       }
-      ruleRow.ConditionExpression = ruleConstructor.ConditionConstructor.GetScript();
-      ruleRow.ActionExpression = ruleConstructor.ActionConstructor.GetScript();
+      ruleRow.ConditionExpression = ToDefaultSyntax(ruleConstructor.ConditionConstructor.GetLispScript(), ruleRow);
+      ruleRow.ActionExpression = ToDefaultSyntax(ruleConstructor.ActionConstructor.GetLispScript(), ruleRow);
       ruleRow.SwitchToViewMode();
     };
     root.Q<Button>("DiscardScriptBtn").clicked += ruleRow.DiscardChangesAndSwitchToViewMode;
@@ -63,12 +65,12 @@ sealed class ConstructorEditorProvider : IEditorProvider {
     if (condition.Left is not SignalOperator signal || condition.Right is not ConstantValueExpr) {
       return false;
     }
-    if (!_scriptingService.GetSignalNamesForBuilding(ruleRow.ActiveBuilding).Contains(signal.FullSignalName)
+    if (!_scriptingService.GetSignalNamesForBuilding(ruleRow.ActiveBuilding).Contains(signal.SignalName)
         || !_scriptingService.GetActionNamesForBuilding(ruleRow.ActiveBuilding).Contains(action.FullActionName)) {
       return false;
     }
-    if (signal.Operands.Count != 1 || action.Operands.Count > 2
-        || action.Operands.Count == 2 && action.Operands[1] is not ConstantValueExpr) {
+    if (signal.Operands.Count != 0 || action.Operands.Count > 1
+        || action.Operands.Count == 1 && action.Operands[0] is not ConstantValueExpr) {
       return false;
     }
     return true;
@@ -80,10 +82,12 @@ sealed class ConstructorEditorProvider : IEditorProvider {
 
   readonly UiFactory _uiFactory;
   readonly ScriptingService _scriptingService;
+  readonly ParserFactory _parserFactory;
   
-  ConstructorEditorProvider(UiFactory uiFactory, ScriptingService scriptingService) {
+  ConstructorEditorProvider(UiFactory uiFactory, ScriptingService scriptingService, ParserFactory parserFactory) {
     _uiFactory = uiFactory;
     _scriptingService = scriptingService;
+    _parserFactory = parserFactory;
   }
 
   void PopulateConstructor(AutomationBehavior behavior, RuleConstructor ruleConstructor) {
@@ -105,19 +109,30 @@ sealed class ConstructorEditorProvider : IEditorProvider {
     ruleConstructor.ActionConstructor.SetDefinitions(actions);
   }
 
+  string ToDefaultSyntax(string lispSyntax, RuleRow ruleRow) {
+    if (ScriptEditorSettings.DefaultScriptSyntax == ScriptEditorSettings.ScriptSyntax.Lisp) {
+      return lispSyntax;
+    }
+    var result = _parserFactory.LispSyntaxParser.Parse(lispSyntax, ruleRow.ActiveBuilding);
+    if (result.LastScriptError != null) {
+      throw result.LastScriptError;  // Not expected!
+    }
+    return _parserFactory.DefaultParser.Decompile(result.ParsedExpression);
+  }
+
   static void PopulateAction(RuleRow ruleRow, RuleConstructor ruleConstructor) {
     if (ruleRow.ParsedCondition == null) {
       return;
     }
     var actionConstructor = ruleConstructor.ActionConstructor;
     actionConstructor.ActionSelector.SelectedValue = ruleRow.ParsedAction.FullActionName;
-    if (ruleRow.ParsedAction.Operands.Count == 1) {
+    if (ruleRow.ParsedAction.Operands.Count == 0) {
       return;
     }
-    if (ruleRow.ParsedAction.Operands.Count > 2) {
+    if (ruleRow.ParsedAction.Operands.Count > 1) {
       throw new InvalidOperationException("At most one argument is expected");
     }
-    if (ruleRow.ParsedAction.Operands[1] is not ConstantValueExpr constantValue) {
+    if (ruleRow.ParsedAction.Operands[0] is not ConstantValueExpr constantValue) {
       throw new InvalidOperationException("Constant value is expected");
     }
     actionConstructor.ArgumentConstructor.Value = PrepareConstantValue(constantValue.ValueFn());
@@ -131,8 +146,9 @@ sealed class ConstructorEditorProvider : IEditorProvider {
     if (ruleRow.ParsedCondition is not BinaryOperator binaryOperatorExpr) {
       throw new InvalidOperationException("Binary operator is expected, but found: " + ruleRow.ParsedCondition);
     }
-    conditionConstructor.SignalSelector.SelectedValue = (binaryOperatorExpr.Left as SignalOperator)!.FullSignalName;
-    conditionConstructor.OperatorSelector.SelectedValue = binaryOperatorExpr.Name;
+    conditionConstructor.SignalSelector.SelectedValue = (binaryOperatorExpr.Left as SignalOperator)!.SignalName;
+    conditionConstructor.OperatorSelector.SelectedValue =
+        LispSyntaxParser.ComparisonOperators[binaryOperatorExpr.OperatorType];
     if (binaryOperatorExpr.Right is not ConstantValueExpr constantValue) {
       throw new InvalidOperationException("Constant value is expected");
     }
@@ -141,7 +157,7 @@ sealed class ConstructorEditorProvider : IEditorProvider {
 
   static string PrepareConstantValue(ScriptValue value) {
     return value.ValueType == ScriptValue.TypeEnum.Number
-        ? (value.AsNumber / 100f).ToString("0.##")
+        ? value.AsFloat.ToString("0.##")
         : value.AsString;
   }
 

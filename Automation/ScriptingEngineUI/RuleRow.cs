@@ -8,7 +8,8 @@ using System.Linq;
 using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
-using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Core;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.TimberDev.UI;
 using TimberApi.DependencyContainerSystem;
@@ -29,7 +30,7 @@ sealed class RuleRow {
   const string EditModeStyle = "editmode-rule";
   const string OriginalRuleStyle = "original-rule";
   const string ModifiedRuleStyle = "modified-rule";
-  const string DeletedTextStyle = "automation-deleted-text";
+  const string DeletedTextStyle = "automation-red-text";
 
   #region API
 
@@ -43,7 +44,7 @@ sealed class RuleRow {
         throw new InvalidOperationException("Cannot set condition expression for legacy action.");
       }
       _conditionExpression = value;
-      ParsedCondition = ScriptedCondition.ParseAndValidate(value, ActiveBuilding, out _);
+      ParsedCondition = _parserFactory.ParseCondition(value, ActiveBuilding, out _);
       CheckIfModified();
     }
   }
@@ -57,7 +58,7 @@ sealed class RuleRow {
         throw new InvalidOperationException("Cannot set action expression for legacy action.");
       }
       _actionExpression = value;
-      ParsedAction = ScriptedAction.ParseAndValidate(value, ActiveBuilding, out _);
+      ParsedAction = _parserFactory.ParseAction(value, ActiveBuilding, out _);
       CheckIfModified();
     }
   }
@@ -67,7 +68,7 @@ sealed class RuleRow {
 
   public readonly AutomationBehavior ActiveBuilding;
 
-  public bool IsNew => _originalCondition == null && _originalAction == null;
+  public bool IsNew => _originalConditionExpression == null && _originalActionExpression == null;
 
   public bool IsModified {
     get => _isModified;
@@ -103,6 +104,8 @@ sealed class RuleRow {
 
   public RuleRow(IEnumerable<IEditorProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
     _uiFactory = uiFactory;
+    _expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
+    _parserFactory = DependencyContainer.GetInstance<ParserFactory>();
     ActiveBuilding = activeBuilding;
     _editorProviders = editors.ToArray();
 
@@ -126,11 +129,17 @@ sealed class RuleRow {
   }
 
   public void Initialize(ScriptedCondition condition, ScriptedAction action) {
-    _originalCondition = (ScriptedCondition) condition?.CloneDefinition();
-    ConditionExpression = _originalCondition != null ? _originalCondition.Expression : "";
-    _originalAction = (ScriptedAction) action?.CloneDefinition();
-    ActionExpression = _originalAction != null ? _originalAction.Expression : "";
-    _originalTemplateFamily = _originalAction?.TemplateFamily;
+    _originalConditionExpression = condition.ParsingResult.ParsedExpression != null
+        ? _parserFactory.DefaultParser.Decompile(condition.ParsingResult.ParsedExpression)
+        : ParserFactory.LispSyntaxPrefix + condition.Expression;
+    ConditionExpression = _originalConditionExpression;
+
+    _originalActionExpression = action.ParsingResult.ParsedExpression != null
+        ? _parserFactory.DefaultParser.Decompile(action.ParsingResult.ParsedExpression)
+        : ParserFactory.LispSyntaxPrefix + action.Expression;
+    ActionExpression = _originalActionExpression;
+
+    _originalTemplateFamily = action.TemplateFamily;
     SetTemplateFamily(_originalTemplateFamily);
   }
 
@@ -147,10 +156,8 @@ sealed class RuleRow {
     if (LegacyAction != null) {
       return LegacyAction.Condition.CloneDefinition();
     }
-    var condition = _originalCondition != null
-        ? (ScriptedCondition)_originalCondition.CloneDefinition()
-        : new ScriptedCondition();
-    condition.SetExpression(ConditionExpression);
+    var condition = new ScriptedCondition();
+    condition.SetExpression(_parserFactory.LispSyntaxParser.Decompile(ParsedCondition));
     return condition;
   }
 
@@ -161,10 +168,8 @@ sealed class RuleRow {
     if (LegacyAction != null) {
       return LegacyAction.CloneDefinition();
     }
-    var action = _originalAction != null
-        ? (ScriptedAction)_originalAction.CloneDefinition()
-        : new ScriptedAction();
-    action.SetExpression(ActionExpression);
+    var action = new ScriptedAction();
+    action.SetExpression(_parserFactory.LispSyntaxParser.Decompile(ParsedAction));
     action.TemplateFamily = _templateFamily;
     return action;
   }
@@ -193,8 +198,8 @@ sealed class RuleRow {
     // Controls.
     if (IsModified && !IsNew) {
       CreateButton(ResetChangesLocKey, _ => {
-        ConditionExpression = _originalCondition.Expression;
-        ActionExpression = _originalAction.Expression;
+        ConditionExpression = _originalConditionExpression;
+        ActionExpression = _originalActionExpression;
         SwitchToViewMode();
       });
     }
@@ -240,6 +245,8 @@ sealed class RuleRow {
     var errorMessage = error.Message;
     if (error is ScriptError.RuntimeError runtimeError) {
       errorMessage = _uiFactory.T(runtimeError.LocKey) + "\n" + errorMessage;
+    } else if (error is ScriptError.LocParsingError locParsingError){
+      errorMessage = _uiFactory.T(locParsingError.LocKey);
     }
     _notifications.Q<Label>("ErrorText").text = errorMessage;
     _notifications.ToggleDisplayStyle(true);
@@ -254,7 +261,9 @@ sealed class RuleRow {
   #region Implementation
 
   readonly UiFactory _uiFactory;
+  readonly ExpressionDescriber _expressionDescriber;
   readonly IEditorProvider[] _editorProviders;
+  readonly ParserFactory _parserFactory;
 
   readonly VisualElement _sidePanel;
   readonly VisualElement _ruleButtons;
@@ -266,8 +275,8 @@ sealed class RuleRow {
   readonly VisualElement _ruleContainer;
   readonly VisualElement _deletedStateOverlay;
 
-  ScriptedCondition _originalCondition;
-  ScriptedAction _originalAction;
+  string _originalConditionExpression;
+  string _originalActionExpression;
   string _templateFamily;
   string _originalTemplateFamily;
 
@@ -299,8 +308,8 @@ sealed class RuleRow {
   }
 
   void CheckIfModified() {
-    IsModified = _originalCondition?.Expression != _conditionExpression
-            || _originalAction?.Expression != _actionExpression
+    IsModified = _originalConditionExpression != _conditionExpression
+            || _originalActionExpression != _actionExpression
             || _originalTemplateFamily != _templateFamily;
   }
 
@@ -319,7 +328,7 @@ sealed class RuleRow {
       return CommonFormats.HighlightRed(_uiFactory.T(ParseErrorLocKey));
     }
     try {
-      var description = expression.Describe();
+      var description = _expressionDescriber.DescribeExpression(expression);
       if (expression is BoolOperator boolOperator && boolOperator.Execute()) {
         return CommonFormats.HighlightGreen(description);
       }
@@ -337,6 +346,7 @@ sealed class RuleRow {
 
   void SetTemplateFamily(string templateFamily) {
     _templateFamily = templateFamily;
+    CheckIfModified();
     if (templateFamily != null && _originalTemplateFamily != null && templateFamily != _originalTemplateFamily) {
       // Editing the template family is not supported yet.
       throw new NotImplementedException("Editing the template family is not supported yet.");

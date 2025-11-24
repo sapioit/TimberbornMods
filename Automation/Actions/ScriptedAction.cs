@@ -5,8 +5,10 @@
 using System;
 using System.Collections.Generic;
 using IgorZ.Automation.AutomationSystem;
-using IgorZ.Automation.ScriptingEngine;
+using IgorZ.Automation.ScriptingEngine.Core;
+using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
+using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
 using TimberApi.DependencyContainerSystem;
@@ -36,8 +38,9 @@ sealed class ScriptedAction : AutomationActionBase {
       if (_lastScriptError != null) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(_lastScriptError));
       }
+      var expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
       try {
-        return CommonFormats.HighlightYellow(_parsedExpression.Describe());
+        return CommonFormats.HighlightYellow(expressionDescriber.DescribeExpression(_parsedExpression));
       } catch (ScriptError.RuntimeError e) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(e.LocKey));
       }
@@ -165,17 +168,13 @@ sealed class ScriptedAction : AutomationActionBase {
   ActionOperator _parsedExpression;
   List<ActionOperator> _installedActions;
 
-  // Used by the RulesEditor dialog.
-  internal static ActionOperator ParseAndValidate(
+  static ActionOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult) {
-    parsingResult = DependencyContainer.GetInstance<ExpressionParser>().Parse(expression, behavior);
+    var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
+    var actionOperator = parserFactory.ParseAction(
+        expression, behavior, out parsingResult, preferredParser: parserFactory.LispSyntaxParser);
     if (parsingResult.LastError != null) {
       HostedDebugLog.Error(behavior, "Failed to parse action: {0}\nError: {1}", expression, parsingResult.LastError);
-      return null;
-    }
-    if (parsingResult.ParsedExpression is not ActionOperator actionOperator) {
-      HostedDebugLog.Error(behavior, "Expression is not an action operator: {0}", parsingResult.ParsedExpression);
-      return null;
     }
     return actionOperator;
   }
@@ -192,7 +191,7 @@ sealed class ScriptedAction : AutomationActionBase {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = _parsedExpression.Serialize();
+    Expression = DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
     _installedActions = DependencyContainer.GetInstance<ScriptingService>().InstallActions(_parsedExpression, Behavior);
   }
 
