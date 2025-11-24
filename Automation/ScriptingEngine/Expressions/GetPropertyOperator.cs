@@ -34,7 +34,7 @@ sealed class GetPropertyOperator : AbstractOperator, IValueExpr {
       throw new ScriptError.ParsingError($"Expected 1 or 2 operands, got {operands.Count}");
     } else {
       try {
-        res = GetPropertyFunction.CreateGetListLength(context, GetStringLiteral(operands, 0));
+        res = GetPropertyFunction.CreateGetCollectionLength(context, GetStringLiteral(operands, 0));
       } catch (ScriptError.ParsingError) {
         res = GetPropertyFunction.CreateGetOrdinary(context, GetStringLiteral(operands, 0));
       }

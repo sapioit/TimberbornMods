@@ -48,7 +48,7 @@ sealed class GetPropertyFunction : AbstractFunction, IValueExpr {
     return new GetPropertyFunction(FuncName.Element, context, fullPropertyName, indexExpr);
   }
 
-  public static GetPropertyFunction CreateGetListLength(ExpressionContext context, string fullPropertyName) {
+  public static GetPropertyFunction CreateGetCollectionLength(ExpressionContext context, string fullPropertyName) {
     return new GetPropertyFunction(FuncName.Length, context, fullPropertyName, null);
   }
 
@@ -128,7 +128,7 @@ sealed class GetPropertyFunction : AbstractFunction, IValueExpr {
       var list = ToList(propertyGetterInfo.Invoke(Component, []));
       return index < list.Count
           ? list[index]
-          : throw new ScriptError.ValueOutOfRange($"Index {index} is out of range: [{0}; {list.Count})");
+          : throw new ScriptError.ValueOutOfRange($"Index {index} is out of range: [{0}; {list.Count -1}]");
     }
   }
 
