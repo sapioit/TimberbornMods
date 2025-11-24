@@ -53,14 +53,6 @@ sealed class ScriptingService {
     return GetScriptable(name).GetSignalDefinition(name, behavior);
   }
 
-  /// <inheritdoc cref="IScriptable.GetPropertySource"/>
-  public Func<object> GetPropertySource(string name, AutomationBehavior behavior) {
-    var nameItems = name.Split('.');
-    return _registeredScriptables.TryGetValue(nameItems[0], out var scriptable)
-        ? scriptable.GetPropertySource(name, behavior)
-        : null;
-  }
-
   /// <inheritdoc cref="IScriptable.GetActionNamesForBuilding"/>
   public string[] GetActionNamesForBuilding(AutomationBehavior behavior) {
     return _registeredScriptables.Values
