@@ -1,5 +1,7 @@
-# v3.0.0 (November 17th, 2025 - preview 0):
-* [Feature] Support Python-like expressions for conditions and actions in teh script editing mode.
+# v3.0.2 (November 24th, 2025):
+* [Feature] Support Python-like expressions for conditions and actions in the script editing mode.
+* [Feature] You can select which syntax you prefer in the mod settings.
+* [Change] Add new functions: `getvalue`, `getelement`, and `getlen`. They replace `getnum` and `getstr` functions, which will be deprecated soon. 
 
 # v2.8.8 (October 23rd, 2025):
 * [Fix] Signal definition disappears in UI if allowed good is changed on stockpile.
