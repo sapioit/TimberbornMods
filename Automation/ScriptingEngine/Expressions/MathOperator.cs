@@ -33,6 +33,15 @@ class MathOperator : AbstractOperator, IValueExpr {
   public static MathOperator CreateNegate(IExpression argument) => new(OpType.Negate, [argument], 1, 1);
 
   /// <inheritdoc/>
+  public override IList<IExpression> GetReducedOperands() {
+    if (OperatorType is OpType.Min or OpType.Max) {
+      throw new InvalidOperationException($"Min/Max are functions, not operands reducing expected");
+    }
+    // All, but "add" operator are protected to not have more than 2 operands.
+    return ReducedOperands(CreateAdd);
+  }
+
+  /// <inheritdoc/>
   public override string ToString() {
     return $"{GetType().Name}({OperatorType})";
   }

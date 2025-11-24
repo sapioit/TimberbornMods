@@ -103,18 +103,16 @@ sealed class ExpressionDescriber {
       var value = DescribeLeft(op.Operands[0], op);
       return $"{_loc.T(NotOperatorLocKey)} {value}";
     }
-    //FIXME: support multi argument versions.
-    if (op.Operands.Count != 2) {
-      throw new InvalidOperationException(
-          $"Unexpected number of arguments {op.Operands.Count} in {op}");
-    }
     var displayName = op.OperatorType switch {
         LogicalOperator.OpType.And => _loc.T(AndOperatorLocKey),
         LogicalOperator.OpType.Or => _loc.T(OrOperatorLocKey),
         _ => throw new InvalidOperationException($"Unsupported operator: {op.OperatorType}"),
     };
-    var leftValue = DescribeLeft(op.Operands[0], op);
-    var rightValue = DescribeRight(op.Operands[1], op);
+
+    // Resolve the multi-operands operators: (add a b c ...)
+    var operands = op.GetReducedOperands();
+    var leftValue = DescribeLeft(operands[0], op);
+    var rightValue = DescribeRight(operands[1], op);
     return $"{leftValue} {displayName} {rightValue}";
   }
 
@@ -137,10 +135,7 @@ sealed class ExpressionDescriber {
       return $"{funcName}({value})";
     }
 
-    //FIXME: support multi argument versions.
-    if (op.Operands.Count != 2) {
-      throw new InvalidOperationException($"Unexpected number of arguments {op.Operands.Count} in {op}");
-    }
+    var operands = op.GetReducedOperands();
     var opName = op.OperatorType switch {
         MathOperator.OpType.Add => " + ",
         MathOperator.OpType.Subtract => " - ",
@@ -149,8 +144,8 @@ sealed class ExpressionDescriber {
         MathOperator.OpType.Modulus => " % ",
         _ => throw new InvalidOperationException($"Unknown operator: {op.OperatorType}"),
     };
-    var leftValue = DescribeLeft(op.Operands[0], op);
-    var rightValue = DescribeRight(op.Operands[1], op);
+    var leftValue = DescribeLeft(operands[0], op);
+    var rightValue = DescribeRight(operands[1], op);
     return $"{leftValue} {opName} {rightValue}";
   }
 

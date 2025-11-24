@@ -24,6 +24,16 @@ class LogicalOperator : BoolOperator {
   public static LogicalOperator CreateNot(IExpression operand) => new(OpType.Not, [operand], 1, 1);
 
   /// <inheritdoc/>
+  public override IList<IExpression> GetReducedOperands() {
+    Func<IList<IExpression>, LogicalOperator> reduceOperandsFn = OperatorType switch {
+        OpType.Or => CreateOr,
+        OpType.And => CreateAnd,
+        _ => throw new InvalidOperationException($"Cannot reduce {OperatorType}"),
+    };
+    return ReducedOperands(reduceOperandsFn);
+  }
+
+  /// <inheritdoc/>
   public override string ToString() {
     return $"{GetType().Name}({OperatorType})";
   }

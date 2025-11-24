@@ -301,28 +301,8 @@ class PythonSyntaxParser : ParserBase {
       return $"{SubOperator}{value}";
     }
 
-    // Resolve the multi-operands operators: (add a b c ...)
-    var operands = expression.Operands;
-    if (operands.Count > 2) {
-      operands = new List<IExpression>(operands);  // MUST obtain a copy! We will be modifying.
-      Func<IExpression, IExpression, IExpression> reduceOperandsFn = expression switch {
-          MathOperator { OperatorType: MathOperator.OpType.Add } => (left, right) =>
-              MathOperator.CreateAdd([left, right]),
-          LogicalOperator { OperatorType: LogicalOperator.OpType.Or } => (left, right) =>
-              LogicalOperator.CreateOr([left, right]),
-          LogicalOperator { OperatorType: LogicalOperator.OpType.And } => (left, right) =>
-              LogicalOperator.CreateAnd([left, right]),
-          _ => throw new InvalidOperationException($"Cannot reduce {expression}"),
-      };
-      while (operands.Count > 2) {
-        var reducedOperand = reduceOperandsFn(operands[0], operands[1]);
-        operands.RemoveAt(0);
-        operands.RemoveAt(0);
-        operands.Insert(0, reducedOperand);
-      }
-    }
-
     // Binary operators: a + b
+    var operands = expression.GetReducedOperands();
     var opName = expression switch {
         BinaryOperator binaryOperator => binaryOperator.OperatorType switch {
             BinaryOperator.OpType.Equal => EqOperator,

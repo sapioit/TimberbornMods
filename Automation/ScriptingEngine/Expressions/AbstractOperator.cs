@@ -44,6 +44,15 @@ abstract class AbstractOperator(IList<IExpression> operands) : IExpression {
             $"Expected a string literal at #{index + 1} of {this}, but got: {Operands[index]}");
   }
 
+  /// <summary>Unwraps operands to the binary tree if there are more than 2 operands in the expression.</summary>
+  /// <remarks>Operands that allow multi-arguments must override this method.</remarks>
+  /// <exception cref="InvalidOperationException">if more than 2 operands and no override given.</exception>
+  public virtual IList<IExpression> GetReducedOperands() {
+    return Operands.Count <= 2
+        ? Operands
+        : throw new InvalidOperationException($"Operands reducing is not supported");
+  }
+
   protected void AssertNumberOfOperandsExact(int expected) {
     var count = Operands.Count;
     if (expected != count) {
@@ -75,5 +84,30 @@ abstract class AbstractOperator(IList<IExpression> operands) : IExpression {
       throw new ScriptError.ParsingError(e.Message);
     }
     return constantValueExpr;
+  }
+
+  /// <summary>Returns a binary tree of expressions if there are more than 2 operands in the operator.</summary>
+  /// <remarks>Use it to reduce multi-argument operators to binary operators.</remarks>
+  /// <param name="reduceOperandsFn">
+  /// Function to join left and right operands. It must return the same type as the operator being reduced.
+  /// </param>
+  /// <exception cref="InvalidOperationException">if reduce function returns incompatible type.</exception>
+  /// <seealso cref="GetReducedOperands"/>
+  protected IList<IExpression> ReducedOperands(Func<IList<IExpression>, AbstractOperator> reduceOperandsFn) {
+    if (Operands.Count < 3) {
+      return Operands;
+    }
+    var operands = new List<IExpression>(Operands);  // MUST obtain a copy! We will be modifying.
+    while (operands.Count > 2) {
+      var reducedOperand = reduceOperandsFn([operands[0], operands[1]]);
+      if (reducedOperand.GetType() != GetType()) {
+        throw new InvalidOperationException(
+            $"Reduce operands function must return type {GetType()}, but got {reducedOperand.GetType()}");
+      }
+      operands.RemoveAt(0);
+      operands.RemoveAt(0);
+      operands.Insert(0, reducedOperand);
+    }
+    return operands;
   }
 }
