@@ -351,7 +351,10 @@ class PythonSyntaxParser : ParserBase {
         _ => throw new InvalidOperationException($"Unexpected expression type: {expression}"),
     };
     var leftValue = DecompileLeft(operands[0], expression);
-    var rightValue = DecompileRight(operands[1], expression);
+    // Add and Multiply operators are not strictly left-associative. Avoid unneeded parenthesis.
+    var rightValue = opName is AddOperator or MulOperator
+        ? DecompileLeft(operands[1], expression)
+        : DecompileRight(operands[1], expression);
     return $"{leftValue} {opName} {rightValue}";
   }
 

@@ -3,7 +3,6 @@
 // License: Public Domain
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IgorZ.Automation.ScriptingEngine.Core;
@@ -162,7 +161,10 @@ sealed class ExpressionDescriber {
         _ => throw new InvalidOperationException($"Unknown operator: {op.OperatorType}"),
     };
     var leftValue = DescribeLeft(operands[0], op);
-    var rightValue = DescribeRight(operands[1], op);
+    // Add and Multiply operators are not strictly left-associative. Avoid unneeded parenthesis.
+    var rightValue = op.OperatorType is MathOperator.OpType.Add or MathOperator.OpType.Divide
+        ? DescribeLeft(operands[1], op)
+        : DescribeRight(operands[1], op);
     return $"{leftValue} {opName} {rightValue}";
   }
 
