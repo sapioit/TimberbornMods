@@ -110,7 +110,7 @@ sealed class LispSyntaxParser : ParserBase {
     CheckHasMoreTokens(tokens);
     var op = tokens.Dequeue();
     if (op.TokenType != Token.Type.Keyword) {
-      throw new ScriptError.ParsingError(token, "Not a valid operator");
+      throw new ScriptError.ParsingError(op, "Not a valid operator");
     }
     CheckHasMoreTokens(tokens);
     var operands = new List<IExpression>();
@@ -119,7 +119,7 @@ sealed class LispSyntaxParser : ParserBase {
       CheckHasMoreTokens(tokens);
     }
     if (operands.Count == 0) {
-      throw new ScriptError.ParsingError(token, "Empty operator expression");
+      throw new ScriptError.ParsingError(op, "Empty operator expression");
     }
     tokens.Dequeue();  // ")"
 
