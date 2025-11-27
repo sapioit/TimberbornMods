@@ -1,3 +1,7 @@
+# v1.14.0 (Started on November 27th, 2025)
+* [Update] Support game version `v1.0`. All the previous versions are NOT supported!
+* [Change] Show red/blue colors when adjusting the water drop sources levels.
+
 # v1.13.1 (September 28th, 2025)
 * [Fix] In rare cases the game load may crash when irrigation towers are present.
 
