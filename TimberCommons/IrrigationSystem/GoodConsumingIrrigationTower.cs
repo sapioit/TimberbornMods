@@ -101,17 +101,18 @@ public class GoodConsumingIrrigationTower : IrrigationTower, IConsumptionRateFor
   }
 
   /// <inheritdoc/>
-  protected override void Awake() {
+  public override void Awake() {
     base.Awake();
-    _goodConsumingBuildingSpec = GetComponentFast<GoodConsumingBuildingSpec>();
-    _prefabGoodPerHour = _goodConsumingBuildingSpec.GoodPerHour;
-    GetComponentsFast(_efficiencyProviders);
-    GetComponentsFast(_rangeEffects);
+    _goodConsumingBuildingSpec = GetComponent<GoodConsumingBuildingSpec>();
+    //FIXME: remember rate from all consumed goods.
+    //_prefabGoodPerHour = _goodConsumingBuildingSpec.GoodPerHour;
+    GetComponents(_efficiencyProviders);
+    GetComponents(_rangeEffects);
   }
 
   /// <inheritdoc/>
   public override void StartTickable() {
-    _goodConsumingBuilding = GetComponentFast<GoodConsumingBuilding>();
+    _goodConsumingBuilding = GetComponent<GoodConsumingBuilding>();
     _goodConsumingToggle = _goodConsumingBuilding.GetGoodConsumingToggle();
     base.StartTickable();
   }

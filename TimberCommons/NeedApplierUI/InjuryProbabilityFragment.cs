@@ -42,9 +42,12 @@ sealed class InjuryProbabilityFragment : IEntityPanelFragment {
 
   /// <inheritdoc/>
   public VisualElement InitializeFragment() {
-    _injuryProbabilityAvatarHint = new Label();
-    _injuryProbabilityAvatarHint.text = "🟢";
-    _injuryProbabilityAvatarHint.style.alignSelf = Align.FlexEnd;
+    _injuryProbabilityAvatarHint = new Label {
+        text = "🟢",
+        style = {
+            alignSelf = Align.FlexEnd,
+        },
+    };
     _tooltipRegistrar.Register(_injuryProbabilityAvatarHint, () => _injuryProbabilityText);
     _injuryProbabilityAvatarHint.ToggleDisplayStyle(visible: false);
 
@@ -57,7 +60,7 @@ sealed class InjuryProbabilityFragment : IEntityPanelFragment {
 
   /// <inheritdoc/>
   public void ShowFragment(BaseComponent entity) {
-    _needApplierSpec = entity.GetComponentFast<WorkshopRandomNeedApplierSpec>();
+    _needApplierSpec = entity.GetComponent<WorkshopRandomNeedApplierSpec>();
     if (_needApplierSpec == null) {
       return;
     }

@@ -9,9 +9,10 @@ using System.Runtime.CompilerServices;
 using Bindito.Core;
 using IgorZ.TimberCommons.WaterService;
 using Timberborn.BaseComponentSystem;
+using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
 using Timberborn.BuildingRange;
-using Timberborn.BuildingsBlocking;
+using Timberborn.Buildings;
 using Timberborn.Common;
 using Timberborn.EntitySystem;
 using Timberborn.MapIndexSystem;
@@ -36,9 +37,9 @@ namespace IgorZ.TimberCommons.IrrigationSystem;
 /// Connected tiles must be immediately adjusted to each other on the left, right, top or bottom side. If the tile is
 /// blocked for irrigation (for example, via a moisture blocker), then it is not eligible for irrigation. 
 /// </remarks>
-public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, IFinishedStateListener,
-                                        IPostPlacementChangeListener, IPausableComponent, ILateTickable,
-                                        IPersistentEntity, ISelectionListener, IPostInitializableEntity {
+public abstract class IrrigationTower : TickableComponent, IAwakableComponent, IBuildingWithRange,
+                                        IFinishedStateListener, IPostPlacementChangeListener, IPausableComponent,
+                                        ILateTickable, IPersistentEntity, ISelectionListener, IPostInitializableEntity {
 
   #region Unity conrolled fields
   // ReSharper disable InconsistentNaming
@@ -114,7 +115,7 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
   protected BlockObject BlockObject { get; private set; }
 
   /// <summary>The tower is always a blockable building.</summary>
-  protected BlockableBuilding BlockableBuilding { get; private set; }
+  protected BlockableObject BlockableObject { get; private set; }
 
   // ReSharper restore MemberCanBeProtected.Global
   // ReSharper restore MemberCanBePrivate.Global
@@ -127,7 +128,7 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
     if (!BlockObject.IsFinished) {
       return GetTiles(range: _irrigationRange, skipChecks: false).eligible;
     }
-    return BlockableBuilding.IsUnblocked ? ReachableTiles : EligibleTiles;
+    return BlockableObject.IsUnblocked ? ReachableTiles : EligibleTiles;
   }
 
   /// <inheritdoc />
@@ -160,17 +161,17 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
   public virtual void OnEnterFinishedState() {
     _terrainMap.TerrainAdded += OnTerrainChanged;
     _terrainMap.TerrainRemoved += OnTerrainChanged;
-    BlockableBuilding.BuildingBlocked += OnBlockedStateChanged;
-    BlockableBuilding.BuildingUnblocked += OnBlockedStateChanged;
+    BlockableObject.ObjectBlocked += OnBlockedStateChanged;
+    BlockableObject.ObjectUnblocked += OnBlockedStateChanged;
     _eventBus.Register(this);
-    enabled = true;
+    Enabled = true;
   }
 
   /// <inheritdoc/>
   public virtual void OnExitFinishedState() {
     StopMoisturizing();
     _eventBus.Unregister(this);
-    enabled = false;
+    Enabled = false;
   }
 
   #endregion
@@ -200,7 +201,7 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
     base.StartTickable();
     Initialize();
 
-    _needsPower = GetComponentFast<MechanicalNode>();
+    _needsPower = GetComponent<MechanicalNode>();
     if (_needsPower) {
       _skipTicks = 1;
     }
@@ -328,11 +329,11 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
     _terrainService = terrainService;
   }
 
-  /// <summary>Awake is called when the script instance is being loaded.</summary>
-  protected virtual void Awake() {
-    BlockObject = GetComponentFast<BlockObject>();
-    BlockableBuilding = GetComponentFast<BlockableBuilding>();
-    enabled = false;
+  /// <inheritdoc/>
+  public virtual void Awake() {
+    BlockObject = GetComponent<BlockObject>();
+    BlockableObject = GetComponent<BlockableObject>();
+    Enabled = false;
   }
 
   /// <summary>Updates the eligible tiles and moisture system.</summary>
@@ -355,7 +356,7 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
     } else {
       _lastTickChangedEfficiency = false;
     }
-    if (BlockableBuilding.IsUnblocked && CanMoisturize()) {
+    if (BlockableObject.IsUnblocked && CanMoisturize()) {
       StartMoisturizing();
     } else {
       StopMoisturizing();
@@ -506,7 +507,7 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
     if (!_towerSelected) {
       return;
     }
-    var thisSelectable = GetComponentFast<SelectableObject>();
+    var thisSelectable = GetComponent<SelectableObject>();
     _buildingWithRangeUpdateService.OnSelectableObjectUnselected(new SelectableObjectUnselectedEvent(thisSelectable));
     _buildingWithRangeUpdateService.OnSelectableObjectSelected(new SelectableObjectSelectedEvent(thisSelectable));
   }
@@ -526,8 +527,8 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
     if (!EligibleTiles.Contains(checkCoordinates)) {
       return;
     }
-    var barrier = blockObject.GetComponentFast<SoilBarrierSpec>();
-    if (!barrier || !barrier.BlockFullMoisture) {
+    var barrier = blockObject.GetComponent<SoilBarrierSpec>();
+    if (barrier == null || !barrier.BlockFullMoisture) {
       return;
     }
     HostedDebugLog.Fine(this, "Soil barrier construction completed in the affected area: {0}", e.BlockObject);
@@ -537,12 +538,12 @@ public abstract class IrrigationTower : TickableComponent, IBuildingWithRange, I
   /// <summary>Monitors soil barriers removal within the range.</summary>
   [OnEvent]
   public void OnEntityDeletedEvent(EntityDeletedEvent e) {
-    var blockObject = e.Entity.GetComponentFast<BlockObject>();
+    var blockObject = e.Entity.GetComponent<BlockObject>();
     if (!blockObject || !blockObject.IsFinished || !_irrigationBarriers.Contains(blockObject.Coordinates)) {
       return;
     }
-    var barrier = e.Entity.GetComponentFast<SoilBarrierSpec>();
-    if (!barrier || !barrier.BlockFullMoisture) {
+    var barrier = e.Entity.GetComponent<SoilBarrierSpec>();
+    if (barrier == null || !barrier.BlockFullMoisture) {
       return;
     }
     HostedDebugLog.Fine(this, "Soil barrier deleted in affected area: {0}", blockObject);

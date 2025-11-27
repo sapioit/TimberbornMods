@@ -18,7 +18,7 @@ namespace IgorZ.TimberCommons.Stockpiles;
 /// Replacement component for the stock <c>Timberborn.Stockpiles.GoodAmountTransformHeight</c>. It can work with
 /// manufacture buildings as well as with simple stockpiles.
 /// </summary>
-public sealed class GoodAmountTransformHeight : BaseComponent, IFinishedStateListener {
+public sealed class GoodAmountTransformHeight : BaseComponent, IAwakableComponent, IFinishedStateListener {
   
   #region Fields for Unity
   // ReSharper disable InconsistentNaming
@@ -64,8 +64,8 @@ public sealed class GoodAmountTransformHeight : BaseComponent, IFinishedStateLis
 
   Inventory _inventory;
 
-  void Awake() {
-    _target = GameObjectFast.FindChildTransform(_targetName);
+  public void Awake() {
+    _target = GameObject.FindChildTransform(_targetName);
     _initialHeight = _target.position.y;
   }
   

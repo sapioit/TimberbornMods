@@ -10,7 +10,6 @@ using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
 using Timberborn.Common;
 using Timberborn.EntitySystem;
-using Timberborn.PrefabSystem;
 using Timberborn.SingletonSystem;
 using UnityEngine;
 
@@ -29,7 +28,8 @@ namespace IgorZ.TimberCommons.IrrigationSystem;
 /// </remarks>
 /// <seealso cref="GoodConsumingIrrigationTower"/>
 /// <seealso cref="ManufactoryIrrigationTower"/>
-public sealed class ModifyGrowableGrowthRangeEffect : BaseComponent, IRangeEffect, IFinishedStateListener {
+public sealed class ModifyGrowableGrowthRangeEffect
+    : BaseComponent, IAwakableComponent, IRangeEffect, IFinishedStateListener {
 
   #region Unity managed fields
   // ReSharper disable InconsistentNaming
@@ -145,7 +145,8 @@ public sealed class ModifyGrowableGrowthRangeEffect : BaseComponent, IRangeEffec
     _eventBus = eventBus;
   }
 
-  void Awake() {
+  /// <inheritdoc/>
+  public void Awake() {
     _modifierOwnerId = Guid.NewGuid().ToString();
     _requiredComponents = _componentsFilter.ToHashSet();
     _requiredPrefabNames = _prefabNamesFilter.ToHashSet();
@@ -158,8 +159,7 @@ public sealed class ModifyGrowableGrowthRangeEffect : BaseComponent, IRangeEffec
     if (!modifier || !modifier.IsLiveAndGrowing) {
       return null;
     }
-    if (_requiredPrefabNames.Count > 0
-        && !_requiredPrefabNames.Contains(modifier.GetComponentFast<PrefabSpec>().Name)) {
+    if (_requiredPrefabNames.Count > 0 && !_requiredPrefabNames.Contains(modifier.Name)) {
       return null;
     }
     var hasComponents = _requiredComponents.IsEmpty()
@@ -191,11 +191,11 @@ public sealed class ModifyGrowableGrowthRangeEffect : BaseComponent, IRangeEffec
     if (_allTiles == null) {
       return;
     }
-    var modifier = e.Entity.GetComponentFast<GrowthRateModifier>();
-    if (modifier == null) {
+    var modifier = e.Entity.GetComponent<GrowthRateModifier>();
+    if (!modifier) {
       return;
     }
-    var affectedTile = modifier.GetComponentFast<BlockObject>().Coordinates;
+    var affectedTile = modifier.GetComponent<BlockObject>().Coordinates;
     if (!_allTiles.Contains(affectedTile)) {
       return;
     }

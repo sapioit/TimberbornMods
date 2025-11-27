@@ -64,7 +64,7 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
 
   /// <inheritdoc/>
   protected override bool CanMoisturize() {
-    return BlockableBuilding.IsUnblocked && _manufactory.IsReadyToProduce;
+    return BlockableObject.IsUnblocked && _manufactory.IsReadyToProduce;
   }
 
   /// <inheritdoc/>
@@ -100,13 +100,13 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   /// <inheritdoc/>
   public override void OnEnterFinishedState() {
     base.OnEnterFinishedState();
-    _manufactory.ProductionRecipeChanged += OnProductionRecipeChanged;
+    _manufactory.RecipeChanged += OnProductionRecipeChanged;
   }
 
   /// <inheritdoc/>
   public override void OnExitFinishedState() {
     base.OnExitFinishedState();
-    _manufactory.ProductionRecipeChanged -= OnProductionRecipeChanged;
+    _manufactory.RecipeChanged -= OnProductionRecipeChanged;
   }
 
   #endregion
@@ -140,16 +140,16 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   }
 
   /// <inheritdoc/>
-  protected override void Awake() {
+  public override void Awake() {
     base.Awake();
-    _manufactory = GetComponentFast<Manufactory>();
+    _manufactory = GetComponent<Manufactory>();
     _effectsRulesDict = _effects
         .Select(pair => pair.Split(['='], 2))
         .ToDictionary(k => k[0], v => v[1]);
 
     // Make effect cache.
     var rangeEffects = new List<IRangeEffect>();
-    GetComponentsFast(rangeEffects);
+    GetComponents(rangeEffects);
     _availableEffectsDict = rangeEffects
         .Where(x => _effectsRulesDict.ContainsValue(x.EffectGroup))
         .GroupBy(x => x.EffectGroup)
