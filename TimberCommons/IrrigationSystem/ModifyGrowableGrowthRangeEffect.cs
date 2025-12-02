@@ -109,7 +109,7 @@ public sealed class ModifyGrowableGrowthRangeEffect
     _requiredComponents = effectSpec.ComponentsFilter.ToHashSet();
     _requiredPrefabNames = effectSpec.PrefabNamesFilter.ToHashSet();
     _growthRateModifier = effectSpec.GrowthRateModifier;
-    EffectGroup = effectSpec.EffectGroupName;
+    EffectGroup = effectSpec.EffectGroup;
   }
 
   /// <summary>Adds the rate modifier at the tile, given there is eligible growable.</summary>

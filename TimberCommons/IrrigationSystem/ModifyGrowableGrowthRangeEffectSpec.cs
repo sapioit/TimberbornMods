@@ -15,7 +15,7 @@ record ModifyGrowableGrowthRangeEffectSpec : ComponentSpec {
   /// effects will be used.
   /// </remarks>
   [Serialize]
-  public string EffectGroupName { get; init; }
+  public string EffectGroup { get; init; }
 
   /// <summary>
   /// The modifier percentage applied to the original tree growth rate. It can increase or decrease the growth rate.
