@@ -76,7 +76,7 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
 
   /// <inheritdoc/>
   protected override float GetEfficiency() {
-    return _manufactory.ProductionEfficiency();
+    return _manufactory.IsReadyToProduce ? _manufactory.ProductionEfficiency() : 0;
   }
 
   /// <inheritdoc/>
