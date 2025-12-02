@@ -31,6 +31,8 @@ namespace IgorZ.TimberCommons.IrrigationSystem;
 /// </remarks>
 public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
 
+  const string NoTilesToIrrigateLocKey = "IgorZ.TimberCommons.WaterTower.NoTilesToIrrigate";
+
   #region TickableComponent overrides
 
   /// <inheritdoc/>
@@ -224,28 +226,27 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
       return; // Cannot estimate.
     }
     var inventory = _manufactory.Inventory;
-    var totalGoodsInRecipe = recipe.Ingredients.Length + (recipe.ConsumesFuel ? 1 : 0);
-    var supplyLeftHours = new float[totalGoodsInRecipe];
-    var supplyAtMaxCapacity = new float[totalGoodsInRecipe];
-    for (var index = 0; index < recipe.Ingredients.Length; index++) {
-      var ingredient = recipe.Ingredients[index];
+    var supply = new List<(float supplyLeft, float maxSupply)>(); 
+    foreach (var ingredient in recipe.Ingredients) {
       var stock = inventory.AmountInStock(ingredient.Id);
       var consumePerHour = ingredient.Amount / recipe.CycleDurationInHours;
-      supplyLeftHours[index] = stock / consumePerHour;
-      supplyAtMaxCapacity[index] = inventory.LimitedAmount(ingredient.Id) / consumePerHour;
+      var supplyLeftHours = stock / consumePerHour;
+      var supplyAtMaxCapacity = inventory.LimitedAmount(ingredient.Id) / consumePerHour;
+      supply.Add((supplyLeftHours, supplyAtMaxCapacity));
     }
     if (recipe.ConsumesFuel) {
-      var index = supplyLeftHours.Length - 1;
       var stock = inventory.AmountInStock(recipe.Fuel) + _manufactory.FuelRemaining;
       var consumePerHour = 1f / (recipe.CyclesFuelLasts * recipe.CycleDurationInHours);
-      supplyLeftHours[index] = stock / consumePerHour;
-      supplyAtMaxCapacity[index] = inventory.LimitedAmount(recipe.Fuel) / consumePerHour;
+      var supplyLeftHours = stock / consumePerHour;
+      var supplyAtMaxCapacity = inventory.LimitedAmount(recipe.Fuel) / consumePerHour;
+      supply.Add((supplyLeftHours, supplyAtMaxCapacity));
     }
 
-    var minLastsHours = supplyLeftHours.Min();
-    var maxReserveHours = supplyAtMaxCapacity.Min();
-    _ingredientsConsumptionProgress = minLastsHours / maxReserveHours;
-    _progressUpdateMsg = CommonFormats.FormatSupplyLeft(_loc, minLastsHours);
+    var minReserve = supply.OrderBy(x => x.supplyLeft).First();
+    _ingredientsConsumptionProgress = minReserve.supplyLeft / minReserve.maxSupply;
+    _progressUpdateMsg = Coverage > float.Epsilon
+        ? CommonFormats.FormatSupplyLeft(_loc, minReserve.supplyLeft)
+        : _loc.T(NoTilesToIrrigateLocKey);
   }
 
   #endregion
