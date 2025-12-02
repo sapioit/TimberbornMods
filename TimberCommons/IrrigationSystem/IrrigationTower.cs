@@ -41,44 +41,28 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
                                         IFinishedStateListener, IPostPlacementChangeListener, IPausableComponent,
                                         ILateTickable, IPersistentEntity, ISelectionListener, IPostInitializableEntity {
 
-  #region Unity conrolled fields
-  // ReSharper disable InconsistentNaming
-  // ReSharper disable RedundantDefaultMemberInitializer
+  #region API
+  // ReSharper disable MemberCanBeProtected.Global
+  // ReSharper disable MemberCanBePrivate.Global
 
   /// <summary>The maximum distance of irrigation from the building's boundary.</summary>
-  [SerializeField]
-  [Tooltip("The max distance from the building boundaries at which the tiles can get water.")]
-  internal int _irrigationRange = 10;
+  /// <remarks>The building's foundation tiles are considered for the range, not the building "center".</remarks>
+  protected abstract int IrrigationRange { get; }
 
   /// <summary>
   /// Indicates that only foundation tiles with "ground only" setting will be considered when searching for the eligible
   /// tiles.
   /// </summary>
-  [SerializeField]
-  [Tooltip("Indicates that only ground tiles will be used for irrigated tiles search.")]
-  bool _irrigateFromGroundTilesOnly = true;
-
-  // ReSharper restore InconsistentNaming
-  // ReSharper restore RedundantDefaultMemberInitializer
-  #endregion
-
-  #region API
-  // ReSharper disable MemberCanBeProtected.Global
-  // ReSharper disable MemberCanBePrivate.Global
+  protected abstract  bool IrrigateFromGroundTilesOnly { get; }
 
   /// <summary>Tells if the tower is initialized and ready to work.</summary>
   protected bool IsInitialized => MaxCoveredTilesCount > 0;
-
-  /// <summary>The maximum irrigation range of the tower.</summary>
-  /// <seealso cref="EligibleTiles"/>
-  /// <seealso cref="EffectiveRange"/>
-  public int IrrigationRange => _irrigationRange;
 
   /// <summary>The current irrigation range.</summary>
   /// <remarks>It can change based on the building efficiency.</remarks>
   /// <seealso cref="ReachableTiles"/>
   /// <seealso cref="IrrigationRange"/>
-  public int EffectiveRange => Mathf.RoundToInt(_irrigationRange * CurrentEfficiency);
+  public int EffectiveRange => Mathf.RoundToInt(IrrigationRange * CurrentEfficiency);
 
   /// <summary>The tiles that can get water.</summary>
   /// <remarks>These tiles are in the effective range and can be reached from the tower.</remarks>
@@ -126,7 +110,7 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
   /// <inheritdoc />
   public IEnumerable<Vector3Int> GetBlocksInRange() {
     if (!BlockObject.IsFinished) {
-      return GetTiles(range: _irrigationRange, skipChecks: false).eligible;
+      return GetTiles(range: IrrigationRange, skipChecks: false).eligible;
     }
     return BlockableObject.IsUnblocked ? ReachableTiles : EligibleTiles;
   }
@@ -247,11 +231,11 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
       coverages = new Dictionary<int, int>();
       MaxCoverageByRadius.Add(_foundationSize, coverages);
     }
-    if (!coverages.TryGetValue(_irrigationRange, out var coverage)) {
-      coverage = GetTiles(range: _irrigationRange, skipChecks: true).eligible.Count;
-      coverages.Add(_irrigationRange, coverage);
+    if (!coverages.TryGetValue(IrrigationRange, out var coverage)) {
+      coverage = GetTiles(range: IrrigationRange, skipChecks: true).eligible.Count;
+      coverages.Add(IrrigationRange, coverage);
       HostedDebugLog.Fine(this, "Calculated max coverage: size={0}, range={1}, coverage={2}",
-                          _foundationSize, _irrigationRange, coverage);
+                          _foundationSize, IrrigationRange, coverage);
     }
     MaxCoveredTilesCount = coverage;
   }
@@ -405,9 +389,9 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
     _radiusAdjuster = Math.Max(dx + 1, dy + 1) / 2.0f;
     _baseZ = BlockObject.Placement.Coordinates.z;
 
-    if (_irrigateFromGroundTilesOnly) {
+    if (IrrigateFromGroundTilesOnly) {
       _startingTiles = BlockObject.PositionedBlocks.GetAllBlocks()
-          .Where(b => b.MatterBelow == MatterBelow.Ground && b.Coordinates.z == _baseZ)
+          .Where(b => b.MatterBelow is MatterBelow.Ground or MatterBelow.GroundOrStackable && b.Coordinates.z == _baseZ)
           .Select(b => b.Coordinates)
           .ToList();
     } else {
@@ -434,7 +418,7 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
 
   /// <summary>Returns all the tiles in the irrigated range.</summary>
   (HashSet<Vector3Int> eligible, HashSet<Vector3Int> obstacles, HashSet<Vector3Int> barriers) GetTiles(
-    float range, bool skipChecks) {
+      float range, bool skipChecks) {
     var tilesToVisit = new List<Vector3Int>(Mathf.RoundToInt(range * range));
     var visitedTiles = new HashSet<Vector3Int>();
     var result = new HashSet<Vector3Int>();
@@ -485,10 +469,15 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
 
   /// <summary>Rebuilds tiles coverage of the tower.</summary>
   void UpdateCoverage() {
-    (EligibleTiles, _irrigationObstacles, _irrigationBarriers) = GetTiles(range: _irrigationRange, skipChecks: false);
-    var newIrrigatedTiles = _irrigationRange == EffectiveRange
-        ? EligibleTiles
-        : GetTiles(range: EffectiveRange, skipChecks: false).eligible;
+    (EligibleTiles, _irrigationObstacles, _irrigationBarriers) = GetTiles(range: IrrigationRange, skipChecks: false);
+    HashSet<Vector3Int> newIrrigatedTiles;
+    if (Mathf.Approximately(CurrentEfficiency, 0)) {
+      newIrrigatedTiles = [];  // Not tiles can be eligible at 0 efficiency.
+    } else if (EffectiveRange == IrrigationRange) {
+      newIrrigatedTiles = EligibleTiles;
+    } else {
+      newIrrigatedTiles = GetTiles(range: EffectiveRange, skipChecks: false).eligible;
+    }
     ReachableTiles = newIrrigatedTiles;
     Coverage = (float)newIrrigatedTiles.Count / MaxCoveredTilesCount;
     HostedDebugLog.Fine(this, "Covered tiles updated: eligible={0}, irrigated={1}, utilization={2}, efficiency={3}",

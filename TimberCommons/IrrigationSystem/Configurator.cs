@@ -22,6 +22,8 @@ sealed class Configurator : IConfigurator {
     var builder = new TemplateModule.Builder();
     builder.AddDecorator<Growable, GrowthRateModifier>();
     builder.AddDecorator<GoodConsumingIrrigationTowerSpec, GoodConsumingIrrigationTower>();
+    builder.AddDecorator<ManufactoryIrrigationTowerSpec, ManufactoryIrrigationTower>();
+    builder.AddDecorator<ModifyGrowableGrowthRangeEffectSpec, ModifyGrowableGrowthRangeEffect>();
     return builder.Build();
   }
 }

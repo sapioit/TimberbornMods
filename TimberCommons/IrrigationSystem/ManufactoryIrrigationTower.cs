@@ -13,7 +13,6 @@ using Timberborn.Localization;
 using Timberborn.TimeSystem;
 using Timberborn.Workshops;
 using UnityDev.Utils.LogUtilsLite;
-using UnityEngine;
 
 namespace IgorZ.TimberCommons.IrrigationSystem;
 
@@ -32,21 +31,6 @@ namespace IgorZ.TimberCommons.IrrigationSystem;
 /// </remarks>
 public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
 
-  #region Unity controlled fields
-  // ReSharper disable InconsistentNaming
-  // ReSharper disable RedundantDefaultMemberInitializer
-
-  /// <summary>Defines rules to apply an effect group per the recipe selected.</summary>
-  /// <remarks>Each row is mappings like: <c>&lt;recipe id>=&lt;effect group></c>. The keys must be unique.</remarks>
-  /// <see cref="IRangeEffect.EffectGroup"/>
-  [SerializeField]
-  [Tooltip("Format: RecipeId=EffectName. Recipe IDs in the list must be unique.")]
-  internal string[] _effects = [];
-
-  // ReSharper restore InconsistentNaming
-  // ReSharper restore RedundantDefaultMemberInitializer
-  #endregion
-
   #region TickableComponent overrides
 
   /// <inheritdoc/>
@@ -61,6 +45,16 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   #endregion
 
   #region IrrigationTower overrides
+
+  /// <inheritdoc/>
+  /// FIXME
+  protected override int IrrigationRange => _irrigationRange;
+  int _irrigationRange;
+
+  /// <inheritdoc/>
+  /// FIXME
+  protected override bool IrrigateFromGroundTilesOnly => _irrigateFromGroundTilesOnly;
+  bool _irrigateFromGroundTilesOnly;
 
   /// <inheritdoc/>
   protected override bool CanMoisturize() {
@@ -128,7 +122,7 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
 
   Dictionary<string, string> _effectsRulesDict;
   Dictionary<string, List<IRangeEffect>> _availableEffectsDict;
-  static readonly List<IRangeEffect> NoEffects = new();
+  static readonly List<IRangeEffect> NoEffects = [];
   float _ingredientsConsumptionProgress;
   string _progressUpdateMsg;
 
@@ -143,9 +137,15 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   public override void Awake() {
     base.Awake();
     _manufactory = GetComponent<Manufactory>();
-    _effectsRulesDict = _effects
-        .Select(pair => pair.Split(['='], 2))
-        .ToDictionary(k => k[0], v => v[1]);
+    var spec = GetComponent<ManufactoryIrrigationTowerSpec>();
+    _irrigationRange = spec.IrrigationRange;
+    _irrigateFromGroundTilesOnly = spec.IrrigateFromGroundTilesOnly;
+    try {
+      _effectsRulesDict = spec.Effects.Select(pair => pair.Split(['='], 2)).ToDictionary(k => k[0], v => v[1]);
+    } catch (Exception ex) {
+      HostedDebugLog.Error(this, "Cannot parse effects definition: {0}", spec.Effects);
+      throw;
+    }
 
     // Make effect cache.
     var rangeEffects = new List<IRangeEffect>();
@@ -157,7 +157,7 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   }
 
   /// <summary>Returns all effects that should be active for the recipe.</summary>
-  /// <seealso cref="_effects"/>
+  /// <seealso cref="ManufactoryIrrigationTowerSpec.Effects"/>
   List<IRangeEffect> GetEffectsForRecipe(string recipeId) {
     if (_effectsRulesDict.TryGetValue(recipeId, out var effectGroup)
         && _availableEffectsDict.TryGetValue(effectGroup, out var effects)) {

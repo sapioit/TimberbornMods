@@ -31,50 +31,6 @@ namespace IgorZ.TimberCommons.IrrigationSystem;
 public sealed class ModifyGrowableGrowthRangeEffect
     : BaseComponent, IAwakableComponent, IRangeEffect, IFinishedStateListener {
 
-  #region Unity managed fields
-  // ReSharper disable InconsistentNaming
-  // ReSharper disable RedundantDefaultMemberInitializer
-
-  /// <inheritdoc cref="EffectGroup"/>
-  [SerializeField]
-  [Tooltip(
-    "The name by which this effect can be found by the other components. Multiple effects can have the same name.")]
-  internal string _effectGroupName = "ModifyGrowthRate";
-
-  /// <summary>
-  /// The modifier percentile to the original tree growth rate. It can increase or decrease the growth rate.
-  /// </summary>
-  /// <remarks>
-  /// Values below <c>0</c> are "moderators", they decrease the growth rate. Values above <c>0</c> are "boosters", they
-  /// increase the growth rate.
-  /// </remarks>
-  [SerializeField]
-  [Tooltip("Positive or negative percent value. E.g. '15.5' or '-8.5'.")]
-  internal float _growthRateModifier = 0;
-
-  /// <summary>The components that must exist on the growable in order to be a target of this effect.</summary>
-  /// <remarks>
-  /// <p>If the list is empty, then no restriction by the components is applied.</p>
-  /// <p>
-  /// The names must be in a full notion, e.g. "<c>Timberborn.Forestry.TreeComponent</c>". The growable will be selected
-  /// if <i>any</i> of the components are present on the block object.
-  /// </p>
-  /// </remarks>
-  [SerializeField]
-  [Tooltip(
-    "Full names of components that must be present on the growable. Leave empty to not check for the components.")]
-  internal string[] _componentsFilter = [];
-
-  /// <summary>The exact names of the prefabs to be selected to this effect.</summary>
-  /// <remarks>If the list is empty, then no restriction by the prefab name is applied.</remarks>
-  [SerializeField]
-  [Tooltip("The exact prefab names to apply the effect to.")]
-  internal string[] _prefabNamesFilter = [];
-
-  // ReSharper restore InconsistentNaming
-  // ReSharper restore RedundantDefaultMemberInitializer
-  #endregion
-
   #region IFinishedStateListener implementation
 
   /// <inheritdoc/>
@@ -92,7 +48,7 @@ public sealed class ModifyGrowableGrowthRangeEffect
   #region IRangeEffect implementation
 
   /// <inheritdoc/>
-  public string EffectGroup => _effectGroupName;
+  public string EffectGroup { get; private set; }
 
   /// <inheritdoc/>
   public void ApplyEffect(HashSet<Vector3Int> tiles) {
@@ -129,6 +85,7 @@ public sealed class ModifyGrowableGrowthRangeEffect
   string _modifierOwnerId;
   HashSet<string> _requiredComponents;
   HashSet<string> _requiredPrefabNames;
+  float _growthRateModifier;
 
   HashSet<Vector3Int> _allTiles;
   List<Vector3Int> _coordsWithBoost;
@@ -148,8 +105,11 @@ public sealed class ModifyGrowableGrowthRangeEffect
   /// <inheritdoc/>
   public void Awake() {
     _modifierOwnerId = Guid.NewGuid().ToString();
-    _requiredComponents = _componentsFilter.ToHashSet();
-    _requiredPrefabNames = _prefabNamesFilter.ToHashSet();
+    var effectSpec = GetComponent<ModifyGrowableGrowthRangeEffectSpec>();
+    _requiredComponents = effectSpec.ComponentsFilter.ToHashSet();
+    _requiredPrefabNames = effectSpec.PrefabNamesFilter.ToHashSet();
+    _growthRateModifier = effectSpec.GrowthRateModifier;
+    EffectGroup = effectSpec.EffectGroupName;
   }
 
   /// <summary>Adds the rate modifier at the tile, given there is eligible growable.</summary>
