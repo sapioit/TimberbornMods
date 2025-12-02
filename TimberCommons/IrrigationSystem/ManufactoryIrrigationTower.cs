@@ -47,12 +47,10 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   #region IrrigationTower overrides
 
   /// <inheritdoc/>
-  /// FIXME
   protected override int IrrigationRange => _irrigationRange;
   int _irrigationRange;
 
   /// <inheritdoc/>
-  /// FIXME
   protected override bool IrrigateFromGroundTilesOnly => _irrigateFromGroundTilesOnly;
   bool _irrigateFromGroundTilesOnly;
 
