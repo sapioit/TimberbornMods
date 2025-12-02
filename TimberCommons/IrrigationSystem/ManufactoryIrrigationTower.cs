@@ -83,6 +83,14 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   protected override void Initialize() {
     base.Initialize();
     _originalRecipeId = _manufactory.CurrentRecipe?.Id;
+
+    // Make effect cache.
+    var rangeEffects = new List<IRangeEffect>();
+    GetComponents(rangeEffects);
+    _availableEffectsDict = rangeEffects
+        .Where(x => _effectsRulesDict.ContainsValue(x.EffectGroup))
+        .GroupBy(x => x.EffectGroup)
+        .ToDictionary(x => x.Key, x => x.ToList());
   }
 
   #endregion
@@ -141,17 +149,9 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
     try {
       _effectsRulesDict = spec.Effects.Select(pair => pair.Split(['='], 2)).ToDictionary(k => k[0], v => v[1]);
     } catch (Exception ex) {
-      HostedDebugLog.Error(this, "Cannot parse effects definition: {0}", spec.Effects);
+      HostedDebugLog.Error(this, "Cannot parse effects definition: {0}. {1}", spec.Effects, ex);
       throw;
     }
-
-    // Make effect cache.
-    var rangeEffects = new List<IRangeEffect>();
-    GetComponents(rangeEffects);
-    _availableEffectsDict = rangeEffects
-        .Where(x => _effectsRulesDict.ContainsValue(x.EffectGroup))
-        .GroupBy(x => x.EffectGroup)
-        .ToDictionary(x => x.Key, x => x.ToList());
   }
 
   /// <summary>Returns all effects that should be active for the recipe.</summary>
