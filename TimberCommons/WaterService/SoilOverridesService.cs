@@ -96,6 +96,9 @@ public class SoilOverridesService : ILoadableSingleton, ITickableSingleton, IPos
   /// <summary>Checks if there is a contamination barrier at the given coordinates.</summary>
   public bool IsContaminationBarrierAt(Vector3Int coordinates) {
     var blockObject = _blockService.GetBottomObjectComponentAt<BlockObject>(coordinates);
+    if (!blockObject) {
+      return false;
+    }
     var barrier = blockObject.GetComponent<SoilBarrierSpec>();
     return blockObject.IsFinished && barrier != null && barrier.BlockContamination;
   }
@@ -103,6 +106,9 @@ public class SoilOverridesService : ILoadableSingleton, ITickableSingleton, IPos
   /// <summary>Checks if there is a full moisture barrier at the given coordinates.</summary>
   public bool IsFullMoistureBarrierAt(Vector3Int coordinates) {
     var blockObject = _blockService.GetBottomObjectComponentAt<BlockObject>(coordinates);
+    if (!blockObject) {
+      return false;
+    }
     var barrier = blockObject.GetComponent<SoilBarrierSpec>();
     return blockObject.IsFinished && barrier != null && barrier.BlockFullMoisture;
   }
