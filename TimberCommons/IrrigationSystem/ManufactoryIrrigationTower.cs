@@ -190,9 +190,6 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
   /// <summary>Updates to the new manufactory recipe.</summary>
   /// <param name="oldRecipeId">The recipe that was set before the change.</param>
   void UpdateRecipe(string oldRecipeId) {
-    if (_manufactory.CurrentRecipe?.Id == oldRecipeId) {
-      return;
-    }
     StopEffectsForRecipe(oldRecipeId);
     StartEffectsForCurrentRecipe();
     UpdateCurrentRecipeDuration();
