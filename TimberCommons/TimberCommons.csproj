@@ -126,7 +126,6 @@
     </ItemGroup>
     <PropertyGroup>
         <ModPath>u:\Mods</ModPath>
-        <ModScriptPath>$(ModPath)$(ProjectName)\version-0.7.10.9\Scripts</ModScriptPath>
     </PropertyGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(ModPath)')">
         <Message Text="### Copying mod's DLL to the game's mods folder: $(ModScriptPath) ###" Importance="high"/>
