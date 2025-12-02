@@ -115,7 +115,7 @@ public sealed class GrowthRateModifier : BaseComponent, IAwakableComponent {
     _growable._timeTrigger = newTrigger;
     _growable._timeTrigger.Resume();
     RateIsModified = Mathf.Abs(_originalGrowthTimeInDays - newGrowthTime) > float.Epsilon;
-    _growable._growableSpec = new GrowableSpec { GrowthTimeInDays = newGrowthTime };
+    _growable._growableSpec = _growable._growableSpec with { GrowthTimeInDays = newGrowthTime };
   }  
 
   #endregion
