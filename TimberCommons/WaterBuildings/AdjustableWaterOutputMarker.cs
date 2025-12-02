@@ -26,12 +26,14 @@ sealed class AdjustableWaterOutputMarker(MarkerDrawerFactory markerDrawerFactory
 
   /// <inheritdoc/>
   public void OnSelect() {
-    Enabled = !_blockObject.IsPreview && _adjustableWaterOutput.ShowHeightMarker;
+    if (!_blockObject.IsPreview && _adjustableWaterOutput.ShowHeightMarker) {
+      EnableComponent();
+    }
   }
 
   /// <inheritdoc/>
   public void OnUnselect() {
-    Enabled = false;
+    DisableComponent();
   }
 
   #endregion
@@ -43,7 +45,7 @@ sealed class AdjustableWaterOutputMarker(MarkerDrawerFactory markerDrawerFactory
     _adjustableWaterOutput = GetComponent<AdjustableWaterOutput>();
     _blockObject = GetComponent<BlockObject>();
     _markerDrawer = markerDrawerFactory.CreateTileDrawer();
-    Enabled = false;
+    DisableComponent();
   }
 
   #endregion
@@ -52,10 +54,6 @@ sealed class AdjustableWaterOutputMarker(MarkerDrawerFactory markerDrawerFactory
 
   /// <inheritdoc/>
   public void Update() {
-    if (!Enabled) {
-      // FIXME: The disabled components are not expected to get the Update. It may get fixed in TB.
-      return;
-    }
     var targetCoordinates = _adjustableWaterOutput.TargetCoordinates;
     var coordinates = new Vector3Int(targetCoordinates.x, targetCoordinates.y, _adjustableWaterOutput.MaxHeight); 
     var currentWaterLevel = _adjustableWaterOutput.CurrentWaterLevel;
