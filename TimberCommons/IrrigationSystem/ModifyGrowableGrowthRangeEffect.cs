@@ -57,9 +57,8 @@ public sealed class ModifyGrowableGrowthRangeEffect
     _coordsWithBoost = [];
     // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
     foreach (var tile in _allTiles) {
-      var coords = AddModifierToTile(tile);
-      if (coords.HasValue) {
-        _coordsWithBoost.Add(coords.Value);
+      if (MaybeAddModifierToTile(tile)) {
+        _coordsWithBoost.Add(tile);
       }
     }
   }
@@ -113,23 +112,22 @@ public sealed class ModifyGrowableGrowthRangeEffect
   }
 
   /// <summary>Adds the rate modifier at the tile, given there is eligible growable.</summary>
-  /// <returns>The exact coordinates of the growable or <c>null</c> if there is none.</returns>
-  Vector3Int? AddModifierToTile(Vector3Int coords) {
+  bool MaybeAddModifierToTile(Vector3Int coords) {
     var modifier = _blockService.GetBottomObjectComponentAt<GrowthRateModifier>(coords);
     if (!modifier || !modifier.IsLiveAndGrowing) {
-      return null;
+      return false;
     }
     if (_requiredPrefabNames.Count > 0 && !_requiredPrefabNames.Contains(modifier.Name)) {
-      return null;
+      return false;
     }
     var hasComponents = _requiredComponents.IsEmpty()
         || modifier.AllComponents.Any(component => _requiredComponents.Contains(component.GetType().FullName));
     if (!hasComponents) {
-      return null;
+      return false;
     }
     modifier.RegisterModifier(_modifierOwnerId, _growthRateModifier);
 
-    return coords;
+    return true;
   }
 
   /// <summary>Removes the modifier at coordinates or NOOP if no <see cref="GrowthRateModifier"/> is there.</summary>
@@ -159,9 +157,8 @@ public sealed class ModifyGrowableGrowthRangeEffect
     if (!_allTiles.Contains(affectedTile)) {
       return;
     }
-    var coords = AddModifierToTile(affectedTile);
-    if (coords.HasValue) {
-      _coordsWithBoost.Add(coords.Value);
+    if (MaybeAddModifierToTile(affectedTile)) {
+      _coordsWithBoost.Add(affectedTile);
     }
   }
 
