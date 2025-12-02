@@ -17,7 +17,6 @@ sealed class Configurator : IConfigurator {
       typeof(GoodConsumingBuildingDescriberPatch),
       typeof(ManufactoryInventoryFragmentPatch1),
       typeof(ManufactoryInventoryFragmentPatch2),
-      typeof(GoodConsumingBuildingFragmentPatch),
       typeof(SluiceFragmentPatch1),
       typeof(SluiceFragmentPatch2),
       typeof(GrowableToolPanelItemFactoryPatch),

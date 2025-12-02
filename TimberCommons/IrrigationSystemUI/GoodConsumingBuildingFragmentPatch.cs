@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable InconsistentNaming
 
-namespace IgorZ.TimberCommons.CommonUIPatches;
+namespace IgorZ.TimberCommons.IrrigationSystemUI;
 
 /// <summary>Harmony patch to show supply in days and hours.</summary>
 /// <remarks>
