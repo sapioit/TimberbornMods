@@ -2,8 +2,8 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-using System.Reflection;
 using HarmonyLib;
+using IgorZ.TimberCommons.IrrigationSystem;
 using IgorZ.TimberCommons.Settings;
 using IgorZ.TimberDev.UI;
 using Timberborn.GoodConsumingBuildingSystem;
@@ -31,7 +31,8 @@ static class GoodConsumingBuildingFragmentPatch {
     if (!__runOriginal) {
       return false;  // The other patches must follow the same style to properly support the skip logic!
     }
-    if (____goodConsumingBuilding.GoodPerHour > float.Epsilon) {
+    var maybeTower = ____goodConsumingBuilding.GetComponent<IrrigationTower>();
+    if (!maybeTower || maybeTower.Coverage > float.Epsilon) {
       return true;
     }
     ____hoursLeftBar.SetProgress(0);
