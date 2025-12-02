@@ -122,7 +122,7 @@ sealed class InjuryProbabilityFragment : IEntityPanelFragment {
       probabilityPct = dailyProbability;
       pctLocKey = InjuryProbabilityDailyLocKey;
     }
-    var coloredText = $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{probabilityPct:P3}</color>";
+    var coloredText = $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{probabilityPct:0.###%}</color>";
     _injuryProbabilityText = _uiFactory.T(pctLocKey, coloredText);
     _injuryProbabilityLabel.text = _injuryProbabilityText;
 
