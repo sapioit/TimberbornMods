@@ -148,14 +148,14 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
     BlockableObject.ObjectBlocked += OnBlockedStateChanged;
     BlockableObject.ObjectUnblocked += OnBlockedStateChanged;
     _eventBus.Register(this);
-    Enabled = true;
+    EnableComponent();
   }
 
   /// <inheritdoc/>
   public virtual void OnExitFinishedState() {
     StopMoisturizing();
     _eventBus.Unregister(this);
-    Enabled = false;
+    DisableComponent();
   }
 
   #endregion
@@ -317,7 +317,7 @@ public abstract class IrrigationTower : TickableComponent, IAwakableComponent, I
   public virtual void Awake() {
     BlockObject = GetComponent<BlockObject>();
     BlockableObject = GetComponent<BlockableObject>();
-    Enabled = false;
+    DisableComponent();
   }
 
   /// <summary>Updates the eligible tiles and moisture system.</summary>
