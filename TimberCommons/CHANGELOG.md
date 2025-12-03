@@ -1,4 +1,4 @@
-# v1.14.2 (Started on November 27th, 2025)
+# v1.14.3 (December 3rd, 2025)
 * [Update] Support game version `v1.0`. All the previous versions are NOT supported!
 * [Feature] Show red/blue colors when adjusting the water drop sources levels based on the water level at the output.
 * [Feature] Add an option to show the injury ratio for the whole day. It's a default mode now.
