@@ -2,6 +2,7 @@
 * [Update] Support game version `v1.0`. All the previous versions are NOT supported!
 * [Feature] Show red/blue colors when adjusting the water drop sources levels based on the water level at the output.
 * [Feature] Add an option to show the injury ratio for the whole day. It's a default mode now.
+* [Fix] Properly calculate "supply left" estimation on the recipe based towers.
 
 # v1.13.1 (September 28th, 2025)
 * [Fix] In rare cases the game load may crash when irrigation towers are present.

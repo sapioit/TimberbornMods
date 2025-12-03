@@ -226,18 +226,19 @@ public class ManufactoryIrrigationTower : IrrigationTower, ISupplyLeftProvider {
       return; // Cannot estimate.
     }
     var inventory = _manufactory.Inventory;
-    var supply = new List<(float supplyLeft, float maxSupply)>(); 
+    var supply = new List<(float supplyLeft, float maxSupply)>();
+    var ingridentLeftRatio = _manufactory.IsReadyToProduce ? 1f - _manufactory.ProductionProgress : 0f;
     foreach (var ingredient in recipe.Ingredients) {
-      var stock = inventory.AmountInStock(ingredient.Id);
+      var goodRemaining = inventory.AmountInStock(ingredient.Id) + ingredient.Amount * ingridentLeftRatio;
       var consumePerHour = ingredient.Amount / recipe.CycleDurationInHours;
-      var supplyLeftHours = stock / consumePerHour;
+      var supplyLeftHours = goodRemaining / consumePerHour;
       var supplyAtMaxCapacity = inventory.LimitedAmount(ingredient.Id) / consumePerHour;
       supply.Add((supplyLeftHours, supplyAtMaxCapacity));
     }
     if (recipe.ConsumesFuel) {
-      var stock = inventory.AmountInStock(recipe.Fuel) + _manufactory.FuelRemaining;
+      var fuelRemaining = inventory.AmountInStock(recipe.Fuel) + _manufactory.FuelRemaining;
       var consumePerHour = 1f / (recipe.CyclesFuelLasts * recipe.CycleDurationInHours);
-      var supplyLeftHours = stock / consumePerHour;
+      var supplyLeftHours = fuelRemaining / consumePerHour;
       var supplyAtMaxCapacity = inventory.LimitedAmount(recipe.Fuel) / consumePerHour;
       supply.Add((supplyLeftHours, supplyAtMaxCapacity));
     }
