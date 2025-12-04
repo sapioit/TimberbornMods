@@ -1,6 +1,6 @@
 # v1.14.3 (December 3rd, 2025)
-* [Update] Support game version `v1.0`. All the previous versions are NOT supported!
-* [Feature] Show red/blue colors when adjusting the water drop sources levels based on the water level at the output.
+* [Update] Support game version `v1.0`. The older version `v1.13.1` will be included in the package to support the main brunch.
+* [Feature] Show green/blue colors when adjusting the water drop sources levels based on the water level at the output.
 * [Feature] Add an option to show the injury ratio for the whole day. It's a default mode now.
 * [Fix] Properly calculate "supply left" estimation on the recipe based towers.
 
