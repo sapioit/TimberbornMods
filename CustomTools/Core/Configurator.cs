@@ -11,6 +11,7 @@ using Timberborn.TemplateCollectionSystem;
 namespace IgorZ.CustomTools.Core;
 
 [Context("Game")]
+[Context("MapEditor")]
 class Configurator : IConfigurator {
 
   class BottomBarModuleProvider(BottomBarElementsProviderFactory bottomBarElementsProviderFactory)

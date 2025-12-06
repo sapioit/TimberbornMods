@@ -8,6 +8,7 @@ using Bindito.Core;
 namespace IgorZ.CustomTools.Test;
 
 [Context("Game")]
+[Context("MapEditor")]
 class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<TestTool>().AsTransient();
