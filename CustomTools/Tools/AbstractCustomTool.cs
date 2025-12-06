@@ -33,22 +33,22 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor {
   protected CustomToolSpec ToolSpec { get; private set; }
 
   /// <summary>
-  /// The localization key of the text to present as the tool caption. If not overriden, then the string from the
+  /// The localized text to present as the tool caption. If not overriden, then the string from the
   /// <see cref="AbstractCustomTool.ToolSpec"/> is used.
   /// </summary>
   /// <remarks>If <c>null</c> or empty, then the title will not be shown.</remarks>
-  protected virtual string DescriptionTitleLoc => ToolSpec.DisplayNameLocKey;
+  protected virtual string DescriptionTitleLoc => Loc.T(ToolSpec.DisplayNameLocKey);
 
   /// <summary>
-  /// The localization key of the text to present as the tool description. If not overriden, then the string from the
+  /// The localized text to present as the tool description. If not overriden, then the string from the
   /// <see cref="AbstractCustomTool.ToolSpec"/> is used.
   /// </summary>
   /// <remarks>If <c>null</c> or empty, then the description will not be shown.</remarks>
-  protected virtual string DescriptionMainSectionLoc => ToolSpec.DescriptionLocKey;
+  protected virtual string DescriptionMainSectionLoc => Loc.T(ToolSpec.DescriptionLocKey);
 
   /// <summary>The localized option text that is presented at the bottom of the main stuff.</summary>
   /// <remarks>This value should be set in the <see cref="Initialize"/> method and don't change after that.</remarks>
-  protected string DescriptionHintSectionLoc = null;
+  protected string DescriptionHintSection = null;
 
   /// <summary>
   /// The visual elements to add to via <see cref="ToolDescription.Builder.AddExternalSection"/>. It can be <c>null</c>.
@@ -124,8 +124,8 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor {
         description.AddSection(visualSection);
       }
     }
-    if (DescriptionHintSectionLoc != null) {
-      description.AddPrioritizedSection(DescriptionHintSectionLoc);
+    if (DescriptionHintSection != null) {
+      description.AddPrioritizedSection(DescriptionHintSection);
     }
     if (DescriptionExternalSections != null) {
       foreach (var externalSection in DescriptionExternalSections) {

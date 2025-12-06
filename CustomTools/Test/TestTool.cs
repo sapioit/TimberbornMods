@@ -19,10 +19,13 @@ class TestTool : AbstractCustomTool, IConstructionModeEnabler {
 
   protected override void Initialize() {
     base.Initialize();
-    DescriptionHintSectionLoc = "hint-hint-hint";
+    DescriptionHintSection = "hint-hint-hint";
     DescriptionBullets = ["one string", "two string"];
     DescriptionExternalSections = [
         new Label("test label"),
+    ];
+    DescriptionVisualSections = [
+        new Label("test label 2"),
     ];
   }
 }
