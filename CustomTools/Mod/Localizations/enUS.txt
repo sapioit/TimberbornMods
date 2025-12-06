@@ -1,0 +1,6 @@
+ID,Text,Comment
+IgorZ.CustomTools.ToolGroup.Main.DisplayName,"Tools",
+IgorZ.CustomTools.PauseTool.Description,"Use this tool to pause buildings and construction sites.",
+IgorZ.CustomTools.PauseTool.Title,"Pause buildings",
+IgorZ.CustomTools.ResumeTool.Description,"Use this tool to unpause buildings and construction sites.",
+IgorZ.CustomTools.ResumeTool.Title,"Unpause buildings",

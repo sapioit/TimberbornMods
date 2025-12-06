@@ -1,0 +1,9 @@
+{
+  "TemplateCollectionSpec": {
+    "CollectionId": "BottomBar.CustomTools",
+    "Blueprints": [
+      "Blueprints/Tools/Tool.CustomTool.ResumeTool.blueprint",
+      "Blueprints/Tools/Tool.CustomTools.PauseTool.blueprint",
+    ]
+  }
+}
