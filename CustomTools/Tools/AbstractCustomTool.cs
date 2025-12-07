@@ -23,6 +23,13 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor {
 
   #region API
 
+  /// <summary>Returns text to show in the block object tool warning area.</summary>
+  /// <remarks>
+  /// This text can change and the changes will be reflected in UI immediately. Empty string or null value will hide the
+  /// warning.
+  /// </remarks>
+  public virtual string GetWarningText() => null;
+
   /// <summary>Shortcut to <see cref="ILoc"/>.</summary>
   protected ILoc Loc { get; private set; }
 

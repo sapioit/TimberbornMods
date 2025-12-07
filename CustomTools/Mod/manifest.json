@@ -4,4 +4,10 @@
   "Id": "Timberborn.IgorZ.CustomTools",
   "MinimumGameVersion": "1.0.0.0",
   "Description": "Offers some QoL tools and allows other mods to create new tools",
+  "RequiredMods": [
+    {
+      "Id": "Harmony",
+      "MinimumVersion": "2.3.3"
+    }
+  ]
 }
