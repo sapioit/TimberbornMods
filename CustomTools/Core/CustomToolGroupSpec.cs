@@ -12,7 +12,11 @@ public record CustomToolGroupSpec : ComponentSpec {
   [Serialize]
   public string Style { get; init; }
 
-  /// <summary>The tool order in the tools group. It is defined in the specification.</summary>
+  /// <summary>The tool group button order in case of there are multiple groups in the layout.</summary>
+  /// <remarks>
+  /// Used to order group buttons in case of there are multiple in the same layout. Duplicates are allowed. The custom
+  /// group buttons are always added at the end of the stock buttons list.
+  /// </remarks>
   [Serialize]
   public int Order { get; init; }
 
