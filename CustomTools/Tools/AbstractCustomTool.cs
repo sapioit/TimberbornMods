@@ -18,7 +18,7 @@ using UnityEngine.UIElements;
 namespace IgorZ.CustomTools.Tools;
 
 /// <summary>Base class for all custom tools.</summary>
-public abstract class AbstractCustomTool : ITool, IToolDescriptor, IDevModeTool {
+public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
 
   #region API
 
@@ -34,7 +34,7 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor, IDevModeTool 
 
   /// <summary>The spec of the tool.</summary>
   /// <remarks>
-  /// It can be used to extract more spec from teh tools blueprint. E.g. <c>ToolSpec.GetSpec&lt;MyDataSpec&gt;()</c>.
+  /// It can be used to extract more spec from the tools blueprint. E.g. <c>ToolSpec.GetSpec&lt;MyDataSpec&gt;()</c>.
   /// </remarks>
   protected CustomToolSpec ToolSpec { get; private set; }
 
@@ -89,36 +89,22 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor, IDevModeTool 
 
   #endregion
 
-  #region ITool implementation
+  #region IDevModeTool implementation
 
   /// <inheritdoc/>
   public abstract void Enter();
+
   /// <inheritdoc/>
   public abstract void Exit();
-
-  #endregion
-
-  #region IDevModeTool implementation
 
   /// <inheritdoc/>
   public bool IsDevMode => ToolSpec.DevMode;
 
   #endregion
 
-  #region Implementation
+  #region IToolDescriptor implementation
 
-  /// <summary>Injects the dependencies. It has to be public to work.</summary>
-  [Inject]
-  public void InjectDependencies(ILoc loc) {
-    Loc = loc;
-  }
-
-  internal void InitializeTool(CustomToolSpec toolSpec) {
-    ToolSpec = toolSpec;
-    Initialize();
-  }
-  #endregion
-
+  /// <inheritdoc/>
   public ToolDescription DescribeTool() {
     var description =
         new ToolDescription.Builder(!string.IsNullOrEmpty(DescriptionTitleLoc) ? Loc.T(DescriptionTitleLoc) : null);
@@ -147,4 +133,21 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor, IDevModeTool 
     }
     return description.Build();
   }
+
+  #endregion
+
+  #region Implementation
+
+  /// <summary>Injects the dependencies. It has to be public to work.</summary>
+  [Inject]
+  public void InjectDependencies(ILoc loc) {
+    Loc = loc;
+  }
+
+  internal void InitializeTool(CustomToolSpec toolSpec) {
+    ToolSpec = toolSpec;
+    Initialize();
+  }
+
+  #endregion
 }
