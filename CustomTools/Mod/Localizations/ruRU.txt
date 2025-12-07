@@ -1,0 +1,6 @@
+﻿ID,Text,Comment
+IgorZ.CustomTools.ToolGroup.Main.DisplayName,"Инструменты",
+IgorZ.CustomTools.PauseTool.Description,"Используйте этот инструмент чтобы остановить здания и строительные площадки.",
+IgorZ.CustomTools.PauseTool.Title,"Остановить здания",
+IgorZ.CustomTools.ResumeTool.Description,"Используйте этот инструмент чтобы возобновить здания и строительные площадки.",
+IgorZ.CustomTools.ResumeTool.Title,"Возобновить здания",
