@@ -6,6 +6,7 @@ using Timberborn.BlueprintSystem;
 
 namespace IgorZ.CustomTools.Core;
 
+/// <summary>Extra data about the custom groups.</summary>
 public record CustomToolGroupSpec : ComponentSpec {
   /// <summary>Color style of the group.</summary>
   /// <remarks>Values: "red", "blue", "green". Case-insensitive.</remarks>

@@ -7,6 +7,11 @@ using Timberborn.ToolSystem;
 
 namespace IgorZ.CustomTools.Core;
 
+/// <summary>Custom tool specification.</summary>
+/// <remarks>
+/// Blueprints that declare this spec must register in
+/// "TemplateCollections/TemplateCollection.BottomBar.CustomTools.blueprint".
+/// </remarks>
 public record CustomToolSpec : ComponentSpec {
   /// <summary>The group to attach this tool to.</summary>
   /// <remarks>This should be a standard group, defined via <see cref="ToolGroupSpec"/></remarks>
@@ -39,7 +44,7 @@ public record CustomToolSpec : ComponentSpec {
   [Serialize]
   public string DescriptionLocKey { get; init; }
 
-  /// <summary>Specifies if this tool should only be visible in teh DevMode.</summary>
+  /// <summary>Specifies if this tool should only be visible in the DevMode.</summary>
   [Serialize]
   public bool DevMode { get; init; }
 }
