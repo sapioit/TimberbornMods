@@ -14,7 +14,7 @@ using Timberborn.ToolSystem;
 namespace IgorZ.CustomTools.Patches;
 
 [HarmonyPatch(typeof(BlockObjectToolWarningPanel))]
-public static class BlockObjectToolWarningPanelPatch {
+static class BlockObjectToolWarningPanelPatch {
   [HarmonyPostfix]
   [HarmonyPatch(nameof(BlockObjectToolWarningPanel.UpdateSingleton))]
   static void ShowCustomToolWarning(BlockObjectToolWarningPanel __instance, ToolService ____toolService) {
