@@ -30,7 +30,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <DebugSymbols>true</DebugSymbols>
-        <DocumentationFile>bin\Release\TimberCommons.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\CustomTools.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
       <Reference Include="0Harmony">
@@ -64,8 +64,9 @@
         <ModPath>u:\Mods</ModPath>
     </PropertyGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(ModPath)')">
-        <Message Text="### Copying mod's DLL to the game's mods folder: $(ModScriptPath) ###" Importance="high"/>
+        <Message Text="### Copying DLL and Docs to the game's mods folder... ###" Importance="high"/>
         <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(ModPath)\$(ProjectName)\version-1.0\Scripts"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetName).xml" DestinationFolder="$(ModPath)\$(ProjectName)\version-1.0\Scripts"/>
     </Target>
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
       <PropertyGroup>
