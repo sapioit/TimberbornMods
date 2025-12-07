@@ -1,48 +1,29 @@
 [h1]Timberborn: Custom Tools[/h1]
-
 This mod offers new quality-of-life tools in the bottom bar and also provides an API for modders to quickly create their own tools.
-
 [hr][/hr]
-
 [h2]For the players: Built-in tools[/h2]
-
 [img]https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/GroupButtonDemo.png[/img]
-
 [h3]Immediate finish of incomplete buildings[/h3]
-
 This tool is only visible when the dev mode is activated ([b]Shift + Alt + Z[/b]). Select multiple incomplete buildings and have them [b]instantly completed[/b]. A handy tool when testing or prototyping.
-
 [img]https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/FinishNowToolDemo.png[/img]
-
 [h3]Pause buildings in the selected range[/h3]
-
 Select multiple buildings that need to be paused. Hold [b]SHIFT[/b] to lock the selection to a specific building type. A useful tool for temporarily stopping groups of buildings during colony micromanagement.
-
 [img]https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/PauseBuildingToolDemo.png[/img]
-
 [h3]Resume buildings in the selected range[/h3]
-
 Select multiple buildings you want to resume. Hold [b]SHIFT[/b] to lock the selection to a specific building type. Helps quickly bring groups of buildings back online during micromanagement.
-
 [img]https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/ResumeBuildingToolDemo.png[/img]
-
 [hr][/hr]
-
 [h2]For the modders: API to create your own tools[/h2]
-
 For the full instructions, go: https://github.com/ihsoft/TimberbornMods/blob/df74039908baf49845fce5b7a7cd87e1b0b37dd2/CustomTools/README.md
 
 The game's native approach to creating tools requires a considerable amount of code. If your mod only needs “a button” in the bottom bar, you can use this mod to significantly reduce development effort:
-
 [list]
 [*] Create a simple class that inherits from [b]AbstractCustomTool[/b] or one of its descendants.
 [*] Create a blueprint that defines the appearance of your button. At minimum, add [b]CustomToolSpec[/b]. You can add additional specs to control behavior or provide extra data to your class.
 [*] Use Timberborn’s blueprint patching system to update [b]TemplateCollection[/b]. This allows the [b]CustomTools[/b] mod to recognize your new tool.
 [*] (Optional) Create your own group button in the bottom bar and attach your tools to it. See this example blueprint: ToolGroup.CustomTools.
 [/list]
-
 [h3]Tool examples[/h3]
-
 [list]
 [*] [b]DebugFinishNowTool[/b]. A basic tool that selects a set of block objects on the map and performs actions on them.
 [*] [b]PauseTool[/b]. A more advanced example that uses selection locking to target specific object types.
