@@ -6,8 +6,5 @@
     "Icon": "Sprites/IgorZ/tool-pause",
     "DisplayNameLocKey": "IgorZ.CustomTools.PauseTool.Title",
     "DescriptionLocKey": "IgorZ.CustomTools.PauseTool.Description"
-  },
-  "TestToolSpec": {
-    "TestData": "test data"
   }
 }

@@ -6,8 +6,5 @@
     "Icon": "Sprites/IgorZ/tool-resume",
     "DisplayNameLocKey": "IgorZ.CustomTools.ResumeTool.Title",
     "DescriptionLocKey": "IgorZ.CustomTools.ResumeTool.Description"
-  },
-  "TestToolSpec": {
-    "TestData": "test data 2"
   }
 }
