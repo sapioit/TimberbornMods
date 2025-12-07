@@ -118,7 +118,7 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor {
         new ToolDescription.Builder(!string.IsNullOrEmpty(DescriptionTitleLoc) ? Loc.T(DescriptionTitleLoc) : null);
     var descriptionText = new StringBuilder();
     if (!string.IsNullOrEmpty(DescriptionMainSectionLoc)) {
-      descriptionText.Append(Loc.T(DescriptionMainSectionLoc));
+      descriptionText.Append(DescriptionMainSectionLoc);
     }
     if (DescriptionBullets != null) {
       foreach (var descriptionBullet in DescriptionBullets) {
