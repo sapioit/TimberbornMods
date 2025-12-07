@@ -1,0 +1,16 @@
+﻿// Timberborn Utils
+// Author: igor.zavoychinskiy@gmail.com
+// License: Public Domain
+
+using Bindito.Core;
+
+namespace IgorZ.CustomTools.Tools;
+
+[Context("Game")]
+[Context("MapEditor")]
+class Configurator : IConfigurator {
+  public void Configure(IContainerDefinition containerDefinition) {
+    containerDefinition.Bind<PauseTool>().AsSingleton();
+    containerDefinition.Bind<ResumeTool>().AsSingleton();
+  }
+}
