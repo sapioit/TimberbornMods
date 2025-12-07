@@ -5,6 +5,8 @@ IgorZ.CustomTools.LockSelectTool.SelectingNObjects,"Выделено: {0} (x{1})
 IgorZ.CustomTools.LockSelectTool.SelectingObject,"Выделено: {0}","Text to show the type of the selected building. It's shown when the selection tool is locked on the specific buildings."
 IgorZ.CustomTools.LockSelectTool.StartObjectSelectingPrompt,"Выделять здания типа: {0}",
 IgorZ.CustomTools.LockSelectTool.StartSelectingPrompt,"Наведите курсор на объект и нажмите <i>ЛКМ</i>, чтобы начать выделение.",
+IgorZ.CustomTools.DebugFinishNowTool.Description,"Немедленно завершить строительство выбранных зданий.",
+IgorZ.CustomTools.DebugFinishNowTool.Title,"Завершить строительство",
 IgorZ.CustomTools.PauseTool.Description,"Используйте этот инструмент чтобы остановить здания и строительные площадки.",
 IgorZ.CustomTools.PauseTool.Title,"Остановить здания",
 IgorZ.CustomTools.ResumeTool.Description,"Используйте этот инструмент чтобы возобновить здания и строительные площадки.",

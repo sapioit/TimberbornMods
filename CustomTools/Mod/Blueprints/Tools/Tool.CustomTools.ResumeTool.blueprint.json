@@ -1,0 +1,10 @@
+{
+  "CustomToolSpec": {
+    "GroupId": "CustomToolsToolGroup",
+    "Order": 11,
+    "Type": "IgorZ.CustomTools.Tools.ResumeTool",
+    "Icon": "Sprites/IgorZ/tool-resume",
+    "DisplayNameLocKey": "IgorZ.CustomTools.ResumeTool.Title",
+    "DescriptionLocKey": "IgorZ.CustomTools.ResumeTool.Description"
+  }
+}

@@ -10,6 +10,7 @@ namespace IgorZ.CustomTools.Tools;
 [Context("MapEditor")]
 class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
+    containerDefinition.Bind<DebugFinishNowTool>().AsSingleton();
     containerDefinition.Bind<PauseTool>().AsSingleton();
     containerDefinition.Bind<ResumeTool>().AsSingleton();
   }
