@@ -1,5 +1,10 @@
 ﻿ID,Text,Comment
 IgorZ.CustomTools.ToolGroup.Main.DisplayName,"Инструменты",
+IgorZ.CustomTools.LockSelectTool.DescriptionHint,"Удерживайте <i>SHIFT</i>, чтобы выделять здания только одного типа.",
+IgorZ.CustomTools.LockSelectTool.SelectingNObjects,"Выделено: {0} (x{1})","The plural form of TimberDev_Utils.Tools.LockSelectTool.SelectingObject"
+IgorZ.CustomTools.LockSelectTool.SelectingObject,"Выделено: {0}","Text to show the type of the selected building. It's shown when the selection tool is locked on the specific buildings."
+IgorZ.CustomTools.LockSelectTool.StartObjectSelectingPrompt,"Выделять здания типа: {0}",
+IgorZ.CustomTools.LockSelectTool.StartSelectingPrompt,"Наведите курсор на объект и нажмите <i>ЛКМ</i>, чтобы начать выделение.",
 IgorZ.CustomTools.PauseTool.Description,"Используйте этот инструмент чтобы остановить здания и строительные площадки.",
 IgorZ.CustomTools.PauseTool.Title,"Остановить здания",
 IgorZ.CustomTools.ResumeTool.Description,"Используйте этот инструмент чтобы возобновить здания и строительные площадки.",
