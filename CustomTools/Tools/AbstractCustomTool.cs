@@ -19,7 +19,7 @@ using UnityEngine.UIElements;
 namespace IgorZ.CustomTools.Tools;
 
 /// <summary>Base class for all custom tools.</summary>
-public abstract class AbstractCustomTool : ITool, IToolDescriptor {
+public abstract class AbstractCustomTool : ITool, IToolDescriptor, IDevModeTool {
 
   #region API
 
@@ -96,6 +96,13 @@ public abstract class AbstractCustomTool : ITool, IToolDescriptor {
   public abstract void Enter();
   /// <inheritdoc/>
   public abstract void Exit();
+
+  #endregion
+
+  #region IDevModeTool implementation
+
+  /// <inheritdoc/>
+  public bool IsDevMode => ToolSpec.DevMode;
 
   #endregion
 

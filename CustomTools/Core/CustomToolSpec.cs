@@ -19,4 +19,6 @@ public record CustomToolSpec : ComponentSpec {
   public string DisplayNameLocKey { get; init; }
   [Serialize]
   public string DescriptionLocKey { get; init; }
+  [Serialize]
+  public bool DevMode { get; init; }
 }
