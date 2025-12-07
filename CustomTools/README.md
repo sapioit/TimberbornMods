@@ -1,6 +1,6 @@
 # Timberborn: Custom Tools
 
-This mod offers new QoL tools in the bottom bar, and also provides API for the modders to quickly create own tools.
+This mod offers new quality-of-life tools in the bottom bar and also provides an API for modders to quickly create their own tools.
 
 ## For the players: Built-in tools
 
@@ -8,45 +8,50 @@ This mod offers new QoL tools in the bottom bar, and also provides API for the m
 
 ### Immediate finish of incomplete buildings
 
-This tool is only visible when the dev mode is activated (Shift+Alt+Z). Select multiple incomplete buildings and have
-them all instantly built. A handy tool when testing stuff.
+This tool is only visible when the dev mode is activated (Shift + Alt + Z). Select multiple incomplete buildings and have
+them instantly completed. A handy tool when testing or prototyping.
 
 ![Immediate finish of incomplete buildings](https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/FinishNowToolDemo.png)
 
 ### Pause buildings in the selected range
 
-Select multiple buildings that need to stop. Use SHIFT to "lock" selection to a certain buildings type. A handy tool to
-pause a set of buildings when micromanaging the colony.
+Select multiple buildings that need to be paused. Hold **SHIFT** to lock the selection to a specific building type.  
+A useful tool for temporarily stopping groups of buildings during colony micromanagement.
 
 ![Pause buildings in the selected range](https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/PauseBuildingToolDemo.png)
 
 ### Resume buildings in the selected range
 
-Select multiple buildings that need to resume working. Use SHIFT to "lock" selection to a certain buildings type. A
-handy tool to resume a set of buildings when micromanaging the colony.
+Select multiple buildings you want to resume. Hold **SHIFT** to lock the selection to a specific building type.  
+Helps quickly bring groups of buildings back online during micromanagement.
 
 ![Resume buildings in the selected range](https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/ResumeBuildingToolDemo.png)
 
-## For the modders: API to create own tools
+## For the modders: API to create your own tools
 
-The game's approach of creating tools requires a pretty big code efforts. If your mod only need "a button" in the bottom
-bar, you can use this mod to save your efforts:
+The game's native approach to creating tools requires a considerable amount of code.  
+If your mod only needs “a button” in the bottom bar, you can use this mod to significantly reduce development effort:
 
-1. Make a simple class that inherits
+1. Create a simple class that inherits from
    [`AbstractCustomTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Tools/AbstractCustomTool.cs)
    or one of its descendants.
-2. Create a blueprint that defines the appearance of your button. At the very least, add
-   [`CustomToolSpec`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Core/CustomToolSpec.cs)
-   to the blueprint. You can add more specs to control the tool behavior or pass extra data to your class.
-3. Use the Timberborn blueprint patching system to update
-   [`TemplateCollection`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/TemplateCollections/TemplateCollection.BottomBar.CustomTools.blueprint.json).
-   This will let `CustomTools` mod know about your new tool.
-4. Optionally. Create your own group button in the bar to attach the tools to. See how it's done in
-   [this blueprint example](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/ToolGroups/ToolGroup.CustomTools.blueprint.json).
 
-Tools examples:
+2. Create a blueprint that defines the appearance of your button. At minimum, add
+   [`CustomToolSpec`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Core/CustomToolSpec.cs).
+   You can add additional specs to control behavior or provide extra data to your class.
+
+3. Use Timberborn’s blueprint patching system to update
+   [`TemplateCollection`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/TemplateCollections/TemplateCollection.BottomBar.CustomTools.blueprint.json).
+   This allows the **CustomTools** mod to recognize your new tool.
+
+4. (Optional) Create your own group button in the bottom bar and attach your tools to it. See this example blueprint:
+   [ToolGroup.CustomTools](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/ToolGroups/ToolGroup.CustomTools.blueprint.json)
+
+### Tool examples
+
 * [`DebugFinishNowTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Tools/DebugFinishNowTool.cs).
-  It's a very basic tool that picks up a set of block objects from the map and preforms actions on them. The blueprint
-  for it is located [here](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/Tools/Tool.CustomTools.DebugFinishNowTool.blueprint.json).
-* [`PauseTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Tools/PauseTool.cs). A more
-  advanced example of using the "locking selection tool". This tool can selectively pick the objects.
+  A basic tool that selects a set of block objects on the map and performs actions on them.
+  Its blueprint can be found [here](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/Tools/Tool.CustomTools.DebugFinishNowTool.blueprint.json).
+
+* [`PauseTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Tools/PauseTool.cs).
+  A more advanced example that uses selection locking to target specific object types.
