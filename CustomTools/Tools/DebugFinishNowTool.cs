@@ -9,7 +9,7 @@ using Timberborn.ConstructionSites;
 namespace IgorZ.CustomTools.Tools;
 
 /// <summary>Debug tool to immediately complete unfinished constructibles.</summary>
-public class DebugFinishNowTool : AbstractAreaSelectionTool, IConstructionModeEnabler {
+sealed class DebugFinishNowTool : AbstractAreaSelectionTool, IConstructionModeEnabler {
 
   /// <inheritdoc/>
   protected override string CursorName => null;
