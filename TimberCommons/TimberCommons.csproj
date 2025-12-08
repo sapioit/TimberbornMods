@@ -99,9 +99,6 @@
       <Compile Include="..\TimberDev\UI\UiFactory.cs">
         <Link>TimberDev\UI\UiFactory.cs</Link>
       </Compile>
-      <Compile Include="..\TimberDev\Utils\Configurator.cs">
-        <Link>TimberDev\Utils\Configurator.cs</Link>
-      </Compile>
       <Compile Include="..\TimberDev\Utils\HarmonyPatcher.cs">
         <Link>TimberDev\Utils\HarmonyPatcher.cs</Link>
       </Compile>
@@ -116,6 +113,9 @@
       </Compile>
       <Compile Include="..\TimberDev\Utils\StaticBindings.cs">
         <Link>TimberDev\Utils\StaticBindings.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\StaticBindingsConfigurator.cs">
+        <Link>TimberDev\Utils\StaticBindingsConfigurator.cs</Link>
       </Compile>
       <Compile Include="..\UnityDevLite\DebugEx.cs">
         <Link>UnityDevLite\DebugEx.cs</Link>

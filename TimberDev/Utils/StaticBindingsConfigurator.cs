@@ -8,7 +8,9 @@ using Bindito.Core;
 namespace IgorZ.TimberDev.Utils;
 
 [Context("Game")]
-class Configurator : IConfigurator {
+[Context("MapEditor")]
+[Context("Menu")]
+class StaticBindingsConfigurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<StaticBindings>().AsSingleton();
   }
