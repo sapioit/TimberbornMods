@@ -19,7 +19,7 @@ static class MechanicalBuildingPatch {
     if (!__runOriginal) {
       return false;  // The other patches must follow the same style to properly support the skip logic!
     }
-    var adjustablePowerInput = __instance.GetComponentFast<IAdjustablePowerInput>();
+    var adjustablePowerInput = __instance.GetComponent<IAdjustablePowerInput>();
     if (adjustablePowerInput == null) {
       return true;
     }

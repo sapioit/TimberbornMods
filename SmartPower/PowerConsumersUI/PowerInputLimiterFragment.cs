@@ -83,7 +83,7 @@ sealed class PowerInputLimiterFragment : IEntityPanelFragment {
 
   public void ShowFragment(BaseComponent entity) {
     _consumerFragmentPatcher.InitializePatch(_root);
-    _powerInputLimiter = entity.GetComponentFast<PowerInputLimiter>();
+    _powerInputLimiter = entity.GetComponent<PowerInputLimiter>();
     if (!_powerInputLimiter) {
       return;
     }
@@ -105,7 +105,7 @@ sealed class PowerInputLimiterFragment : IEntityPanelFragment {
     if (!_powerInputLimiter) {
       return;
     }
-    _applyToAllBuildingsButton.ToggleDisplayStyle(visible: _powerInputLimiter.enabled);
+    _applyToAllBuildingsButton.ToggleDisplayStyle(visible: _powerInputLimiter.Enabled);
     _applyToAllUpdater?.Update(
         () => {
           _applyToAllBuildingsButton.text = _uiFactory.T(ApplyToAllBuildingsLocKey);

@@ -2,7 +2,6 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-using System.Linq;
 using IgorZ.SmartPower.Core;
 using IgorZ.SmartPower.Settings;
 using IgorZ.TimberDev.UI;
@@ -58,7 +57,7 @@ sealed class MechanicalNodeFragment : IEntityPanelFragment {
     if (!BatteriesSettings.ShowBatteryVitals) {
       return;
     }
-    _mechanicalNode = entity.GetComponentFast<MechanicalNode>();
+    _mechanicalNode = entity.GetComponent<MechanicalNode>();
     if (_mechanicalNode) {
       _batteryTextPatcher.Patch();
       _batteryTextLabel.ToggleDisplayStyle(visible: true);

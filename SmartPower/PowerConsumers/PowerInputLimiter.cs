@@ -10,8 +10,10 @@ using IgorZ.SmartPower.Settings;
 using IgorZ.SmartPower.Utils;
 using IgorZ.TimberDev.Utils;
 using Timberborn.Attractions;
+using Timberborn.BaseComponentSystem;
+using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
-using Timberborn.BuildingsBlocking;
+using Timberborn.Buildings;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
@@ -26,7 +28,7 @@ using UnityEngine;
 namespace IgorZ.SmartPower.PowerConsumers;
 
 sealed class PowerInputLimiter
-    : TickableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity {
+    : TickableComponent, IAwakableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity {
 
   #region API
 
@@ -51,8 +53,8 @@ sealed class PowerInputLimiter
 
   /// <summary>Returns balancers in the same network.</summary>
   public IEnumerable<PowerInputLimiter> AllLimiters => _mechanicalNode.Graph.Nodes
-      .Select(x => x.GetComponentFast<PowerInputLimiter>())
-      .Where(x => x != null && x.name == name);
+      .Select(x => x.GetComponent<PowerInputLimiter>())
+      .Where(x => x != null && x.Name == Name);
 
   /// <summary>Tells the consumer should automatically pause/unpause based on the power supply.</summary>
   /// <seealso cref="UpdateState"/>
@@ -114,12 +116,12 @@ sealed class PowerInputLimiter
 
   /// <inheritdoc/>
   public void OnEnterFinishedState() {
-    enabled = true;
+    EnableComponent();
   }
 
   /// <inheritdoc/>
   public void OnExitFinishedState() {
-    enabled = false;
+    DisableComponent();
   }
 
   #endregion
@@ -179,7 +181,7 @@ sealed class PowerInputLimiter
   UnmannedConsumerSettings _unmannedConsumerSettings;
   WorkplaceConsumerSettings _workplaceConsumerSettings;
 
-  BlockableBuilding _blockableBuilding;
+  BlockableObject _blockableObject;
   PausableBuilding _pausableBuilding;
   StatusToggle _shutdownStatus;
 
@@ -190,7 +192,7 @@ sealed class PowerInputLimiter
 
   int _desiredPower;
 
-  bool SmartLogicActive => enabled && Automate && !_pausableBuilding.Paused;
+  bool SmartLogicActive => Enabled && Automate && !_pausableBuilding.Paused;
 
   /// <summary>It must be public for the injection logic to work.</summary>
   [Inject]
@@ -205,22 +207,22 @@ sealed class PowerInputLimiter
     _workplaceConsumerSettings = workplaceConsumerSettings;
   }
 
-  void Awake() {
-    _mechanicalNode = GetComponentFast<MechanicalNode>();
-    _nominalPowerInput = GetComponentFast<MechanicalNodeSpec>().PowerInput;
+  public void Awake() {
+    _mechanicalNode = GetComponent<MechanicalNode>();
+    _nominalPowerInput = GetComponent<MechanicalNodeSpec>().PowerInput;
     _desiredPower = _nominalPowerInput;
-    _blockableBuilding = GetComponentFast<BlockableBuilding>();
-    _pausableBuilding = GetComponentFast<PausableBuilding>();
+    _blockableObject = GetComponent<BlockableObject>();
+    _pausableBuilding = GetComponent<PausableBuilding>();
     _pausableBuilding.PausedChanged += (_, _) => UpdateState();
     
     bool showFloatingIcon;
-    if (GetComponentFast<Attraction>()) {
+    if (GetComponent<Attraction>()) {
       showFloatingIcon = _attractionConsumerSettings.ShowFloatingIcon.Value;
       _suspendDelayedAction =
           _smartPowerService.GetTimeDelayedAction(_attractionConsumerSettings.SuspendDelayMinutes.Value);
       _resumeDelayedAction =
           _smartPowerService.GetTimeDelayedAction(_attractionConsumerSettings.ResumeDelayMinutes.Value);
-    } else if (GetComponentFast<Workplace>()) {
+    } else if (GetComponent<Workplace>()) {
       showFloatingIcon = _workplaceConsumerSettings.ShowFloatingIcon.Value;
       _suspendDelayedAction =
           _smartPowerService.GetTimeDelayedAction(_workplaceConsumerSettings.SuspendDelayMinutes.Value);
@@ -235,9 +237,9 @@ sealed class PowerInputLimiter
     _shutdownStatus = showFloatingIcon
         ? StatusToggle.CreateNormalStatusWithFloatingIcon(ShutdownStatusIcon, _loc.T(PowerShutdownModeLocKey))
         : StatusToggle.CreateNormalStatus(ShutdownStatusIcon, _loc.T(PowerShutdownModeLocKey));
-    GetComponentFast<StatusSubject>().RegisterStatus(_shutdownStatus);
+    GetComponent<StatusSubject>().RegisterStatus(_shutdownStatus);
 
-    enabled = false;
+    DisableComponent();
   }
 
   void HandleSmartLogic() {
@@ -285,7 +287,7 @@ sealed class PowerInputLimiter
     HostedDebugLog.Fine(
         this, "Suspend consumer: currentPower={0}, desiredPower={1}", _mechanicalNode.PowerInput, _desiredPower);
     IsSuspended = true;
-    _blockableBuilding.Block(this);
+    _blockableObject.Block(this);
     _shutdownStatus.Activate();
     _smartPowerService.ReservePower(_mechanicalNode, _desiredPower);
   }
@@ -293,7 +295,7 @@ sealed class PowerInputLimiter
   void Resume() {
     HostedDebugLog.Fine(this, "Resume consumer: desiredPower={0}, nominalPower={1}", _desiredPower, _nominalPowerInput);
     IsSuspended = false;
-    _blockableBuilding.Unblock(this);
+    _blockableObject.Unblock(this);
     _shutdownStatus.Deactivate();
     _smartPowerService.ReservePower(_mechanicalNode, -1);
   }

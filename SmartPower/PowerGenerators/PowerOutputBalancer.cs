@@ -8,8 +8,9 @@ using Bindito.Core;
 using IgorZ.SmartPower.Core;
 using IgorZ.SmartPower.Utils;
 using IgorZ.TimberDev.Utils;
+using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
-using Timberborn.BuildingsBlocking;
+using Timberborn.Buildings;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
@@ -23,7 +24,7 @@ using UnityEngine;
 namespace IgorZ.SmartPower.PowerGenerators;
 
 abstract class PowerOutputBalancer
-    : TickableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity {
+    : TickableComponent, IAwakableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity {
 
   const float MaxBatteryChargeRatio = 0.9f;
   const float MinBatteryChargeRatio = 0.65f;
@@ -59,13 +60,13 @@ abstract class PowerOutputBalancer
 
   /// <summary>Returns the same balancers in the network.</summary>
   public IEnumerable<PowerOutputBalancer> AllBalancers => MechanicalNode.Graph.Nodes
-      .Select(x => x.GetComponentFast<PowerOutputBalancer>())
-      .Where(x => x != null && x.name == name);
+      .Select(x => x.GetComponent<PowerOutputBalancer>())
+      .Where(x => x != null && x.Name == Name);
 
   /// <summary>Updates the suspend state of the consumer to the current power state.</summary>
   /// <remarks>Call it when settings have been changed.</remarks>
   public void UpdateState() {
-    if (!enabled) {
+    if (!Enabled) {
       return;
     }
     if (IsSuspended && (!Automate || _pausableBuilding.Paused)) {
@@ -93,12 +94,12 @@ abstract class PowerOutputBalancer
 
   /// <inheritdoc/>
   public void OnEnterFinishedState() {
-    enabled = true;
+    EnableComponent();
   }
 
   /// <inheritdoc/>
   public void OnExitFinishedState() {
-    enabled = false;
+    DisableComponent();
   }
 
   #endregion
@@ -169,20 +170,20 @@ abstract class PowerOutputBalancer
   protected TickDelayedAction SuspendDelayedAction;
 
   /// <summary>The place where all components get their dependencies.</summary>
-  protected virtual void Awake() {
-    MechanicalNode = GetComponentFast<MechanicalNode>();
-    _pausableBuilding = GetComponentFast<PausableBuilding>();
+  public virtual void Awake() {
+    MechanicalNode = GetComponent<MechanicalNode>();
+    _pausableBuilding = GetComponent<PausableBuilding>();
     _pausableBuilding.PausedChanged += (_, _) => UpdateState();
 
     _shutdownStatus = ShowFloatingIcon
         ? StatusToggle.CreateNormalStatusWithFloatingIcon(ShutdownStatusIcon, _loc.T(PowerShutdownModeLocKey))
         : StatusToggle.CreateNormalStatus(ShutdownStatusIcon, _loc.T(PowerShutdownModeLocKey));
-    GetComponentFast<StatusSubject>().RegisterStatus(_shutdownStatus);
+    GetComponent<StatusSubject>().RegisterStatus(_shutdownStatus);
 
     SuspendDelayedAction ??= SmartPowerService.GetTickDelayedAction(0);
     ResumeDelayedAction ??= SmartPowerService.GetTickDelayedAction(0);
 
-    enabled = false;
+    DisableComponent();
   }
 
   /// <summary>

@@ -4,7 +4,7 @@
 
 using Bindito.Core;
 using IgorZ.SmartPower.Settings;
-using Timberborn.BuildingsBlocking;
+using Timberborn.BlockingSystem;
 
 namespace IgorZ.SmartPower.PowerGenerators;
 
@@ -15,13 +15,13 @@ sealed class SmartWalkerPoweredGenerator : PowerOutputBalancer {
   /// <inheritdoc/>
   protected override void Suspend() {
     base.Suspend();
-    _blockableBuilding.Block(this);
+    _blockableObject.Block(this);
   }
 
   /// <inheritdoc/>
   protected override void Resume() {
     base.Resume();
-    _blockableBuilding.Unblock(this);
+    _blockableObject.Unblock(this);
   }
 
   #endregion
@@ -29,20 +29,20 @@ sealed class SmartWalkerPoweredGenerator : PowerOutputBalancer {
   #region Implementation
 
   WalkerPoweredGeneratorSettings _settings;
-  BlockableBuilding _blockableBuilding;
+  BlockableObject _blockableObject;
 
   [Inject]
   public void InjectDependencies(WalkerPoweredGeneratorSettings settings) {
     _settings = settings;
   }
 
-  protected override void Awake() {
+  public override void Awake() {
     ShowFloatingIcon = _settings.ShowFloatingIcon.Value;
     SuspendDelayedAction = SmartPowerService.GetTimeDelayedAction(_settings.SuspendDelayMinutes.Value);
     ResumeDelayedAction = SmartPowerService.GetTimeDelayedAction(_settings.ResumeDelayMinutes.Value);
     base.Awake();
 
-    _blockableBuilding = GetComponentFast<BlockableBuilding>();
+    _blockableObject = GetComponent<BlockableObject>();
   }
 
   #endregion

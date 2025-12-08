@@ -17,7 +17,7 @@ static class GoodPoweredGeneratorPatch {
     if (!__runOriginal) {
       return false;  // The other patches must follow the same style to properly support the skip logic!
     }
-    var balancer = __instance.GetComponentFast<PowerOutputBalancer>();
+    var balancer = __instance.GetComponent<PowerOutputBalancer>();
     return !balancer.Automate;
   }
 }

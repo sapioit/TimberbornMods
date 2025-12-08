@@ -35,18 +35,18 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
   /// <inheritdoc/>
   protected override void Resume() {
     _goodConsumingToggle.ResumeConsumption();
-    if (MechanicalNode.Graph != null && _goodConsumingBuilding.HoursUntilNoSupply > 0) {
+    if (MechanicalNode.Graph != null && _goodConsumingBuilding.HoursUntilNoSupply() > 0) {
       MechanicalNode.Active = true;
       MechanicalNode.UpdateOutput(1.0f);
     }
     base.Resume();
   }
 
-  protected override void Awake() {
+  public override void Awake() {
     ShowFloatingIcon = _settings.ShowFloatingIcon.Value;
     base.Awake();
 
-    _goodConsumingBuilding = GetComponentFast<GoodConsumingBuilding>();
+    _goodConsumingBuilding = GetComponent<GoodConsumingBuilding>();
     _goodConsumingToggle = _goodConsumingBuilding.GetGoodConsumingToggle();
   }
 

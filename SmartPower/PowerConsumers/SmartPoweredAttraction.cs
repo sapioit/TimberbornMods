@@ -4,7 +4,7 @@
 
 using IgorZ.SmartPower.Core;
 using Timberborn.BaseComponentSystem;
-using Timberborn.BuildingsBlocking;
+using Timberborn.BlockingSystem;
 using Timberborn.EnterableSystem;
 using Timberborn.MechanicalSystem;
 
@@ -14,7 +14,7 @@ namespace IgorZ.SmartPower.PowerConsumers;
 /// Component that extends the <see cref="MechanicalBuilding"/> behavior to conserve energy when powered attraction has
 /// no attendees.
 /// </summary>
-public sealed class SmartPoweredAttraction : BaseComponent, IAdjustablePowerInput {
+public sealed class SmartPoweredAttraction : BaseComponent, IAwakableComponent, IAdjustablePowerInput {
 
   #region IAdjustablePowerInput implementation
 
@@ -23,7 +23,7 @@ public sealed class SmartPoweredAttraction : BaseComponent, IAdjustablePowerInpu
 
   /// <inheritdoc/>
   public int UpdateAndGetPowerInput() {
-    if (_mechanicalBuilding.ConsumptionDisabled || _blockableBuilding && !_blockableBuilding.IsUnblocked) {
+    if (_mechanicalBuilding.ConsumptionDisabled || _blockableObject && !_blockableObject.IsUnblocked) {
       if (_powerInputLimiter) {
         _powerInputLimiter.SetDesiredPower(-1);
       }
@@ -41,18 +41,19 @@ public sealed class SmartPoweredAttraction : BaseComponent, IAdjustablePowerInpu
   #region Implementation
 
   MechanicalBuilding _mechanicalBuilding;
-  BlockableBuilding _blockableBuilding;
+  BlockableObject _blockableObject;
   Enterable _enterable;
   PowerInputLimiter _powerInputLimiter;
 
   int _nominalPowerInput;
 
-  void Awake() {
-    _mechanicalBuilding = GetComponentFast<MechanicalBuilding>();
-    _blockableBuilding = GetComponentFast<BlockableBuilding>();
-    _enterable = GetComponentFast<Enterable>();
-    _powerInputLimiter = GetComponentFast<PowerInputLimiter>();
-    _nominalPowerInput = GetComponentFast<MechanicalNodeSpec>().PowerInput;
+  /// <inheritdoc/>
+  public void Awake() {
+    _mechanicalBuilding = GetComponent<MechanicalBuilding>();
+    _blockableObject = GetComponent<BlockableObject>();
+    _enterable = GetComponent<Enterable>();
+    _powerInputLimiter = GetComponent<PowerInputLimiter>();
+    _nominalPowerInput = GetComponent<MechanicalNodeSpec>().PowerInput;
   }
 
   #endregion
