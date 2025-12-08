@@ -9,7 +9,7 @@ using UnityDev.Utils.LogUtilsLite;
 // ReSharper disable once CheckNamespace
 namespace IgorZ.TimberDev.Utils;
 
-/// <summary>Helper class to deal with teh reflections.</summary>
+/// <summary>Helper class to deal with the reflections.</summary>
 public static class ReflectionsHelper {
   /// <summary>Creates an instance of the type via reflection.</summary>
   /// <param name="typeId">Full type name.</param>
