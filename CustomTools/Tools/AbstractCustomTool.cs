@@ -29,28 +29,28 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
   /// </remarks>
   public virtual string GetWarningText() => null;
 
-  /// <summary>Shortcut to <see cref="ILoc"/>.</summary>
-  protected ILoc Loc { get; private set; }
-
   /// <summary>The spec of the tool.</summary>
   /// <remarks>
   /// It can be used to extract more spec from the tools blueprint. E.g. <c>ToolSpec.GetSpec&lt;MyDataSpec&gt;()</c>.
   /// </remarks>
-  protected CustomToolSpec ToolSpec { get; private set; }
+  public CustomToolSpec ToolSpec { get; private set; }
+
+  /// <summary>Shortcut to <see cref="ILoc"/>.</summary>
+  protected ILoc Loc { get; private set; }
 
   /// <summary>
   /// The localized text to present as the tool caption. If not overriden, then the string from the
   /// <see cref="AbstractCustomTool.ToolSpec"/> is used.
   /// </summary>
   /// <remarks>If <c>null</c> or empty, then the title will not be shown.</remarks>
-  protected virtual string DescriptionTitleLoc => Loc.T(ToolSpec.DisplayNameLocKey);
+  protected virtual string DescriptionTitle => Loc.T(ToolSpec.DisplayNameLocKey);
 
   /// <summary>
   /// The localized text to present as the tool description. If not overriden, then the string from the
   /// <see cref="AbstractCustomTool.ToolSpec"/> is used.
   /// </summary>
   /// <remarks>If <c>null</c> or empty, then the description will not be shown.</remarks>
-  protected virtual string DescriptionMainSectionLoc => Loc.T(ToolSpec.DescriptionLocKey);
+  protected virtual string DescriptionMainSection => Loc.T(ToolSpec.DescriptionLocKey);
 
   /// <summary>The localized option text that is presented at the bottom of the main stuff.</summary>
   /// <remarks>This value should be set in the <see cref="Initialize"/> method and don't change after that.</remarks>
@@ -106,11 +106,12 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
 
   /// <inheritdoc/>
   public ToolDescription DescribeTool() {
-    var description =
-        new ToolDescription.Builder(!string.IsNullOrEmpty(DescriptionTitleLoc) ? Loc.T(DescriptionTitleLoc) : null);
+    var description = !string.IsNullOrEmpty(DescriptionTitle)
+        ? new ToolDescription.Builder(DescriptionTitle)
+        : new ToolDescription.Builder();
     var descriptionText = new StringBuilder();
-    if (!string.IsNullOrEmpty(DescriptionMainSectionLoc)) {
-      descriptionText.Append(DescriptionMainSectionLoc);
+    if (!string.IsNullOrEmpty(DescriptionMainSection)) {
+      descriptionText.Append(DescriptionMainSection);
     }
     if (DescriptionBullets != null) {
       foreach (var descriptionBullet in DescriptionBullets) {
