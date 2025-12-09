@@ -2,7 +2,7 @@
   "ToolGroupSpec": {
     "Id": "CustomToolsToolGroup",
     "DisplayNameLocKey": "IgorZ.CustomTools.ToolGroup.Main.DisplayName",
-    "Icon": "Sprites/IgorZ/custom-tools-group",
+    "Icon": "Sprites/BottomBar/IgorZ.CustomTools/custom-tools-group",
   },
   "CustomToolGroupSpec": {
     "Style": "Blue",

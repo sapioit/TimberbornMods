@@ -3,7 +3,7 @@
     "GroupId": "CustomToolsToolGroup",
     "Order": 11,
     "Type": "IgorZ.CustomTools.Tools.ResumeTool",
-    "Icon": "Sprites/IgorZ/tool-resume",
+    "Icon": "IgorZ.CustomTools/tool-resume",
     "DisplayNameLocKey": "IgorZ.CustomTools.ResumeTool.Title",
     "DescriptionLocKey": "IgorZ.CustomTools.ResumeTool.Description"
   }

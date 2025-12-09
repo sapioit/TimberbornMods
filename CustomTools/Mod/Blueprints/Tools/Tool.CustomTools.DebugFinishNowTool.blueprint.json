@@ -3,7 +3,7 @@
     "GroupId": "CustomToolsToolGroup",
     "Order": 9,
     "Type": "IgorZ.CustomTools.Tools.DebugFinishNowTool",
-    "Icon": "Sprites/IgorZ/tool-debug-finish-all",
+    "Icon": "IgorZ.CustomTools/tool-debug-finish-all",
     "DisplayNameLocKey": "IgorZ.CustomTools.DebugFinishNowTool.Title",
     "DescriptionLocKey": "IgorZ.CustomTools.DebugFinishNowTool.Description",
     "DevMode": true
