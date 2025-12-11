@@ -19,8 +19,8 @@ sealed class Configurator : IConfigurator {
 
   public void Configure(IContainerDefinition containerDefinition) {
     HarmonyPatcher.PatchRepeated(PatchId, typeof(GoodPoweredGeneratorPatch));
-    containerDefinition.Bind<SmartGoodConsumingGenerator>().AsSingleton();
-    containerDefinition.Bind<SmartWalkerPoweredGenerator>().AsSingleton();
+    containerDefinition.Bind<SmartGoodConsumingGenerator>().AsTransient();
+    containerDefinition.Bind<SmartWalkerPoweredGenerator>().AsTransient();
     containerDefinition.MultiBind<TemplateModule>().ToProvider(ProvideTemplateModule).AsSingleton();
   }
 

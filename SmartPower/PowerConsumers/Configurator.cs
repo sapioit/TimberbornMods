@@ -20,9 +20,9 @@ sealed class Configurator : IConfigurator {
   static readonly string PatchId = typeof(Configurator).AssemblyQualifiedName;
 
   public void Configure(IContainerDefinition containerDefinition) {
-    containerDefinition.Bind<PowerInputLimiter>().AsSingleton();
-    containerDefinition.Bind<SmartPoweredAttraction>().AsSingleton();
-    containerDefinition.Bind<SmartManufactory>().AsSingleton();
+    containerDefinition.Bind<PowerInputLimiter>().AsTransient();
+    containerDefinition.Bind<SmartPoweredAttraction>().AsTransient();
+    containerDefinition.Bind<SmartManufactory>().AsTransient();
     CustomizableInstantiator.AddPatcher(PatchId + "-instantiator", PatchMethod);
   }
 
