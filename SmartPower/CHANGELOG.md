@@ -1,5 +1,8 @@
+# v1.14.0 (December 10th, 2025)
+* Update to support game version `1.0.5.1`. Mod version `v1.13.4` is included to the package to support the older game version. 
+
 # v1.13.4 (September 17th, 2025)
-* Added compatibility with the `TImprove 4 UX` mod.
+* Added compatibility with the `Timprove 4 UX` mod.
 
 # v1.13.3 (10 Apr 2025)
 * Update to support game version `0.7.3.1`.
