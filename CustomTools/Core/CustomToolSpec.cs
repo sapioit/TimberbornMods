@@ -4,6 +4,7 @@
 
 using Timberborn.BlueprintSystem;
 using Timberborn.ToolSystem;
+using UnityEngine;
 
 namespace IgorZ.CustomTools.Core;
 
@@ -34,7 +35,7 @@ public record CustomToolSpec : ComponentSpec {
 
   /// <summary>Path to the icon to use for the tool.</summary>
   [Serialize]
-  public string Icon { get; init; }
+  public AssetRef<Sprite> Icon { get; init; }
 
   /// <summary>LocKey string for the main tool caption.</summary>
   [Serialize]

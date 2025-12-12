@@ -84,7 +84,7 @@ abstract class AbstractLayoutElement(
         var toolInstance = (AbstractCustomTool)_container.GetInstance(toolType);
         toolInstance.InitializeTool(customToolSpec);
         DebugEx.Info("Created tool '{0}' in group '{1}", toolType, groupId);
-        groupButton.AddChildTool(toolInstance, toolInstance.ToolSpec.Icon);
+        groupButton.AddChildTool(toolInstance, toolInstance.ToolSpec.Icon.Asset);
       } else if (childItem.GroupSpec != null) {
         groupButton.AddChildGroup(ToolGroupButtonWithItems(childItem.GroupSpec, groupButton, items));
       } else {
