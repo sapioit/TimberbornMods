@@ -45,7 +45,11 @@ button” or a small set of buttons, you can use this mod to set up your tools w
      tool implementation, get extra specs via `ToolSpec.GetSpec<MyExtraSpec>()`.
 
 3. __Optional__. Create your own group button in the bottom bar and attach your tools to it. See this example blueprint:
-   [ToolGroup.CustomTools](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/ToolGroups/ToolGroup.CustomTools.blueprint.json)
+   [ToolGroup.CustomTools](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/ToolGroups/ToolGroup.CustomTools.blueprint.json).
+   * Groups can be nested. Set `CustomGroupSpec.ParentGroupId` to a name of another groups, and it will become a
+     subgroup.
+   * In subgroups, value of `Layout` is ignored. `Order` is considered together with the tools in the same parent group.
+     I.e. the groups and tools can be mixed in any combinations (based on the order).
 
 ### Tool examples
 

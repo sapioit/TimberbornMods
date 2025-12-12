@@ -1,5 +1,6 @@
 ﻿# v1.1.0 (started on 12/11/2025)
 * [Change] Use "Moddable Groups" mod as an engine for the bottom bar tools. This mod is now required.
+* [Feature] Subgroups supported.
 
 # v1.0.0 (12/7/2025)
 * [Feature] Pause/Resume and Finish Now tools.

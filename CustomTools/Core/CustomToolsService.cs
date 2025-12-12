@@ -25,9 +25,9 @@ sealed class CustomToolsService(ISpecService specService)
   #region ILoadableSingleton implementation
 
   public void Load() {
-    CustomGroupSpecs = specService.GetSpecs<CustomToolGroupSpec>().OrderBy(x => x.Order).ToImmutableArray();
+    CustomGroupSpecs = specService.GetSpecs<CustomToolGroupSpec>().ToImmutableArray();
     DebugEx.Info("Loaded {0} custom tool group specs", CustomGroupSpecs.Length);
-    CustomToolSpecs = specService.GetSpecs<CustomToolSpec>().OrderBy(x => x.Order).ToImmutableArray();
+    CustomToolSpecs = specService.GetSpecs<CustomToolSpec>().ToImmutableArray();
     DebugEx.Info("Loaded {0} custom tool specs", CustomGroupSpecs.Length);
   }
 

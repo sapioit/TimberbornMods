@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Bindito.Core;
 using ConfigurableToolGroups.Services;
 using ConfigurableToolGroups.UI;
@@ -28,9 +29,16 @@ abstract class AbstractLayoutElement(
 
   /// <inheritdoc/>
   public override IEnumerable<BottomBarElement> GetElements() {
-    return customToolsService.CustomGroupSpecs
+    var groupItems = customToolsService.CustomGroupSpecs
         .Where(x => string.Equals(x.Layout, Layout, StringComparison.CurrentCultureIgnoreCase))
-        .Select(customGroupSpec => CreateGroup(customGroupSpec, null).ToBottomBarElement());
+        .Select(x => new ToolButtonOrGroup(x));
+    var toolItems = customToolsService.CustomToolSpecs.Select(x => new ToolButtonOrGroup(x));
+    var items = groupItems
+        .Concat(toolItems)
+        .OrderBy(x => x.Order)
+        .ToArray();
+    return items.Where(x => x.ParentGroupId == null)
+        .Select(rootGroup => ToolGroupButtonWithItems(rootGroup.GroupSpec, null, items).ToBottomBarElement());
   }
 
   #endregion
@@ -38,6 +46,16 @@ abstract class AbstractLayoutElement(
   #region Implementation
 
   protected abstract string Layout { get; }
+
+
+  readonly record struct ToolButtonOrGroup {
+    public ToolButtonOrGroup(CustomToolGroupSpec groupSpec) { GroupSpec = groupSpec; }
+    public ToolButtonOrGroup(CustomToolSpec toolSpec) { ToolSpec = toolSpec; }
+    public readonly CustomToolGroupSpec GroupSpec;
+    public readonly CustomToolSpec ToolSpec;
+    public int Order => GroupSpec?.Order ?? ToolSpec.Order;
+    public string ParentGroupId => GroupSpec?.ParentGroupId ?? ToolSpec?.GroupId;
+  }
 
   static readonly string[] AllowedLayouts = ["left", "middle", "right"];
   IContainer _container;
@@ -47,7 +65,30 @@ abstract class AbstractLayoutElement(
     _container = container;
   }
 
-  ModdableToolGroupButton CreateGroup(CustomToolGroupSpec customGroupSpec, ModdableToolGroupButton parent) {
+  ModdableToolGroupButton ToolGroupButtonWithItems(
+      CustomToolGroupSpec customGroupSpec, ModdableToolGroupButton parent, ToolButtonOrGroup[] items) {
+    var groupButton = CreateToolGroupButton(customGroupSpec, parent);
+    var groupId = groupButton.Spec.Id;
+    DebugEx.Info("Created custom tool group '{0}' in parent '{1}'", groupId, parent?.Spec.Id);
+    var childItems = items.Where(x => x.ParentGroupId == groupId);
+    foreach (var childItem in childItems) {
+      if (childItem.ToolSpec != null) {
+        var customToolSpec = childItem.ToolSpec;
+        var toolType = ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool));
+        var toolInstance = (AbstractCustomTool)_container.GetInstance(toolType);
+        toolInstance.InitializeTool(customToolSpec);
+        DebugEx.Info("Created tool '{0}' in group '{1}", toolType, groupId);
+        groupButton.AddChildTool(toolInstance, toolInstance.ToolSpec.Icon);
+      } else if (childItem.GroupSpec != null) {
+        groupButton.AddChildGroup(ToolGroupButtonWithItems(childItem.GroupSpec, groupButton, items));
+      } else {
+        throw new  InvalidOperationException($"Unknown item type: {childItem}");
+      }
+    }
+    return groupButton;
+  }
+
+  ModdableToolGroupButton CreateToolGroupButton(CustomToolGroupSpec customGroupSpec, ModdableToolGroupButton parent) {
     var toolGroupSpec = customGroupSpec.GetSpec<ToolGroupSpec>();
     if (toolGroupSpec == null) {
       throw new InvalidOperationException($"Missing ToolGroupSpec on custom group: {customGroupSpec}");
@@ -73,18 +114,6 @@ abstract class AbstractLayoutElement(
         DebugEx.Warning("Cannot adjust style to RED on group button {0}", groupId);
       }
     }
-    var childrenToolSpecs = customToolsService.CustomToolSpecs
-        .Where(x => x.GroupId == toolGroupSpec.Id).ToList();
-    DebugEx.Info("Created custom group: {0}, childrenTools={1}", toolGroupSpec.Id, childrenToolSpecs.Count);
-
-    foreach (var customToolSpec in childrenToolSpecs) {
-      var toolType = ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool));
-      var toolInstance = (AbstractCustomTool)_container.GetInstance(toolType);
-      toolInstance.InitializeTool(customToolSpec);
-      DebugEx.Info("Created tool '{0}' for group '{1}", toolType, toolGroupSpec.Id);
-      groupButton.AddChildTool(toolInstance, toolInstance.ToolSpec.Icon);
-    }
-
     return groupButton;
   }
 

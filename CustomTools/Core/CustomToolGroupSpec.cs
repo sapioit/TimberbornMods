@@ -29,7 +29,12 @@ public record CustomToolGroupSpec : ComponentSpec {
   public int Order { get; init; }
 
   /// <summary>The tool's group position in the bottom bar.</summary>
-  /// <remarks>Values: "left", "middle", "right". Case-insensitive.</remarks>
+  /// <remarks>Only applicable to the root groups. Values: "left", "middle", "right". Case-insensitive.</remarks>
   [Serialize]
   public string Layout { get; init; }
+
+  /// <summary>The optional parent group. If not provided, then it's a root group.</summary>
+  /// <remarks>The group order will be used to position the button in the parent group.</remarks>
+  [Serialize]
+  public string ParentGroupId { get; init; }
 }
