@@ -30,7 +30,7 @@ abstract class AbstractLayoutElement(
   /// <inheritdoc/>
   public override IEnumerable<BottomBarElement> GetElements() {
     var groupItems = customToolsService.CustomGroupSpecs
-        .Where(x => string.Equals(x.Layout, Layout, StringComparison.CurrentCultureIgnoreCase))
+        .Where(x => x.ParentGroupId != null || x.Layout.ToLower() == Layout.ToLower())
         .Select(x => new ToolButtonOrGroup(x));
     var toolItems = customToolsService.CustomToolSpecs.Select(x => new ToolButtonOrGroup(x));
     var items = groupItems
