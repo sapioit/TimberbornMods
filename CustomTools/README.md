@@ -35,7 +35,8 @@ button” or a small set of buttons, you can use this mod to set up your tools w
 
 1. Create a simple class that inherits from
    [`AbstractCustomTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Tools/AbstractCustomTool.cs)
-   or one of its descendants. This class will be serving teh tool functionality.
+   or one of its descendants. This class will be serving the tool functionality.
+   * This class must be bound via Bindito as singleton.
 
 2. Create a blueprint that defines the appearance of your button:
    * Add [`CustomToolSpec`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Core/CustomToolSpec.cs)
