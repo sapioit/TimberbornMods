@@ -69,8 +69,14 @@ abstract class AbstractLayoutElement(
       CustomToolGroupSpec customGroupSpec, ModdableToolGroupButton parent, ToolButtonOrGroup[] items) {
     var groupButton = CreateToolGroupButton(customGroupSpec, parent);
     var groupId = groupButton.Spec.Id;
-    DebugEx.Info("Created custom tool group '{0}' in parent '{1}'", groupId, parent?.Spec.Id);
-    var childItems = items.Where(x => x.ParentGroupId == groupId);
+    var childItems = items.Where(x => x.ParentGroupId == groupId).ToList();
+    if (childItems.Count > 0) {
+      DebugEx.Info(
+          "Created custom tool group '{0}' in parent '{1}': children={2}", groupId, parent?.Spec.Id, childItems.Count);
+    } else {
+      DebugEx.Warning(
+          "Created custom tool group '{0}' in parent '{1}', but it has no children!", groupId, parent?.Spec.Id);
+    }
     foreach (var childItem in childItems) {
       if (childItem.ToolSpec != null) {
         var customToolSpec = childItem.ToolSpec;
