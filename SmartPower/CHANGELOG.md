@@ -1,3 +1,6 @@
+# v1.14.1 (December 12th, 2025)
+* [Change] Update to support game version `1.0.6.0`. Unity `6000.3.0f1` can't properly load resources from the previous versions :(
+
 # v1.14.0 (December 10th, 2025)
 * Update to support game version `1.0.5.1`. Mod version `v1.13.4` is included to the package to support the older game version. 
 
