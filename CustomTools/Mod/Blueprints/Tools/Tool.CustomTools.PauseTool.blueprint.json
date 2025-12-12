@@ -1,7 +1,7 @@
 {
   "CustomToolSpec": {
     "GroupId": "CustomToolsToolGroup",
-    "Order": 10,
+    "Order": 20,
     "Type": "IgorZ.CustomTools.Tools.PauseTool",
     "Icon": "IgorZ.CustomTools/tool-pause",
     "DisplayNameLocKey": "IgorZ.CustomTools.PauseTool.Title",

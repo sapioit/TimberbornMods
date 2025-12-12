@@ -36,6 +36,9 @@
       <Reference Include="0Harmony">
         <HintPath>..\Dependencies\Workshop\3284904751\0Harmony.dll</HintPath>
       </Reference>
+      <Reference Include="ConfigurableToolGroups">
+        <HintPath>..\_WORKSHOP!\3612110827\version-1.0\ConfigurableToolGroups.dll</HintPath>
+      </Reference>
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />

@@ -27,24 +27,24 @@ Helps quickly bring groups of buildings back online during micromanagement.
 
 ![Resume buildings in the selected range](https://raw.githubusercontent.com/ihsoft/TimberbornMods/refs/heads/timberborn-1.0/CustomTools/Workshop/Showcase/ResumeBuildingToolDemo.png)
 
-## For the modders: API to create your own tools
+## For the modders: Simplified API to create your own tools
 
-The game's native approach to creating tools requires a considerable amount of code.  
-If your mod only needs “a button” in the bottom bar, you can use this mod to significantly reduce development effort:
+This mod is based on the [`Moddable Groups`](https://steamcommunity.com/sharedfiles/filedetails/?id=3612110827) mod.
+You can choose to use that mod for the maximum flexibility in configuring tools. However, if your mod only needs “a
+button” or a small set of buttons, you can use this mod to set up your tools with minimum coding efforts:
 
 1. Create a simple class that inherits from
    [`AbstractCustomTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Tools/AbstractCustomTool.cs)
-   or one of its descendants.
+   or one of its descendants. This class will be serving teh tool functionality.
 
-2. Create a blueprint that defines the appearance of your button. At minimum, add
-   [`CustomToolSpec`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Core/CustomToolSpec.cs).
-   You can add additional specs to control behavior or provide extra data to your class.
+2. Create a blueprint that defines the appearance of your button:
+   * Add [`CustomToolSpec`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Core/CustomToolSpec.cs)
+     and set `GroupId` to the name of the relevant group. The name of the standard _CustomTools_ tool group name is
+     "CustomToolsToolGroup", so you can put your tools there. Or you can define your own group (see below).
+   * You can add additional specs to then tool blueprint to control behavior or provide extra data to your class. In the
+     tool implementation, get extra specs via `ToolSpec.GetSpec<MyExtraSpec>()`.
 
-3. Use Timberborn’s blueprint patching system to update
-   [`TemplateCollection`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/TemplateCollections/TemplateCollection.BottomBar.CustomTools.blueprint.json).
-   This allows the **CustomTools** mod to recognize your new tool.
-
-4. (Optional) Create your own group button in the bottom bar and attach your tools to it. See this example blueprint:
+3. __Optional__. Create your own group button in the bottom bar and attach your tools to it. See this example blueprint:
    [ToolGroup.CustomTools](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/ToolGroups/ToolGroup.CustomTools.blueprint.json)
 
 ### Tool examples

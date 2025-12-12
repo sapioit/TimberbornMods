@@ -2,10 +2,8 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-using System.Collections.Generic;
 using Bindito.Core;
-using Timberborn.BottomBarSystem;
-using Timberborn.TemplateCollectionSystem;
+using ConfigurableToolGroups.UI;
 
 // ReSharper disable once CheckNamespace
 namespace IgorZ.CustomTools.Core;
@@ -14,27 +12,10 @@ namespace IgorZ.CustomTools.Core;
 [Context("MapEditor")]
 class Configurator : IConfigurator {
 
-  class BottomBarModuleProvider(BottomBarElementsProviderFactory bottomBarElementsProviderFactory)
-      : IProvider<BottomBarModule> {
-    public BottomBarModule Get() {
-      var builder = new BottomBarModule.Builder();
-      bottomBarElementsProviderFactory.SetProviders(builder);
-      return builder.Build();
-    }
-  }
-
-  class CommonTemplateCollectionIdProvider : ITemplateCollectionIdProvider {
-    const string CollectionId = "BottomBar.CustomTools";
-
-    public IEnumerable<string> GetTemplateCollectionIds() {
-      yield return CollectionId;
-    }
-  }
-
   public void Configure(IContainerDefinition containerDefinition) {
-    containerDefinition.Bind<BottomBarElementsProviderFactory>().AsSingleton();
-    containerDefinition.MultiBind<BottomBarModule>().ToProvider<BottomBarModuleProvider>().AsSingleton();
-    containerDefinition.MultiBind<ITemplateCollectionIdProvider>()
-        .To<CommonTemplateCollectionIdProvider>().AsSingleton();
+    containerDefinition.Bind<CustomToolsService>().AsSingleton();
+    containerDefinition.MultiBind<CustomBottomBarElement>().To<LayoutElementLeft>().AsSingleton();
+    containerDefinition.MultiBind<CustomBottomBarElement>().To<LayoutElementMiddle>().AsSingleton();
+    containerDefinition.MultiBind<CustomBottomBarElement>().To<LayoutElementRight>().AsSingleton();
   }
 }

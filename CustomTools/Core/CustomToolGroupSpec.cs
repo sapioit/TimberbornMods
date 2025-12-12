@@ -15,14 +15,21 @@ public record CustomToolGroupSpec : ComponentSpec {
 
   /// <summary>The tool group button order in case of there are multiple groups in the layout.</summary>
   /// <remarks>
-  /// Used to order group buttons in case of there are multiple in the same layout. Duplicates are allowed. The custom
-  /// group buttons are always added at the end of the stock buttons list.
+  /// <p>
+  /// Used to order group buttons in case of there are multiple in the same layout. Duplicates are allowed. The ordering
+  /// is maintained only for the CustomTool groups.
+  /// </p>
+  /// <p>
+  /// The actual location of the new buttons depends on the layout. For the "left" and "right" layouts, the buttons are
+  /// added at the end of the stock buttons list. For the "middle" layout, the buttons are inserted at the beginning
+  /// (middle-left).
+  /// </p>
   /// </remarks>
   [Serialize]
   public int Order { get; init; }
 
   /// <summary>The tool's group position in the bottom bar.</summary>
-  /// <remarks>Values: "left", "middle", "right"</remarks>
+  /// <remarks>Values: "left", "middle", "right". Case-insensitive.</remarks>
   [Serialize]
   public string Layout { get; init; }
 }

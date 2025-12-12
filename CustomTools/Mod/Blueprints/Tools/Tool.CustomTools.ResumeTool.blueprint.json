@@ -1,7 +1,7 @@
 {
   "CustomToolSpec": {
     "GroupId": "CustomToolsToolGroup",
-    "Order": 11,
+    "Order": 21,
     "Type": "IgorZ.CustomTools.Tools.ResumeTool",
     "Icon": "IgorZ.CustomTools/tool-resume",
     "DisplayNameLocKey": "IgorZ.CustomTools.ResumeTool.Title",
