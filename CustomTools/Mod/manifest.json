@@ -1,6 +1,6 @@
 {
   "Name": "CustomTools",
-  "Version": "1.0",
+  "Version": "1.1.0",
   "Id": "Timberborn.IgorZ.CustomTools",
   "MinimumGameVersion": "1.0.0.0",
   "Description": "Offers some QoL tools and allows other mods to create new tools",
@@ -8,6 +8,10 @@
     {
       "Id": "Harmony",
       "MinimumVersion": "2.3.3"
+    },
+    {
+      "Id": "ModdableToolGroups",
+      "MinimumVersion": "10.3.0"
     }
   ]
 }
