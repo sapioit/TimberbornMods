@@ -40,7 +40,7 @@ button” or a small set of buttons, you can use this mod to set up your tools w
 
 2. Create a blueprint that defines the appearance of your button:
    * Add [`CustomToolSpec`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Core/CustomToolSpec.cs)
-     and set `GroupId` to the name of the relevant group. The name of the standard _CustomTools_ tool group name is
+     and set `GroupId` to the name of the relevant group. The name of the standard _CustomTools_ tool group is
      "CustomToolsToolGroup", so you can put your tools there. Or you can define your own group (see below).
    * You can add additional specs to then tool blueprint to control behavior or provide extra data to your class. In the
      tool implementation, get extra specs via `ToolSpec.GetSpec<MyExtraSpec>()`.
