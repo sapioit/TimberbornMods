@@ -1,4 +1,4 @@
-﻿# v1.1.1 (started on 12/15/2025)
+﻿# v1.1.1 (12/16/2025)
 * [Change] Allow custom code to initialize tool with a spec.
 * [Feature] Improve error handling in the tools and groups specs.
 
