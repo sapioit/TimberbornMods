@@ -21,11 +21,7 @@ static class ConstructionSiteFinishIfRequirementsMetPatch {
     if (!__instance.IsReadyToFinish || !__instance.IsFinishNotBlocked) {
       return true;
     }
-    var automationBehavior = __instance.GetComponent<AutomationBehavior>();
-    if (!automationBehavior) {
-      return true;
-    }
-    var site = automationBehavior.GetOrThrow<PathCheckingSite>();
+    var site = __instance.GetComponent<PathCheckingSite>();
     if (site != null) {
       PathCheckingService.Instance.CheckBlockingStateAndTriggerActions(site);
       return site.CanFinish;
