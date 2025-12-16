@@ -248,11 +248,9 @@ sealed class PathCheckingService : ITickableSingleton {
   PathCheckingSite GetOrCreate(AutomationBehavior automationBehavior) {
     var blockObject = automationBehavior.BlockObject;
     if (!_sitesByBlockObject.TryGetValue(blockObject, out var cachedSite)) {
-      cachedSite = blockObject.GetComponent<PathCheckingSite>();
-      if (cachedSite) {
+      cachedSite = automationBehavior.GetOrCreate<PathCheckingSite>();
+      if (!cachedSite.Enabled) {
         cachedSite.EnableSiteComponent();
-      } else {
-        cachedSite = automationBehavior.GetOrThrow<PathCheckingSite>();
       }
       _sitesByBlockObject.Add(blockObject, cachedSite);
     }
