@@ -5,6 +5,7 @@
 using System;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Expressions;
+using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
 using Timberborn.ConstructionSites;
 using UnityEngine;
@@ -27,7 +28,7 @@ sealed class ConstructableScriptableComponent : ScriptableComponentBase {
 
   /// <inheritdoc/>
   public override string[] GetSignalNamesForBuilding(AutomationBehavior behavior) {
-    var blockObject = behavior.GetComponentFast<BlockObject>();
+    var blockObject = behavior.GetComponent<BlockObject>();
     return !blockObject.IsFinished ? [StateSignalName, ProgressSignalName] : [];
   }
 
@@ -92,23 +93,23 @@ sealed class ConstructableScriptableComponent : ScriptableComponentBase {
 
 
   static ScriptValue StateSignal(AutomationBehavior behavior) {
-    return ScriptValue.Of(behavior.GetComponentFast<BlockObject>().IsFinished ? "finished" : "");
+    return ScriptValue.Of(behavior.GetComponent<BlockObject>().IsFinished ? "finished" : "");
   }
 
   static ScriptValue ProgressSignal(AutomationBehavior behavior) {
-    return ScriptValue.FromFloat(behavior.GetComponentFast<ConstructionSite>().BuildTimeProgress);
+    return ScriptValue.FromFloat(behavior.GetComponent<ConstructionSite>().BuildTimeProgress);
   }
 
   #endregion
 
   #region Implementation
 
-  class ConstructableStateTracker : AbstractStatusTracker, IFinishedStateListener {
+  internal sealed class ConstructableStateTracker : AbstractStatusTracker, IAwakableComponent, IFinishedStateListener {
     int _prevProgress;
 
-    void Awake() {
-      var constructionSite = GetComponentFast<ConstructionSite>();
-      GetComponentFast<ConstructionSite>().OnConstructionSiteProgressed += (_, _) => {
+    public void Awake() {
+      var constructionSite = GetComponent<ConstructionSite>();
+      GetComponent<ConstructionSite>().OnConstructionSiteProgressed += (_, _) => {
         var progress = Mathf.RoundToInt(constructionSite.BuildTimeProgress * 100f);
         if (progress != _prevProgress) {
           _prevProgress = progress;

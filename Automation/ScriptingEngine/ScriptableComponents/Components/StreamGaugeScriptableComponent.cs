@@ -6,6 +6,7 @@ using System;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
+using Timberborn.BaseComponentSystem;
 using Timberborn.TickSystem;
 using Timberborn.WaterBuildings;
 using UnityEngine;
@@ -29,7 +30,7 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
 
   /// <inheritdoc/>
   public override string[] GetSignalNamesForBuilding(AutomationBehavior behavior) {
-    return behavior.GetComponentFast<StreamGauge>()
+    return behavior.GetComponent<StreamGauge>()
         ? [DepthSignalName, ContaminationSignalName, CurrentSignalName]
         : [];
   }
@@ -58,7 +59,7 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
   /// <inheritdoc/>
   public override void RegisterSignalChangeCallback(SignalOperator signalOperator, ISignalListener host) {
     host.Behavior.GetOrCreate<StreamGaugeTracker>().AddSignal(signalOperator, host);
-    host.Behavior.GetOrCreate<StreamGaugeCheckTicker>();
+    host.Behavior.GetOrThrow<StreamGaugeCheckTicker>();  // Only to verify the component exists.
   }
 
   /// <inheritdoc/>
@@ -121,7 +122,7 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
   #region Implementation
 
   static StreamGauge GetGauge(AutomationBehavior behavior) {
-    var streamGauge = behavior.GetComponentFast<StreamGauge>();
+    var streamGauge = behavior.GetComponent<StreamGauge>();
     if (!streamGauge) {
       throw new ScriptError.BadStateError(behavior, "StreamGauge component not found");
     }
@@ -132,33 +133,33 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
 
   #region Stream gauge tracker component
 
-  internal sealed class StreamGaugeCheckTicker : TickableComponent {
+  internal sealed class StreamGaugeCheckTicker : TickableComponent, IAwakableComponent {
     StreamGaugeTracker _streamGaugeTracker;
 
-    void Awake() {
-      enabled = false;
+    public void Awake() {
+      DisableComponent();
     }
 
     public override void Tick() {
       if (!_streamGaugeTracker) {
-        _streamGaugeTracker = GetComponentFast<StreamGaugeTracker>();
+        _streamGaugeTracker = GetComponent<StreamGaugeTracker>();
       }
       _streamGaugeTracker.UpdateSignals();
     }
   }
 
-  sealed class StreamGaugeTracker : AbstractStatusTracker {
+  internal sealed class StreamGaugeTracker : AbstractStatusTracker, IStartableComponent {
     StreamGauge _streamGauge;
     int _prevWaterLevel;
     int _prevContaminationLevel;
     int _prevWaterCurrent;
 
-    void Start() {
-      _streamGauge = GetComponentFast<StreamGauge>();
+    public void Start() {
+      _streamGauge = GetComponent<StreamGauge>();
       _prevWaterLevel = Mathf.RoundToInt(_streamGauge.WaterLevel * 100f);
       _prevContaminationLevel = Mathf.RoundToInt(_streamGauge.ContaminationLevel * 100f);
       _prevWaterCurrent = Mathf.RoundToInt(_streamGauge.WaterCurrent * 100f);
-      GetComponentFast<StreamGaugeCheckTicker>().enabled = true;
+      GetComponent<StreamGaugeCheckTicker>().EnableComponent();
     }
 
     public void UpdateSignals() {

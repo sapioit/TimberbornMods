@@ -14,6 +14,7 @@ sealed class Configurator : IConfigurator {
 
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<PathCheckingService>().AsSingleton();
+    containerDefinition.Bind<PathCheckingSite>().AsTransient();
 
     HarmonyPatcher.PatchRepeated(PatchId, typeof(ConstructionSiteFinishIfRequirementsMetPatch));
   }

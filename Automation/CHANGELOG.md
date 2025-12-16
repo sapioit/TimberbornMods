@@ -1,3 +1,6 @@
+# v3.1.0 (started on December 15th, 2025):
+[Change] Support game version `v1.0`. Mod version `v3.0.2` is included to the package for the older game version.
+
 # v3.0.2 (November 24th, 2025):
 * [Feature] Support Python-like expressions for conditions and actions in the script editing mode.
 * [Feature] You can select which syntax you prefer in the mod settings.

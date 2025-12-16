@@ -12,7 +12,7 @@ using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.TimberDev.UI;
-using TimberApi.DependencyContainerSystem;
+using IgorZ.TimberDev.Utils;
 using Timberborn.CoreUI;
 using UnityDev.Utils.LogUtilsLite;
 using UnityEngine.UIElements;
@@ -104,8 +104,8 @@ sealed class RuleRow {
 
   public RuleRow(IEnumerable<IEditorProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
     _uiFactory = uiFactory;
-    _expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
-    _parserFactory = DependencyContainer.GetInstance<ParserFactory>();
+    _expressionDescriber = StaticBindings.DependencyContainer.GetInstance<ExpressionDescriber>();
+    _parserFactory = StaticBindings.DependencyContainer.GetInstance<ParserFactory>();
     ActiveBuilding = activeBuilding;
     _editorProviders = editors.ToArray();
 

@@ -6,6 +6,7 @@ using System;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
+using Timberborn.BaseComponentSystem;
 using Timberborn.WaterBuildings;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ sealed class FloodgateScriptableComponent : ScriptableComponentBase {
 
   /// <inheritdoc/>
   public override string[] GetSignalNamesForBuilding(AutomationBehavior behavior) {
-    return behavior.GetComponentFast<Floodgate>() ? [HeightSignalName] : [];
+    return behavior.GetComponent<Floodgate>() ? [HeightSignalName] : [];
   }
 
   /// <inheritdoc/>
@@ -50,7 +51,7 @@ sealed class FloodgateScriptableComponent : ScriptableComponentBase {
 
   /// <inheritdoc/>
   public override string[] GetActionNamesForBuilding(AutomationBehavior behavior) {
-    return behavior.GetComponentFast<Floodgate>() ? [SetHeightActionName] : [];
+    return behavior.GetComponent<Floodgate>() ? [SetHeightActionName] : [];
   }
 
   /// <inheritdoc/>
@@ -135,7 +136,7 @@ sealed class FloodgateScriptableComponent : ScriptableComponentBase {
   #region Implementation
 
   static Floodgate GetFloodgate(AutomationBehavior behavior) {
-    var floodgate = behavior.GetComponentFast<Floodgate>();
+    var floodgate = behavior.GetComponent<Floodgate>();
     if (!floodgate) {
       throw new ScriptError.BadStateError(behavior, "Floodgate component not found");
     }
@@ -146,12 +147,12 @@ sealed class FloodgateScriptableComponent : ScriptableComponentBase {
 
   #region Inventory change tracker component
 
-  internal sealed class HeightChangeTracker : AbstractStatusTracker {
+  internal sealed class HeightChangeTracker : AbstractStatusTracker, IStartableComponent {
     Floodgate _floodgate;
     int _currentValue;
 
-    void Start() {
-      _floodgate = GetComponentFast<Floodgate>();
+    public void Start() {
+      _floodgate = GetComponent<Floodgate>();
       _currentValue = Mathf.RoundToInt(_floodgate.Height * 100f);
     }
 

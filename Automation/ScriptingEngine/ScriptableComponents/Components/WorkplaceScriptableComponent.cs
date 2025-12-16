@@ -100,7 +100,7 @@ sealed class WorkplaceScriptableComponent : ScriptableComponentBase {
   #region Implementation
 
   static Workplace GetWorkplace(BaseComponent building, bool throwIfNotFound = true) {
-    var workplace = building.GetComponentFast<Workplace>();
+    var workplace = building.GetComponent<Workplace>();
     if (!workplace && throwIfNotFound) {
       throw new ScriptError.BadStateError(building, "Building doesn't have Workplace");
     }

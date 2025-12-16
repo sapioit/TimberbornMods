@@ -4,7 +4,7 @@
 
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.TemplateTools;
-using IgorZ.TimberDev.Tools;
+using IgorZ.CustomTools.Tools;
 using Timberborn.BlockSystem;
 using Timberborn.ConstructionMode;
 using UnityEngine;
@@ -37,7 +37,7 @@ sealed class CancelTool : AbstractAreaSelectionTool, IAutomationModeEnabler, ICo
 
   /// <inheritdoc/>
   protected override void OnObjectAction(BlockObject blockObject) {
-    blockObject.GetComponentFast<AutomationBehavior>().ClearAllRules();
+    blockObject.GetComponent<AutomationBehavior>().ClearAllRules();
   }
 
   #endregion

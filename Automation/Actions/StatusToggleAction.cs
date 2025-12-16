@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bindito.Core;
+using Bindito.Unity;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.TimberDev.UI;
-using TimberApi.DependencyContainerSystem;
-using Timberborn.BaseComponentSystem;
+using IgorZ.TimberDev.Utils;
 using Timberborn.Localization;
 using Timberborn.Persistence;
 using Timberborn.StatusSystem;
+using UnityEngine;
 
 namespace IgorZ.Automation.Actions;
 
@@ -136,11 +137,11 @@ public class StatusToggleAction : AutomationActionBase {
   /// </remarks>
   StatusController GetStatusController() {
     var allBlockers = new List<StatusController>();
-    Behavior.GetComponentsFast(allBlockers);
+    Behavior.GetComponents(allBlockers);
     var status = allBlockers.FirstOrDefault(x => x.StatusToken == StatusToken);
     if (!status) {
-      var baseInstantiator = DependencyContainer.GetInstance<BaseInstantiator>();
-      status = baseInstantiator.AddComponent<StatusController>(Behavior.GameObjectFast);
+      var instantiator = StaticBindings.DependencyContainer.GetInstance<IInstantiator>();
+      status = instantiator.AddComponent<StatusController>(Behavior.GameObject);
       status.SetStatusToken(StatusToken);
     }
     if (ActionKind == ActionKindEnum.ShowStatus) {
@@ -214,7 +215,7 @@ public class StatusToggleAction : AutomationActionBase {
 
   #region Helper BaseComponent to show blocked status
 
-  sealed class StatusController : BaseComponent {
+  sealed class StatusController : Component {
     public string StatusToken { get; private set; }
 
     StatusToggle _statusToggle;
@@ -248,7 +249,7 @@ public class StatusToggleAction : AutomationActionBase {
                 toggleAction.StatusIcon, _loc.T(toggleAction.StatusText), _loc.T(toggleAction.AlertText)),
           _ => throw new InvalidDataException("Unknown status kind: " + toggleAction.StatusKind)
       };
-      GetComponentFast<StatusSubject>().RegisterStatus(_statusToggle);
+      GetComponent<StatusSubject>().RegisterStatus(_statusToggle);
     }
 
     public void ShowStatus() {

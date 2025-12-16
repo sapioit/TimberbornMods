@@ -73,7 +73,7 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
 
   /// <inheritdoc/>
   public override string[] GetActionNamesForBuilding(AutomationBehavior behavior) {
-    if (!behavior.GetComponentFast<Emptiable>()) {
+    if (!behavior.GetComponent<Emptiable>()) {
       return [];
     }
     var inventory = GetInventory(behavior, throwIfNotFound: false);
@@ -91,7 +91,7 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
   
   /// <inheritdoc/>
   public override Action<ScriptValue[]> GetActionExecutor(string name, AutomationBehavior behavior) {
-    var emptiable = behavior.GetComponentFast<Emptiable>();
+    var emptiable = behavior.GetComponent<Emptiable>();
     if (!emptiable) {
       throw new ScriptError.BadStateError(behavior, "Building is not emptiable");
     }
@@ -250,11 +250,11 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
 
   #region Inventory change tracker component
 
-  sealed class InventoryChangeTracker : AbstractStatusTracker {
+  internal sealed class InventoryChangeTracker : AbstractStatusTracker, IAwakableComponent {
 
     Inventory _inventory;
 
-    void Awake() {
+    public void Awake() {
       _inventory = GetInventory(this, throwIfNotFound: false);
       if (!_inventory) {
         throw new InvalidOperationException("Inventory component not found on: " + DebugEx.ObjectToString(this));
@@ -275,7 +275,7 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
   /// Creates a custom status icon that indicates that the storage is being emptying. If the status is changed
   /// externally, then hides the status and notifies the action.
   /// </summary>
-  sealed class EmptyingStatusBehavior : AbstractStatusTracker {
+  internal sealed class EmptyingStatusBehavior : AbstractStatusTracker, IStartableComponent {
 
     ILoc _loc;
     StatusToggle _statusToggle;
@@ -300,13 +300,13 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
       _loc = loc;
     }
 
-    void Start() {
-      _emptiable = GetComponentFast<Emptiable>();
+    public void Start() {
+      _emptiable = GetComponent<Emptiable>();
       _emptiable.UnmarkedForEmptying += (_, _) => RefreshStatus();
       _emptiable.MarkedForEmptying += (_, _) => RefreshStatus();
       _statusToggle = StatusToggle.CreatePriorityStatusWithFloatingIcon(
           EmptyingStatusIcon, _loc.T(EmptyingStatusDescriptionLocKey));
-      GetComponentFast<StatusSubject>().RegisterStatus(_statusToggle);
+      GetComponent<StatusSubject>().RegisterStatus(_statusToggle);
       RefreshStatus();
     }
 

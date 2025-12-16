@@ -30,14 +30,14 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
 
   /// <inheritdoc/>
   public override string[] GetSignalNamesForBuilding(AutomationBehavior behavior) {
-    return behavior.GetComponentFast<DistrictBuilding>() 
+    return behavior.GetComponent<DistrictBuilding>() 
         ? [BeaverPopulationSignalName, BotPopulationSignalName, NumberOfBedsSignalName]
         : [];
   }
 
   /// <inheritdoc/>
   public override Func<ScriptValue> GetSignalSource(string name, AutomationBehavior behavior) {
-    var districtBuilding = behavior.GetComponentFast<DistrictBuilding>();
+    var districtBuilding = behavior.GetComponent<DistrictBuilding>();
     if (!districtBuilding) {
       throw new ScriptError.BadStateError(behavior, "Not a district building");
     }
@@ -51,7 +51,7 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
 
   /// <inheritdoc/>
   public override SignalDef GetSignalDefinition(string name, AutomationBehavior behavior) {
-    var districtBuilding = behavior.GetComponentFast<DistrictBuilding>();
+    var districtBuilding = behavior.GetComponent<DistrictBuilding>();
     if (!districtBuilding) {
       throw new ScriptError.BadStateError(behavior, "Not a district building");
     }
@@ -124,7 +124,7 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
       return ScriptValue.FromInt(0);
     }
     var statistics =
-        districtBuilding.District.GetComponentFast<DistrictDwellingStatisticsProvider>().GetDwellingStatistics();
+        districtBuilding.District.GetComponent<DistrictDwellingStatisticsProvider>().GetDwellingStatistics();
     return ScriptValue.FromInt(statistics.FreeBeds + statistics.OccupiedBeds);
   }
 
@@ -142,12 +142,12 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
 
   #region District citizens tracker
 
-  sealed class DistrictChangeTracker : AbstractStatusTracker {
+  internal sealed class DistrictChangeTracker : AbstractStatusTracker, IStartableComponent {
 
     DistrictCenter _currentDistrictCenter;
 
-    void Start() {
-      var districtBuilding = GetComponentFast<DistrictBuilding>();
+    public void Start() {
+      var districtBuilding = GetComponent<DistrictBuilding>();
       districtBuilding.ReassignedDistrict += OnDistrictChangedEvent;
       districtBuilding.ReassignedConstructionDistrict += OnDistrictChangedEvent;
       UpdateDistrictCenter();
@@ -160,7 +160,7 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
         _currentDistrictCenter.DistrictBuildingRegistry.FinishedBuildingRegistered -= FinishedBuildingRegisteredEvent;
         _currentDistrictCenter.DistrictBuildingRegistry.FinishedBuildingUnregistered -= FinishedBuildingUnregisteredEvent;
       }
-      _currentDistrictCenter = GetComponentFast<DistrictBuilding>().District;
+      _currentDistrictCenter = GetComponent<DistrictBuilding>().District;
       if (_currentDistrictCenter) {
         _currentDistrictCenter.DistrictPopulation.CitizenAssigned += OnCitizenAssigned;
         _currentDistrictCenter.DistrictPopulation.CitizenUnassigned += OnCitizenUnassigned;
@@ -183,10 +183,10 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
     }
 
     void OnPopulationChangedEvent(Citizen citizen = null) {
-      if (!citizen || citizen.GetComponentFast<BotSpec>()) {
+      if (citizen == null || citizen.GetComponent<BotSpec>() != null) {
         ScheduleSignal(BotPopulationSignalName, ignoreErrors: true);
       }
-      if (!citizen || !citizen.GetComponentFast<BotSpec>()) {
+      if (citizen == null || citizen.GetComponent<BotSpec>() == null) {
         ScheduleSignal(BeaverPopulationSignalName, ignoreErrors: true);
       }
     }

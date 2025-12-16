@@ -9,7 +9,7 @@ using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
 using IgorZ.Automation.Utils;
-using IgorZ.TimberDev.Tools;
+using IgorZ.CustomTools.Tools;
 using Timberborn.BlockSystem;
 using Timberborn.BlueprintSystem;
 using Timberborn.ConstructionMode;
@@ -59,8 +59,8 @@ sealed class ApplyTemplateTool : AbstractAreaSelectionTool, IAutomationModeEnabl
 
   /// <inheritdoc/>
   protected override bool ObjectFilterExpression(BlockObject blockObject) {
-    var behavior = blockObject.GetComponentFast<AutomationBehavior>();
-    if (!behavior || !behavior.enabled) {
+    var behavior = blockObject.GetComponent<AutomationBehavior>();
+    if (!behavior || !behavior.Enabled) {
       return false;
     }
     return _templateRules.All(rule => rule.IsValidAt(behavior));
@@ -68,7 +68,7 @@ sealed class ApplyTemplateTool : AbstractAreaSelectionTool, IAutomationModeEnabl
 
   /// <inheritdoc/>
   protected override void OnObjectAction(BlockObject blockObject) {
-    var behavior = blockObject.GetComponentFast<AutomationBehavior>();
+    var behavior = blockObject.GetComponent<AutomationBehavior>();
     behavior.RemoveRulesForTemplateFamily(_templateFamilyName);
     foreach (var rule in _templateRules) {
       var action = rule.Action.CloneDefinition();

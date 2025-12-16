@@ -16,7 +16,7 @@ static class FloodgatePatch {
     if (!__runOriginal) {
       return;  // The other patches must follow the same style to properly support the skip logic!
     }
-    var automationTracker = __instance.GetComponentFast<FloodgateScriptableComponent.HeightChangeTracker>();
+    var automationTracker = __instance.GetComponent<FloodgateScriptableComponent.HeightChangeTracker>();
     if (automationTracker) {
       automationTracker.OnHeighChanged();
     }

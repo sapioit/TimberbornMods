@@ -10,7 +10,6 @@ using IgorZ.Automation.Conditions;
 using IgorZ.Automation.Utils;
 using Timberborn.BlockSystem;
 using Timberborn.Persistence;
-using Timberborn.PrefabSystem;
 
 namespace IgorZ.Automation.TemplateTools;
 
@@ -68,8 +67,8 @@ sealed class AutomationRule : IGameSerializable {
   /// <inheritdoc/>
   [SuppressMessage("ReSharper", "Unity.NoNullPropagation")]
   public override string ToString() {
-    var prefabName = Action.Behavior?.GetComponentFast<PrefabSpec>()?.Name;
-    var coords = Action.Behavior?.GetComponentFast<BlockObject>().Coordinates;
+    var prefabName = Action.Behavior?.Name;
+    var coords = Action.Behavior?.GetComponent<BlockObject>().Coordinates;
     return $"[Rule:condition=[{Condition}];action=[{Action}];at={prefabName}@{coords}]";
   }
   #endregion

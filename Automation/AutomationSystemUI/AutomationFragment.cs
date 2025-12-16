@@ -157,12 +157,12 @@ sealed class AutomationFragment : IEntityPanelFragment, ISignalListener {
   }
 
   public void ShowFragment(BaseComponent entity) {
-    _automationBehavior = entity.GetComponentFast<AutomationBehavior>();
+    _automationBehavior = entity.GetComponent<AutomationBehavior>();
     if (!_automationBehavior) {
       return;
     }
     _automationBehaviorVersion = -1;
-    _goodDisallower = entity.GetComponentFast<IGoodDisallower>();
+    _goodDisallower = entity.GetComponent<IGoodDisallower>();
     if (_goodDisallower != null) {
       _goodDisallower.DisallowedGoodsChanged += OnGoodDisallowerChange;
     }

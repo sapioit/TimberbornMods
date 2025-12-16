@@ -6,7 +6,6 @@ using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.PathCheckingSystem;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
-using TimberApi.DependencyContainerSystem;
 using Timberborn.BuildingsNavigation;
 using Timberborn.Persistence;
 
@@ -41,7 +40,7 @@ public sealed class CheckAccessBlockCondition : AutomationConditionBase {
 
   /// <inheritdoc/>
   public override bool IsValidAt(AutomationBehavior behavior) {
-    return !behavior.BlockObject.IsFinished && behavior.GetComponentFast<ConstructionSiteAccessible>();
+    return !behavior.BlockObject.IsFinished && behavior.GetComponent<ConstructionSiteAccessible>();
   }
 
   /// <inheritdoc/>
@@ -54,12 +53,12 @@ public sealed class CheckAccessBlockCondition : AutomationConditionBase {
 
   /// <inheritdoc/>
   protected override void OnBehaviorAssigned() {
-    DependencyContainer.GetInstance<PathCheckingService>().AddCondition(this);
+    StaticBindings.DependencyContainer.GetInstance<PathCheckingService>().AddCondition(this);
   }
 
   /// <inheritdoc/>
   protected override void OnBehaviorToBeCleared() {
-    DependencyContainer.GetInstance<PathCheckingService>().RemoveCondition(this);
+    StaticBindings.DependencyContainer.GetInstance<PathCheckingService>().RemoveCondition(this);
   }
 
   #endregion

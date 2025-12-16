@@ -3,7 +3,6 @@
 // License: Public Domain
 
 using Bindito.Core;
-using IgorZ.TimberDev.Tools;
 
 namespace IgorZ.Automation.TemplateTools;
 
@@ -17,6 +16,6 @@ sealed class Configurator : IConfigurator {
 
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<ApplyTemplateTool.AutomationTemplateSpec>().AsTransient();
-    CustomToolSystem.BindTool<ApplyTemplateTool>(containerDefinition);
+    containerDefinition.Bind<ApplyTemplateTool>().AsTransient();
   }
 }

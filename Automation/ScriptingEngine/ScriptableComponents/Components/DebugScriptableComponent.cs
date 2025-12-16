@@ -158,7 +158,7 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
   }
 
   ScriptValue StockTrackerValueSignal(AutomationBehavior behavior, string goodId) {
-    var districtCenter = behavior.GetComponentFast<DistrictBuilding>().InstantDistrict;
+    var districtCenter = behavior.GetComponent<DistrictBuilding>().InstantDistrict;
     if (districtCenter == null || !_districtStockCounter.TryGetValue(districtCenter, out var stockCounter)) {
       return ScriptValue.Of(0);
     }
@@ -166,7 +166,7 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
   }
 
   ScriptValue StockTrackerCapacitySignal(AutomationBehavior behavior, string goodId) {
-    var districtCenter = behavior.GetComponentFast<DistrictBuilding>().InstantDistrict;
+    var districtCenter = behavior.GetComponent<DistrictBuilding>().InstantDistrict;
     if (districtCenter == null || !_districtCapacityCounter.TryGetValue(districtCenter, out var capacityCounter)) {
       return ScriptValue.Of(0);
     }
@@ -218,17 +218,15 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
 
   AutomationService _automationService;
   IGoodService _goodService;
-  InventoryService _inventoryService;
   DistrictCenterRegistry _districtCenterRegistry;
 
   int _stockTickersRegistered;
 
   [Inject]
   public void InjectDependencies(AutomationService automationService, IGoodService goodService,
-                                 InventoryService inventoryService, DistrictCenterRegistry districtCenterRegistry) {
+                                 DistrictCenterRegistry districtCenterRegistry) {
     _automationService = automationService;
     _goodService = goodService;
-    _inventoryService = inventoryService;
     _districtCenterRegistry = districtCenterRegistry;
   }
 
@@ -260,15 +258,10 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
     _districtStockCounter.Clear();
     _districtCapacityCounter.Clear();
     foreach (var districtCenter in _districtCenterRegistry.FinishedDistrictCenters) {
-      var inventories = _inventoryService.PublicOutputInventories
-          .Where(inventory => inventory.GetComponentFast<DistrictBuilding>().InstantDistrict == districtCenter)
-          .ToArray();
-      var stockCounter = new StockCounter();
-      stockCounter.UpdateStock(inventories);
-      _districtStockCounter.Add(districtCenter, stockCounter);
-      var capacityCounter = new CapacityCounter();
-      capacityCounter.UpdateCapacity(inventories);
-      _districtCapacityCounter.Add(districtCenter, capacityCounter);
+      //FIXME: Refactor the approach and use DistrictResourceCounter in signals.
+      var districtResourceCounter = districtCenter.GetComponent<DistrictResourceCounter>();
+      _districtStockCounter.Add(districtCenter, districtResourceCounter._stockCounter);
+      _districtCapacityCounter.Add(districtCenter, districtResourceCounter._capacityCounter);
     }
   }
 

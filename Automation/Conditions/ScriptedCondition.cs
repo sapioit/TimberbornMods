@@ -13,7 +13,6 @@ using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
-using TimberApi.DependencyContainerSystem;
 using Timberborn.Persistence;
 using UnityDev.Utils.LogUtilsLite;
 using UnityEngine.InputSystem;
@@ -39,7 +38,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       if (_lastScriptError != null) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(_lastScriptError));
       }
-      var expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
+      var expressionDescriber = StaticBindings.DependencyContainer.GetInstance<ExpressionDescriber>();
       try {
         var describe = expressionDescriber.DescribeExpression(_parsedExpression);
         return ConditionState ? CommonFormats.HighlightGreen(describe) : CommonFormats.HighlightYellow(describe); 
@@ -93,7 +92,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
   /// <inheritdoc/>
   protected override void OnBehaviorToBeCleared() {
     if (_registeredSignals != null) {
-      var scriptingService = DependencyContainer.GetInstance<ScriptingService>();
+      var scriptingService = StaticBindings.DependencyContainer.GetInstance<ScriptingService>();
       scriptingService.UnregisterSignals(_registeredSignals, this);
     }
     ResetScriptError();
@@ -106,6 +105,8 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
 
   /// <inheritdoc/>
   public override bool IsValidAt(AutomationBehavior behavior) {
+    //FIXME it is brokren! try copy on unfinished, then finish and try again - nope! point to another bldng and then back - works!
+    //FIXME: reset cash on complete
     if (_lastValidatedBehavior == behavior) {
       return _lastValidationResult;
     }
@@ -213,7 +214,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
 
   static BoolOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult, bool checkOnly = false) {
-    var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
+    var parserFactory = StaticBindings.DependencyContainer.GetInstance<ParserFactory>();
     var conditionOperator = parserFactory.ParseCondition(
         expression, behavior, out parsingResult, preferredParser: parserFactory.LispSyntaxParser);
     if (parsingResult.LastError != null
@@ -236,8 +237,9 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
-    _registeredSignals = DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
+    Expression = StaticBindings.DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
+    _registeredSignals =
+        StaticBindings.DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
     _canRunOnUnfinishedBuildings = _registeredSignals.Select(x => x.OnUnfinished).Aggregate((x, y) => x || y); 
   }
 
@@ -246,7 +248,7 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       return true;
     }
     var needLogs = Keyboard.current.ctrlKey.isPressed;
-    var result = DependencyContainer.GetInstance<LispSyntaxParser>().Parse(Precondition, behavior);
+    var result = StaticBindings.DependencyContainer.GetInstance<LispSyntaxParser>().Parse(Precondition, behavior);
     if (result.ParsedExpression == null) {
       if (result.LastScriptError is not ScriptError.BadStateError) {
         HostedDebugLog.Error(behavior, "Failed to parse precondition: {0}\nError: {1}", Precondition, result.LastError);

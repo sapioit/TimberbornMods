@@ -9,11 +9,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Bindito.Core;
 using Timberborn.BaseComponentSystem;
+using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
 using Timberborn.BlockSystemNavigation;
-using Timberborn.BuilderHubSystem;
-using Timberborn.BuildingsBlocking;
 using Timberborn.BuildingsNavigation;
+using Timberborn.BuildingsReachability;
 using Timberborn.Common;
 using Timberborn.ConstructionSites;
 using Timberborn.Coordinates;
@@ -31,7 +31,7 @@ namespace IgorZ.Automation.PathCheckingSystem;
 /// <summary>Container for the path blocking site.</summary>
 /// <remarks>It must only be applied to the preview sites.</remarks>
 sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListener, IFinishedStateListener,
-                                IDeletableEntity, IInitializableEntity {
+                                IInitializableEntity, IAwakableComponent {
 
   #region API
   // ReSharper disable MemberCanBePrivate.Global
@@ -90,12 +90,11 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   /// Only call it when re-suing an existing component. All new components, including the loaded ones, should get
   /// initialized via <see cref="InitializeEntity"/>.
   /// </remarks>
-  /// <seealso cref="DisableComponent"/>
-  public void EnableComponent() {
+  /// <seealso cref="DisableSiteComponent"/>
+  public void EnableSiteComponent() {
     _eventBus.Register(this);
     _navMeshListenerEntityRegistry.RegisterNavMeshListener(this);
-    enabled = true;
-    if (_isFullyGrounded) {
+    if (_isValid) {
       UpdateNavMesh();
     }
   }
@@ -105,19 +104,12 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   /// Once added to the game object, the component must not be destroyed. If the site is added to the building again,
   /// the existing component must be re-used.
   /// </remarks>
-  /// <seealso cref="EnableComponent"/>
-  public void DisableComponent() {
+  public void DisableSiteComponent() {
     ClearAllStates();
     ResetState();
     _eventBus.Unregister(this);
     _navMeshListenerEntityRegistry.UnregisterNavMeshListener(this);
-    enabled = false;
   }
-
-  // ReSharper restore MemberCanBePrivate.Global
-  #endregion
-
-  #region Implementation
 
   const string NotYetReachableLocKey = "IgorZ.Automation.CheckAccessBlockCondition.NotYetReachable";
   const string UnreachableStatusLocKey = "IgorZ.Automation.CheckAccessBlockCondition.UnreachableStatus";
@@ -130,10 +122,10 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   DistrictMap _districtMap;
   PreviewDistrictMap _previewDistrictMap;
   EventBus _eventBus;
-  NavMeshListenerEntityRegistry _navMeshListenerEntityRegistry;
+  INavMeshListenerEntityRegistry _navMeshListenerEntityRegistry;
 
-  BlockableBuilding _blockableBuilding;
-  BuilderJobReachabilityStatus _builderJobReachabilityStatus;
+  BlockableObject _blockableObject;
+  EntityReachabilityStatus _entityReachabilityStatus;
   GroundedConstructionSite _groundedSite;
   Accessible _accessible;
   BlockObjectNavMesh _blockObjectNavMesh;
@@ -141,21 +133,21 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   StatusToggle _unreachableStatusToggle;
   StatusToggle _maybeReachableStatusToggle;
   int _bestPathRoadNodeId = -1;
-  bool _isFullyGrounded;  // FIXME: rename is IsValid
+  bool _isValid;
   bool _isCurrentlySelected;
 
   /// <summary>It is called before <see cref="InjectDependencies"/>!</summary>
-  void Awake() {
-    BlockObject = GetComponentFast<BlockObject>();
+  public void Awake() {
+    BlockObject = GetComponent<BlockObject>();
     if (BlockObject.IsPreview) {
       throw new InvalidOperationException($"{DebugEx.BaseComponentToString(BlockObject)} must not be in preview");
     }
-    ConstructionSite = GetComponentFast<ConstructionSite>();
-    _blockableBuilding = GetComponentFast<BlockableBuilding>();
-    _builderJobReachabilityStatus = GetComponentFast<BuilderJobReachabilityStatus>();
-    _groundedSite = GetComponentFast<GroundedConstructionSite>();
-    _accessible = GetComponentFast<ConstructionSiteAccessible>().Accessible;
-    _blockObjectNavMesh = GetComponentFast<BlockObjectNavMesh>();
+    ConstructionSite = GetComponent<ConstructionSite>();
+    _blockableObject = GetComponent<BlockableObject>();
+    _entityReachabilityStatus = GetComponent<EntityReachabilityStatus>();
+    _groundedSite = GetComponent<GroundedConstructionSite>();
+    _accessible = GetComponent<ConstructionSiteAccessible>().Accessible;
+    _blockObjectNavMesh = GetComponent<BlockObjectNavMesh>();
   }
 
   /// <summary>It is called after <see cref="Awake"/>!</summary>
@@ -164,7 +156,7 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   public void InjectDependencies(
       ILoc loc, NodeIdService nodeIdService, DistrictCenterRegistry districtCenterRegistry, DistrictMap districtMap,
       PreviewDistrictMap previewDistrictMap, EventBus eventBus,
-      NavMeshListenerEntityRegistry navMeshListenerEntityRegistry) {
+      INavMeshListenerEntityRegistry navMeshListenerEntityRegistry) {
     _loc = loc;
     _nodeIdService = nodeIdService;
     _districtCenterRegistry = districtCenterRegistry;
@@ -179,8 +171,8 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   void InitializeNavMesh() {
     var navMeshObject = _blockObjectNavMesh.NavMeshObject;
     RestrictedNodes = navMeshObject._restrictedCoordinates.Select(_nodeIdService.GridToId).ToList();
-    var settings = BlockObject.GetComponentFast<BlockObjectNavMeshSettingsSpec>();
-    if (!settings) {
+    var settings = BlockObject.GetComponent<BlockObjectNavMeshSettingsSpec>();
+    if (settings == null) {
       NodeEdges = [];
     } else {
       NodeEdges = settings.EdgeGroups
@@ -274,23 +266,23 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   void SetUnreachableStatus() {
     _unreachableStatusToggle.Activate();
     _maybeReachableStatusToggle.Deactivate();
-    _blockableBuilding.Block(this);
+    _blockableObject.Block(this);
   }
 
   /// <summary>Blocks site, but indicates that there can be path being built.</summary>
   void SetMaybeReachableStatus() {
     _unreachableStatusToggle.Deactivate();
     _maybeReachableStatusToggle.Activate();
-    _blockableBuilding.Block(this);
+    _blockableObject.Block(this);
   }
 
   /// <summary>A cleanup method that resets all effects on the site and resumes the stock one.</summary>
   void ClearAllStates() {
     _unreachableStatusToggle.Deactivate();
     _maybeReachableStatusToggle.Deactivate();
-    _blockableBuilding.Unblock(this);
-    if (_isCurrentlySelected && _builderJobReachabilityStatus) {
-      _builderJobReachabilityStatus.OnSelect();
+    _blockableObject.Unblock(this);
+    if (_isCurrentlySelected && _entityReachabilityStatus) {
+      _entityReachabilityStatus.OnSelect();
     }
   }
 
@@ -311,11 +303,11 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   /// <remarks>Needs to be public to work.</remarks>
   [OnEvent]
   public void OnBlockObjectEnteredFinishedStateEvent(EnteredFinishedStateEvent e) {
-    if (!_groundedSite.IsValid || !enabled) {
+    if (!_groundedSite.IsValid) {
       return;
     }
-    if (!_isFullyGrounded) {
-      _isFullyGrounded = true;
+    if (!_isValid) {
+      _isValid = true;
       UpdateNavMesh();
     }
   }
@@ -324,10 +316,10 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   /// <remarks>Needs to be public to work.</remarks>
   [OnEvent]
   public void OnEntityDeletedEvent(EntityDeletedEvent @event) {
-    if (!_isFullyGrounded || !enabled) {
+    if (!_isValid) {
       return;
     }
-    if (BestAccessNode == -1 && @event.Entity.GetComponentFast<BlockObject>() != BlockObject) {
+    if (BestAccessNode == -1 && @event.Entity.GetComponent<BlockObject>() != BlockObject) {
       UpdateNavMesh();
     }
   }
@@ -338,12 +330,12 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
 
   /// <inheritdoc/>
   public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate) {
-    if (!_isFullyGrounded || !enabled) {
+    if (!_isValid) {
       return;
     }
     if (_bestPathRoadNodeId == -1) {
       // For an unreachable site, _any_ update to navmesh can make it reachable.
-      // Also, the road doesn't exists on the site were loaded just loaded.
+      // Also, the road doesn't exist on the site were loaded just loaded.
       UpdateNavMesh();
       return;
     }
@@ -361,11 +353,11 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   /// <inheritdoc/>
   public void OnSelect() {
     _isCurrentlySelected = true;
-    if (!_builderJobReachabilityStatus) {
+    if (!_entityReachabilityStatus) {
       return;
     }
     if (_unreachableStatusToggle.IsActive || _maybeReachableStatusToggle.IsActive) {
-      _builderJobReachabilityStatus.OnUnselect();  // We show our own status.
+      _entityReachabilityStatus.OnUnselect();  // We show our own status.
     }
   }
 
@@ -380,19 +372,12 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
 
   /// <inheritdoc/>
   public void OnEnterFinishedState() {
-    DisableComponent();
+    DisableSiteComponent();
   }
 
   /// <inheritdoc/>
-  public void OnExitFinishedState() {}
-
-  #endregion
-
-  #region IDeletableEntity implementation
-
-  /// <inheritdoc/>
-  public void DeleteEntity() {
-    DisableComponent();
+  public void OnExitFinishedState() {
+    DisableSiteComponent();
   }
 
   #endregion
@@ -407,10 +392,11 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
     _unreachableStatusToggle = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon(
         UnreachableIconName, _loc.T(UnreachableStatusLocKey), _loc.T(UnreachableAlertLocKey));
     _maybeReachableStatusToggle = StatusToggle.CreateNormalStatus(UnreachableIconName, _loc.T(NotYetReachableLocKey));
-    GetComponentFast<StatusSubject>().RegisterStatus(_unreachableStatusToggle);
-    GetComponentFast<StatusSubject>().RegisterStatus(_maybeReachableStatusToggle);
-    _isFullyGrounded = _groundedSite.IsValid;
-    EnableComponent();
+    var statusObject = GetComponent<StatusSubject>();
+    statusObject.RegisterStatus(_unreachableStatusToggle);
+    statusObject.RegisterStatus(_maybeReachableStatusToggle);
+    _isValid = _groundedSite.IsValid;
+    EnableSiteComponent();
   }
 
   #endregion

@@ -4,11 +4,11 @@
 
 using System.Linq;
 using System.Text;
-using IgorZ.TimberDev.Tools;
+using IgorZ.CustomTools.Tools;
 using Timberborn.BaseComponentSystem;
+using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
 using Timberborn.BlockSystemNavigation;
-using Timberborn.BuildingsBlocking;
 using Timberborn.BuildingsNavigation;
 using Timberborn.ConstructionMode;
 using Timberborn.Coordinates;
@@ -31,7 +31,7 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
         "IgorZ.Automation.DebugPickTool.DescriptionHint1",
         "IgorZ.Automation.DebugPickTool.DescriptionHint2",
     ];
-    DescriptionHintSectionLoc = null;
+    DescriptionHintSection = null;
     base.Initialize();
   }
 
@@ -59,7 +59,7 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
     lines.AppendLine(string.Join("\n", names));
     lines.AppendLine(new string('*', 10));
 
-    var blockable = component.GetComponentFast<BlockableBuilding>();
+    var blockable = component.GetComponent<BlockableObject>();
     if (blockable && !blockable.IsUnblocked) {
       lines.AppendLine($"Building is blocked by:");
       var blockers = blockable._blockers.Select(x => x.ToString()).OrderBy(x => x);
@@ -70,8 +70,8 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
   }
 
   static void PrintAccessible(BaseComponent component) {
-    var accessible = component.GetComponentFast<Accessible>();
-    var siteAccessible = component.GetComponentFast<ConstructionSiteAccessible>()?.Accessible;
+    var accessible = component.GetComponent<Accessible>();
+    var siteAccessible = component.GetComponent<ConstructionSiteAccessible>()?.Accessible;
     if (!accessible && !siteAccessible) {
       HostedDebugLog.Error(component, "No accessible components found");
       return;
@@ -80,13 +80,13 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
     lines.AppendLine(new string('*', 10));
     lines.AppendLine($"Accesses on {DebugEx.BaseComponentToString(component)}");
     if (accessible) {
-      lines.AppendLine($"From Accessible (enabled={accessible.enabled}):");
+      lines.AppendLine($"From Accessible (enabled={accessible.Enabled}):");
       foreach (var access in accessible.Accesses) {
         lines.AppendLine($"world: {access}, grid:{CoordinateSystem.WorldToGridInt(access)}");
       }
     }
     if (siteAccessible) {
-      lines.AppendLine($"From ConstructionSiteAccessible (enabled={siteAccessible.enabled}):");
+      lines.AppendLine($"From ConstructionSiteAccessible (enabled={siteAccessible.Enabled}):");
       foreach (var access in siteAccessible.Accesses) {
         lines.AppendLine($"world: {access}, grid:{CoordinateSystem.WorldToGridInt(access)}");
       }
@@ -96,16 +96,16 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
   }
 
   static void PrintNavMesh(BaseComponent component) {
-    var settings = component.GetComponentFast<BlockObjectNavMeshSettingsSpec>();
-    if (!settings) {
+    var settings = component.GetComponent<BlockObjectNavMeshSettingsSpec>();
+    if (settings == null) {
       HostedDebugLog.Error(component, "No BlockObjectNavMeshSettings component found");
       return;
     }
     var lines = new StringBuilder();
     lines.AppendLine(new string('*', 10));
     lines.AppendLine($"NavMesh edges on {DebugEx.BaseComponentToString(component)}:");
-    var isPath = (bool) component.GetComponentFast<PathSpec>();
-    var blockObject = component.GetComponentFast<BlockObject>();
+    var isPath = component.GetComponent<PathSpec>() != null;
+    var blockObject = component.GetComponent<BlockObject>();
     var isSolid = blockObject.Solid;
     lines.AppendLine($"Building: isPath={isPath}, isSolid={isSolid}");
     if (isSolid) {
@@ -120,7 +120,7 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
     foreach (var edge in edges) {
       lines.AppendLine($"{edge.Start} => {edge.End}");
     }
-    lines.AppendLine($"{settings.UnblockedCoordinates.Count} unblocked coordinates:");
+    lines.AppendLine($"{settings.UnblockedCoordinates.Length} unblocked coordinates:");
     foreach (var coords in settings.UnblockedCoordinates) {
       lines.AppendLine($"Group={coords.Group}, coords={coords.Coordinates}");
     }

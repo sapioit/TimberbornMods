@@ -24,6 +24,7 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
   /// <inheritdoc/>
   public void Load() {
     _eventBus.Register(this);
+    _blockerMarker = Object.Instantiate(_walkerDebugger._destinationMarker);
   }
 
   #endregion
@@ -52,7 +53,9 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
   readonly DebugModeManager _debugModeManager;
   readonly List<GameObject> _cornerMarkers = new();
   readonly GameObject _cornerMarkerPrefab;
-  readonly GameObject _blockerMarker;
+  readonly WalkerDebugger _walkerDebugger;
+
+  GameObject _blockerMarker;
   PathCheckingSite _selectedSite;
 
   PathCheckingSystemDebugger(EventBus eventBus, NodeIdService nodeIdService, WalkerDebugger walkerDebugger,
@@ -61,7 +64,7 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
     _nodeIdService = nodeIdService;
     _debugModeManager = debugModeManager;
     _cornerMarkerPrefab = walkerDebugger._cornerMarkerPrefab;
-    _blockerMarker = Object.Instantiate(assetLoader.Load<GameObject>(WalkerDebugger.DestinationMarkerPath));
+    _walkerDebugger = walkerDebugger;
   }
 
   void HideMarkers() {
@@ -95,8 +98,8 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
 
   [OnEvent]
   public void OnSelectableObjectSelected(SelectableObjectSelectedEvent @event) {
-    var site = @event.SelectableObject.GetComponentFast<PathCheckingSite>();
-    if (site && site.enabled && site.BestAccessNode != -1) {
+    var site = @event.SelectableObject.GetComponent<PathCheckingSite>();
+    if (site && site.Enabled && site.BestAccessNode != -1) {
       _selectedSite = site;
     }
   }

@@ -11,7 +11,6 @@ using IgorZ.Automation.ScriptingEngine.Parser;
 using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.TimberDev.UI;
 using IgorZ.TimberDev.Utils;
-using TimberApi.DependencyContainerSystem;
 using Timberborn.Persistence;
 using UnityDev.Utils.LogUtilsLite;
 
@@ -35,10 +34,11 @@ sealed class ScriptedAction : AutomationActionBase {
   /// <inheritdoc/>
   public override string UiDescription {
     get {
+      //FIXME: return null by design and move logic to UI helpers.
       if (_lastScriptError != null) {
         return CommonFormats.HighlightRed(Behavior.Loc.T(_lastScriptError));
       }
-      var expressionDescriber = DependencyContainer.GetInstance<ExpressionDescriber>();
+      var expressionDescriber = StaticBindings.DependencyContainer.GetInstance<ExpressionDescriber>();
       try {
         return CommonFormats.HighlightYellow(expressionDescriber.DescribeExpression(_parsedExpression));
       } catch (ScriptError.RuntimeError e) {
@@ -101,7 +101,7 @@ sealed class ScriptedAction : AutomationActionBase {
   protected override void OnBehaviorToBeCleared() {
     base.OnBehaviorToBeCleared();
     if (_installedActions != null) {
-      var scriptingService = DependencyContainer.GetInstance<ScriptingService>();
+      var scriptingService = StaticBindings.DependencyContainer.GetInstance<ScriptingService>();
       scriptingService.UninstallActions(_installedActions, Behavior);
     }
     ResetScriptError();
@@ -170,7 +170,7 @@ sealed class ScriptedAction : AutomationActionBase {
 
   static ActionOperator ParseAndValidate(
       string expression, AutomationBehavior behavior, out ParsingResult parsingResult) {
-    var parserFactory = DependencyContainer.GetInstance<ParserFactory>();
+    var parserFactory = StaticBindings.DependencyContainer.GetInstance<ParserFactory>();
     var actionOperator = parserFactory.ParseAction(
         expression, behavior, out parsingResult, preferredParser: parserFactory.LispSyntaxParser);
     if (parsingResult.LastError != null) {
@@ -191,8 +191,8 @@ sealed class ScriptedAction : AutomationActionBase {
       return;
     }
     Behavior.IncrementStateVersion();
-    Expression = DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
-    _installedActions = DependencyContainer.GetInstance<ScriptingService>().InstallActions(_parsedExpression, Behavior);
+    Expression = StaticBindings.DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
+    _installedActions = StaticBindings.DependencyContainer.GetInstance<ScriptingService>().InstallActions(_parsedExpression, Behavior);
   }
 
   void ReportScriptError(ScriptError.RuntimeError e) {
