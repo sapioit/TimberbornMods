@@ -39,7 +39,8 @@ sealed class CustomToolsService(ISpecService specService, IContainer container)
     DebugEx.Info("Loaded {0} custom tool group specs", CustomGroupSpecs.Length);
     var groupIds = new HashSet<string>();
     foreach (var groupSpec in CustomGroupSpecs) {
-      if (groupSpec.ParentGroupId == null && !AllowedLayouts.Contains(groupSpec.Layout.ToLower())) {
+      if (groupSpec.ParentGroupId == null
+          && (groupSpec.Layout == null || !AllowedLayouts.Contains(groupSpec.Layout.ToLower()))) {
         DebugEx.Error("Group spec has illegal layout: {0}", groupSpec);
         hasLoadErrors = true;
       }

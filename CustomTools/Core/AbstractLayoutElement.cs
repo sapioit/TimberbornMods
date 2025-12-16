@@ -99,15 +99,12 @@ abstract class AbstractLayoutElement(
     if (toolGroupSpec == null) {
       throw new InvalidOperationException($"Missing ToolGroupSpec on custom group: {customGroupSpec}");
     }
-    if (!AllowedLayouts.Contains(customGroupSpec.Layout.ToLower())) {
-      throw new InvalidOperationException($"Unknown layout: {customGroupSpec.Layout}");
-    }
     var groupId = toolGroupSpec.Id;
     ToolButtonColor? toolColor = customGroupSpec.Style.ToLower() switch {
         "blue" =>  ToolButtonColor.Blue,
         "green" => ToolButtonColor.Green,
         "red" => null,
-        _ => throw new InvalidOperationException($"Unknown tool group style: {customGroupSpec.Style}"),
+        _ => throw new InvalidOperationException($"Unexpected tool group style: {customGroupSpec.Style}"),
     };
     var groupButton = groupButtonFactory.Create(toolGroupSpec, parent, toolColor ?? ToolButtonColor.Blue);
     // FIXME: One day, have it handled by the Moddable Groups.

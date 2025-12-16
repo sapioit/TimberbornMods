@@ -11,7 +11,7 @@ public record CustomToolGroupSpec : ComponentSpec {
   /// <summary>Color style of the group.</summary>
   /// <remarks>Values: "red", "blue", "green". Case-insensitive.</remarks>
   [Serialize]
-  public string Style { get; init; }
+  public string Style { get; init; } = "Blue";
 
   /// <summary>The tool group button order in case of there are multiple groups in the layout.</summary>
   /// <remarks>
