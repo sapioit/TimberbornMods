@@ -1,11 +1,11 @@
 {
-  "ToolSpec": {
+  "CustomToolSpec": {
     "Id": "Automation.Tmpl.Terrain.DynamiteNow",
     "GroupId": "AutomationTerrainToolGroupId",
     "Type": "IgorZ.Automation.TemplateTools.ApplyTemplateTool",
     "Order": 0,
     "Icon": "Sprites/IgorZ/tool-dynamite-now",
-    "NameLocKey": "IgorZ.Automation.Tool.tmpl.DynamiteNow.DisplayName",
+    "DisplayNameLocKey": "IgorZ.Automation.Tool.tmpl.DynamiteNow.DisplayName",
     "DescriptionLocKey": "IgorZ.Automation.Tool.tmpl.DynamiteNow.Description"
   },
   "AutomationTemplateSpec": {

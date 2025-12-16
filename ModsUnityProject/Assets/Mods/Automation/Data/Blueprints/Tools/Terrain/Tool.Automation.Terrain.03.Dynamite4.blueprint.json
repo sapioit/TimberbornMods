@@ -1,11 +1,11 @@
 {
-  "ToolSpec": {
+  "CustomToolSpec": {
     "Id": "Automation.Tmpl.Terrain.4LevelsDynamite",
     "GroupId": "AutomationTerrainToolGroupId",
     "Type": "IgorZ.Automation.TemplateTools.ApplyTemplateTool",
     "Order": 3,
     "Icon": "Sprites/IgorZ/tool-dynamite-x4",
-    "NameLocKey": "IgorZ.Automation.Tool.tmpl.4LevelsDynamite.DisplayName",
+    "DisplayNameLocKey": "IgorZ.Automation.Tool.tmpl.4LevelsDynamite.DisplayName",
     "DescriptionLocKey": "IgorZ.Automation.Tool.tmpl.XLevelsDynamite.Description"
   },
   "AutomationTemplateSpec": {

@@ -1,11 +1,11 @@
 {
-  "ToolSpec": {
-    "Id": "Automation.Tmpl.Terrain.5LevelsDynamite",
+  "CustomToolSpec": {
+    "Id": "Automation.Tmpl.Terrain.2LevelsDynamite",
     "GroupId": "AutomationTerrainToolGroupId",
     "Type": "IgorZ.Automation.TemplateTools.ApplyTemplateTool",
-    "Order": 4,
-    "Icon": "Sprites/IgorZ/tool-dynamite-x5",
-    "NameLocKey": "IgorZ.Automation.Tool.tmpl.5LevelsDynamite.DisplayName",
+    "Order": 1,
+    "Icon": "Sprites/IgorZ/tool-dynamite-x2",
+    "DisplayNameLocKey": "IgorZ.Automation.Tool.tmpl.2LevelsDynamite.DisplayName",
     "DescriptionLocKey": "IgorZ.Automation.Tool.tmpl.XLevelsDynamite.Description"
   },
   "AutomationTemplateSpec": {
@@ -22,7 +22,7 @@
         "Action": {
           "TypeId": "IgorZ.Automation.Actions.ScriptedAction",
           "Parameters": [
-            { "Name": "Expression", "StrValue": "(act Dynamite.DetonateAndRepeat 400)" }
+            { "Name": "Expression", "StrValue": "(act Dynamite.DetonateAndRepeat 100)" }
           ]
         }
       }
