@@ -1,4 +1,7 @@
-﻿# v1.1.0 (12/12/2025)
+﻿# v1.1.1 (started on 12/15/2025)
+* [Change] Allow custom code to initialize tool with a spec.
+
+# v1.1.0 (12/12/2025)
 * [Change] Use "Moddable Groups" mod as an engine for the bottom bar tools. This mod is now required.
 * [Feature] Subgroups supported.
 

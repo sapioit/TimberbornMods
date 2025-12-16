@@ -2,6 +2,7 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+using System;
 using System.Text;
 using Bindito.Core;
 using IgorZ.CustomTools.Core;
@@ -52,7 +53,9 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
   /// <remarks>If <c>null</c> or empty, then the description will not be shown.</remarks>
   protected virtual string DescriptionMainSection => Loc.T(ToolSpec.DescriptionLocKey);
 
-  /// <summary>The localized option text that is presented at the bottom of the main stuff.</summary>
+  /// <summary>
+  /// The localized option text that is presented at the bottom of the main stuff. It can be <c>null</c>.
+  /// </summary>
   /// <remarks>This value should be set in the <see cref="Initialize"/> method and don't change after that.</remarks>
   protected string DescriptionHintSection = null;
 
@@ -69,7 +72,7 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
   /// <remarks>This value should be set in the <see cref="Initialize"/> method and don't change after that.</remarks>
   protected VisualElement[] DescriptionVisualSections = null;
 
-  /// <summary>Extra localized strings to add to the description as "bullets".</summary>
+  /// <summary>Extra localized strings to add to the description as "bullets". It can be <c>null</c>.</summary>
   /// <remarks>This value should be set in the <see cref="Initialize"/> method and don't change after that.</remarks>
   /// <seealso cref="SpecialStrings.RowStarter"/>
   protected string[] DescriptionBullets = null;
@@ -82,6 +85,22 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
 
   /// <summary>Tells if any of the alt keys is held.</summary>
   protected bool IsAltHeld => Keyboard.current.altKey.isPressed;
+
+  /// <summary>Main initializer of the tool that sets its spec.</summary>
+  /// <remarks>
+  /// It is normally called by the BottomBar construction code. The mod code should only call it if the tool is internal
+  /// and is not present anywhere on the bar. The method can only be called on a class, which doesn't have
+  /// <see cref="ToolSpec"/> set.
+  /// </remarks>
+  /// <param name="toolSpec">The tool spec to assign to this tool class instance.</param>
+  /// <exception cref="InvalidOperationException">if <see cref="ToolSpec"/> has already been set.</exception>
+  public void InitializeTool(CustomToolSpec toolSpec) {
+    if (ToolSpec != null) {
+      throw new InvalidOperationException($"Tool is already initialized: {ToolSpec}");
+    }
+    ToolSpec = toolSpec;
+    Initialize();
+  }
 
   /// <summary>Initializes the tool. Do all logic here instead of the constructor.</summary>
   protected virtual void Initialize() {
@@ -143,11 +162,6 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
   [Inject]
   public void InjectDependencies(ILoc loc) {
     Loc = loc;
-  }
-
-  internal void InitializeTool(CustomToolSpec toolSpec) {
-    ToolSpec = toolSpec;
-    Initialize();
   }
 
   #endregion

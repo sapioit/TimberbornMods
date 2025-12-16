@@ -36,21 +36,28 @@ button” or a small set of buttons, you can use this mod to set up your tools w
 1. Create a simple class that inherits from
    [`AbstractCustomTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Tools/AbstractCustomTool.cs)
    or one of its descendants. This class will be serving the tool functionality.
-   * This class must be bound via Bindito as singleton.
+   * This class must be bound via Bindito: `containerDefinition.Bind<PauseTool>().AsSingleton()`.
+   * If you plan to use the same class for serving multiple tools, bind as transient:
+     `containerDefinition.Bind<PauseTool>().AsTransient()`.
 
-2. Create a blueprint that defines the appearance of your button:
+2. Create a blueprint that defines the appearance of your tool button. See example blueprint:
+   [`DebugFinishNowTool`](https://github.com/ihsoft/TimberbornMods/blob/timberborn-1.0/CustomTools/Mod/Blueprints/Tools/Tool.CustomTools.DebugFinishNowTool.blueprint.json).
+   * The file name _must_ follow the blueprint naming convention: `<AnyArbitraryText>.blueprint.json`.
+   * Blueprint file names must be __globally unique__. The subfolders are not counted!
    * Add [`CustomToolSpec`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Core/CustomToolSpec.cs)
      and set `GroupId` to the name of the relevant group. The name of the standard _CustomTools_ tool group is
      "CustomToolsToolGroup", so you can put your tools there. Or you can define your own group (see below).
    * You can add additional specs to then tool blueprint to control behavior or provide extra data to your class. In the
      tool implementation, get extra specs via `ToolSpec.GetSpec<MyExtraSpec>()`.
 
-3. __Optional__. Create your own group button in the bottom bar and attach your tools to it. See this example blueprint:
-   [ToolGroup.CustomTools](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/ToolGroups/ToolGroup.CustomTools.blueprint.json).
+3. __Optional__. Create your own group button in the bottom bar and attach your tools to it. See example blueprint:
+   [`ToolGroup.CustomTools`](https://github.com/ihsoft/TimberbornMods/blob/8704467e2e08885f47f8b4cce06ed01912e48672/CustomTools/Mod/Blueprints/ToolGroups/ToolGroup.CustomTools.blueprint.json).
+   * The file name _must_ follow the blueprint naming convention: `<AnyArbitraryText>.blueprint.json`.
+   * Blueprint file names must be __globally unique__. The subfolders are not counted!
    * Groups can be nested. Set `CustomGroupSpec.ParentGroupId` to a name of another groups, and it will become a
      subgroup.
-   * In subgroups, value of `Layout` is ignored. `Order` is considered together with the tools in the same parent group.
-     I.e. the groups and tools can be mixed in any combinations (based on the order).
+   * In subgroups, value of `CustomGroupSpec.Layout` is ignored. And `CustomGroupSpec.Order` is considered together with
+     the tools in the same parent group. I.e. the groups and tools can be mixed in any combinations (based on the order).
 
 ### Tool examples
 
