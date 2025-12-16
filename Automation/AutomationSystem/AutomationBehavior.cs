@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bindito.Core;
 using IgorZ.Automation.Actions;
+using IgorZ.TimberDev.Utils;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
 using Timberborn.EntitySystem;
@@ -20,7 +21,8 @@ using UnityDev.Utils.LogUtilsLite;
 namespace IgorZ.Automation.AutomationSystem;
 
 /// <summary>The component that keeps all the automation state on the building.</summary>
-public sealed class AutomationBehavior : BaseComponent, IPersistentEntity, IDeletableEntity {
+public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IInitializableEntity,
+                                         IPersistentEntity, IDeletableEntity {
 
   const string AutomationErrorIcon = "IgorZ.Automation/error-icon-script-failed";
   const string AutomationErrorAlertLocKey = "IgorZ.Automation.ShowStatusAction.AutomationErrorAlert";
@@ -142,7 +144,7 @@ public sealed class AutomationBehavior : BaseComponent, IPersistentEntity, IDele
     if (_errorToggle == null) {
       _errorToggle = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon(
           AutomationErrorIcon, Loc.T(AutomationErrorDescriptionLocKey), Loc.T(AutomationErrorAlertLocKey));
-      GetComponentFast<StatusSubject>().RegisterStatus(_errorToggle);
+      GetComponent<StatusSubject>().RegisterStatus(_errorToggle);
     }
     _errorToggle.Activate();
     _failingInstances.Add(instance);
@@ -161,18 +163,42 @@ public sealed class AutomationBehavior : BaseComponent, IPersistentEntity, IDele
   }
 
   /// <summary>Returns the component or creates it if none exists.</summary>
+  /// <remarks>
+  /// The newly created components will receive all callbacks that they would receive if were created at the behavior
+  /// creation time. Callbacks sequence: Awake, InitializeEntity, OnEnterFinishedState.
+  /// </remarks>
   public T GetOrCreate<T>() where T : BaseComponent {
-    return GetComponentFast<T>() ?? BaseInstantiator.AddComponent<T>(GameObjectFast);
+    var component = GetComponent<T>();
+    if (component) {
+      return component;
+    }
+    component = StaticBindings.DependencyContainer.GetInstance<T>();
+    _componentCache._components.Add(component);
+    _componentCache._typeIndexMap.CacheComponent(1, typeof(T), _componentCache._components.Count - 1);
+    component.Initialize(_componentCache);
+    if (component is IAwakableComponent awakableComponent) {
+      awakableComponent.Awake();
+    }
+    if (_isInitialized && component is IInitializableEntity initializableEntity) {
+      initializableEntity.InitializeEntity();
+    }
+    if (BlockObject.IsFinished && component is IFinishedStateListener finishedStateListener) {
+      finishedStateListener.OnEnterFinishedState();
+    }
+    if (component.Enabled) {
+      _componentCache.AddEnabledComponent(component);
+    }
+    return component;
   }
 
   /// <summary>Returns the component or throws an exception if none exists.</summary>
   /// <exception cref="InvalidOperationException">if the requested component not found.</exception>
   public T GetOrThrow<T>() where T : BaseComponent {
-    var tracker = GetComponentFast<T>();
-    if (!tracker) {
+    var component = GetComponent<T>();
+    if (!component) {
       throw new InvalidOperationException($"Component {typeof(T).Name} not found");
     }
-    return tracker;
+    return component;
   }
 
   #endregion
@@ -216,16 +242,32 @@ public sealed class AutomationBehavior : BaseComponent, IPersistentEntity, IDele
 
   #endregion
 
+  #region IAwakableComponent implementation
+  
+  /// <inheritdoc/>
+  public void Awake() {
+    BlockObject = GetComponent<BlockObject>();
+  }
+
+  #endregion
+
+  #region IInitializableEntity implementation
+
+  /// <inheritdoc/>
+  public void InitializeEntity() {
+    _isInitialized = true;
+  }
+  
+  #endregion
+
   #region Implementation
+
+  bool _isInitialized;
 
   /// <summary>Injects the dependencies. It has to be public to work.</summary>
   [Inject]
   public void InjectDependencies(AutomationService automationService) {
     AutomationService = automationService;
-  }
-
-  void Awake() {
-    BlockObject = GetComponentFast<BlockObject>();
   }
 
   /// <summary>Removes all rules that depend on condition and/or action that is marked for cleanup.</summary>
