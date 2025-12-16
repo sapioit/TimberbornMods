@@ -27,7 +27,10 @@ sealed class CopyRulesTool : AbstractAreaSelectionTool, IAutomationModeEnabler, 
   #region AbstractAreaSelectionTool overries
 
   /// <inheritdoc/>
-  protected override string DescriptionTitle => DescriptionTitleLocKey;
+  protected override string DescriptionTitle => Loc.T(DescriptionTitleLocKey);
+
+  /// <inheritdoc/>
+  protected override string DescriptionMainSection => null;
 
   /// <inheritdoc/>
   protected override string CursorName => "AutomationCogCursor";
