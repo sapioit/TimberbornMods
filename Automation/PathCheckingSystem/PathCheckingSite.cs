@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Bindito.Core;
+using IgorZ.Automation.AutomationSystem;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
@@ -30,7 +31,8 @@ namespace IgorZ.Automation.PathCheckingSystem;
 
 /// <summary>Container for the path blocking site.</summary>
 /// <remarks>It must only be applied to the preview sites.</remarks>
-sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListener, IFinishedStateListener,
+/// FIXME: Remove INavMeshListener handling from AutomationBehavior and move it to path checking service.
+sealed class PathCheckingSite : AbstractDynamicComponent, ISelectionListener, INavMeshListener, IFinishedStateListener,
                                 IInitializableEntity, IAwakableComponent {
 
   #region API
@@ -135,20 +137,6 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
   int _bestPathRoadNodeId = -1;
   bool _isValid;
   bool _isCurrentlySelected;
-
-  /// <summary>It is called before <see cref="InjectDependencies"/>!</summary>
-  public void Awake() {
-    BlockObject = GetComponent<BlockObject>();
-    if (BlockObject.IsPreview) {
-      throw new InvalidOperationException($"{DebugEx.BaseComponentToString(BlockObject)} must not be in preview");
-    }
-    ConstructionSite = GetComponent<ConstructionSite>();
-    _blockableObject = GetComponent<BlockableObject>();
-    _entityReachabilityStatus = GetComponent<EntityReachabilityStatus>();
-    _groundedSite = GetComponent<GroundedConstructionSite>();
-    _accessible = GetComponent<ConstructionSiteAccessible>().Accessible;
-    _blockObjectNavMesh = GetComponent<BlockObjectNavMesh>();
-  }
 
   /// <summary>It is called after <see cref="Awake"/>!</summary>
   /// <remarks>It must be public to work.</remarks>
@@ -326,7 +314,25 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
 
   #endregion
 
-  #region ISingletonNavMeshListener implemenation
+  #region IAwakableComponent implementation
+
+  /// <summary>It is called before <see cref="InjectDependencies"/>!</summary>
+  public void Awake() {
+    BlockObject = AutomationBehavior.GetComponent<BlockObject>();
+    if (BlockObject.IsPreview) {
+      throw new InvalidOperationException($"{DebugEx.BaseComponentToString(BlockObject)} must not be in preview");
+    }
+    ConstructionSite = AutomationBehavior.GetComponent<ConstructionSite>();
+    _blockableObject = AutomationBehavior.GetComponent<BlockableObject>();
+    _entityReachabilityStatus = AutomationBehavior.GetComponent<EntityReachabilityStatus>();
+    _groundedSite = AutomationBehavior.GetComponent<GroundedConstructionSite>();
+    _accessible = AutomationBehavior.GetComponent<ConstructionSiteAccessible>().Accessible;
+    _blockObjectNavMesh = AutomationBehavior.GetComponent<BlockObjectNavMesh>();
+  }
+
+  #endregion
+
+  #region INavMeshListener implemenation
 
   /// <inheritdoc/>
   public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate) {
@@ -392,7 +398,7 @@ sealed class PathCheckingSite : BaseComponent, ISelectionListener, INavMeshListe
     _unreachableStatusToggle = StatusToggle.CreatePriorityStatusWithAlertAndFloatingIcon(
         UnreachableIconName, _loc.T(UnreachableStatusLocKey), _loc.T(UnreachableAlertLocKey));
     _maybeReachableStatusToggle = StatusToggle.CreateNormalStatus(UnreachableIconName, _loc.T(NotYetReachableLocKey));
-    var statusObject = GetComponent<StatusSubject>();
+    var statusObject = AutomationBehavior.GetComponent<StatusSubject>();
     statusObject.RegisterStatus(_unreachableStatusToggle);
     statusObject.RegisterStatus(_maybeReachableStatusToggle);
     _isValid = _groundedSite.IsValid;

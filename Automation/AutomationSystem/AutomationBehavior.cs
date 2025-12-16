@@ -12,7 +12,9 @@ using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
+using Timberborn.Navigation;
 using Timberborn.Persistence;
+using Timberborn.SelectionSystem;
 using Timberborn.SingletonSystem;
 using Timberborn.StatusSystem;
 using Timberborn.WorldPersistence;
@@ -21,8 +23,12 @@ using UnityDev.Utils.LogUtilsLite;
 namespace IgorZ.Automation.AutomationSystem;
 
 /// <summary>The component that keeps all the automation state on the building.</summary>
+/// FIXME: INavMeshListener is too expensive to have on every building. Find a better way.
+/// FIXME: ISelectionListener is not too common, maybe find a better way.
+/// FIXME: consider delivering IPersistentEntity.
 public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IInitializableEntity,
-                                         IPersistentEntity, IDeletableEntity {
+                                         IFinishedStateListener, IStartableComponent, INavMeshListener,
+                                         ISelectionListener, IPersistentEntity, IDeletableEntity {
 
   const string AutomationErrorIcon = "IgorZ.Automation/error-icon-script-failed";
   const string AutomationErrorAlertLocKey = "IgorZ.Automation.ShowStatusAction.AutomationErrorAlert";
@@ -162,43 +168,53 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
     }
   }
 
+  readonly Dictionary<Type, AbstractDynamicComponent> _dynamicComponents = [];
+
   /// <summary>Returns the component or creates it if none exists.</summary>
   /// <remarks>
   /// The newly created components will receive all callbacks that they would receive if were created at the behavior
-  /// creation time. Callbacks sequence: Awake, InitializeEntity, OnEnterFinishedState.
+  /// creation time. Callbacks sequence: Awake, Start (if enabled), OnEnterFinishedState (if finished),
+  /// InitializeEntity (if initialized).
   /// </remarks>
-  public T GetOrCreate<T>() where T : BaseComponent {
-    var component = GetComponent<T>();
-    if (component) {
-      return component;
+  public T GetOrCreate<T>() where T : AbstractDynamicComponent {
+    if (_dynamicComponents.TryGetValue(typeof(T), out var component)) {
+      return (T)component;
     }
     component = StaticBindings.DependencyContainer.GetInstance<T>();
-    _componentCache._components.Add(component);
-    _componentCache._typeIndexMap.CacheComponent(1, typeof(T), _componentCache._components.Count - 1);
-    component.Initialize(_componentCache);
+    _dynamicComponents.Add(typeof(T), component);
+    component.Initialize(this);
     if (component is IAwakableComponent awakableComponent) {
       awakableComponent.Awake();
     }
-    if (_isInitialized && component is IInitializableEntity initializableEntity) {
-      initializableEntity.InitializeEntity();
+    if (component.Enabled && component is IStartableComponent startableComponent) {
+      startableComponent.Start();
     }
     if (BlockObject.IsFinished && component is IFinishedStateListener finishedStateListener) {
       finishedStateListener.OnEnterFinishedState();
     }
-    if (component.Enabled) {
-      _componentCache.AddEnabledComponent(component);
+    if (_isInitialized && component is IInitializableEntity initializableEntity) {
+      initializableEntity.InitializeEntity();
     }
-    return component;
+    return (T)component;
   }
 
   /// <summary>Returns the component or throws an exception if none exists.</summary>
   /// <exception cref="InvalidOperationException">if the requested component not found.</exception>
-  public T GetOrThrow<T>() where T : BaseComponent {
-    var component = GetComponent<T>();
-    if (!component) {
-      throw new InvalidOperationException($"Component {typeof(T).Name} not found");
+  public T GetOrThrow<T>() where T : AbstractDynamicComponent {
+    if (_dynamicComponents.TryGetValue(typeof(T), out var component)) {
+      return (T)component;
     }
-    return component;
+    throw new InvalidOperationException($"Component {typeof(T).Name} not found");
+  }
+
+  /// <summary>Verifies if the dynamic component exists and returns it.</summary>
+  public bool TryGetDynamicComponent<T>(out T component) where T : AbstractDynamicComponent {
+    if (_dynamicComponents.TryGetValue(typeof(T), out var abstractComponent)) {
+      component = (T)abstractComponent;
+      return true;
+    }
+    component = null;
+    return false;
   }
 
   #endregion
@@ -237,6 +253,9 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
 
   /// <inheritdoc/>
   public void DeleteEntity() {
+    foreach (var component in GetDynamicComponentsOf<IDeletableEntity>()) {
+      component.DeleteEntity();
+    }
     ClearAllRules();
   }
 
@@ -256,8 +275,70 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
   /// <inheritdoc/>
   public void InitializeEntity() {
     _isInitialized = true;
+    foreach (var component in GetDynamicComponentsOf<IInitializableEntity>()) {
+      component.InitializeEntity();
+    }
   }
   
+  #endregion
+
+  #region IFinishedStateListener implementation
+
+  /// <inheritdoc/>
+  public void OnEnterFinishedState() {
+    foreach (var listener in GetDynamicComponentsOf<IFinishedStateListener>()) {
+      listener.OnEnterFinishedState();
+    }
+  }
+
+  /// <inheritdoc/>
+  public void OnExitFinishedState() {
+    foreach (var listener in GetDynamicComponentsOf<IFinishedStateListener>()) {
+      listener.OnExitFinishedState();
+    }
+  }
+
+  #endregion
+
+  #region IStartableComponent implementation
+
+  /// <inheritdoc/>
+  public void Start() {
+    var components = GetDynamicComponentsOf<IStartableComponent>().Where(x => ((AbstractDynamicComponent)x).Enabled);
+    foreach (var component in components) {
+      component.Start();
+    }
+  }
+
+  #endregion
+
+  #region INavMeshListener implementation
+
+  /// <inheritdoc/>
+  public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate) {
+    foreach (var component in GetDynamicComponentsOf<INavMeshListener>()) {
+      component.OnNavMeshUpdated(navMeshUpdate);
+    }
+  }
+
+  #endregion
+
+  #region ISelectionListener implementation
+
+  /// <inheritdoc/>
+  public void OnSelect() {
+    foreach (var component in GetDynamicComponentsOf<ISelectionListener>()) {
+      component.OnSelect();
+    }
+  }
+
+  /// <inheritdoc/>
+  public void OnUnselect() {
+    foreach (var component in GetDynamicComponentsOf<ISelectionListener>()) {
+      component.OnUnselect();
+    }
+  }
+
   #endregion
 
   #region Implementation
@@ -268,6 +349,13 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
   [Inject]
   public void InjectDependencies(AutomationService automationService) {
     AutomationService = automationService;
+  }
+
+  IEnumerable<T> GetDynamicComponentsOf<T>() {
+    return _dynamicComponents
+        .Where(x => typeof(T).IsAssignableFrom(x.Key))
+        .Select(x => x.Value)
+        .Cast<T>();
   }
 
   /// <summary>Removes all rules that depend on condition and/or action that is marked for cleanup.</summary>

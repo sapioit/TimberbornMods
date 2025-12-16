@@ -59,7 +59,10 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
   /// <inheritdoc/>
   public override void RegisterSignalChangeCallback(SignalOperator signalOperator, ISignalListener host) {
     host.Behavior.GetOrCreate<StreamGaugeTracker>().AddSignal(signalOperator, host);
-    host.Behavior.GetOrThrow<StreamGaugeCheckTicker>();  // Only to verify the component exists.
+    var ticker = host.Behavior.GetComponent<StreamGaugeCheckTicker>();
+    if (!ticker) {
+      throw new InvalidOperationException($"No ticker component found on {host.Behavior}");
+    }
   }
 
   /// <inheritdoc/>
@@ -140,14 +143,17 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
       DisableComponent();
     }
 
+    public override void StartTickable() {
+      _streamGaugeTracker = GetComponent<AutomationBehavior>().GetOrCreate<StreamGaugeTracker>();
+      base.StartTickable();
+    }
+
     public override void Tick() {
-      if (!_streamGaugeTracker) {
-        _streamGaugeTracker = GetComponent<StreamGaugeTracker>();
-      }
       _streamGaugeTracker.UpdateSignals();
     }
   }
 
+  //FXIME: disable component on the last signal unregistered, enable on first.
   internal sealed class StreamGaugeTracker : AbstractStatusTracker, IStartableComponent {
     StreamGauge _streamGauge;
     int _prevWaterLevel;
@@ -155,11 +161,11 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
     int _prevWaterCurrent;
 
     public void Start() {
-      _streamGauge = GetComponent<StreamGauge>();
+      _streamGauge = AutomationBehavior.GetComponent<StreamGauge>();
       _prevWaterLevel = Mathf.RoundToInt(_streamGauge.WaterLevel * 100f);
       _prevContaminationLevel = Mathf.RoundToInt(_streamGauge.ContaminationLevel * 100f);
       _prevWaterCurrent = Mathf.RoundToInt(_streamGauge.WaterCurrent * 100f);
-      GetComponent<StreamGaugeCheckTicker>().EnableComponent();
+      AutomationBehavior.GetComponent<StreamGaugeCheckTicker>().EnableComponent();
     }
 
     public void UpdateSignals() {

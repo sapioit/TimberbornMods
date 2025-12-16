@@ -152,7 +152,7 @@ sealed class FloodgateScriptableComponent : ScriptableComponentBase {
     int _currentValue;
 
     public void Start() {
-      _floodgate = GetComponent<Floodgate>();
+      _floodgate = AutomationBehavior.GetComponent<Floodgate>();
       _currentValue = Mathf.RoundToInt(_floodgate.Height * 100f);
     }
 

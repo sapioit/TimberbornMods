@@ -255,7 +255,7 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
     Inventory _inventory;
 
     public void Awake() {
-      _inventory = GetInventory(this, throwIfNotFound: false);
+      _inventory = GetInventory(AutomationBehavior, throwIfNotFound: false);
       if (!_inventory) {
         throw new InvalidOperationException("Inventory component not found on: " + DebugEx.ObjectToString(this));
       }
@@ -301,12 +301,12 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
     }
 
     public void Start() {
-      _emptiable = GetComponent<Emptiable>();
+      _emptiable = AutomationBehavior.GetComponent<Emptiable>();
       _emptiable.UnmarkedForEmptying += (_, _) => RefreshStatus();
       _emptiable.MarkedForEmptying += (_, _) => RefreshStatus();
       _statusToggle = StatusToggle.CreatePriorityStatusWithFloatingIcon(
           EmptyingStatusIcon, _loc.T(EmptyingStatusDescriptionLocKey));
-      GetComponent<StatusSubject>().RegisterStatus(_statusToggle);
+      AutomationBehavior.GetComponent<StatusSubject>().RegisterStatus(_statusToggle);
       RefreshStatus();
     }
 

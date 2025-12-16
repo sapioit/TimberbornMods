@@ -3,14 +3,14 @@
 // License: Public Domain
 
 using Bindito.Core;
+using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
-using Timberborn.BaseComponentSystem;
 
 namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 
 /// <summary>A base component to track the signals and actions on an automation behavior.</summary>
-abstract class AbstractStatusTracker : BaseComponent {
+abstract class AbstractStatusTracker : AbstractDynamicComponent {
 
   #region API
 

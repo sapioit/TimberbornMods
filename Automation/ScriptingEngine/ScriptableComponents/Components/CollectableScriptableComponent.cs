@@ -170,22 +170,17 @@ sealed class CollectableScriptableComponent : ScriptableComponentBase {
       _eventBus = eventBus;
       _blockService = blockService;
       _treeCuttingArea = treeCuttingArea;
-
-      // This component is added dynamically, so it won't get the finished state callback on a finished building.
-      if (GetComponent<BlockObject>().IsFinished) {
-        OnEnterFinishedState();
-      }
     }
 
     public void Awake() {
-      _buildingTerrainRange = GetComponent<BuildingTerrainRange>();
-      _yieldRemovingBuilding = GetComponent<YieldRemovingBuilding>();
-      _needsCuttingArea = GetComponent<LumberjackFlagWorkplaceBehavior>();
-      _noAliveCheck = _needsCuttingArea || GetComponent<ScavengerWorkplaceBehavior>();
+      _buildingTerrainRange = AutomationBehavior.GetComponent<BuildingTerrainRange>();
+      _yieldRemovingBuilding = AutomationBehavior.GetComponent<YieldRemovingBuilding>();
+      _needsCuttingArea = AutomationBehavior.GetComponent<LumberjackFlagWorkplaceBehavior>();
+      _noAliveCheck = _needsCuttingArea || AutomationBehavior.GetComponent<ScavengerWorkplaceBehavior>();
     }
 
     void ScheduleStateUpdate() {
-      _stateUpdateCoroutine ??= _componentCache.StartCoroutine(StateUpdateCoroutine());
+      _stateUpdateCoroutine ??= MonoBehaviour.StartCoroutine(StateUpdateCoroutine());
     }
     Coroutine _stateUpdateCoroutine;
 
@@ -205,7 +200,7 @@ sealed class CollectableScriptableComponent : ScriptableComponentBase {
       }
       _yieldersChanged = false;
 
-      HostedDebugLog.Fine(this, "Recalculating {0} yielders", _yielders.Count);
+      HostedDebugLog.Fine(AutomationBehavior, "Recalculating {0} yielders", _yielders.Count);
       var oldState = _activeYielders;
       _activeYielders = 0;
       for (var i = _yielders.Count - 1; i >= 0; i--) {
@@ -223,7 +218,7 @@ sealed class CollectableScriptableComponent : ScriptableComponentBase {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void AddYielder(Yielder yielder) {
       if (!_yielders.Add(yielder)) {
-        HostedDebugLog.Error(this, "Yielder already exists in the set: {0}", yielder);
+        HostedDebugLog.Error(AutomationBehavior, "Yielder already exists in the set: {0}", yielder);
         return;
       }
       yielder.YieldDecreased += OnYielderUpdate;
@@ -248,7 +243,7 @@ sealed class CollectableScriptableComponent : ScriptableComponentBase {
     void RemoveYielder(Yielder yielder, bool isCleanup = false) {
       if (!_yielders.Remove(yielder)) {
         if (!isCleanup) {
-          HostedDebugLog.Error(this, "Yielder not found in the set: {0}", yielder);
+          HostedDebugLog.Error(AutomationBehavior, "Yielder not found in the set: {0}", yielder);
         }
         return;
       }

@@ -147,7 +147,7 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
     DistrictCenter _currentDistrictCenter;
 
     public void Start() {
-      var districtBuilding = GetComponent<DistrictBuilding>();
+      var districtBuilding = AutomationBehavior.GetComponent<DistrictBuilding>();
       districtBuilding.ReassignedDistrict += OnDistrictChangedEvent;
       districtBuilding.ReassignedConstructionDistrict += OnDistrictChangedEvent;
       UpdateDistrictCenter();
@@ -160,7 +160,7 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
         _currentDistrictCenter.DistrictBuildingRegistry.FinishedBuildingRegistered -= FinishedBuildingRegisteredEvent;
         _currentDistrictCenter.DistrictBuildingRegistry.FinishedBuildingUnregistered -= FinishedBuildingUnregisteredEvent;
       }
-      _currentDistrictCenter = GetComponent<DistrictBuilding>().District;
+      _currentDistrictCenter = AutomationBehavior.GetComponent<DistrictBuilding>().District;
       if (_currentDistrictCenter) {
         _currentDistrictCenter.DistrictPopulation.CitizenAssigned += OnCitizenAssigned;
         _currentDistrictCenter.DistrictPopulation.CitizenUnassigned += OnCitizenUnassigned;

@@ -272,17 +272,12 @@ sealed class PlantableScriptableComponent : ScriptableComponentBase, ITickableSi
     public void InjectDependencies(EventBus eventBus, PlantingService plantingService) {
       _eventBus = eventBus;
       _plantingService = plantingService;
-
-      // This component is added dynamically, so it won't get the finished state callback on a finished building.
-      if (GetComponent<BlockObject>().IsFinished) {
-        OnEnterFinishedState();
-      }
     }
 
     public void Awake() {
-      _plantingSpotFinder = GetComponent<PlantingSpotFinder>();
-      _buildingTerrainRange = GetComponent<BuildingTerrainRange>();
-      _plantingCoordinates = GetComponent<InRangePlantingCoordinates>();
+      _plantingSpotFinder = AutomationBehavior.GetComponent<PlantingSpotFinder>();
+      _buildingTerrainRange = AutomationBehavior.GetComponent<BuildingTerrainRange>();
+      _plantingCoordinates = AutomationBehavior.GetComponent<InRangePlantingCoordinates>();
     }
 
     void ImmediateUpdateState() {
@@ -292,7 +287,7 @@ sealed class PlantableScriptableComponent : ScriptableComponentBase, ITickableSi
       if (_immediateUpdateCoroutine != null) {
         return; // Already scheduled.
       }
-      _immediateUpdateCoroutine = _componentCache.StartCoroutine(ImmediateUpdateCoroutine());
+      _immediateUpdateCoroutine = MonoBehaviour.StartCoroutine(ImmediateUpdateCoroutine());
     }
     Coroutine _immediateUpdateCoroutine;
 

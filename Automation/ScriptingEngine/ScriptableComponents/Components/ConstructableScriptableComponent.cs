@@ -108,8 +108,8 @@ sealed class ConstructableScriptableComponent : ScriptableComponentBase {
     int _prevProgress;
 
     public void Awake() {
-      var constructionSite = GetComponent<ConstructionSite>();
-      GetComponent<ConstructionSite>().OnConstructionSiteProgressed += (_, _) => {
+      var constructionSite = AutomationBehavior.GetComponent<ConstructionSite>();
+      AutomationBehavior.GetComponent<ConstructionSite>().OnConstructionSiteProgressed += (_, _) => {
         var progress = Mathf.RoundToInt(constructionSite.BuildTimeProgress * 100f);
         if (progress != _prevProgress) {
           _prevProgress = progress;

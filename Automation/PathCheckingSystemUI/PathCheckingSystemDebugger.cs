@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.PathCheckingSystem;
 using Timberborn.AssetSystem;
 using Timberborn.Coordinates;
@@ -33,7 +34,7 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
 
   /// <inheritdoc/>
   public void UpdateSingleton() {
-    if (_debugModeManager.Enabled && _selectedSite) {
+    if (_debugModeManager.Enabled && _selectedSite != null) {
       if (_pathCornersIndex == null || !_pathCornersIndex.SetEquals(_selectedSite.BestBuildersPathNodeIndex)) {
         _pathCornersIndex = _selectedSite.BestBuildersPathNodeIndex;
         ResetMarkers();
@@ -51,7 +52,7 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
   readonly EventBus _eventBus;
   readonly NodeIdService _nodeIdService;
   readonly DebugModeManager _debugModeManager;
-  readonly List<GameObject> _cornerMarkers = new();
+  readonly List<GameObject> _cornerMarkers = [];
   readonly GameObject _cornerMarkerPrefab;
   readonly WalkerDebugger _walkerDebugger;
 
@@ -83,7 +84,7 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
       _cornerMarkers.Add(Object.Instantiate(_cornerMarkerPrefab, pathCorner, Quaternion.identity));
     }
 
-    if (_selectedSite.BlockedSite) {
+    if (_selectedSite.BlockedSite != null) {
       _blockerMarker.SetActive(true);
       _blockerMarker.transform.position =
           CoordinateSystem.GridToWorldCentered(_selectedSite.BlockedSite.BlockObject.Coordinates);
@@ -98,8 +99,11 @@ sealed class PathCheckingSystemDebugger : ILoadableSingleton, IUpdatableSingleto
 
   [OnEvent]
   public void OnSelectableObjectSelected(SelectableObjectSelectedEvent @event) {
-    var site = @event.SelectableObject.GetComponent<PathCheckingSite>();
-    if (site && site.Enabled && site.BestAccessNode != -1) {
+    var automationBehavior = @event.SelectableObject.GetComponent<AutomationBehavior>();
+    if (!automationBehavior || !automationBehavior.TryGetDynamicComponent<PathCheckingSite>(out var site)) {
+      return;
+    }
+    if (site.Enabled && site.BestAccessNode != -1) {
       _selectedSite = site;
     }
   }
