@@ -12,6 +12,10 @@
     {
       "Id": "eMka.ModSettings",
       "MinimumVersion": "1.0.6.0"
+    },
+    {
+      "Id": "IgorZ.CustomTools",
+      "MinimumVersion": "1.1.0.0"
     }
   ]
 }

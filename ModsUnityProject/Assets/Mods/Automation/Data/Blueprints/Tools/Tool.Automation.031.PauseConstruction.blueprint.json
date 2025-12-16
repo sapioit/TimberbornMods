@@ -1,12 +1,11 @@
 {
-  "ToolSpec": {
+  "CustomToolSpec": {
     "Id": "Automation.Tmpl.Construction.PauseConstruction",
     "GroupId": "AutomationToolGroupId",
     "Type": "IgorZ.Automation.TemplateTools.ApplyTemplateTool",
     "Order": 31,
     "Icon": "Sprites/IgorZ/tool-pause-construction",
-    "DevMode": false,
-    "NameLocKey": "IgorZ.Automation.Tool.tmpl.PauseConstruction.DisplayName",
+    "DisplayNameLocKey": "IgorZ.Automation.Tool.tmpl.PauseConstruction.DisplayName",
     "DescriptionLocKey": "IgorZ.Automation.Tool.tmpl.PauseConstruction.Description"
   },
   "AutomationTemplateSpec": {
