@@ -28,8 +28,8 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
   /// <inheritdoc/>
   protected override void Initialize() {
     DescriptionBullets = [
-        "IgorZ.Automation.DebugPickTool.DescriptionHint1",
-        "IgorZ.Automation.DebugPickTool.DescriptionHint2",
+        Loc.T("IgorZ.Automation.DebugPickTool.DescriptionHint1"),
+        Loc.T("IgorZ.Automation.DebugPickTool.DescriptionHint2"),
     ];
     DescriptionHintSection = null;
     base.Initialize();
