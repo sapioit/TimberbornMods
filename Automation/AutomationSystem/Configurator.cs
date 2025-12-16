@@ -23,7 +23,7 @@ sealed class Configurator : IConfigurator {
   }
 
   static void PatchMethod(Blueprint blueprint, List<object> components) {
-    if (blueprint.Name.StartsWith("Path.") || !blueprint.HasSpec<BuildingSpec>()) {
+    if (blueprint.Name.StartsWith("Path") || !blueprint.HasSpec<BuildingSpec>()) {
       return;
     }
     components.Add(StaticBindings.DependencyContainer.GetInstance<AutomationBehavior>());
