@@ -3,7 +3,6 @@
 // License: Public Domain
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bindito.Core;
@@ -136,13 +135,12 @@ public class StatusToggleAction : AutomationActionBase {
   /// never use. Thus, we create it dynamically only when needed.
   /// </remarks>
   StatusController GetStatusController() {
-    var allBlockers = new List<StatusController>();
-    Behavior.GetComponents(allBlockers);
+    var allBlockers = Behavior.GameObject.GetComponents<StatusController>();
     var status = allBlockers.FirstOrDefault(x => x.StatusToken == StatusToken);
     if (!status) {
       var instantiator = StaticBindings.DependencyContainer.GetInstance<IInstantiator>();
       status = instantiator.AddComponent<StatusController>(Behavior.GameObject);
-      status.SetStatusToken(StatusToken);
+      status.Initialize(StatusToken, Behavior);
     }
     if (ActionKind == ActionKindEnum.ShowStatus) {
       // The blocker could get created from the hide action which doesn't have a status setting.
@@ -215,8 +213,9 @@ public class StatusToggleAction : AutomationActionBase {
 
   #region Helper BaseComponent to show blocked status
 
-  sealed class StatusController : Component {
+  sealed class StatusController : MonoBehaviour {
     public string StatusToken { get; private set; }
+    public AutomationBehavior Behavior { get; private set; }
 
     StatusToggle _statusToggle;
     ILoc _loc;
@@ -226,8 +225,9 @@ public class StatusToggleAction : AutomationActionBase {
       _loc = loc;
     }
 
-    public void SetStatusToken(string statusTag) {
+    public void Initialize(string statusTag, AutomationBehavior behavior) {
       StatusToken = statusTag;
+      Behavior = behavior;
     }
 
     public void SetStatus(StatusToggleAction toggleAction) {
@@ -249,7 +249,7 @@ public class StatusToggleAction : AutomationActionBase {
                 toggleAction.StatusIcon, _loc.T(toggleAction.StatusText), _loc.T(toggleAction.AlertText)),
           _ => throw new InvalidDataException("Unknown status kind: " + toggleAction.StatusKind)
       };
-      GetComponent<StatusSubject>().RegisterStatus(_statusToggle);
+      Behavior.GetComponent<StatusSubject>().RegisterStatus(_statusToggle);
     }
 
     public void ShowStatus() {
