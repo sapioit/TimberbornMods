@@ -1,4 +1,4 @@
-﻿// Timberborn Utils
+﻿// Timberborn Custom Tools
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
