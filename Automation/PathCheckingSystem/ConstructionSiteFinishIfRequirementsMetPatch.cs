@@ -21,11 +21,11 @@ static class ConstructionSiteFinishIfRequirementsMetPatch {
     if (!__instance.IsReadyToFinish || !__instance.IsFinishNotBlocked) {
       return true;
     }
-    var site = __instance.GetComponent<PathCheckingSite>();
-    if (site != null) {
-      PathCheckingService.Instance.CheckBlockingStateAndTriggerActions(site);
-      return site.CanFinish;
+    var behavior = __instance.GetComponent<AutomationBehavior>();
+    if (!behavior || !behavior.TryGetDynamicComponent<PathCheckingSite>(out var site)) {
+      return true;
     }
-    return true;
+    PathCheckingService.Instance.CheckBlockingStateAndTriggerActions(site);
+    return site.CanFinish;
   }
 }
