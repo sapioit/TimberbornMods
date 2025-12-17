@@ -131,8 +131,8 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
 
   /// <summary>Removes all automation rules from the block object.</summary>
   public void ClearAllRules() {
-    while (_actions.Count > 0) {
-      DeleteRuleAt(0);
+    for (var i = _actions.Count - 1; i >= 0; i--) {
+      DeleteRuleAt(i);
     }
   }
 
