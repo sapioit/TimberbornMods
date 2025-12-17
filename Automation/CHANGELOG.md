@@ -1,7 +1,7 @@
-# v3.1.0 (started on December 15th, 2025):
-[Change] Support game version `v1.0`. Mod version `v3.0.2` is included to the package for the older game version.
-[Change] Mod dependency removed: TimberAPI.
-[Change] New mod dependency added: CustomTools.
+# v3.1.2 (December 17th, 2025):
+* [Change] Support game version `v1.0`. Mod version `v3.0.2` is included to the package for the older game version.
+* [Change] Mod dependency removed: TimberAPI.
+* [Change] New mod dependency added: CustomTools.
 
 # v3.0.2 (November 24th, 2025):
 * [Feature] Support Python-like expressions for conditions and actions in the script editing mode.
