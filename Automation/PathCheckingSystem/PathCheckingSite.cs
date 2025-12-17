@@ -31,7 +31,6 @@ namespace IgorZ.Automation.PathCheckingSystem;
 
 /// <summary>Container for the path blocking site.</summary>
 /// <remarks>It must only be applied to the preview sites.</remarks>
-/// FIXME: Remove INavMeshListener handling from AutomationBehavior and move it to path checking service.
 sealed class PathCheckingSite : AbstractDynamicComponent, ISelectionListener, INavMeshListener, IFinishedStateListener,
                                 IInitializableEntity, IAwakableComponent {
 
@@ -82,14 +81,14 @@ sealed class PathCheckingSite : AbstractDynamicComponent, ISelectionListener, IN
 
   /// <summary>Indicates that the site _may_ become reachable when all the preview buildings are built.</summary>
   /// <remarks>
-  /// It's a best effort check. There is no guarantee the preview buildings are actually providing access. The
+  /// It's the best effort check. There is no guarantee the preview buildings are actually providing access. The
   /// <see cref="BestBuildersPathCornerNodes"/> can be absent for such sites.
   /// </remarks>
   public bool CanBeAccessedInPreview { get; private set; }
 
   /// <summary>Makes the component active on the game object. This resumes all side effects.</summary>
   /// <remarks>
-  /// Only call it when re-suing an existing component. All new components, including the loaded ones, should get
+  /// Only call it when re-using an existing component. All new components, including the loaded ones, should get
   /// initialized via <see cref="InitializeEntity"/>.
   /// </remarks>
   /// <seealso cref="DisableSiteComponent"/>
