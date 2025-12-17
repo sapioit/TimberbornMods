@@ -16,6 +16,7 @@ using Timberborn.Common;
 using Timberborn.EntitySystem;
 using Timberborn.GameDistricts;
 using Timberborn.Navigation;
+using Timberborn.SelectionSystem;
 using Timberborn.SingletonSystem;
 using Timberborn.TickSystem;
 using UnityDev.Utils.LogUtilsLite;
@@ -28,7 +29,7 @@ namespace IgorZ.Automation.PathCheckingSystem;
 /// It can't be handled in the scope of one condition due to all of them are interconnected (they can affect each
 /// other). This controller has "the full picture" and orchestrates all the conditions.
 /// </remarks>
-sealed class PathCheckingService : ITickableSingleton {
+sealed class PathCheckingService : ITickableSingleton, ISingletonNavMeshListener {
 
   #region ITickableSingleton implementation
 
@@ -36,6 +37,19 @@ sealed class PathCheckingService : ITickableSingleton {
   public void Tick() {
     if (AutomationDebugSettings.PathCheckingSystemProfiling) {
       Profile();
+    }
+  }
+
+  #endregion
+
+  #region ISingletonNavMeshListener  implementation
+
+  /// <summary>Propagates navmesh events to the sites.</summary>
+  /// <remarks>Dynamic components only get a limited set of BaseComponent events.</remarks>
+  /// <seealso cref="AbstractDynamicComponent"/>
+  public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate) {
+    foreach (var site in _sitesByBlockObject.Values) {
+      site.OnNavMeshUpdated(navMeshUpdate);
     }
   }
 
@@ -311,6 +325,26 @@ sealed class PathCheckingService : ITickableSingleton {
   [OnEvent]
   public void OnEntityDeletedEvent(EntityDeletedEvent @event) {
     TryDeleteSite(@event.Entity);
+  }
+
+  /// <summary>Propagates selection events to the sites.</summary>
+  /// <remarks>Dynamic components only get a limited set of BaseComponent events.</remarks>
+  /// <seealso cref="AbstractDynamicComponent"/>
+  [OnEvent]
+  public void OnSelectableObjectSelectedEvent(SelectableObjectSelectedEvent @event) {
+    var checkObject = @event.SelectableObject.GameObject;
+    var targetSite = _sitesByBlockObject.Values.FirstOrDefault(x => x.AutomationBehavior.GameObject == checkObject);
+    targetSite?.OnSelect();
+  }
+
+  /// <summary>Propagates selection events to the sites.</summary>
+  /// <remarks>Dynamic components only get a limited set of BaseComponent events.</remarks>
+  /// <seealso cref="AbstractDynamicComponent"/>
+  [OnEvent]
+  public void OnSelectableObjectUnselectedEvent(SelectableObjectUnselectedEvent @event) {
+    var checkObject = @event.SelectableObject.GameObject;
+    var targetSite = _sitesByBlockObject.Values.FirstOrDefault(x => x.AutomationBehavior.GameObject == checkObject);
+    targetSite?.OnUnselect();
   }
 
   #endregion

@@ -12,9 +12,7 @@ using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
-using Timberborn.Navigation;
 using Timberborn.Persistence;
-using Timberborn.SelectionSystem;
 using Timberborn.SingletonSystem;
 using Timberborn.StatusSystem;
 using Timberborn.WorldPersistence;
@@ -23,12 +21,9 @@ using UnityDev.Utils.LogUtilsLite;
 namespace IgorZ.Automation.AutomationSystem;
 
 /// <summary>The component that keeps all the automation state on the building.</summary>
-/// FIXME: INavMeshListener is too expensive to have on every building. Find a better way.
-/// FIXME: ISelectionListener is not too common, maybe find a better way.
-/// FIXME: consider delivering IPersistentEntity.
 public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IInitializableEntity,
-                                         IFinishedStateListener, IStartableComponent, INavMeshListener,
-                                         ISelectionListener, IPersistentEntity, IDeletableEntity {
+                                         IFinishedStateListener, IStartableComponent, IPersistentEntity,
+                                         IDeletableEntity {
 
   const string AutomationErrorIcon = "IgorZ.Automation/error-icon-script-failed";
   const string AutomationErrorAlertLocKey = "IgorZ.Automation.ShowStatusAction.AutomationErrorAlert";
@@ -307,35 +302,6 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
     var components = GetDynamicComponentsOf<IStartableComponent>().Where(x => ((AbstractDynamicComponent)x).Enabled);
     foreach (var component in components) {
       component.Start();
-    }
-  }
-
-  #endregion
-
-  #region INavMeshListener implementation
-
-  /// <inheritdoc/>
-  public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate) {
-    foreach (var component in GetDynamicComponentsOf<INavMeshListener>()) {
-      component.OnNavMeshUpdated(navMeshUpdate);
-    }
-  }
-
-  #endregion
-
-  #region ISelectionListener implementation
-
-  /// <inheritdoc/>
-  public void OnSelect() {
-    foreach (var component in GetDynamicComponentsOf<ISelectionListener>()) {
-      component.OnSelect();
-    }
-  }
-
-  /// <inheritdoc/>
-  public void OnUnselect() {
-    foreach (var component in GetDynamicComponentsOf<ISelectionListener>()) {
-      component.OnUnselect();
     }
   }
 

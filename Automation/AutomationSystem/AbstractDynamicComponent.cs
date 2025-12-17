@@ -3,6 +3,8 @@
 // License: Public Domain
 
 using Timberborn.BaseComponentSystem;
+using Timberborn.BlockSystem;
+using Timberborn.EntitySystem;
 using UnityEngine;
 
 namespace IgorZ.Automation.AutomationSystem;
@@ -17,6 +19,12 @@ namespace IgorZ.Automation.AutomationSystem;
 /// of components can be created dynamically via <see cref="AutomationBehavior.GetOrCreate&lt;T&gt;"/>.
 /// </p>
 /// <p>New components can be created, but they cannot be destroyed!</p>
+/// <p>
+/// Dynamic components behave similar to BaseComponents. Some base component callback interfaces are supported out of
+/// the box. For the others, the client need to add own support. The supported interfaces:
+/// <see cref="IAwakableComponent"/>, <see cref="IStartableComponent"/>, <see cref="IFinishedStateListener"/>,
+/// <see cref="IInitializableEntity"/>, and <see cref="IDeletableEntity"/>.
+/// </p>
 /// </remarks>
 public abstract class AbstractDynamicComponent {
   /// <summary>The automation owner object.</summary>
