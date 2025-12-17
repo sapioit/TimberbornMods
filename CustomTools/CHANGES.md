@@ -1,4 +1,4 @@
-﻿# v1.2.0 (started on 12/17/2025)
+﻿# v1.2.0 (12/17/2025)
 * [Feature] Add keybindings for the CustomTools tools. Go to the stock game "Bindings" dialog and set your bindings.
 
 # v1.1.1 (12/16/2025)
