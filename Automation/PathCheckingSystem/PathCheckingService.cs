@@ -29,7 +29,7 @@ namespace IgorZ.Automation.PathCheckingSystem;
 /// It can't be handled in the scope of one condition due to all of them are interconnected (they can affect each
 /// other). This controller has "the full picture" and orchestrates all the conditions.
 /// </remarks>
-sealed class PathCheckingService : ITickableSingleton, ISingletonNavMeshListener {
+sealed class PathCheckingService : ITickableSingleton {
 
   #region ITickableSingleton implementation
 
@@ -37,19 +37,6 @@ sealed class PathCheckingService : ITickableSingleton, ISingletonNavMeshListener
   public void Tick() {
     if (AutomationDebugSettings.PathCheckingSystemProfiling) {
       Profile();
-    }
-  }
-
-  #endregion
-
-  #region ISingletonNavMeshListener  implementation
-
-  /// <summary>Propagates navmesh events to the sites.</summary>
-  /// <remarks>Dynamic components only get a limited set of BaseComponent events.</remarks>
-  /// <seealso cref="AbstractDynamicComponent"/>
-  public void OnNavMeshUpdated(NavMeshUpdate navMeshUpdate) {
-    foreach (var site in _sitesByBlockObject.Values) {
-      site.OnNavMeshUpdated(navMeshUpdate);
     }
   }
 
