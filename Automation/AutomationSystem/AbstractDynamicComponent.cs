@@ -26,7 +26,7 @@ namespace IgorZ.Automation.AutomationSystem;
 /// <see cref="IInitializableEntity"/>, and <see cref="IDeletableEntity"/>.
 /// </p>
 /// </remarks>
-public abstract class AbstractDynamicComponent {
+public abstract class AbstractDynamicComponent : IStartableComponent {
   /// <summary>The automation owner object.</summary>
   /// <remarks>Handle all <see cref="BaseComponent"/> related logic via this object.</remarks>
   public AutomationBehavior AutomationBehavior { get; private set; }
@@ -36,6 +36,9 @@ public abstract class AbstractDynamicComponent {
   /// <seealso cref="AutomationBehavior.GetOrCreate"/>
   public bool Enabled { get; private set; } = true;
 
+  /// <summary>Indicates if this component has started.</summary>
+  public bool Started { get; private set; }
+
   /// <summary>A Unity MonoBehaviour object. In case of Unity functionality is needed.</summary>
   protected MonoBehaviour MonoBehaviour => AutomationBehavior._componentCache;
 
@@ -43,7 +46,13 @@ public abstract class AbstractDynamicComponent {
   /// Counterpart to the <see cref="BaseComponent.EnableComponent"/>, but only affects this dynamic component.
   /// </summary>
   public virtual void EnableComponent() {
+    if (Enabled) {
+      return;
+    }
     Enabled = true;
+    if (!Started && AutomationBehavior._componentCache.StartIsEnabled) {
+      Start();
+    }
   }
 
   /// <summary>
@@ -55,5 +64,17 @@ public abstract class AbstractDynamicComponent {
 
   internal void Initialize(AutomationBehavior behavior) {
     AutomationBehavior = behavior;
+  }
+
+  /// <summary>Counterpart to the Unit Start() event.</summary>
+  /// <remarks>
+  /// Normally, it is called when the automation behavior object is started by Unity. If teh dynamic object is being
+  /// created on already started behavior, then this method is called immediately after Awake(). The component must
+  /// be enabled to get the call. When component becomes enabled, the start method will be called if not called before.
+  /// </remarks>
+  /// <seealso cref="Started"/>
+  /// <seealso cref="Enabled"/>
+  public virtual void Start() {
+    Started = true;
   }
 }

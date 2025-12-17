@@ -142,11 +142,13 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase {
 
   #region District citizens tracker
 
-  internal sealed class DistrictChangeTracker : AbstractStatusTracker, IStartableComponent {
+  internal sealed class DistrictChangeTracker : AbstractStatusTracker {
 
     DistrictCenter _currentDistrictCenter;
 
-    public void Start() {
+    /// <inheritdoc/>
+    public override void Start() {
+      base.Start();
       var districtBuilding = AutomationBehavior.GetComponent<DistrictBuilding>();
       districtBuilding.ReassignedDistrict += OnDistrictChangedEvent;
       districtBuilding.ReassignedConstructionDistrict += OnDistrictChangedEvent;

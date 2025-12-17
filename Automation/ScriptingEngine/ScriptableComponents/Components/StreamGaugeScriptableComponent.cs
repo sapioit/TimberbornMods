@@ -154,13 +154,15 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
   }
 
   //FXIME: disable component on the last signal unregistered, enable on first.
-  internal sealed class StreamGaugeTracker : AbstractStatusTracker, IStartableComponent {
+  internal sealed class StreamGaugeTracker : AbstractStatusTracker {
     StreamGauge _streamGauge;
     int _prevWaterLevel;
     int _prevContaminationLevel;
     int _prevWaterCurrent;
 
-    public void Start() {
+    /// <inheritdoc/>
+    public override void Start() {
+      base.Start();
       _streamGauge = AutomationBehavior.GetComponent<StreamGauge>();
       _prevWaterLevel = Mathf.RoundToInt(_streamGauge.WaterLevel * 100f);
       _prevContaminationLevel = Mathf.RoundToInt(_streamGauge.ContaminationLevel * 100f);

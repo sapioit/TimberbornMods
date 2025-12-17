@@ -181,8 +181,8 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
     if (component is IAwakableComponent awakableComponent) {
       awakableComponent.Awake();
     }
-    if (component.Enabled && component is IStartableComponent startableComponent) {
-      startableComponent.Start();
+    if (component.Enabled && _componentCache.StartIsEnabled) {
+      component.Start();
     }
     if (BlockObject.IsFinished && component is IFinishedStateListener finishedStateListener) {
       finishedStateListener.OnEnterFinishedState();
@@ -299,8 +299,7 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
 
   /// <inheritdoc/>
   public void Start() {
-    var components = GetDynamicComponentsOf<IStartableComponent>().Where(x => ((AbstractDynamicComponent)x).Enabled);
-    foreach (var component in components) {
+    foreach (var component in _dynamicComponents.Values) {
       component.Start();
     }
   }

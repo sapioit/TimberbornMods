@@ -147,11 +147,13 @@ sealed class FloodgateScriptableComponent : ScriptableComponentBase {
 
   #region Inventory change tracker component
 
-  internal sealed class HeightChangeTracker : AbstractStatusTracker, IStartableComponent {
+  internal sealed class HeightChangeTracker : AbstractStatusTracker {
     Floodgate _floodgate;
     int _currentValue;
 
-    public void Start() {
+    /// <inheritdoc/>
+    public override void Start() {
+      base.Start();
       _floodgate = AutomationBehavior.GetComponent<Floodgate>();
       _currentValue = Mathf.RoundToInt(_floodgate.Height * 100f);
     }

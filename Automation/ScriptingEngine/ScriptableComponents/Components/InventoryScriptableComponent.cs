@@ -275,7 +275,7 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
   /// Creates a custom status icon that indicates that the storage is being emptying. If the status is changed
   /// externally, then hides the status and notifies the action.
   /// </summary>
-  internal sealed class EmptyingStatusBehavior : AbstractStatusTracker, IStartableComponent {
+  internal sealed class EmptyingStatusBehavior : AbstractStatusTracker {
 
     ILoc _loc;
     StatusToggle _statusToggle;
@@ -300,7 +300,9 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
       _loc = loc;
     }
 
-    public void Start() {
+    /// <inheritdoc/>
+    public override void Start() {
+      base.Start();
       _emptiable = AutomationBehavior.GetComponent<Emptiable>();
       _emptiable.UnmarkedForEmptying += (_, _) => RefreshStatus();
       _emptiable.MarkedForEmptying += (_, _) => RefreshStatus();
