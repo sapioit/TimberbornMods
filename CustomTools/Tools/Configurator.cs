@@ -8,7 +8,7 @@ namespace IgorZ.CustomTools.Tools;
 
 [Context("Game")]
 [Context("MapEditor")]
-class Configurator : IConfigurator {
+sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<DebugFinishNowTool>().AsSingleton();
     containerDefinition.Bind<PauseTool>().AsSingleton();
