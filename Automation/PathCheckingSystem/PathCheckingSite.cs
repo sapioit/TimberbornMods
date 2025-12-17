@@ -99,6 +99,7 @@ sealed class PathCheckingSite : AbstractDynamicComponent, ISelectionListener, IN
     if (_isValid) {
       UpdateNavMesh();
     }
+    EnableComponent();
   }
 
   /// <summary>Disable the component and clan up all its side effects.</summary>
@@ -111,6 +112,7 @@ sealed class PathCheckingSite : AbstractDynamicComponent, ISelectionListener, IN
     ResetState();
     _eventBus.Unregister(this);
     _navMeshListenerEntityRegistry.UnregisterNavMeshListener(this);
+    DisableComponent();
   }
 
   const string NotYetReachableLocKey = "IgorZ.Automation.CheckAccessBlockCondition.NotYetReachable";

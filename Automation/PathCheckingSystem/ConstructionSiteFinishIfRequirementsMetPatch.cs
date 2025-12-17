@@ -22,7 +22,7 @@ static class ConstructionSiteFinishIfRequirementsMetPatch {
       return true;
     }
     var behavior = __instance.GetComponent<AutomationBehavior>();
-    if (!behavior || !behavior.TryGetDynamicComponent<PathCheckingSite>(out var site)) {
+    if (!behavior || !behavior.TryGetDynamicComponent<PathCheckingSite>(out var site) || !site.Enabled) {
       return true;
     }
     PathCheckingService.Instance.CheckBlockingStateAndTriggerActions(site);
