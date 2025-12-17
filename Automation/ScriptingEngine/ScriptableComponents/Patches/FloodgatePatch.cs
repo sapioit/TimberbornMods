@@ -18,11 +18,8 @@ static class FloodgatePatch {
     if (!__runOriginal) {
       return;  // The other patches must follow the same style to properly support the skip logic!
     }
-    var automationBehavior = __instance.GetComponent<AutomationBehavior>();
-    if (!automationBehavior) {
-      return;
-    }
-    if (automationBehavior.TryGetDynamicComponent<HeightChangeTracker>(out var automationTracker)) {
+    var behavior = __instance.GetComponent<AutomationBehavior>();
+    if (behavior && behavior.TryGetDynamicComponent<HeightChangeTracker>(out var automationTracker)) {
       automationTracker.OnHeighChanged();
     }
   }
