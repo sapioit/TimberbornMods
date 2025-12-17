@@ -56,7 +56,7 @@ sealed class PathCheckingService : ITickableSingleton {
 
   /// <summary>Add the path checking condition to monitor.</summary>
   public void AddCondition(CheckAccessBlockCondition condition) {
-    var site = GetOrCreate(condition.Behavior);
+    var site = GetOrCreateSite(condition.Behavior);
     _conditionsIndex.GetOrAdd(site).Add(condition);
   }
 
@@ -246,7 +246,7 @@ sealed class PathCheckingService : ITickableSingleton {
   }
 
   /// <summary>Finds the existing construction site or creates a new one.</summary>
-  PathCheckingSite GetOrCreate(AutomationBehavior automationBehavior) {
+  PathCheckingSite GetOrCreateSite(AutomationBehavior automationBehavior) {
     var blockObject = automationBehavior.BlockObject;
     if (!_sitesByBlockObject.TryGetValue(blockObject, out var cachedSite)) {
       cachedSite = automationBehavior.GetOrCreate<PathCheckingSite>();
