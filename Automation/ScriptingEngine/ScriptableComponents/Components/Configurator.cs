@@ -15,6 +15,8 @@ sealed class Configurator : IConfigurator {
     containerDefinition.Bind<SignalDispatcher>().AsTransient();
 
     // The building-specific components.
+    containerDefinition.Bind<CollectableScriptableComponent>().AsSingleton();
+    containerDefinition.Bind<CollectableScriptableComponent.GatherableTracker>().AsTransient();
     containerDefinition.Bind<ConstructableScriptableComponent>().AsSingleton();
     containerDefinition.Bind<ConstructableScriptableComponent.ConstructableStateTracker>().AsTransient();
     containerDefinition.Bind<DynamiteScriptableComponent>().AsSingleton();
@@ -33,8 +35,6 @@ sealed class Configurator : IConfigurator {
     containerDefinition.Bind<StreamGaugeScriptableComponent.StreamGaugeCheckTicker>().AsTransient();
     containerDefinition.Bind<StreamGaugeScriptableComponent.StreamGaugeTracker>().AsTransient();
     containerDefinition.Bind<WorkplaceScriptableComponent>().AsSingleton();
-    containerDefinition.Bind<CollectableScriptableComponent>().AsSingleton();
-    containerDefinition.Bind<CollectableScriptableComponent.GatherableTracker>().AsTransient();
 
     // Global components.
     containerDefinition.Bind<DebugScriptableComponent>().AsSingleton();
