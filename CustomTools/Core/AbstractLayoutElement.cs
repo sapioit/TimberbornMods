@@ -57,7 +57,6 @@ abstract class AbstractLayoutElement(
     public string ParentGroupId => GroupSpec?.ParentGroupId ?? ToolSpec?.GroupId;
   }
 
-  static readonly string[] AllowedLayouts = ["left", "middle", "right"];
   IContainer _container;
 
   [Inject]
@@ -83,12 +82,12 @@ abstract class AbstractLayoutElement(
         var toolType = ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool));
         var toolInstance = (AbstractCustomTool)_container.GetInstance(toolType);
         toolInstance.InitializeTool(customToolSpec);
-        DebugEx.Info("Created tool '{0}' in group '{1}", toolType, groupId);
+        DebugEx.Info("Created tool '{0}' in group '{1}'", toolType, groupId);
         groupButton.AddChildTool(toolInstance, toolInstance.ToolSpec.Icon.Asset);
       } else if (childItem.GroupSpec != null) {
         groupButton.AddChildGroup(ToolGroupButtonWithItems(childItem.GroupSpec, groupButton, items));
       } else {
-        throw new  InvalidOperationException($"Unknown item type: {childItem}");
+        throw new InvalidOperationException($"Unknown item type: {childItem}");
       }
     }
     return groupButton;
