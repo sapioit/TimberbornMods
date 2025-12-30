@@ -14,7 +14,6 @@ namespace IgorZ.Automation.Settings;
 sealed class EntityPanelSettings : BaseSettings<EntityPanelSettings> {
 
   const string HeaderStringLocKey = "IgorZ.Automation.Settings.EntityPanel.Header";
-  const string AlwaysShowAddRulesButtonLocKey = "IgorZ.Automation.Settings.EntityPanel.AlwaysShowAddRulesButton";
   const string RulesDescriptionStyleLocKey = "IgorZ.Automation.Settings.EntityPanel.RulesDescriptionStyle";
   const string DescriptionHumanReadableLocKey = "IgorZ.Automation.Settings.EntityPanel.RulesDescriptionStyle.HumanReadable";
   const string DescriptionScriptLocKey = "IgorZ.Automation.Settings.EntityPanel.RulesDescriptionStyle.Script";
@@ -28,10 +27,6 @@ sealed class EntityPanelSettings : BaseSettings<EntityPanelSettings> {
   #region Settings
   // ReSharper disable InconsistentNaming
   // ReSharper disable MemberCanBePrivate.Global
-
-  public static bool AlwaysShowAddRulesButton { get; private set; }
-  public ModSetting<bool> AlwaysShowAddRulesButtonInternal { get; } =
-    new(false, ModSettingDescriptor.CreateLocalized(AlwaysShowAddRulesButtonLocKey));
 
   public enum DescriptionStyle {
     HumanReadable,
@@ -79,7 +74,6 @@ sealed class EntityPanelSettings : BaseSettings<EntityPanelSettings> {
 
   public EntityPanelSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry,
                              ModRepository modRepository) : base(settings, modSettingsOwnerRegistry, modRepository) {
-    InstallSettingCallback(AlwaysShowAddRulesButtonInternal, v => AlwaysShowAddRulesButton = v);
     InstallSettingCallback(RulesDescriptionStyleInternal, v => {
       RulesDescriptionStyle =
           (DescriptionStyle)Enum.Parse(typeof(DescriptionStyle), RulesDescriptionStyleInternal.Value);

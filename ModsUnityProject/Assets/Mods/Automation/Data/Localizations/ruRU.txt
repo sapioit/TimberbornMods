@@ -217,7 +217,6 @@ IgorZ.Automation.Settings.Debug.LogSignalPropagating,"Записывать в ж
 IgorZ.Automation.Settings.Debug.ReevaluateRulesOnLoad,"Исполнять правила при загрузке",
 IgorZ.Automation.Settings.Debug.ResetSignalsOnLoad,"Сбрасывать сигналы при загрузке",
 IgorZ.Automation.Settings.EntityPanel.Header,"Элементы управления на панели здания",
-IgorZ.Automation.Settings.EntityPanel.AlwaysShowAddRulesButton,"Всегда отображать кнопку 'Добавить правила'",
 IgorZ.Automation.Settings.EntityPanel.RulesDescriptionStyle,"Стиль описания правил",
 IgorZ.Automation.Settings.EntityPanel.RulesDescriptionStyle.HumanReadable,"Текст","Human readable style of the rule description."
 IgorZ.Automation.Settings.EntityPanel.RulesDescriptionStyle.Script,"Скрипт","Script style of the rule description."
