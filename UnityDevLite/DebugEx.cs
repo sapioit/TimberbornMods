@@ -135,10 +135,6 @@ static class DebugEx {
     if (component == null) {
       return $"[IncompleteComponent]";
     }
-    if (component._componentCache == null) {
-      // The component is being created and has not yet finished its initialization.
-      return $"[{component.GetType().Name}:ktor]";
-    }
     if (!component) {
       // It is important to use the "!" notion to catch the destroyed GameObject!
       return "[DestroyedComponent]";
