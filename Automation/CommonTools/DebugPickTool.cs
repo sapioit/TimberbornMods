@@ -9,6 +9,7 @@ using Timberborn.BaseComponentSystem;
 using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
 using Timberborn.BlockSystemNavigation;
+using Timberborn.Buildings;
 using Timberborn.BuildingsNavigation;
 using Timberborn.ConstructionMode;
 using Timberborn.Coordinates;
@@ -70,25 +71,33 @@ public class DebugPickTool : AbstractAreaSelectionTool, IConstructionModeEnabler
   }
 
   static void PrintAccessible(BaseComponent component) {
-    var accessible = component.GetComponent<Accessible>();
+    var buildingAccessible = component.GetComponent<BuildingAccessible>()?.Accessible;
     var siteAccessible = component.GetComponent<ConstructionSiteAccessible>()?.Accessible;
-    if (!accessible && !siteAccessible) {
+    if (!buildingAccessible && !siteAccessible) {
       HostedDebugLog.Error(component, "No accessible components found");
       return;
     }
     var lines = new StringBuilder();
     lines.AppendLine(new string('*', 10));
     lines.AppendLine($"Accesses on {DebugEx.BaseComponentToString(component)}");
-    if (accessible) {
-      lines.AppendLine($"From Accessible (enabled={accessible.Enabled}):");
-      foreach (var access in accessible.Accesses) {
-        lines.AppendLine($"world: {access}, grid:{CoordinateSystem.WorldToGridInt(access)}");
+    if (buildingAccessible) {
+      lines.AppendLine($"From BuildingAccessible (enabled={buildingAccessible.Enabled}):");
+      if (!buildingAccessible.Accesses.IsEmpty()) {
+        foreach (var access in buildingAccessible.Accesses) {
+          lines.AppendLine($"- world: {access}, grid:{CoordinateSystem.WorldToGridInt(access)}");
+        }
+      } else {
+        lines.AppendLine("- no entries");
       }
     }
     if (siteAccessible) {
       lines.AppendLine($"From ConstructionSiteAccessible (enabled={siteAccessible.Enabled}):");
-      foreach (var access in siteAccessible.Accesses) {
-        lines.AppendLine($"world: {access}, grid:{CoordinateSystem.WorldToGridInt(access)}");
+      if (!siteAccessible.Accesses.IsEmpty()) {
+        foreach (var access in siteAccessible.Accesses) {
+          lines.AppendLine($"world: {access}, grid:{CoordinateSystem.WorldToGridInt(access)}");
+        }
+      } else {
+        lines.AppendLine("- no entries");
       }
     }
     lines.AppendLine(new string('*', 10));
