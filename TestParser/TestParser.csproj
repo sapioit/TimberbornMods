@@ -31,6 +31,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include="..\Automation\AutomationSystem\AbstractDynamicComponent.cs">
+        <Link>Import\AutomationSystem\AbstractDynamicComponent.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\AutomationSystem\AutomationServiceReadyEvent.cs">
         <Link>Import\AutomationSystem\AutomationServiceReadyEvent.cs</Link>
       </Compile>
@@ -231,9 +234,6 @@
       <Compile Include="..\Automation\Utils\StaticClassSerializer.cs">
         <Link>Import\Utils\StaticClassSerializer.cs</Link>
       </Compile>
-      <Compile Include="..\TimberDev\UI\AbstractDialog.cs">
-        <Link>Import\TimberDev\UI\AbstractDialog.cs</Link>
-      </Compile>
       <Compile Include="..\TimberDev\UI\CommonFormats.cs">
         <Link>Import\TimberDev\UI\CommonFormats.cs</Link>
       </Compile>
@@ -264,9 +264,6 @@
       <Compile Include="..\TimberDev\Utils\ComponentsAccessor.cs">
         <Link>Import\TimberDev\Utils\ComponentsAccessor.cs</Link>
       </Compile>
-      <Compile Include="..\TimberDev\Utils\Configurator.cs">
-        <Link>Import\TimberDev\Utils\Configurator.cs</Link>
-      </Compile>
       <Compile Include="..\TimberDev\Utils\CounterProfiler.cs">
         <Link>Import\TimberDev\Utils\CounterProfiler.cs</Link>
       </Compile>
@@ -278,9 +275,6 @@
       </Compile>
       <Compile Include="..\TimberDev\Utils\PausedStopwatch.cs">
         <Link>Import\TimberDev\Utils\PausedStopwatch.cs</Link>
-      </Compile>
-      <Compile Include="..\TimberDev\Utils\PrefabPatcher.cs">
-        <Link>Import\TimberDev\Utils\PrefabPatcher.cs</Link>
       </Compile>
       <Compile Include="..\TimberDev\Utils\ProtoSerializer.cs">
         <Link>Import\TimberDev\Utils\ProtoSerializer.cs</Link>
