@@ -13,6 +13,7 @@ namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<SignalDispatcher>().AsTransient();
+    containerDefinition.Bind<ReferenceManager>().AsTransient();
 
     // The building-specific components.
     containerDefinition.Bind<CollectableScriptableComponent>().AsSingleton();

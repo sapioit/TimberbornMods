@@ -4,7 +4,6 @@
 
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
-using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 
 namespace IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
@@ -15,7 +14,7 @@ abstract class AbstractStatusTracker : AbstractDynamicComponent {
   #region API
 
   /// <summary>Reference manager for signals and actions.</summary>
-  public readonly ReferenceManager ReferenceManager = new();
+  public ReferenceManager ReferenceManager { get; private set; }
 
   /// <summary>True if the component has any signals or actions.</summary>
   public bool HasSignals => ReferenceManager.Signals.Count > 0;
@@ -57,7 +56,7 @@ abstract class AbstractStatusTracker : AbstractDynamicComponent {
 
   /// <inheritdoc cref="Components.ReferenceManager.ScheduleSignal" />
   public void ScheduleSignal(string signalName, bool ignoreErrors = false) =>
-      ReferenceManager.ScheduleSignal(signalName, _scriptingService, ignoreErrors);
+      ReferenceManager.ScheduleSignal(signalName, ignoreErrors);
 
   #endregion
 
@@ -73,11 +72,9 @@ abstract class AbstractStatusTracker : AbstractDynamicComponent {
 
   #region Imlementation
 
-  ScriptingService _scriptingService;
-
   [Inject]
-  public void InjectDependencies(ScriptingService scriptingService) {
-    _scriptingService = scriptingService;
+  public void InjectDependencies(ReferenceManager referenceManager) {
+    ReferenceManager = referenceManager;
   }
 
   #endregion

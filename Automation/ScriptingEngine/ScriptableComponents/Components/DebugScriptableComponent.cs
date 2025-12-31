@@ -67,8 +67,6 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
     };
   }
 
-  readonly ReferenceManager _referenceManager = new ReferenceManager();
-
   /// <inheritdoc/>
   public override void RegisterSignalChangeCallback(SignalOperator signalOperator, ISignalListener host) {
     _referenceManager.AddSignal(signalOperator, host);
@@ -216,18 +214,19 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
   readonly Dictionary<DistrictCenter, StockCounter> _districtStockCounter = new();
   readonly Dictionary<DistrictCenter, CapacityCounter> _districtCapacityCounter = new();
 
-  AutomationService _automationService;
-  IGoodService _goodService;
-  DistrictCenterRegistry _districtCenterRegistry;
+  readonly AutomationService _automationService;
+  readonly IGoodService _goodService;
+  readonly DistrictCenterRegistry _districtCenterRegistry;
+  readonly ReferenceManager _referenceManager;
 
   int _stockTickersRegistered;
 
-  [Inject]
-  public void InjectDependencies(AutomationService automationService, IGoodService goodService,
-                                 DistrictCenterRegistry districtCenterRegistry) {
+  DebugScriptableComponent(AutomationService automationService, IGoodService goodService,
+                           DistrictCenterRegistry districtCenterRegistry, ReferenceManager referenceManager) {
     _automationService = automationService;
     _goodService = goodService;
     _districtCenterRegistry = districtCenterRegistry;
+    _referenceManager = referenceManager;
   }
 
   bool TryParseStockTrackerSignalName(string signalName, out GoodSpec goodSpec, out bool isCapacity) {
@@ -279,7 +278,7 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
       }
     }
     if (_referenceManager.Signals.Count > 0) {
-      _referenceManager.ScheduleSignal(TickerSignalName, ScriptingService, ignoreErrors: true);
+      _referenceManager.ScheduleSignal(TickerSignalName, ignoreErrors: true);
     }
   }
 
