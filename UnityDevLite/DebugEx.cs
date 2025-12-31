@@ -81,16 +81,9 @@ static class DebugEx {
   /// <seealso cref="ObjectToString"/>
   public static void Log(LogType type, string format, params object[] args) {
     try {
-      var objects = args.Select(x => {
-        switch (x) {
-          case IList list: {
-            List<object> res = [];
-            res.AddRange(from object item in list select ObjectToString(item));
-            return string.Join(",", res);
-          }
-          default:
-            return ObjectToString(x);
-        }
+      var objects = args.Select(x => x switch {
+            IList list => string.Join(",", list.Cast<object>().Select(ObjectToString)),
+            _ => ObjectToString(x),
       }).ToArray();
       Debug.unityLogger.LogFormat(type, format, objects);
     } catch (Exception e) {
@@ -98,7 +91,7 @@ static class DebugEx {
     }
   }
 
-  /// <summary>Helper method to make a user friendly object name for the logs.</summary>
+  /// <summary>Helper method to make a user-friendly object name for the logs.</summary>
   /// <remarks>
   /// This method is much more intelligent than a regular <c>ToString()</c>, it can detect some common types and give
   /// more context on them while keeping the output short.
