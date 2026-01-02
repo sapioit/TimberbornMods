@@ -253,11 +253,11 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
     return true;
   }
 
+  // FIXME: Deprecate! We now have a district signal.
   void UpdateDistrictResources() {
     _districtStockCounter.Clear();
     _districtCapacityCounter.Clear();
     foreach (var districtCenter in _districtCenterRegistry.FinishedDistrictCenters) {
-      //FIXME: Refactor the approach and use DistrictResourceCounter in signals.
       var districtResourceCounter = districtCenter.GetComponent<DistrictResourceCounter>();
       _districtStockCounter.Add(districtCenter, districtResourceCounter._stockCounter);
       _districtCapacityCounter.Add(districtCenter, districtResourceCounter._capacityCounter);

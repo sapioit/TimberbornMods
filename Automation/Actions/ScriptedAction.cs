@@ -18,7 +18,6 @@ namespace IgorZ.Automation.Actions;
 
 sealed class ScriptedAction : AutomationActionBase {
 
-  //FIXME: not present in loc file
   const string ParseErrorLocKey = "IgorZ.Automation.Scripting.Expressions.ParseError";
 
   #region AutomationActionBase overrides

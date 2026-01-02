@@ -85,7 +85,7 @@ sealed class AutomationFragment : IEntityPanelFragment, ISignalListener {
     _rulesEditorDialog = rulesEditorDialog;
     _signalsEditorDialog = signalsEditorDialog;
     _copyRulesTool = copyRulesTool;
-    _scriptingService = scriptingService; //FIXME: move to the helper
+    _scriptingService = scriptingService;
     _rulesHelper = rulesHelper;
     _tooltipRegistrar = tooltipRegistrar;
     _importRulesDialog = importRulesDialog;
