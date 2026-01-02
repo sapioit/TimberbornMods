@@ -23,7 +23,7 @@ abstract class AbstractStatusTracker : AbstractDynamicComponent {
   public bool HasActions => ReferenceManager.Actions.Count > 0;
 
   /// <inheritdoc cref="Components.ReferenceManager.AddSignal" />
-  public void AddSignal(SignalOperator signalOperator, ISignalListener host) {
+  public virtual void AddSignal(SignalOperator signalOperator, ISignalListener host) {
     ReferenceManager.AddSignal(signalOperator, host);
     if (ReferenceManager.Signals.Count == 1 && !HasActions) {
       OnFirstReference();
@@ -31,7 +31,7 @@ abstract class AbstractStatusTracker : AbstractDynamicComponent {
   }
 
   /// <inheritdoc cref="Components.ReferenceManager.RemoveSignal" />
-  public void RemoveSignal(SignalOperator signalOperator, ISignalListener host) {
+  public virtual void RemoveSignal(SignalOperator signalOperator, ISignalListener host) {
     ReferenceManager.RemoveSignal(signalOperator, host);
     if (!HasActions && !HasSignals) {
       OnLastReference();
@@ -39,7 +39,7 @@ abstract class AbstractStatusTracker : AbstractDynamicComponent {
   }
 
   /// <inheritdoc cref="Components.ReferenceManager.AddAction" />
-  public void AddAction(ActionOperator actionOperator) {
+  public virtual void AddAction(ActionOperator actionOperator) {
     ReferenceManager.AddAction(actionOperator);
     if (ReferenceManager.Actions.Count == 1 && !HasSignals) {
       OnFirstReference();
@@ -47,7 +47,7 @@ abstract class AbstractStatusTracker : AbstractDynamicComponent {
   }
 
   /// <inheritdoc cref="Components.ReferenceManager.RemoveAction" />
-  public void RemoveAction(ActionOperator actionOperator) {
+  public virtual void RemoveAction(ActionOperator actionOperator) {
     ReferenceManager.RemoveAction(actionOperator);
     if (!HasActions && !HasSignals) {
       OnLastReference();
