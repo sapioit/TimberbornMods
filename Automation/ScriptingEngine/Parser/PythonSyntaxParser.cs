@@ -41,8 +41,6 @@ class PythonSyntaxParser : ParserBase {
 
   #region Implementation
 
-  const string HasSignalFunc = "?sig";//FIXME
-  const string HasActionFunc = "?act";//FIXME
   const string EqOperator = "==";
   const string NeOperator = "!=";
   const string LtOperator = "<";
