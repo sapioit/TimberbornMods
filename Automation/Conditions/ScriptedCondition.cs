@@ -105,8 +105,6 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
 
   /// <inheritdoc/>
   public override bool IsValidAt(AutomationBehavior behavior) {
-    //FIXME it is broken! try copy on unfinished, then finish and try again - nope! point to another bldng and then back - works!
-    //FIXME: reset cash on complete
     if (_lastValidatedBehavior == behavior) {
       return _lastValidationResult;
     }
