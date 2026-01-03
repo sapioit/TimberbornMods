@@ -49,15 +49,6 @@ public class Application {
       "concat(Signals.Var1, '-test-', 1+2+3) == '0-test-6'",
 
       // Get property operator.
-      "getstr('Foobar.str') == 'test'",
-      "getnum('Foobar.numInt') == 123",
-      "getnum('Foobar.numFloat') == 123.33",
-      "getnum('Foobar.strList') == 2",
-      "getstr('Foobar.strList', 1) == 'two'",
-      "getstr('Foobar.strList', Signals.Var1 + 1) == 'two'",
-      "getnum('Foobar.numList', 1) == 2",
-      "getnum('Foobar.boolFalse') == 0",
-      "getnum('Foobar.boolTrue') == 1",
       "getvalue('Foobar.str') == 'test'",
       "getvalue('Foobar.numInt') == 123",
       "getvalue('Foobar.numFloat') == 123.33",

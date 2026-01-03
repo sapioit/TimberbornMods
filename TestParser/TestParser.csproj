@@ -82,9 +82,6 @@
       <Compile Include="..\Automation\ScriptingEngine\Expressions\GetPropertyFunction.cs">
         <Link>Import\ScriptingEngine\Expressions\GetPropertyFunction.cs</Link>
       </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\Expressions\GetPropertyOperator.cs">
-        <Link>Import\ScriptingEngine\Expressions\GetPropertyOperator.cs</Link>
-      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\Expressions\HasComponentOperator.cs">
         <Link>Import\ScriptingEngine\Expressions\HasComponentOperator.cs</Link>
       </Compile>
