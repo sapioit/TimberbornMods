@@ -92,9 +92,26 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase, ITickableSin
 
   /// <inheritdoc/>
   public override string[] GetSignalNamesForBuilding(AutomationBehavior behavior) {
-    return behavior.GetComponent<DistrictBuilding>() 
-        ? [BeaverPopulationSignalName, BotPopulationSignalName, NumberOfBedsSignalName]
-        : [];
+    var districtBuilding = behavior.GetComponent<DistrictBuilding>();
+    if (districtBuilding == null) {
+      return [];
+    }
+    var res = new List<string> { BeaverPopulationSignalName, BotPopulationSignalName, NumberOfBedsSignalName }; 
+    var districtCenter = districtBuilding.District; //FIXME: what if imn preview? what if center is preview?
+    if (districtCenter != null) {
+      var availableGoodIds = new HashSet<string>();
+      var resourceCounter = districtCenter.GetComponent<DistrictResourceCounter>();
+      availableGoodIds.AddRange(resourceCounter._stockCounter._inputOutputStock.Keys);
+      availableGoodIds.AddRange(resourceCounter._stockCounter._outputStock.Keys);
+      availableGoodIds.AddRange(resourceCounter._capacityCounter._inputOutputCapacity.Keys);
+      availableGoodIds.AddRange(resourceCounter._capacityCounter._outputCapacity.Keys);
+      var sortedGoodIds = availableGoodIds.OrderBy(x => _goodService.GetGoodOrNull(x).PluralDisplayName.Value);
+      foreach (var goodId in sortedGoodIds) {
+        res.Add(ResourceStockSignalNamePrefix + goodId);
+        res.Add(ResourceCapacitySignalNamePrefix + goodId);
+      }
+    }
+    return res.ToArray();
   }
 
   /// <inheritdoc/>
