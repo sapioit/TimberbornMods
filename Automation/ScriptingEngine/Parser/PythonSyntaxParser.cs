@@ -58,8 +58,6 @@ class PythonSyntaxParser : ParserBase {
   const string MinFunc = "min";
   const string MaxFunc = "max";
   const string RoundFunc = "round";
-  const string GetStrFunc = "getstr";
-  const string GetNumFunc = "getnum";
   const string GetValueFunc = "getvalue";
   const string GetElementFunc = "getelement";
   const string GetLenFunc = "getlen";
@@ -203,8 +201,6 @@ class PythonSyntaxParser : ParserBase {
         MaxFunc => MathOperator.CreateMax(arguments),
         RoundFunc => MathOperator.CreateRound(arguments),
         ConcatFunc => ConcatOperator.Create(arguments),
-        GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, arguments),
-        GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, arguments),
         _ => throw new ScriptError.ParsingError(token, "Unknown function"),
     };
   }
@@ -297,11 +293,6 @@ class PythonSyntaxParser : ParserBase {
             MathOperator.OpType.Round => RoundFunc,
             _ => null,
         },
-        GetPropertyOperator getPropertyOperator => getPropertyOperator.OperatorType switch {
-            GetPropertyOperator.OpType.GetNumber => GetNumFunc,
-            GetPropertyOperator.OpType.GetString => GetStrFunc,
-            _ => throw new InvalidOperationException($"Unsupported operator: {getPropertyOperator}"),
-        },
         ConcatOperator => ConcatFunc,
         ActionOperator actionOperator => actionOperator.ActionName,
         _ => null,
@@ -344,6 +335,7 @@ class PythonSyntaxParser : ParserBase {
         LogicalOperator logicalOperator => logicalOperator.OperatorType switch {
             LogicalOperator.OpType.And => AndOperator,
             LogicalOperator.OpType.Or => OrOperator,
+            LogicalOperator.OpType.Not => throw new InvalidOperationException("Not expected"),
             _ => throw new InvalidOperationException($"Unsupported operator: {logicalOperator.OperatorType}"),
         },
         _ => throw new InvalidOperationException($"Unexpected expression type: {expression}"),
@@ -403,8 +395,8 @@ class PythonSyntaxParser : ParserBase {
         AndOperator, OrOperator, NotOperator,
         // Math functions.
         MinFunc, MaxFunc, RoundFunc,
-        // Get property operators.
-        GetStrFunc, GetNumFunc, GetValueFunc, GetElementFunc, GetLenFunc,
+        // Get property functions.
+        GetValueFunc, GetElementFunc, GetLenFunc,
         // Concat operator.
         ConcatFunc,
     ];

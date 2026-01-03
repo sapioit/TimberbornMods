@@ -75,8 +75,6 @@ sealed class LispSyntaxParser : ParserBase {
   const string RoundFunc = "round";
   const string SigFunc = "sig";
   const string ActMethod = "act";
-  const string GetStrFunc = "getstr";
-  const string GetNumFunc = "getnum";
   const string GetValueFunc = "getvalue";
   const string GetElementFunc = "getelement";
   const string GetLenFunc = "getlen";
@@ -135,13 +133,6 @@ sealed class LispSyntaxParser : ParserBase {
           CurrentContext, GetSymbolValue(op, operands, 0), operands.GetRange(1, operands.Count - 1));
     }
 
-    // Special handling to the Symbol argument.
-    if (op.Value is GetStrFunc or GetNumFunc) {
-      operands[0] = operands[0] is SymbolExpr symbolExpr
-          ? ConstantValueExpr.CreateStringLiteral(symbolExpr.Value)
-          : throw new ScriptError.ParsingError($"Expected property name, but got: {operands[0]}");
-    }
-
     // Fixed arguments functions.
     if (op.Value == GetValueFunc) {
       AssertNumberOfOperandsExact(op, operands, 1);
@@ -179,8 +170,6 @@ sealed class LispSyntaxParser : ParserBase {
         MinFunc => MathOperator.CreateMin(operands),
         MaxFunc => MathOperator.CreateMax(operands),
         RoundFunc => MathOperator.CreateRound(operands),
-        GetStrFunc => GetPropertyOperator.CreateGetString(CurrentContext, operands),
-        GetNumFunc => GetPropertyOperator.CreateGetNumber(CurrentContext, operands),
         ConcatFunc => ConcatOperator.Create(operands),
         _ => throw new InvalidOperationException("Operator token not recognized: " + op),
     };
@@ -267,21 +256,12 @@ sealed class LispSyntaxParser : ParserBase {
         },
         SignalOperator sigOperator => $"{SigFunc} {sigOperator.SignalName}",
         ActionOperator actOperator => $"{ActMethod} {actOperator.FullActionName}",
-        GetPropertyOperator getPropertyOperator => getPropertyOperator.OperatorType switch {
-            GetPropertyOperator.OpType.GetString => GetStrFunc,
-            GetPropertyOperator.OpType.GetNumber => GetNumFunc,
-            _ => throw new InvalidOperationException($"Unsupported operator: {getPropertyOperator}"),
-        },
         ConcatOperator => ConcatFunc,
         _ => throw new InvalidOperationException($"Unsupported operator: {abstractOperator}"),
     };
 
     // Special handling to the Symbol argument.
     var operands = new List<IExpression>(abstractOperator.Operands);
-    if (abstractOperator is GetPropertyOperator getPropertyFunction) {
-      operands[0] = SymbolExpr.Create(getPropertyFunction.GetStringLiteral(0));
-    }
-
     sb.Append(operatorName);
     foreach (var operand in operands) {
       sb.Append(' ');
@@ -314,8 +294,8 @@ sealed class LispSyntaxParser : ParserBase {
         MinFunc, MaxFunc, RoundFunc,
         // Signal/action operators.
         SigFunc, ActMethod,
-        // Get property operators.
-        GetStrFunc, GetNumFunc, GetValueFunc, GetElementFunc, GetLenFunc,
+        // Get property functions.
+        GetValueFunc, GetElementFunc, GetLenFunc,
         // Concat operator.
         ConcatFunc,
     ];

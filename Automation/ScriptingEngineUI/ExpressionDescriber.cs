@@ -41,7 +41,6 @@ sealed class ExpressionDescriber {
         BinaryOperator binaryOperator => DescribeComparisonOperator(binaryOperator),
         ConcatOperator concatOperator => concatOperator.ValueFn().AsString,
         ConstantValueExpr constantValueExpr => DescribeScriptValue(constantValueExpr.ValueFn()),
-        GetPropertyOperator getProperty => DescribeGetPropertyOperator(getProperty),
         LogicalOperator logicalOperator => DescribeLogicalOperator(logicalOperator),
         MathOperator mathOperator => DescribeMathOperator(mathOperator),
         SignalOperator signalOperator => signalOperator.SignalDef.DisplayName,
@@ -102,16 +101,6 @@ sealed class ExpressionDescriber {
       };
     }
     throw new InvalidOperationException($"Unexpected function: {function}");
-  }
-
-  string DescribeGetPropertyOperator(GetPropertyOperator op) {
-    var propertyName = op.GetStringLiteral(0);
-    if (op.IsList) {
-      return op.Operands.Count == 1
-          ? $"Count({propertyName})"
-          : $"GetElement({propertyName}, {DescribeExpressionInternal(op.Operands[1])})";
-    }
-    return $"ValueOf({propertyName})";
   }
 
   string DescribeLogicalOperator(LogicalOperator op) {

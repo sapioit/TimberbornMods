@@ -1,7 +1,8 @@
 # v3.2.0 (started on Januray 1st, 2026):
 * [Feature] Support district signals for stock value and capacity.
 * [Change] Deprecate debug signal: `Debug.DistrictStockTracker.<*>`.
-* [Change] Dropped tool "Prioritize by haulers on finish building". This option can now be set on unfinished building via the stock game UI.
+* [Change] Drop tool "Prioritize by haulers on finish building". This option can now be set on unfinished building via the stock game UI.
+* [Change] Deprecate operators `getnum` and `getstr`. Now, you should use: `getvalue`, `getelement`, and `getlen`. Good news: the value type is now detected from the property.
 
 # v3.1.2 (December 17th, 2025):
 * [Change] Support game version `v1.0`. Mod version `v3.0.2` is included to the package for the older game version.
