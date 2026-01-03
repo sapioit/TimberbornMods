@@ -22,7 +22,7 @@
         "Action": {
           "TypeId": "IgorZ.Automation.Actions.ScriptedAction",
           "Parameters": [
-            { "Name": "Expression", "StrValue": "(act Floodgate.SetHeight {% (getnum Floodgate.MaxHeight) %})" }
+            { "Name": "Expression", "StrValue": "(act Floodgate.SetHeight {% (getvalue Floodgate.MaxHeight) %})" }
           ]
         }
       }

@@ -15,14 +15,14 @@
         "Condition": {
           "TypeId": "IgorZ.Automation.Conditions.ScriptedCondition",
           "Parameters": [
-            { "Name": "Precondition", "StrValue": "(ne (getnum SingleGoodAllower.HasAllowedGood) 0)" },
-            { "Name": "Expression", "StrValue": "(eq (sig Inventory.OutputGood.{% (getstr SingleGoodAllower.AllowedGood) %}) (sig Inventory.OutputGood.{% (getstr SingleGoodAllower.AllowedGood) %}))" }
+            { "Name": "Precondition", "StrValue": "(ne (getvalue SingleGoodAllower.HasAllowedGood) 0)" },
+            { "Name": "Expression", "StrValue": "(eq (sig Inventory.OutputGood.{% (getvalue SingleGoodAllower.AllowedGood) %}) (sig Inventory.OutputGood.{% (getvalue SingleGoodAllower.AllowedGood) %}))" }
           ]
         },
         "Action": {
           "TypeId": "IgorZ.Automation.Actions.ScriptedAction",
           "Parameters": [
-            { "Name": "Expression", "StrValue": "(act Signals.Set 'Stockpile.yellow1' (sig Inventory.OutputGood.{% (getstr SingleGoodAllower.AllowedGood) %}))" }
+            { "Name": "Expression", "StrValue": "(act Signals.Set 'Stockpile.yellow1' (sig Inventory.OutputGood.{% (getvalue SingleGoodAllower.AllowedGood) %}))" }
           ]
         }
       }
