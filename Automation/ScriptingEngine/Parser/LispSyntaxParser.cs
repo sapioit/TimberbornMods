@@ -278,8 +278,8 @@ sealed class LispSyntaxParser : ParserBase {
 
     // Special handling to the Symbol argument.
     var operands = new List<IExpression>(abstractOperator.Operands);
-    if (operatorName is GetStrFunc or GetNumFunc) {
-      operands[0] = SymbolExpr.Create(abstractOperator.GetStringLiteral(0));
+    if (abstractOperator is GetPropertyOperator getPropertyFunction) {
+      operands[0] = SymbolExpr.Create(getPropertyFunction.GetStringLiteral(0));
     }
 
     sb.Append(operatorName);

@@ -27,23 +27,6 @@ abstract class AbstractOperator(IList<IExpression> operands) : IExpression {
     return $"{GetType().Name}";
   }
 
-  /// <summary>
-  /// Returns the specified operand string value. The operant must be a constant string or the call will fail.
-  /// </summary>
-  /// <seealso cref="ConstantValueExpr"/>
-  /// <exception cref="InvalidOperationException">
-  /// if index is out of bounds or the operant type is not a constant string value.
-  /// </exception>
-  public string GetStringLiteral(int index) {
-    if (index >= Operands.Count) {
-      throw new InvalidOperationException($"Operator {this} has {Operands.Count} operands, #{index} was requested");
-    }
-    return Operands[index] is ConstantValueExpr { ValueType: ScriptValue.TypeEnum.String } constantValueExpr
-        ? constantValueExpr.ValueFn().AsString
-        : throw new InvalidOperationException(
-            $"Expected a string literal at #{index + 1} of {this}, but got: {Operands[index]}");
-  }
-
   /// <summary>Unwraps operands to the binary tree if there are more than 2 operands in the expression.</summary>
   /// <remarks>Operands that allow multi-arguments must override this method.</remarks>
   /// <exception cref="InvalidOperationException">if more than 2 operands and no override given.</exception>

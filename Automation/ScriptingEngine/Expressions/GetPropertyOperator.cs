@@ -8,6 +8,7 @@ using IgorZ.Automation.ScriptingEngine.Core;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
+// FIXME: Deprecate. Use GetPropertyFunction.
 sealed class GetPropertyOperator : AbstractOperator, IValueExpr {
 
   public enum OpType {
@@ -24,7 +25,24 @@ sealed class GetPropertyOperator : AbstractOperator, IValueExpr {
   /// <summary>Tells if this operator accesses a list property.</summary>
   public bool IsList { get; private init; }
 
-  // // FIXME: Deprecate.
+  /// <summary>
+  /// Returns the specified operand string value. The operant must be a constant string or the call will fail.
+  /// </summary>
+  /// <seealso cref="ConstantValueExpr"/>
+  /// <exception cref="InvalidOperationException">
+  /// if index is out of bounds or the operant type is not a constant string value.
+  /// </exception>
+  public string GetStringLiteral(int index) {
+    if (index >= Operands.Count) {
+      throw new InvalidOperationException($"Operator {this} has {Operands.Count} operands, #{index} was requested");
+    }
+    return Operands[index] is ConstantValueExpr { ValueType: ScriptValue.TypeEnum.String } constantValueExpr
+        ? constantValueExpr.ValueFn().AsString
+        : throw new InvalidOperationException(
+            $"Expected a string literal at #{index + 1} of {this}, but got: {Operands[index]}");
+  }
+
+  // FIXME: Deprecate.
   public static GetPropertyOperator CreateGetNumber(ExpressionContext context, IList<IExpression> operands) {
     GetPropertyFunction res;
     if (operands.Count == 2) {
