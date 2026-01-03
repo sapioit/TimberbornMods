@@ -96,8 +96,13 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase, ITickableSin
     if (districtBuilding == null) {
       return [];
     }
-    var res = new List<string> { BeaverPopulationSignalName, BotPopulationSignalName, NumberOfBedsSignalName }; 
-    var districtCenter = districtBuilding.District; //FIXME: what if imn preview? what if center is preview?
+    var res = new List<string> { BeaverPopulationSignalName, BotPopulationSignalName, NumberOfBedsSignalName };
+
+    // District => finished, connected, and had at least one tick.
+    // InstantDistrict => finished, connected, and on pause (updates instantly).
+    // ConstructionDistrict => unfinished and connected.
+    var districtCenter =
+        districtBuilding.District ?? districtBuilding.InstantDistrict ?? districtBuilding.ConstructionDistrict;
     if (districtCenter != null) {
       var availableGoodIds = new HashSet<string>();
       var resourceCounter = districtCenter.GetComponent<DistrictResourceCounter>();
@@ -111,6 +116,7 @@ sealed class DistrictScriptableComponent : ScriptableComponentBase, ITickableSin
         res.Add(ResourceCapacitySignalNamePrefix + goodId);
       }
     }
+
     return res.ToArray();
   }
 
