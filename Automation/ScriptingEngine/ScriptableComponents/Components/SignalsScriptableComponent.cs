@@ -117,11 +117,6 @@ sealed class SignalsScriptableComponent : ScriptableComponentBase, ISaveableSing
     if (!_singletonLoader.TryGetSingleton(SignalsKey, out var objectLoader)) {
       return;
     }
-    // FIXME: Compatibility with old saves prior to v2.5.1. Drop it in the future.
-    if (!objectLoader.Has(CustomSignalsKey)) {
-      DebugEx.Warning("Skipping old signals state loading! All signals are reset to value 0.");
-      return;
-    }
     var packedSignals = objectLoader.Get(CustomSignalsKey);
     if (AutomationDebugSettings.ResetSignalsOnLoad) {
       DebugEx.Warning("Not restoring {0} signals from the save file.", packedSignals.Count);

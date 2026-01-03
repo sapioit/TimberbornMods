@@ -121,10 +121,6 @@ sealed class WeatherScriptableComponent : ScriptableComponentBase, IPostLoadable
   /// <inheritdoc/>
   public void PostLoad() {
     _eventBus.Register(this);
-    // FIXME: Saved state added in v2.6.1 on 2025-09-03, drop one day.
-    if (string.IsNullOrEmpty(_currentSeason)) {
-      _currentSeason = GetCurrentSeason();
-    }
   }
 
   #endregion
@@ -137,12 +133,6 @@ sealed class WeatherScriptableComponent : ScriptableComponentBase, IPostLoadable
       Result = new ValueDef {
           ValueType = ScriptValue.TypeEnum.String,
           Options = GetWeatherSeasonOptions(),
-          // FIXME: Options changed in v2.6.1 on 2025-09-01, drop one day.
-          CompatibilityOptions = new Dictionary<string, string> {
-              { "temperate", TemperateWeatherId },
-              { "badtide", "BadtideWeather" },
-              { "drought", "DroughtWeather" },
-          },
       },
   };
   SignalDef _seasonSignalDef;
