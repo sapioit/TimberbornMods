@@ -1,4 +1,4 @@
-# v3.2.0 (started on Januray 1st, 2026):
+# v3.2.0 (started on January 1st, 2026):
 * [Feature] Support district signals for stock value and capacity.
 * [Change] Deprecate debug signal: `Debug.DistrictStockTracker.<*>`.
 * [Change] Drop tool "Prioritize by haulers on finish building". This option can now be set on unfinished building via the stock game UI.
