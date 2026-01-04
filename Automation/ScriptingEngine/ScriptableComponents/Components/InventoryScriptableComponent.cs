@@ -67,7 +67,7 @@ sealed class InventoryScriptableComponent : ScriptableComponentBase {
   /// <inheritdoc/>
   public override SignalDef GetSignalDefinition(string name, AutomationBehavior behavior) {
     var parsed = ParseSignalName(name, behavior);
-    var key = parsed.capacity + "-" + name;
+    var key = name + "-" + parsed.capacity;
     return LookupSignalDef(key, () => MakeSignalDef(name, behavior));
   }
 
