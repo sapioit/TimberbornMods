@@ -106,8 +106,6 @@
       <Compile Include="..\Automation\ScriptingEngine\Expressions\SymbolExpr.cs">
         <Link>Import\ScriptingEngine\Expressions\SymbolExpr.cs</Link>
       </Compile>
-      <Compile Remove="WIP\AbstractSyntaxTree.cs" />
-      <Compile Remove="WIP\AstHandler.cs" />
       <Compile Include="..\Automation\ScriptingEngine\Parser\Configurator.cs">
         <Link>Import\ScriptingEngine\Parser\Configurator.cs</Link>
       </Compile>
