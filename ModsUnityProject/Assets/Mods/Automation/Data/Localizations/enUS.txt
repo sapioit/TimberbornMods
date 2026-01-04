@@ -143,6 +143,7 @@ IgorZ.Automation.Scriptable.Inventory.Action.StartEmptyingStock,"start emptying 
 IgorZ.Automation.Scriptable.Inventory.Action.StopEmptyingStock,"stop emptying storage","Name of the action that stops emptying the storage"
 IgorZ.Automation.Scriptable.Inventory.Signal.InputGood,"input: {0}","Name of the condition for the inventory input goods"
 IgorZ.Automation.Scriptable.Inventory.Signal.OutputGood,"output: {0}","Name of the condition for the inventory output goods"
+IgorZ.Automation.Scriptable.Manufactory.Action.SetRecipe,"set recipe: {0}","Name of action that sets a recipe on a manufactory"
 IgorZ.Automation.Scriptable.Pausable.Action.Pause,"pause building","Name of the action that pauses the building"
 IgorZ.Automation.Scriptable.Pausable.Action.Resume,"resume building","Name of the action that unpauses the building"
 IgorZ.Automation.Scriptable.Plantable.Signal.SpotsReady,"ready to plant","Name of the condition that checks how many planting spots are available"

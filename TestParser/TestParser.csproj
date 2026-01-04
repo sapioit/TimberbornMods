@@ -166,6 +166,9 @@
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ISignalListener.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\ISignalListener.cs</Link>
       </Compile>
+      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ManufactoryScriptableComponent.cs">
+        <Link>Import\ScriptingEngine\ScriptableComponents\Components\ManufactoryScriptableComponent.cs</Link>
+      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PausableScriptableComponent.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\PausableScriptableComponent.cs</Link>
       </Compile>
