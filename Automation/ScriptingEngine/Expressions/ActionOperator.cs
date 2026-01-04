@@ -37,7 +37,7 @@ sealed class ActionOperator : AbstractOperator {
   /// <exception cref="InvalidOperationException">
   /// if index is out of bounds or the operant type is not a constant string value.
   /// </exception>
-  public string GetStringLiteral(int index) {
+  public string GetArgAsLiteral(int index) {
     if (index >= Operands.Count) {
       throw new InvalidOperationException($"Operator {this} has {Operands.Count} operands, #{index} was requested");
     }
