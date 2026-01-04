@@ -32,14 +32,16 @@ public static class ReflectionsHelper {
   /// </param>
   public static Type GetType(string typeId, Type baseType = null, bool throwOnError = true) {
     if (string.IsNullOrEmpty(typeId)) {
-      throw new ArgumentNullException("typeId");
+      throw new ArgumentNullException(nameof(typeId));
     }
     var type = AppDomain.CurrentDomain.GetAssemblies()
         .Select(assembly => assembly.GetType(typeId))
         .FirstOrDefault(t => t != null);
     string text = null;
     if (type == null) {
-      text = "Cannot find type for typeId: " + typeId;
+      text = $"Cannot find type for typeId: {typeId}";
+    } else if (type.GetConstructor(Type.EmptyTypes) == null) {
+      text = $"No default constructor in: {type}";
     } else if (baseType != null && !baseType.IsAssignableFrom(type)) {
       text = $"Incompatible types: {baseType} is not assignable from {type}";
     }
