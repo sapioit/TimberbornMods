@@ -10,6 +10,7 @@ using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
 using IgorZ.Automation.Utils;
 using IgorZ.CustomTools.Tools;
+using IgorZ.TimberDev.Utils;
 using Timberborn.BlockSystem;
 using Timberborn.BlueprintSystem;
 using Timberborn.ConstructionMode;
@@ -102,7 +103,7 @@ sealed class ApplyTemplateTool : AbstractAreaSelectionTool, IAutomationModeEnabl
   }
 
   static T ParseAndInit<T>(AutomationTemplateSpec.DynamicTypeSpec typeSpec) where T : class, IGameSerializable {
-    var instance = DynamicClassSerializer<T>.MakeInstance(typeSpec.TypeId);
+    var instance = ReflectionsHelper.MakeInstance<T>(typeSpec.TypeId);
     if (typeSpec.Parameters != null && typeSpec.Parameters.Length > 0) {
       instance.LoadFrom(new ObjectLoader(SpecToSaveObjectConverter.ParametersToSaveObject(typeSpec.Parameters)));
     }

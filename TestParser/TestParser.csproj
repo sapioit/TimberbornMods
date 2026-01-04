@@ -274,6 +274,9 @@
       <Compile Include="..\TimberDev\Utils\ProtoSerializer.cs">
         <Link>Import\TimberDev\Utils\ProtoSerializer.cs</Link>
       </Compile>
+      <Compile Include="..\TimberDev\Utils\ReflectionsHelper.cs">
+        <Link>Import\TimberDev\Utils\ReflectionsHelper.cs</Link>
+      </Compile>
       <Compile Include="..\TimberDev\Utils\StaticBindings.cs">
         <Link>Import\TimberDev\Utils\StaticBindings.cs</Link>
       </Compile>
