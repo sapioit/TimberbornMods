@@ -136,47 +136,14 @@
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\AbstractStatusTracker.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\AbstractStatusTracker.cs</Link>
       </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\CollectableScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\CollectableScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\Configurator.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\Configurator.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ConstructableScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\ConstructableScriptableComponent.cs</Link>
-      </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DebugScriptableComponent.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\DebugScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DistrictScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\DistrictScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\DynamiteScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\DynamiteScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\FloodgateScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\FloodgateScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\FlowControlScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\FlowControlScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\InventoryScriptableComponent.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\InventoryScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ISignalListener.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\ISignalListener.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ManufactoryScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\ManufactoryScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PausableScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\PausableScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PlantableScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\PlantableScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\PrioritizableScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\PrioritizableScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\ReferenceManager.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\ReferenceManager.cs</Link>
@@ -189,15 +156,6 @@
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\SignalsScriptableComponent.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Components\SignalsScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\StreamGaugeScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\StreamGaugeScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\WeatherScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\WeatherScriptableComponent.cs</Link>
-      </Compile>
-      <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Components\WorkplaceScriptableComponent.cs">
-        <Link>Import\ScriptingEngine\ScriptableComponents\Components\WorkplaceScriptableComponent.cs</Link>
       </Compile>
       <Compile Include="..\Automation\ScriptingEngine\ScriptableComponents\Extensions\AutomationExtensionsRegistry.cs">
         <Link>Import\ScriptingEngine\ScriptableComponents\Extensions\AutomationExtensionsRegistry.cs</Link>
