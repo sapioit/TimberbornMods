@@ -38,6 +38,8 @@
       </Reference>
       <Reference Include="CustomTools">
         <HintPath>..\_WORKSHOP!\3619414212\version-1.0\Scripts\CustomTools.dll</HintPath>
+        <Aliases>CustomTools</Aliases>
+        <Private>False</Private>
       </Reference>
       <Reference Include="ModSettings.Common">
         <HintPath>..\Dependencies\Workshop\3283831040\version-0.6\Scripts\ModSettings.Common.dll</HintPath>

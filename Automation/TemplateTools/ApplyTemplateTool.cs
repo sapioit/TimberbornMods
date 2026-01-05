@@ -2,6 +2,8 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+extern alias CustomTools;
+
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -9,13 +11,13 @@ using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
 using IgorZ.Automation.Utils;
-using IgorZ.CustomTools.Tools;
 using IgorZ.TimberDev.Utils;
 using Timberborn.BlockSystem;
 using Timberborn.BlueprintSystem;
 using Timberborn.ConstructionMode;
 using Timberborn.Persistence;
 using UnityEngine;
+using AbstractAreaSelectionTool = CustomTools::IgorZ.CustomTools.Tools.AbstractAreaSelectionTool;
 
 namespace IgorZ.Automation.TemplateTools;
 

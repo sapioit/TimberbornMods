@@ -2,17 +2,19 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+extern alias CustomTools;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.TemplateTools;
-using IgorZ.CustomTools.Tools;
 using Timberborn.BlockSystem;
 using Timberborn.ConstructionMode;
 using Timberborn.ToolSystem;
 using UnityEngine;
+using AbstractAreaSelectionTool = CustomTools::IgorZ.CustomTools.Tools.AbstractAreaSelectionTool;
 
 namespace IgorZ.Automation.AutomationSystemUI;
 

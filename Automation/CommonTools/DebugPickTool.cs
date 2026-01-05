@@ -2,9 +2,10 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+extern alias CustomTools;
+
 using System.Linq;
 using System.Text;
-using IgorZ.CustomTools.Tools;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
@@ -13,9 +14,9 @@ using Timberborn.Buildings;
 using Timberborn.BuildingsNavigation;
 using Timberborn.ConstructionMode;
 using Timberborn.Coordinates;
-using Timberborn.Navigation;
 using Timberborn.PathSystem;
 using UnityDev.Utils.LogUtilsLite;
+using AbstractAreaSelectionTool = CustomTools::IgorZ.CustomTools.Tools.AbstractAreaSelectionTool;
 
 namespace IgorZ.Automation.CommonTools;
 
