@@ -166,7 +166,7 @@ sealed class ExpressionDescriber {
   }
 
   string DescribeActionOperator(ActionOperator op) {
-    var args = new string[op.ActionDef.Arguments.Length];
+    var args = new object[op.ActionDef.Arguments.Length];
     for (var i = 0; i < op.ActionDef.Arguments.Length; i++) {
       var operand = op.Operands[i] as IValueExpr;
       if (EntityPanelSettings.EvalValuesInActionArguments || operand is ConstantValueExpr) {
