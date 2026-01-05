@@ -15,14 +15,14 @@
         "Condition": {
           "TypeId": "IgorZ.Automation.Conditions.ScriptedCondition",
           "Parameters": [
-            { "Name": "Precondition", "StrValue": "(and (?sig Collectable.Ready) (?act Pausable.Unpause))" },
+            { "Name": "Precondition", "StrValue": "(and (?sig Collectable.Ready) (?act Workplace.SetWorkers))" },
             { "Name": "Expression", "StrValue": "(ge (sig Collectable.Ready) 500)" }
           ]
         },
         "Action": {
           "TypeId": "IgorZ.Automation.Actions.ScriptedAction",
           "Parameters": [
-            { "Name": "Expression", "StrValue": "(act Pausable.Unpause)" }
+            { "Name": "Expression", "StrValue": "(act Workplace.SetWorkers {% (getvalue Workplace.MaxWorkers) %})" }
           ]
         }
       },
@@ -30,14 +30,14 @@
         "Condition": {
           "TypeId": "IgorZ.Automation.Conditions.ScriptedCondition",
           "Parameters": [
-            { "Name": "Precondition", "StrValue": "(and (?sig Collectable.Ready) (?act Pausable.Pause))" },
+            { "Name": "Precondition", "StrValue": "(and (?sig Collectable.Ready) (?act Workplace.RemoveWorkers))" },
             { "Name": "Expression", "StrValue": "(lt (sig Collectable.Ready) 500)" }
           ]
         },
         "Action": {
           "TypeId": "IgorZ.Automation.Actions.ScriptedAction",
           "Parameters": [
-            { "Name": "Expression", "StrValue": "(act Pausable.Pause)" }
+            { "Name": "Expression", "StrValue": "(act Workplace.RemoveWorkers)" }
           ]
         }
       }

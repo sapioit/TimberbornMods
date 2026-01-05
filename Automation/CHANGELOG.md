@@ -5,6 +5,7 @@
 * [Change] Deprecate debug signal: `Debug.DistrictStockTracker.<*>`.
 * [Change] Drop tool "Prioritize by haulers on finish building". This option can now be set on unfinished building via the stock game UI.
 * [Change] Deprecate operators `getnum` and `getstr`. Now, you should use: `getvalue`, `getelement`, and `getlen`. Good news: the value type is now detected from the property.
+* [Change] Use remove/set workers instead of pause/resume in the planting tools. It avoids loosing gatherables in some edge cases.
 
 # v3.1.2 (December 17th, 2025):
 * [Change] Support game version `v1.0`. Mod version `v3.0.2` is included to the package for the older game version.
