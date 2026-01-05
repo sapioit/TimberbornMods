@@ -15,6 +15,8 @@ namespace IgorZ.Automation.ScriptingEngine.Expressions;
 record struct ScriptValue : IComparable<ScriptValue> {
   /// <summary>Type of the value.</summary>
   public enum TypeEnum {
+    /// <summary>No type set or detected. The upstream code decides how to handle it.</summary>
+    Unset,
     /// <summary>
     /// An integer that represents a 2-digit fixed precision real number.
     /// For example, "1.5f" would be represented as "150".
@@ -26,7 +28,17 @@ record struct ScriptValue : IComparable<ScriptValue> {
   }
 
   /// <summary>Value type.</summary>
-  public TypeEnum ValueType => _number.HasValue ? TypeEnum.Number : TypeEnum.String;
+  public TypeEnum ValueType {
+    get {
+      if (_number.HasValue) {
+        return TypeEnum.Number;
+      }
+      if (_string != null) {
+        return TypeEnum.String;
+      }
+      return TypeEnum.Unset;
+    }
+  }
 
   /// <summary>Creates a new value that represents a string literal.</summary>
   public static ScriptValue Of(string literal) {
@@ -135,17 +147,16 @@ record struct ScriptValue : IComparable<ScriptValue> {
   /// converted to floats and formatted as "0.##".
   /// </param>
   public string FormatValue(ValueDef valueDef) {
-    if (valueDef == null) {
-      return ValueType == TypeEnum.Number ? AsFloat.ToString("0.##") : AsString;
-    }
-    if (valueDef.ValueFormatter != null) {
+    if (valueDef?.ValueFormatter != null) {
       return valueDef.ValueFormatter(this);
     }
-    if (valueDef.ValueType != TypeEnum.String) {
-      return AsFloat.ToString("0.##");
-    }
-    var stringValue = AsString;
-    if (valueDef.Options == null) {
+    var stringValue = ValueType switch {
+        TypeEnum.Number => AsFloat.ToString("0.##"),
+        TypeEnum.String => AsString,
+        TypeEnum.Unset => throw new InvalidOperationException($"Cannot format value: {this}"),
+        _ => throw new ArgumentOutOfRangeException(nameof(ValueType)),
+    };
+    if (valueDef?.Options == null) {
       return stringValue;
     }
     var resolvedValue = valueDef.Options.FirstOrDefault(x => x.Value == stringValue);

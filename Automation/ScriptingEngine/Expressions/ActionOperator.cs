@@ -55,29 +55,39 @@ sealed class ActionOperator : AbstractOperator {
     }
     ActionName = actionName;
     ActionDef = context.ScriptingService.GetActionDefinition(ActionName, context.ScriptHost);
-    AssertNumberOfOperandsExact(ActionDef.Arguments.Length);
-    var argValues = new Func<ScriptValue>[ActionDef.Arguments.Length];
-    for (var i = 0; i < ActionDef.Arguments.Length; i++) {
-      var operand = Operands[i];
+    if (ActionDef.VarArg == null) {
+      AssertNumberOfOperandsExact(ActionDef.Arguments.Length);
+    } else {
+      // Variable number of arguments allowed. Check for minimum counter only.
+      AssertNumberOfOperandsRange(ActionDef.Arguments.Length, -1);
+    }
+
+    // Handle fixed position arguments.
+    var argValues = new List<Func<ScriptValue>>(operands.Count);
+    var argDefIndex = 0;
+    for (var argPos = 0; argPos < operands.Count; argPos++) {
+      var operand = operands[argPos];
       if (operand is not IValueExpr valueExpr) {
-        throw new ScriptError.ParsingError($"Argument #{i + 1} must be a value, but found: {operand}");
+        throw new ScriptError.ParsingError($"Argument #{argPos + 1} must be a value, but found: {operand}");
       }
-      var argDef = ActionDef.Arguments[i];
-      if (argDef.ValueType != valueExpr.ValueType) {
+      var argDef = argDefIndex < ActionDef.Arguments.Length
+          ? ActionDef.Arguments[argDefIndex++]
+          : ActionDef.VarArg;
+      if (argDef.ValueType != ScriptValue.TypeEnum.Unset && argDef.ValueType != valueExpr.ValueType) {
         throw new ScriptError.ParsingError(
-            $"Argument #{i + 1} must be of type '{argDef.ValueType}', but found: {valueExpr.ValueType}");
+            $"Argument #{argPos + 1} must be of type '{argDef.ValueType}', but found: {valueExpr.ValueType}");
       }
       argDef.ArgumentValidator?.Invoke(valueExpr);
       if (argDef.ValueValidator == null || VerifyConstantValueExpr(argDef, valueExpr) != null) {
-        argValues[i] = valueExpr.ValueFn;
+        argValues.Add(valueExpr.ValueFn);
       } else {
-        argValues[i] = () => {
+        argValues.Add(() => {
           var value = valueExpr.ValueFn();
           if (ScriptEngineSettings.CheckArgumentValues) {
             argDef.ValueValidator(value);
           }
           return value;
-        };
+        });
       }
     }
     var action = context.ScriptingService.GetActionExecutor(ActionName, context.ScriptHost);

@@ -106,6 +106,9 @@ public class Application {
       "round(4/3) == 1",
       "round(2/3) == 1",
       "round(5/3) == 2",
+
+      // Actions
+      "Debug.Log('foo={0}, bar={1}', 1, 'test')",
   ];
 
   readonly List<string> _badScriptSamples = [
@@ -279,15 +282,20 @@ public class Application {
     _container = Bindito.Core.Bindito.CreateContainer(configurators);
 
     var scriptingService = _container.GetInstance<ScriptingService>();
+    scriptingService.RegisterScriptable(_container.GetInstance<DebugScriptableComponent>());
     scriptingService.RegisterScriptable(_container.GetInstance<SignalsScriptableComponent>());
     scriptingService.RegisterScriptable(_container.GetInstance<FoobarScriptingComponent>());
   }
 
   class ComponentsConfigurator : IConfigurator {
     public void Configure(IContainerDefinition containerDefinition) {
+      containerDefinition.Bind<SignalDispatcher>().AsTransient();
+      containerDefinition.Bind<ReferenceManager>().AsTransient();
+
+      containerDefinition.Bind<AutomationService>().AsSingleton();
       containerDefinition.Bind<ExpressionDescriber>().AsSingleton();
-      containerDefinition.Bind<SignalDispatcher>().AsSingleton();
       containerDefinition.Bind<ScriptingService>().AsSingleton();
+      containerDefinition.Bind<DebugScriptableComponent>().AsSingleton();
       containerDefinition.Bind<SignalsScriptableComponent>().AsSingleton();
       containerDefinition.Bind<FoobarScriptingComponent>().AsSingleton();
     }

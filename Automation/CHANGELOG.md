@@ -1,6 +1,7 @@
 # v3.2.1 (started on January 1st, 2026):
 * [Feature] Support district signals for stock value and capacity: `District.ResourceStock.<GoodId>` and `District.ResourceCapacity.<GoodId>`.
 * [Feature] Add change recipe action: `Manufactory.SetRecipe(<RecipeId>)`.
+* [Feature] Add logging action with string formatting: `Debug.Log('arg1={0}, arg2={1}', 1, 'test')`.
 * [Change] Deprecate debug signal: `Debug.DistrictStockTracker.<*>`.
 * [Change] Drop tool "Prioritize by haulers on finish building". This option can now be set on unfinished building via the stock game UI.
 * [Change] Deprecate operators `getnum` and `getstr`. Now, you should use: `getvalue`, `getelement`, and `getlen`. Good news: the value type is now detected from the property.

@@ -4,6 +4,7 @@
 
 using System;
 using IgorZ.Automation.AutomationSystem;
+using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using Timberborn.BaseComponentSystem;
 using UnityDev.Utils.LogUtilsLite;
@@ -15,10 +16,12 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
   const string TickerSignalLocKey = "IgorZ.Automation.Scriptable.Debug.Signal.Ticker";
   const string LogStrActionLocKey = "IgorZ.Automation.Scriptable.Debug.Action.LogStr";
   const string LogNumActionLocKey = "IgorZ.Automation.Scriptable.Debug.Action.LogNum";
+  const string LogActionLocKey = "IgorZ.Automation.Scriptable.Debug.Action.Log";
 
   const string TickerSignalName = "Debug.Ticker";
   const string LogStrActionName = "Debug.LogStr";
   const string LogNumActionName = "Debug.LogNum";
+  const string LogActionName = "Debug.Log";
 
   #region ScriptableComponentBase implementation
 
@@ -72,6 +75,7 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
     return name switch {
         LogStrActionName => args => LogStrAction(behavior, args),
         LogNumActionName => args => LogNumAction(behavior, args),
+        LogActionName => args => LogAction(behavior, args),
         _ => throw new UnknownActionException(name),
     };
   }
@@ -81,6 +85,7 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
     return name switch {
         LogStrActionName => LogStrActionDef,
         LogNumActionName => LogNumActionDef,
+        LogActionName => LogActionDef,
         _ => throw new UnknownActionException(name),
     };
   }
@@ -110,7 +115,7 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
 
   #region Actions
 
-  ActionDef LogStrActionDef => _logActionDef ??= new ActionDef {
+  ActionDef LogStrActionDef => _logStrActionDef ??= new ActionDef {
       ScriptName = LogStrActionName,
       DisplayName = Loc.T(LogStrActionLocKey),
       Arguments = [
@@ -119,7 +124,7 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
           },
       ],
   };
-  ActionDef _logActionDef;
+  ActionDef _logStrActionDef;
 
   ActionDef LogNumActionDef => _logNumActionDef ??= new ActionDef {
       ScriptName = LogNumActionName,
@@ -132,6 +137,16 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
   };
   ActionDef _logNumActionDef;
 
+  ActionDef LogActionDef => _logActionDef ??= new ActionDef {
+      ScriptName = LogActionName,
+      DisplayName = Loc.T(LogActionLocKey),
+      Arguments = [
+          new ValueDef { ValueType = ScriptValue.TypeEnum.String },
+      ],
+      VarArg = new ValueDef { ValueType = ScriptValue.TypeEnum.Unset },
+  };
+  ActionDef _logActionDef;
+
   static void LogStrAction(BaseComponent instance, ScriptValue[] args) {
     AssertActionArgsCount(LogStrActionName, args, 1);
     HostedDebugLog.Info(instance, "[Debug Log]: {0}", args[0].AsString);
@@ -140,6 +155,23 @@ sealed class DebugScriptableComponent : ScriptableComponentBase {
   static void LogNumAction(BaseComponent instance, ScriptValue[] args) {
     AssertActionArgsCount(LogNumActionName, args, 1);
     HostedDebugLog.Info(instance, "[Debug Log]: {0}", args[0].AsNumber);
+  }
+
+  static void LogAction(BaseComponent instance, ScriptValue[] args) {
+    if (args.Length < 1) {
+      throw new ScriptError.ParsingError($"{LogActionName} action requires at least one argument");
+    }
+    var fmtArgs = new object[args.Length - 1];
+    for (var i = 0; i < args.Length - 1; i++) {
+      var arg = args[i + 1];
+      fmtArgs[i] = arg.ValueType switch {
+          ScriptValue.TypeEnum.String => arg.AsString,
+          ScriptValue.TypeEnum.Number => arg.AsFloat,
+          ScriptValue.TypeEnum.Unset => throw new InvalidOperationException($"Unexpected Unset value type : {arg}"),
+          _ => throw new ArgumentOutOfRangeException(),
+      };
+    }
+    HostedDebugLog.Info(instance, "[Debug Log]: " + args[0].AsString, fmtArgs);
   }
 
   #endregion
