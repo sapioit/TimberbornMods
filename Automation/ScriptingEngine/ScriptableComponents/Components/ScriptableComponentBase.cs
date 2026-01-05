@@ -85,21 +85,21 @@ abstract class ScriptableComponentBase : ILoadableSingleton, IScriptable {
     }
   }
 
-  protected ActionDef LookupActionDef(string name, Func<ActionDef> getDefault) {
-    if (!_cachedActionDefs.TryGetValue(name, out var actionDef)) {
+  protected ActionDef LookupActionDef(string key, Func<ActionDef> getDefault) {
+    if (!_cachedActionDefs.TryGetValue(key, out var actionDef)) {
       actionDef = getDefault();
-      _cachedActionDefs[name] = actionDef;
-      DebugEx.Fine("Registering action definition in cache:\n{0}", actionDef);
+      _cachedActionDefs[key] = actionDef;
+      DebugEx.Fine("Registering action definition in cache at key '{0}':\n{1}", key, actionDef);
     }
     return actionDef;
   }
   readonly Dictionary<string, ActionDef> _cachedActionDefs = new();
 
-  protected SignalDef LookupSignalDef(string name, Func<SignalDef> getDefault) {
-    if (!_cachedSignalDefs.TryGetValue(name, out var signalDef)) {
+  protected SignalDef LookupSignalDef(string key, Func<SignalDef> getDefault) {
+    if (!_cachedSignalDefs.TryGetValue(key, out var signalDef)) {
       signalDef = getDefault();
-      _cachedSignalDefs[name] = signalDef;
-      DebugEx.Fine("Registering signal definition in cache:\n{0}", signalDef);
+      _cachedSignalDefs[key] = signalDef;
+      DebugEx.Fine("Registering signal definition in cache at key '{0}':\n{1}", key, signalDef);
     }
     return signalDef;
   }
