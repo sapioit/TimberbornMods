@@ -1,4 +1,4 @@
-# v3.2.1 (started on January 1st, 2026):
+# v3.2.1 (January 5st, 2026):
 * [Feature] Support district signals for stock value and capacity: `District.ResourceStock.<GoodId>` and `District.ResourceCapacity.<GoodId>`.
 * [Feature] Add change recipe action: `Manufactory.SetRecipe(<RecipeId>)`.
 * [Feature] Add logging action with string formatting: `Debug.Log('arg1={0}, arg2={1}', 1, 'test')`.
