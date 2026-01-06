@@ -4,7 +4,6 @@
 
 using System;
 using System.Linq;
-using IgorZ.Automation.ScriptingEngine;
 using IgorZ.Automation.ScriptingEngine.Core;
 using IgorZ.Automation.ScriptingEngine.Expressions;
 using IgorZ.TimberDev.UI;
@@ -90,11 +89,11 @@ sealed class ArgumentConstructor : BaseConstructor {
 
   string CheckInputForNumber() {
     string res = null;
-    var value = _textField.value.Trim();
-    if (value == "") {
+    var strValue = Value.Trim();
+    if (strValue == "") {
       res = "Value must not be empty";
-    } else if (!float.TryParse(value, out var floatValue)) {
-      res = "Argument must be a number: " + value;
+    } else if (!float.TryParse(strValue, out var floatValue)) {
+      res = "Argument must be a number: " + strValue;
     } else if (_argumentDefinition.ValueValidator != null) {
       res = ExecuteValidator(_argumentDefinition.ValueValidator, floatValue);
     }
@@ -106,7 +105,7 @@ sealed class ArgumentConstructor : BaseConstructor {
 
   string CheckInputForString() {
     string res = null;
-    var strValue = _textField.value;
+    var strValue = Value.Trim();
     if (strValue.IndexOf('\'') >= 0) {
       res = "String must not contain single quotes: " + strValue;
     } else if (_argumentDefinition.ValueValidator != null) {

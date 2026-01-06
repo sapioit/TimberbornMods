@@ -40,13 +40,11 @@ sealed class ActionConstructor : BaseConstructor {
   }
 
   public string GetLispScript() {
-    var action = ActionSelector.SelectedValue;
-    var def = _actionDefinitions.First(x => x.Name.Value == action);
-    if (def.Arguments.Length == 0) {
-      return $"(act {action})";
+    if (_selectedAction.Arguments.Length == 0) {
+      return $"(act {_selectedAction.Name.Value})";
     }
-    var script = "(act " + action;
-    for (var i = 0; i < def.Arguments.Length; i++) {
+    var script = "(act " + _selectedAction.Name.Value;
+    for (var i = 0; i < _selectedAction.Arguments.Length; i++) {
       script += " " + ArgumentConstructor.GetScriptValue();
     }
     return script + ")";

@@ -1,3 +1,6 @@
+# v3.2.3 (January 5st, 2026):
+* [Fix] Recipe selection in the action UI is not working.
+
 # v3.2.2 (January 5st, 2026):
 * [Fix] New game crashes on save.
 
