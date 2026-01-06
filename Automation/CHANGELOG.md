@@ -1,3 +1,6 @@
+# v3.2.2 (January 5st, 2026):
+* [Fix] New game crashes on save.
+
 # v3.2.1 (January 5st, 2026):
 * [Feature] Support district signals for stock value and capacity: `District.ResourceStock.<GoodId>` and `District.ResourceCapacity.<GoodId>`.
 * [Feature] Add change recipe action: `Manufactory.SetRecipe(<RecipeId>)`.

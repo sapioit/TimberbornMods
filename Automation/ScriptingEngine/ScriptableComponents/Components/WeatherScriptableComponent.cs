@@ -121,6 +121,10 @@ sealed class WeatherScriptableComponent : ScriptableComponentBase, IPostLoadable
   /// <inheritdoc/>
   public void PostLoad() {
     _eventBus.Register(this);
+    if (string.IsNullOrEmpty(_currentSeason)) {
+      _currentSeason = GetCurrentSeason();
+      DebugEx.Info("Initialized weather season: {0}", _currentSeason);
+    }
   }
 
   #endregion
