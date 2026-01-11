@@ -11,8 +11,9 @@ namespace IgorZ.TimberCommons.IrrigationSystem;
 [Context("Game")]
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
-    containerDefinition.Bind<GrowthRateModifier>().AsTransient();
+    containerDefinition.Bind<BlockContaminationRangeEffect>().AsTransient();
     containerDefinition.Bind<GoodConsumingIrrigationTower>().AsTransient();
+    containerDefinition.Bind<GrowthRateModifier>().AsTransient();
     containerDefinition.Bind<ManufactoryIrrigationTower>().AsTransient();
     containerDefinition.Bind<ModifyGrowableGrowthRangeEffect>().AsTransient();
     containerDefinition.MultiBind<TemplateModule>().ToProvider(ProvideTemplateModule).AsSingleton();
@@ -20,8 +21,9 @@ sealed class Configurator : IConfigurator {
 
   static TemplateModule ProvideTemplateModule() {
     var builder = new TemplateModule.Builder();
-    builder.AddDecorator<Growable, GrowthRateModifier>();
+    builder.AddDecorator<BlockContaminationRangeEffectSpec, BlockContaminationRangeEffect>();
     builder.AddDecorator<GoodConsumingIrrigationTowerSpec, GoodConsumingIrrigationTower>();
+    builder.AddDecorator<Growable, GrowthRateModifier>();
     builder.AddDecorator<ManufactoryIrrigationTowerSpec, ManufactoryIrrigationTower>();
     builder.AddDecorator<ModifyGrowableGrowthRangeEffectSpec, ModifyGrowableGrowthRangeEffect>();
     return builder.Build();
