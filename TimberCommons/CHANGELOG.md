@@ -1,3 +1,6 @@
+# v1.14.4 (January 10th, 2026)
+* [Update] Add `BlockContaminationRangeEffectSpec` to allow the contamination block effect on the irrigation tower.
+
 # v1.14.3 (December 3rd, 2025)
 * [Update] Support game version `v1.0`. The older version `v1.13.1` will be included in the package to support the main brunch.
 * [Feature] Show green/blue colors when adjusting the water drop sources levels based on the water level at the output.
