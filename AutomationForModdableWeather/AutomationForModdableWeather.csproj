@@ -36,8 +36,8 @@
         <ModPath>u:\Mods</ModPath>
     </PropertyGroup>
     <ItemGroup>
-      <Reference Include="ModdableWeather">
-        <HintPath>..\Dependencies\Workshop\3493039008\version-0.7\ModdableWeather.dll</HintPath>
+      <Reference Include="ModdableWeathers">
+        <HintPath>..\Dependencies\Workshop\3630523180\version-1.0\ModdableWeathers.dll"</HintPath>
       </Reference>
     </ItemGroup>
     <ItemGroup>
