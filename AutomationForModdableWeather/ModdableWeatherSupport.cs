@@ -43,14 +43,13 @@ sealed class ModdableWeatherSupport : IPostLoadableSingleton {
       return;
     }
     foreach (var weather in allWeathers) {
-      extension.AddWeatherId(weather.WeatherId, weather.Spec.NameLocKey);
-      weather.WeatherChanged += (IModdableWeather weather, bool active, bool onLoad) => {
-        if (active || onLoad)
-        {
+      extension.AddWeatherId(weather.Id, weather.Spec.NameLocKey);
+      weather.WeatherChanged += (_, active, onLoad) => {
+        if (active || onLoad) {
           extension.TriggerSeasonCheck();
         }
       };
     }
-    extension.AddTemperateWeatherIdProvider(() => _moddableWeatherService.CurrentWeather.WeatherId);
+    extension.AddTemperateWeatherIdProvider(() => _moddableWeatherService.CurrentWeather.Id);
   }
 }

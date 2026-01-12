@@ -37,7 +37,7 @@
     </PropertyGroup>
     <ItemGroup>
       <Reference Include="ModdableWeathers">
-        <HintPath>..\Dependencies\Workshop\3630523180\version-1.0\ModdableWeathers.dll"</HintPath>
+        <HintPath>..\Dependencies\Workshop\3630523180\version-1.0\ModdableWeathers.dll</HintPath>
       </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -59,8 +59,8 @@
     </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(ModPath)')">
         <Message Text="### Copying files to the game's mods folder... ###" Importance="high"/>
-        <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(ModPath)\$(ProjectName)\version-0.7"/>
-        <Copy SourceFiles="$(MSBuildProjectDirectory)\manifest.json" DestinationFolder="$(ModPath)\$(ProjectName)\version-0.7"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(ModPath)\$(ProjectName)\version-1.0"/>
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\manifest.json" DestinationFolder="$(ModPath)\$(ProjectName)\version-1.0"/>
     </Target>
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
       <PropertyGroup>
