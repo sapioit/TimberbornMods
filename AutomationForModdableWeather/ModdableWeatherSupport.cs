@@ -45,7 +45,10 @@ sealed class ModdableWeatherSupport : IPostLoadableSingleton {
     foreach (var weather in allWeathers) {
       extension.AddWeatherId(weather.WeatherId, weather.Spec.NameLocKey);
       weather.WeatherChanged += (IModdableWeather weather, bool active, bool onLoad) => {
-        extension.TriggerSeasonCheck();
+        if (active || onLoad)
+        {
+          extension.TriggerSeasonCheck();
+        }
       };
     }
     extension.AddTemperateWeatherIdProvider(() => _moddableWeatherService.CurrentWeather.WeatherId);
