@@ -1,3 +1,6 @@
+# v1.14.6 (January 12th, 2026)
+* [Update] Support game version `1.0.7`.
+
 # v1.14.5 (January 12th, 2026)
 * [Fix] Properly handle `BlockContaminationRangeEffectSpec`.
 
