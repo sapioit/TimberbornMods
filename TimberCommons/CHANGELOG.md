@@ -1,3 +1,6 @@
+# v1.14.5 (January 12th, 2026)
+* [Fix] Properly handle `BlockContaminationRangeEffectSpec`.
+
 # v1.14.4 (January 10th, 2026)
 * [Update] Add `BlockContaminationRangeEffectSpec` to allow the contamination block effect on the irrigation tower.
 

@@ -61,7 +61,7 @@ public sealed class BlockContaminationRangeEffect : BaseComponent, IAwakableComp
 
   /// <inheritdoc/>
   public void Awake() {
-    var effectSpec = GetComponent<ModifyGrowableGrowthRangeEffectSpec>();
+    var effectSpec = GetComponent<BlockContaminationRangeEffectSpec>();
     EffectGroup = effectSpec.EffectGroup;
   }
 
