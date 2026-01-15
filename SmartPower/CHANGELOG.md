@@ -1,3 +1,6 @@
+# v1.14.2 (started on January 14th, 2026)
+* [Fix] Generators repeatedly turn ON and OFF.
+
 # v1.14.1 (December 12th, 2025)
 * [Change] Update to support game version `1.0.6.0`. Unity `6000.3.0f1` can't properly load resources from the previous versions :(
 

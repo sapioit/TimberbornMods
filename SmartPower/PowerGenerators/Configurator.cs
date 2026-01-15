@@ -26,8 +26,9 @@ sealed class Configurator : IConfigurator {
 
   static TemplateModule ProvideTemplateModule() {
     var builder = new TemplateModule.Builder();
-    builder.AddDecorator<GoodPoweredGeneratorSpec, SmartGoodConsumingGenerator>();
-    builder.AddDecorator<WalkerPoweredGeneratorSpec, SmartWalkerPoweredGenerator>();
+    // Add decorator to the component, not to spec! We need pre-determined execution order in Tick.
+    builder.AddDecorator<GoodPoweredGenerator, SmartGoodConsumingGenerator>();
+    builder.AddDecorator<WalkerPoweredGenerator, SmartWalkerPoweredGenerator>();
     return builder.Build();
   }
 }
