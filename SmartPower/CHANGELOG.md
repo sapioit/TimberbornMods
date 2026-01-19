@@ -1,4 +1,4 @@
-# v1.14.2 (started on January 14th, 2026)
+# v1.14.2 (January 14th, 2026)
 * [Fix] Generators repeatedly turn ON and OFF.
 
 # v1.14.1 (December 12th, 2025)
