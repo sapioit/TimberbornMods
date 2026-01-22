@@ -102,7 +102,7 @@ sealed class RuleRow {
 
   public event EventHandler OnStateChanged;
 
-  public RuleRow(IEnumerable<IEditorProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
+  public RuleRow(IEnumerable<IEditorButtonProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
     _uiFactory = uiFactory;
     _expressionDescriber = StaticBindings.DependencyContainer.GetInstance<ExpressionDescriber>();
     _parserFactory = StaticBindings.DependencyContainer.GetInstance<ParserFactory>();
@@ -205,11 +205,10 @@ sealed class RuleRow {
     }
     var ruleEditable = false;
     foreach (var provider in _editorProviders) {
-      var canEdit = provider.VerifyIfEditable(this);
-      if (!canEdit) {
+      if (provider.RuleRowBtnLocKey == null || !provider.IsRuleRowBtnEnabled(this)) {
         continue;
       }
-      CreateButton(provider.EditRuleLocKey, _ => provider.MakeForRule(this));
+      CreateButton(provider.RuleRowBtnLocKey, _ => provider.OnRuleRowBtnAction(this));
       ruleEditable = true;
     }
     Root.Q("BottomRowSection").ToggleDisplayStyle(ruleEditable || _originalTemplateFamily != null);
@@ -262,7 +261,7 @@ sealed class RuleRow {
 
   readonly UiFactory _uiFactory;
   readonly ExpressionDescriber _expressionDescriber;
-  readonly IEditorProvider[] _editorProviders;
+  readonly IEditorButtonProvider[] _editorProviders;
   readonly ParserFactory _parserFactory;
 
   readonly VisualElement _sidePanel;

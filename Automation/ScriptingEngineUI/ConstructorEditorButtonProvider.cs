@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 
 namespace IgorZ.Automation.ScriptingEngineUI;
 
-sealed class ConstructorEditorProvider : IEditorProvider {
+sealed class ConstructorEditorButtonProvider : IEditorButtonProvider {
 
   const string AddRuleViaConstructorBtnLocKey = "IgorZ.Automation.Scripting.Editor.AddRuleViaConstructorBtn";
   const string EditInConstructorBtnLocKey = "IgorZ.Automation.Scripting.Editor.EditInConstructorBtn";
@@ -22,13 +22,13 @@ sealed class ConstructorEditorProvider : IEditorProvider {
   #region IEditorProvider implementation
 
   /// <inheritdoc/>
-  public string CreateRuleLocKey => AddRuleViaConstructorBtnLocKey;
+  public string CreateRuleBtnLocKey => AddRuleViaConstructorBtnLocKey;
 
   /// <inheritdoc/>
-  public string EditRuleLocKey => EditInConstructorBtnLocKey;
+  public string RuleRowBtnLocKey => EditInConstructorBtnLocKey;
 
   /// <inheritdoc/>
-  public void MakeForRule(RuleRow ruleRow) {
+  public void OnRuleRowBtnAction(RuleRow ruleRow) {
     var root = _uiFactory.LoadVisualElement("IgorZ.Automation/ConstructorEditView");
     var ruleConstructor = new RuleConstructor(_uiFactory);
     root.Q("RuleConstructor").Add(ruleConstructor.Root);
@@ -54,7 +54,7 @@ sealed class ConstructorEditorProvider : IEditorProvider {
   }
 
   /// <inheritdoc/>
-  public bool VerifyIfEditable(RuleRow ruleRow) {
+  public bool IsRuleRowBtnEnabled(RuleRow ruleRow) {
     var action = ruleRow.ParsedAction;
     if (ruleRow.ParsedCondition == null || action == null) {
       return false;
@@ -84,7 +84,7 @@ sealed class ConstructorEditorProvider : IEditorProvider {
   readonly ScriptingService _scriptingService;
   readonly ParserFactory _parserFactory;
   
-  ConstructorEditorProvider(UiFactory uiFactory, ScriptingService scriptingService, ParserFactory parserFactory) {
+  ConstructorEditorButtonProvider(UiFactory uiFactory, ScriptingService scriptingService, ParserFactory parserFactory) {
     _uiFactory = uiFactory;
     _scriptingService = scriptingService;
     _parserFactory = parserFactory;

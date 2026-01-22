@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace IgorZ.Automation.ScriptingEngineUI;
 
-sealed class ScriptEditorProvider : IEditorProvider {
+sealed class ScriptEditorButtonProvider : IEditorButtonProvider {
 
   const string AddRuleFromScriptBtnLocKey = "IgorZ.Automation.Scripting.Editor.AddRuleFromScriptBtn";
   const string EditAsScriptBtnLocKey = "IgorZ.Automation.Scripting.Editor.EditAsScriptBtn";
@@ -20,13 +20,13 @@ sealed class ScriptEditorProvider : IEditorProvider {
   #region IEditorProvider implementation
 
   /// <inheritdoc/>
-  public string CreateRuleLocKey => AddRuleFromScriptBtnLocKey;
+  public string CreateRuleBtnLocKey => AddRuleFromScriptBtnLocKey;
 
   /// <inheritdoc/>
-  public string EditRuleLocKey => EditAsScriptBtnLocKey;
+  public string RuleRowBtnLocKey => EditAsScriptBtnLocKey;
 
   /// <inheritdoc/>
-  public void MakeForRule(RuleRow ruleRow) {
+  public void OnRuleRowBtnAction(RuleRow ruleRow) {
     var root = _uiFactory.LoadVisualElement("IgorZ.Automation/ScriptEditView");
     var conditionEdit = root.Q<TextField>("ConditionScript");
     conditionEdit.SetValueWithoutNotify(ruleRow.ConditionExpression ?? "");
@@ -55,7 +55,7 @@ sealed class ScriptEditorProvider : IEditorProvider {
   }
 
   /// <inheritdoc/>
-  public bool VerifyIfEditable(RuleRow ruleRow) {
+  public bool IsRuleRowBtnEnabled(RuleRow ruleRow) {
     return ruleRow.LegacyAction == null;
   }
 
@@ -66,7 +66,7 @@ sealed class ScriptEditorProvider : IEditorProvider {
   readonly UiFactory _uiFactory;
   readonly ParserFactory _parserFactory;
   
-  ScriptEditorProvider(UiFactory uiFactory, ParserFactory parserFactory) {
+  ScriptEditorButtonProvider(UiFactory uiFactory, ParserFactory parserFactory) {
     _uiFactory = uiFactory;
     _parserFactory = parserFactory;
   }

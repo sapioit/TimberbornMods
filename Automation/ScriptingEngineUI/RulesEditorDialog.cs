@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Bindito.Core;
 using IgorZ.Automation.Actions;
-using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.AutomationSystemUI;
 using IgorZ.Automation.Conditions;
 using IgorZ.TimberDev.UI;
@@ -73,9 +72,12 @@ sealed class RulesEditorDialog : AbstractDialog {
     var buttons = Root.Q2<VisualElement>("Buttons");
     buttons.Clear();
     foreach (var provider in _editorProviders) {
+      if (provider.CreateRuleBtnLocKey == null) {
+        continue;
+      }
       var btn = UiFactory.LoadVisualElement<Button>(RulesEditorButtonTmplAsset);
-      btn.text = UiFactory.T(provider.CreateRuleLocKey);
-      btn.clicked += () => provider.MakeForRule(CreateScriptedRule());
+      btn.text = UiFactory.T(provider.CreateRuleBtnLocKey);
+      btn.clicked += () => provider.OnRuleRowBtnAction(CreateScriptedRule());
       buttons.Add(btn);
     }
 
@@ -103,7 +105,7 @@ sealed class RulesEditorDialog : AbstractDialog {
 
   #region Implementation
 
-  IEditorProvider[] _editorProviders;
+  IEditorButtonProvider[] _editorProviders;
 
   bool RulesChanged => _ruleRows.Any(x => x.IsDeleted || x.IsModified);
   bool EditsPending => _ruleRows.Any(x => x.IsInEditMode);
@@ -116,8 +118,9 @@ sealed class RulesEditorDialog : AbstractDialog {
   /// <summary>Public for the inject to work properly.</summary>
   [Inject]
   public void InjectDependencies(
-      ScriptEditorProvider scriptEditorProvider, ConstructorEditorProvider constructorEditorProvider) {
-    _editorProviders = [scriptEditorProvider, constructorEditorProvider];
+      ScriptEditorButtonProvider scriptEditorButtonProvider,
+      ConstructorEditorButtonProvider constructorEditorButtonProvider) {
+    _editorProviders = [scriptEditorButtonProvider, constructorEditorButtonProvider];
   }
 
   void Reset() {
