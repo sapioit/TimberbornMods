@@ -115,8 +115,7 @@ sealed class RulesEditorDialog : AbstractDialog {
   /// <param name="index">The position to place the new rwo at.</param>
   public RuleRow InsertScriptedRuleAt(int index) {
     index = Math.Min(index, _ruleRows.Count);
-    var ruleRow = new RuleRow(_editorProviders, UiFactory, _rulesUiHelper.AutomationBehavior);
-    ruleRow.RulesEditorDialog = this;
+    var ruleRow = RuleRow.CreateFor(this, _rulesUiHelper.AutomationBehavior);
     ruleRow.OnStateChanged += OnRuleStateChanged;
     _ruleRows.Insert(index, ruleRow);
     _ruleRowsContainer.Insert(index, ruleRow.Root);
@@ -138,7 +137,7 @@ sealed class RulesEditorDialog : AbstractDialog {
   readonly List<RuleRow> _ruleRows = [];
   
   RulesEditorDialog(IEnumerable<IEditorButtonProvider> editorProviders) {
-    _editorProviders = editorProviders.ToImmutableArray();
+    _editorProviders = editorProviders.Where(x => x.RuleRowBtnLocKey != null).ToImmutableArray();
   }
 
   void Reset() {

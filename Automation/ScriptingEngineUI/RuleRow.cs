@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystem;
@@ -66,7 +67,7 @@ sealed class RuleRow {
 
   public IAutomationAction LegacyAction { get; private set; }
 
-  public readonly AutomationBehavior ActiveBuilding;
+  public AutomationBehavior ActiveBuilding { get; private set; }
 
   public bool IsNew => _originalConditionExpression == null && _originalActionExpression == null;
 
@@ -102,32 +103,14 @@ sealed class RuleRow {
 
   public event EventHandler OnStateChanged;
 
-  public RulesEditorDialog RulesEditorDialog { get; internal set; }
+  public RulesEditorDialog RulesEditorDialog { get; private set; }
 
-  public RuleRow(IEnumerable<IEditorButtonProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
-    _uiFactory = uiFactory;
-    _expressionDescriber = StaticBindings.DependencyContainer.GetInstance<ExpressionDescriber>();
-    _parserFactory = StaticBindings.DependencyContainer.GetInstance<ParserFactory>();
-    ActiveBuilding = activeBuilding;
-    _editorProviders = editors.ToArray();
-
-    Root = _uiFactory.LoadVisualTreeAsset("IgorZ.Automation/RuleRow");
-    _sidePanel = Root.Q("SidePanel");
-    _sidePanel.Q<Button>("DeleteRowBtn").clicked += MarkDeleted;
-    _bottomRowSection = Root.Q("BottomRowSection");
-    _ruleButtons = Root.Q("RuleButtons");
-    _readonlyView = Root.Q("ReadonlyRuleView");
-    _editView = Root.Q("EditRuleView");
-    _notifications  = Root.Q("Notifications");
-    _notifications.ToggleDisplayStyle(false);
-    _templateFamilySection = Root.Q("TemplateFamilySection");
-    _templateFamilySection.ToggleDisplayStyle(false);
-    _templateFamilySection.Q<Button>("RemoveTemplateBtn").clicked += () => SetTemplateFamily(null);
-    _templateFamilySection.Q<Button>("RevertTemplateBtn").clicked += () => SetTemplateFamily(_originalTemplateFamily);
-    _ruleContainer = Root.Q("RuleContainer");
-    _deletedStateOverlay = Root.Q("DeletedStateOverlay");
-    _deletedStateOverlay.ToggleDisplayStyle(false);
-    _deletedStateOverlay.Q<Button>("UndoDeleteBtn").clicked += () => { IsDeleted = false; };
+  /// <summary>The main factory method. Don't create via injection.</summary>
+  public static RuleRow CreateFor(RulesEditorDialog rulesEditorDialog, AutomationBehavior automationBehavior) {
+    var row = StaticBindings.DependencyContainer.GetInstance<RuleRow>();
+    row.RulesEditorDialog = rulesEditorDialog;
+    row.ActiveBuilding = automationBehavior;
+    return row;
   }
 
   public void Initialize(ScriptedCondition condition, ScriptedAction action) {
@@ -263,7 +246,7 @@ sealed class RuleRow {
 
   readonly UiFactory _uiFactory;
   readonly ExpressionDescriber _expressionDescriber;
-  readonly IEditorButtonProvider[] _editorProviders;
+  readonly ImmutableArray<IEditorButtonProvider> _editorProviders;
   readonly ParserFactory _parserFactory;
 
   readonly VisualElement _sidePanel;
@@ -280,6 +263,31 @@ sealed class RuleRow {
   string _originalActionExpression;
   string _templateFamily;
   string _originalTemplateFamily;
+
+  RuleRow(IEnumerable<IEditorButtonProvider> editors, UiFactory uiFactory) {
+    _uiFactory = uiFactory;
+    _expressionDescriber = StaticBindings.DependencyContainer.GetInstance<ExpressionDescriber>();
+    _parserFactory = StaticBindings.DependencyContainer.GetInstance<ParserFactory>();
+    _editorProviders = editors.Where(x => x.RuleRowBtnLocKey != null).ToImmutableArray();
+
+    Root = _uiFactory.LoadVisualTreeAsset("IgorZ.Automation/RuleRow");
+    _sidePanel = Root.Q("SidePanel");
+    _sidePanel.Q<Button>("DeleteRowBtn").clicked += MarkDeleted;
+    _bottomRowSection = Root.Q("BottomRowSection");
+    _ruleButtons = Root.Q("RuleButtons");
+    _readonlyView = Root.Q("ReadonlyRuleView");
+    _editView = Root.Q("EditRuleView");
+    _notifications  = Root.Q("Notifications");
+    _notifications.ToggleDisplayStyle(false);
+    _templateFamilySection = Root.Q("TemplateFamilySection");
+    _templateFamilySection.ToggleDisplayStyle(false);
+    _templateFamilySection.Q<Button>("RemoveTemplateBtn").clicked += () => SetTemplateFamily(null);
+    _templateFamilySection.Q<Button>("RevertTemplateBtn").clicked += () => SetTemplateFamily(_originalTemplateFamily);
+    _ruleContainer = Root.Q("RuleContainer");
+    _deletedStateOverlay = Root.Q("DeletedStateOverlay");
+    _deletedStateOverlay.ToggleDisplayStyle(false);
+    _deletedStateOverlay.Q<Button>("UndoDeleteBtn").clicked += () => { IsDeleted = false; };
+  }
 
   void Reset() {
     _editView.Clear();
