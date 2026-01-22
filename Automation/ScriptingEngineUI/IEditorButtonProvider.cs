@@ -6,8 +6,9 @@ namespace IgorZ.Automation.ScriptingEngineUI;
 
 /// <summary>A basic interface for the components that inject buttons to the rules editor dialog.</summary>
 /// <remarks>
-/// The component can provide ine button at the top level (rules container) and one button for every rule row. All
-/// providers need to be explicitly initialized in <see cref="RulesEditorDialog"/>.
+/// The component can specify an optional button that is used to create a new row. And an optional button that will be
+/// visible for every row. All providers need to be bound via <c>MutiBind</c>. The order of binding will determine the
+/// order of appearance in UI.
 /// </remarks>
 interface IEditorButtonProvider {
   /// <summary>LocKey of the button that creates a new rule row. If <c>null</c>, then button is not shown.</summary>

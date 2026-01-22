@@ -4,8 +4,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
-using Bindito.Core;
 using IgorZ.Automation.Actions;
 using IgorZ.Automation.AutomationSystemUI;
 using IgorZ.Automation.Conditions;
@@ -58,6 +58,9 @@ sealed class RulesEditorDialog : AbstractDialog {
 
   #region API
 
+  /// <summary>The rule rows of the dialog.</summary>
+  public IReadOnlyList<RuleRow> RuleRows => _ruleRows;
+
   public RulesEditorDialog WithUiHelper(RulesUIHelper rulesUiHelper) {
     _rulesUiHelper = rulesUiHelper;
     return this;
@@ -94,6 +97,7 @@ sealed class RulesEditorDialog : AbstractDialog {
     }
   }
 
+  /// <inheritdoc/>
   public override void Close() {
     base.Close();
     _ruleRows.Clear();
@@ -101,11 +105,29 @@ sealed class RulesEditorDialog : AbstractDialog {
     _ruleRowsContainer = null;
   }
 
+  /// <summary>Creates a new rule row at the end of the list.</summary>
+  /// <remarks>The row is not initialized. The caller need to set values and trigger view mode change.</remarks>
+  public RuleRow CreateScriptedRule() {
+    return InsertScriptedRuleAt(_ruleRows.Count);
+  }
+
+  /// <summary>Creates a new rule row and inserts it at the specified position.</summary>
+  /// <param name="index">The position to place the new rwo at.</param>
+  public RuleRow InsertScriptedRuleAt(int index) {
+    index = Math.Min(index, _ruleRows.Count);
+    var ruleRow = new RuleRow(_editorProviders, UiFactory, _rulesUiHelper.AutomationBehavior);
+    ruleRow.RulesEditorDialog = this;
+    ruleRow.OnStateChanged += OnRuleStateChanged;
+    _ruleRows.Insert(index, ruleRow);
+    _ruleRowsContainer.Insert(index, ruleRow.Root);
+    return ruleRow;
+  }
+
   #endregion
 
   #region Implementation
 
-  IEditorButtonProvider[] _editorProviders;
+  readonly ImmutableArray<IEditorButtonProvider> _editorProviders;
 
   bool RulesChanged => _ruleRows.Any(x => x.IsDeleted || x.IsModified);
   bool EditsPending => _ruleRows.Any(x => x.IsInEditMode);
@@ -113,34 +135,15 @@ sealed class RulesEditorDialog : AbstractDialog {
 
   VisualElement _ruleRowsContainer;
   RulesUIHelper _rulesUiHelper;
-  readonly List<RuleRow> _ruleRows = []; 
+  readonly List<RuleRow> _ruleRows = [];
   
-  /// <summary>Public for the inject to work properly.</summary>
-  [Inject]
-  public void InjectDependencies(
-      ScriptEditorButtonProvider scriptEditorButtonProvider,
-      ConstructorEditorButtonProvider constructorEditorButtonProvider, CopyRuleButtonProvider copyRuleButtonProvider) {
-    copyRuleButtonProvider.CreateRuleAfterRowFn = x => InsertScriptedRuleAt(_ruleRows.IndexOf(x) + 1);
-    _editorProviders = [
-        scriptEditorButtonProvider, constructorEditorButtonProvider, copyRuleButtonProvider,
-    ];
+  RulesEditorDialog(IEnumerable<IEditorButtonProvider> editorProviders) {
+    _editorProviders = editorProviders.ToImmutableArray();
   }
 
   void Reset() {
     _ruleRowsContainer.Clear();
     _ruleRows.Clear();
-  }
-
-  RuleRow CreateScriptedRule() {
-    return InsertScriptedRuleAt(_ruleRows.Count);
-  }
-
-  RuleRow InsertScriptedRuleAt(int index) {
-    var ruleRow = new RuleRow(_editorProviders, UiFactory, _rulesUiHelper.AutomationBehavior);
-    ruleRow.OnStateChanged += OnRuleStateChanged;
-    _ruleRows.Insert(index, ruleRow);
-    _ruleRowsContainer.Insert(index, ruleRow.Root);
-    return ruleRow;
   }
 
   void OnRuleStateChanged(object obj, EventArgs args) {

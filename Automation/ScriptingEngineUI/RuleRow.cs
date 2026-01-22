@@ -102,6 +102,8 @@ sealed class RuleRow {
 
   public event EventHandler OnStateChanged;
 
+  public RulesEditorDialog RulesEditorDialog { get; internal set; }
+
   public RuleRow(IEnumerable<IEditorButtonProvider> editors, UiFactory uiFactory, AutomationBehavior activeBuilding) {
     _uiFactory = uiFactory;
     _expressionDescriber = StaticBindings.DependencyContainer.GetInstance<ExpressionDescriber>();

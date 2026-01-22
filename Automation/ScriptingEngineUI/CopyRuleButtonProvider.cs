@@ -2,7 +2,7 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-using System;
+using Timberborn.Common;
 
 namespace IgorZ.Automation.ScriptingEngineUI;
 
@@ -18,7 +18,8 @@ sealed class CopyRuleButtonProvider : IEditorButtonProvider {
 
   /// <inheritdoc/>
   public void OnRuleRowBtnAction(RuleRow ruleRow) {
-    var newRow = CreateRuleAfterRowFn(ruleRow);
+    var dialog = ruleRow.RulesEditorDialog;
+    var newRow = dialog.InsertScriptedRuleAt(dialog.RuleRows.IndexOf(ruleRow) + 1);
     newRow.ConditionExpression = ruleRow.ConditionExpression;
     newRow.ActionExpression = ruleRow.ActionExpression;
     newRow.SwitchToViewMode();
@@ -28,6 +29,4 @@ sealed class CopyRuleButtonProvider : IEditorButtonProvider {
   public bool IsRuleRowBtnEnabled(RuleRow ruleRow) {
     return ruleRow.ConditionExpression != null && ruleRow.ActionExpression != null;
   }
-
-  public Func<RuleRow, RuleRow> CreateRuleAfterRowFn;
 }
