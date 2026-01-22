@@ -11,6 +11,7 @@ namespace IgorZ.Automation.ScriptingEngineUI;
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<ConstructorEditorButtonProvider>().AsSingleton();
+    containerDefinition.Bind<CopyRuleButtonProvider>().AsSingleton();
     containerDefinition.Bind<ExportRulesDialog>().AsSingleton();
     containerDefinition.Bind<ImportRulesDialog>().AsSingleton();
     containerDefinition.Bind<RulesEditorDialog>().AsSingleton();

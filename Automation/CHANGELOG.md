@@ -1,3 +1,6 @@
+# v3.3.0 (started on January 21st, 2026):
+* [Feature] Introduce "Copy rule" button to the rules editor to quickly duplicate an existing rule.
+
 # v3.2.3 (January 5st, 2026):
 * [Fix] Recipe selection in the action UI is not working.
 

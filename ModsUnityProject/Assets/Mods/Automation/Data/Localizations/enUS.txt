@@ -171,6 +171,7 @@ IgorZ.Automation.Scripting.Editor.ArgumentMaxValueHint,"(max: {0})","A hint to s
 IgorZ.Automation.Scripting.Editor.ConditionLabel,"If",
 IgorZ.Automation.Scripting.Editor.ConditionMustBeBoolean,"Condition must be a boolean expression","A message to show when the condition is not a boolean expression"
 IgorZ.Automation.Scripting.Editor.ConditionMustHaveSignals,"Condition must contain at least one signal","A message to show when the condition does not have any signals"
+IgorZ.Automation.Scripting.Editor.CopyRuleBtn,"Duplicate",
 IgorZ.Automation.Scripting.Editor.DeletedRule,"Rule removed","A message to show over the deleted rule"
 IgorZ.Automation.Scripting.Editor.DialogHeader,"Automation rules",
 IgorZ.Automation.Scripting.Editor.DiscardChangesBtn,"Discard changes",

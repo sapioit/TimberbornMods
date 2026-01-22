@@ -119,8 +119,11 @@ sealed class RulesEditorDialog : AbstractDialog {
   [Inject]
   public void InjectDependencies(
       ScriptEditorButtonProvider scriptEditorButtonProvider,
-      ConstructorEditorButtonProvider constructorEditorButtonProvider) {
-    _editorProviders = [scriptEditorButtonProvider, constructorEditorButtonProvider];
+      ConstructorEditorButtonProvider constructorEditorButtonProvider, CopyRuleButtonProvider copyRuleButtonProvider) {
+    copyRuleButtonProvider.CreateRuleAfterRowFn = x => InsertScriptedRuleAt(_ruleRows.IndexOf(x) + 1);
+    _editorProviders = [
+        scriptEditorButtonProvider, constructorEditorButtonProvider, copyRuleButtonProvider,
+    ];
   }
 
   void Reset() {
@@ -129,10 +132,14 @@ sealed class RulesEditorDialog : AbstractDialog {
   }
 
   RuleRow CreateScriptedRule() {
+    return InsertScriptedRuleAt(_ruleRows.Count);
+  }
+
+  RuleRow InsertScriptedRuleAt(int index) {
     var ruleRow = new RuleRow(_editorProviders, UiFactory, _rulesUiHelper.AutomationBehavior);
     ruleRow.OnStateChanged += OnRuleStateChanged;
-    _ruleRows.Add(ruleRow);
-    _ruleRowsContainer.Add(ruleRow.Root);
+    _ruleRows.Insert(index, ruleRow);
+    _ruleRowsContainer.Insert(index, ruleRow.Root);
     return ruleRow;
   }
 
