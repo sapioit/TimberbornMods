@@ -14,6 +14,7 @@ sealed class Configurator : IConfigurator {
     containerDefinition.MultiBind<IEditorButtonProvider>().To<ScriptEditorButtonProvider>().AsSingleton();
     containerDefinition.MultiBind<IEditorButtonProvider>().To<ConstructorEditorButtonProvider>().AsSingleton();
     containerDefinition.MultiBind<IEditorButtonProvider>().To<CopyRuleButtonProvider>().AsSingleton();
+    containerDefinition.MultiBind<IEditorButtonProvider>().To<InvertRuleButtonProvider>().AsSingleton();
 
     containerDefinition.Bind<ExportRulesDialog>().AsSingleton();
     containerDefinition.Bind<ExpressionDescriber>().AsSingleton();

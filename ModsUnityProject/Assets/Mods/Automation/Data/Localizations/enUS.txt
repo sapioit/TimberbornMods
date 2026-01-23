@@ -180,6 +180,7 @@ IgorZ.Automation.Scripting.Editor.EditAsScriptBtn,"Script",
 IgorZ.Automation.Scripting.Editor.EditInConstructorBtn,"Constructor",
 IgorZ.Automation.Scripting.Editor.ExportRulesBtn,"Export rules",
 IgorZ.Automation.Scripting.Editor.ImportRulesBtn,"Import rules",
+IgorZ.Automation.Scripting.Editor.InvertRuleBtn,"Invert",
 IgorZ.Automation.Scripting.Editor.MoreInfoBtn,"Read about scripting",
 IgorZ.Automation.Scripting.Editor.NumberConstantType,"number","Name of the number constant type"
 IgorZ.Automation.Scripting.Editor.PendingEditsNotification,"There are rules in the editing state. Complete them first.",

@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Bindito.Core;
 using IgorZ.Automation.AutomationSystem;
@@ -30,11 +31,26 @@ abstract class ParserBase {
       };
     } catch (ScriptError e) {
       return new ParsingResult { LastScriptError = e };
+    } finally {
+      CurrentContext = null;
     }
   }
 
   /// <summary>Serializes expression back to the parsable form.</summary>
   public abstract string Decompile(IExpression expression);
+
+  /// <summary>Inverts the condition expression.</summary>
+  /// <remarks>
+  /// Not simply negates the result, but rebuilds the expression so that it returns the inversed result.
+  /// </remarks>
+  public BoolOperator InvertBooleanExpression(BoolOperator booleanOperator, AutomationBehavior scriptHost) {
+    CurrentContext = new ExpressionContext { ScriptHost = scriptHost, ScriptingService = _scriptingService };
+    try {
+      return InvertBooleanExpressionInternal(booleanOperator);
+    } finally {
+      CurrentContext = null;
+    }
+  }
 
   #endregion
 
@@ -104,6 +120,31 @@ abstract class ParserBase {
         ScriptValue.TypeEnum.Number => value.AsNumber.ToString(),
         _ => throw new InvalidOperationException("Unsupported type: " + value.ValueType),
     };
+  }
+
+  BoolOperator InvertBooleanExpressionInternal(BoolOperator booleanOperator) {
+    if (booleanOperator is LogicalOperator logicalOperator) {
+      if (logicalOperator.OperatorType == LogicalOperator.OpType.Not) {
+        return logicalOperator.Operands[0] as BoolOperator;
+      }
+      var invertedOperands = logicalOperator.Operands.Cast<BoolOperator>().Select(InvertBooleanExpressionInternal)
+          .ToArray<IExpression>();
+      return logicalOperator.OperatorType == LogicalOperator.OpType.And
+          ? LogicalOperator.CreateOr(invertedOperands)
+          : LogicalOperator.CreateAnd(invertedOperands);
+    }
+    if (booleanOperator is BinaryOperator binaryOperator) {
+      return binaryOperator.OperatorType switch {
+          BinaryOperator.OpType.Equal => BinaryOperator.CreateNe(CurrentContext, binaryOperator.Operands),
+          BinaryOperator.OpType.NotEqual => BinaryOperator.CreateEq(CurrentContext, binaryOperator.Operands),
+          BinaryOperator.OpType.GreaterThan => BinaryOperator.CreateLe(CurrentContext, binaryOperator.Operands),
+          BinaryOperator.OpType.GreaterThanOrEqual => BinaryOperator.CreateLt(CurrentContext, binaryOperator.Operands),
+          BinaryOperator.OpType.LessThan => BinaryOperator.CreateGe(CurrentContext, binaryOperator.Operands),
+          BinaryOperator.OpType.LessThanOrEqual => BinaryOperator.CreateGt(CurrentContext, binaryOperator.Operands),
+          _ => throw new InvalidOperationException($"Unexpected binary operator {binaryOperator}"),
+      };
+    }
+    throw new InvalidOperationException($"Unsupported boolean operator: {booleanOperator}");
   }
 
   #endregion
