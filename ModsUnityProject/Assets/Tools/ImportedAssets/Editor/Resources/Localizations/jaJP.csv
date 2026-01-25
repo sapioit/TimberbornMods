@@ -12,9 +12,9 @@ AnalyticsConsent.Info,"Timberbornのプレイデータを共有し、ゲーム�
 Attractions.LoadRate,人気度,Header above a panel showing how popular an attraction is in each hour during the day
 Attractions.Visitors,訪問者,"A header above a list of beavers visiting an attraction, such as a campfire."
 Attractions.VisitorsLimit,訪問者： {0},{0} stands for capacity. Tells players the max capacity of the attraction in a shorter way
-Autosave.Success,自動保存,"Notification on top of the window when autosave succeeded. Keep short, it disappears after 2 seconds"
 Autosave.Failure,自動保存に失敗,Notification on top of the window when autosave failed. It disappears after 10 seconds
 Autosave.FailureDueToFullDisk,ディスク領域の不足により自動保存できません,Notification on top of the window when autosave failed. It disappears after 10 seconds
+Autosave.Success,自動保存,"Notification on top of the window when autosave succeeded. Keep short, it disappears after 2 seconds"
 BatchControl.Distribution,配給,Title of the distribution panel
 BatchControl.Housing,住居,Tooltip of a tab allowing to manage housing buildings.
 BatchControl.Mechanical,動力,Tooltip of a tab allowing to manage mechanical buildings. Power must be the same as used in Mechanical.PowerInput and other Mechanical. keys.
@@ -24,24 +24,24 @@ BatchControl.Population,人口,Tooltip of a tab allowing to manage population.
 BatchControl.ShowInfo,開拓地の管理,Button opening a window to view and manage multiple buildings and characters at once . Please keep short
 BatchControl.Storage,倉庫,Tooltip of a tab allowing to manage warehouses.
 BatchControl.Workplaces,仕事場,Tooltip of a tab allowing to manage workplaces.
-Beaver.Adulthood,大人,Next to a progress bar that shows when a baby beaver reaches adulthood.
 Beaver.Adult.TemplateName,ビーバー(大人),
+Beaver.Adulthood,大人,Next to a progress bar that shows when a baby beaver reaches adulthood.
 Beaver.Age,日齢： {0},"{0} stands for number of days, for example 'Age: 5'."
 Beaver.Child.TemplateName,ビーバー(子供),
 Beaver.DeadNameSuffix,（死亡）,Preceded by beaver name and age
 Beaver.DiedOldAge,{0}は老衰で亡くなりました。,{0} stands for beaver name
 Beaver.Employment,雇用,Header of a section that tells of how many and where beavers are working
 Beaver.GrewUp,{0}が大人になりました。,{0} stands for beaver name. A notification that a beaver achieved maturity.
-Beaver.House,住み家：{0},{0} stands for Building.DisplayName. Tells which type of building the beaver resides in.
 Beaver.Homeless,ホームレス,Signifies that the beaver has no home
 Beaver.HomelessPlural,ホームレス,Label before number of homeless beavers
+Beaver.House,住み家：{0},{0} stands for Building.DisplayName. Tells which type of building the beaver resides in.
 Beaver.Launched,{0}が出発しました。,{0} stands for beaver name. A notification that a beaver has been launched in a plane.
 Beaver.PluralDisplayName,ビーバー,
 Beaver.Population.Adults,大人,Label before number of adult beavers
 Beaver.Population.Children,子供,Label before number of kit beavers
+Beaver.Population.Contaminated,中毒症,Header of the list of beavers contaminated by badwater. Should be similar or same as Need.BadwaterContamination.DisplayName
 Beaver.Population.ContaminatedAdults,中毒症の大人,"Label before number of adult beavers contaminated by badwater. ""Contaminated"" should be similar or same as Need.BadwaterContamination.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project."
 Beaver.Population.ContaminatedChildren,中毒症の子供,"Label before number of children beavers contaminated by badwater. ""Contaminated"" should be similar or same as Need.BadwaterContamination.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project."
-Beaver.Population.Contaminated,中毒症,Header of the list of beavers contaminated by badwater. Should be similar or same as Need.BadwaterContamination.DisplayName
 Beaver.Unemployed,無職,"Signifies that the beaver has no job, singular"
 Beaver.UnemployedPlural,無職,"Used in population statistics, followed by the number of unemployed beavers"
 Beaver.Workplace,仕事場：{0},{0} stands for Building.DisplayName. Tells which type of building the beaver works in.
@@ -50,7 +50,6 @@ Bonus.CuttingSuccessChance,伐採確率,Cutting chance when cutting down a tree
 Bonus.GrowthSpeed,成長スピード,Speed at which young beavers grow up
 Bonus.LifeExpectancy,寿命,The presumed length of beavers' life.
 Bonus.MovementSpeed,移動の速さ,"Describes how fast character can move (bonus to walking, running and swimming)."
-Bonus.Source,{0}の受け取り元：,{0} stands for Bonus name. Header above a list of needs that give this bonus.
 Bonus.WorkingSpeed,仕事の速さ,Speed at which the beavers work.
 Bot.BeaversPerished,"ビーバーどもは本当にしょうもない奴らだ。
 あんなに恵まれていたのに。きれいな空気。澄みきった水。
@@ -68,21 +67,23 @@ Breeding.NutrientsNeeded,必要な栄養素：,Followed by a list of nutrients n
 Breeding.Progress,繁殖の進行度,Label inside a progress bar describing production progress of new beaver in breeding facility
 BuilderPriorityTool.Description,建設や取り壊し、がれきの山での資源採集の優先順位を決める。,Rubble should be plural version of RecoveredGoodStack.DisplayName
 BuilderPriorityTool.Tip,優先度を設定するには対象をクリックするか、ホールドで範囲選択できます。,
-Building.Agora.Description,ビーバーが集まって木工についてお話できる広い場所。,
-Building.Agora.DisplayName,アゴラ,
-Building.Agora.FlavorDescription,緑のビーコンが点灯したら、フォークテイルが集まる合図だ。,Folktails must be same as faction as Faction.Folktails.DisplayName.
 Building.AdvancedBreedingPod.Description,先端的な繁殖プロセスを利用することで、勤勉な大人のビーバーを生み出す。,Breeding should be the same as Building.BreedingPod.DisplayName
 Building.AdvancedBreedingPod.DisplayName,改良版繁殖ポッド,
 Building.AdvancedBreedingPod.FlavorDescription,このアイデアは、子ビーバーが精製物で一杯の釜に落ち、それを飲み干したところ、巨大な成長を遂げたことから生まれた。,"Extract must be the same as Good.Extract.DisplayName, kit is a young beaver."
+Building.Agora.Description,ビーバーが集まって木工についてお話できる広い場所。,
+Building.Agora.DisplayName,アゴラ,
+Building.Agora.FlavorDescription,緑のビーコンが点灯したら、フォークテイルが集まる合図だ。,Folktails must be same as faction as Faction.Folktails.DisplayName.
 Building.AncientAquiferDrill.DisplayName,古代の帯水層ドリル,
-Building.AquaticFarmhouse.Description,<YellowHighlight>水生</YellowHighlight> 作物を育てて収穫することを専門にする農夫を雇う。,"Aquatic is a keyword, must be the same as in NaturalResources.Aquatic."
+Building.AquaticFarmhouse.Description,<YellowHighlight>水生</YellowHighlight>作物を育てて収穫することを専門にする農夫を雇う。,"Aquatic is a keyword, must be the same as in NaturalResources.Aquatic."
 Building.AquaticFarmhouse.DisplayName,水生農場,A farmhouse that specializes in water plants.
 Building.AquaticFarmhouse.FlavorDescription,「私たちが魚を食べるなんていう噂があったのよ。気持ち悪い！」—ママ・ンゴネル,"Beavers eating fish is a common misconception. Beavers are 100% herbivores. Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
 Building.Aquifer.Description,地下水源。,
 Building.Aquifer.DisplayName,帯水層,
 Building.AquiferDrill.Description,帯水層から水を抽出する。,
 Building.AquiferDrill.DisplayName,帯水層ドリル,
-Building.BadwaterDischarge.Description,汚水の源を封じる。必要に応じて開閉可能。干ばつ時に開くことで汚水の流量を調整できる。,"Badwater Source must be the same as Building.BadwaterSource.DisplayName, Badwater must be the same as Good.Badwater.DisplayName."
+Building.BadtideDrain.Description,悪潮の間、汚水を吐き出す。,
+Building.BadtideDrain.DisplayName,悪潮ドレーン,
+Building.BadwaterDischarge.Description,汚水の源を封じる。開閉可能。開くと、干ばつ時でも汚水の流量を調整できる。,"Badwater Source must be the same as Building.BadwaterSource.DisplayName, Badwater must be the same as Good.Badwater.DisplayName."
 Building.BadwaterDischarge.DisplayName,汚水の放水,"Name of the building that can either stop flow of badwater or enforce flow with full power. It's a dome shaped, mechanical building that opens and closes like a camera shutter. Badwater must be the same as Good.Badwater.DisplayName."
 Building.BadwaterDischarge.FlavorDescription,近付く事を許されているのは、本物の土木技師だけだ。,This is a reference to a youtuber called Real Civil Engineer.
 Building.BadwaterDome.Description,汚水の源を封じる。必要に応じて開閉可能。,"Badwater Source must be the same as Building.BadwaterSource.DisplayName, Badwater must be the same as Good.Badwater.DisplayName."
@@ -98,9 +99,6 @@ Building.BadwaterSeep.Description,水圧が制限された汚水の源。,
 Building.BadwaterSeep.DisplayName,汚水漏れ,"A building that allows badwater to seep through, creating a natural badwater source."
 Building.BadwaterSource.DisplayName,汚水の源,A crack or spring in the ground spuming badwater. Badwater should be the same as Good.Badwater.DisplayName.
 Building.BadwaterSource.FlavorDescription,「何でニンゲンが作り出したゴミの始末をしなければならないかって？ まぁ、アイツらはもうみんな死んでるからねぇ」—ピナ,
-Building.ContaminationBarrier.Description,地中の土壌汚染拡大を防ぐ。,Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
-Building.ContaminationBarrier.DisplayName,汚染防壁,Name of the building that stops spreading soil contamination that's placed on the ground and is presented as square shape with objects sticking out. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Barrier should be the same between Building.IrrigationBarrier.DisplayName and Building.ContaminationBarrier.DisplayName.
-Building.ContaminationBarrier.FlavorDescription,「1日1つの防壁で悪潮退治！」—士気高揚ポスター,"Reference to the ""An apple a day, keeps the doctor away"" proverb. If possible try to adapt the phrase to fit your language."
 Building.Bakery.Description,色んな粉からパンとペストリーを作る。,Pastry being a baked good.
 Building.Bakery.DisplayName,パン屋,Building that bakes bread
 Building.Bakery.FlavorDescription,「おがくずをちょっとまぶしたアツアツのパンほど美味しいものはない」―ママ・ンゴネル,"Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
@@ -114,7 +112,7 @@ Building.BeaverStatue.Description.Folktails,良く肥えたビーバーの像。
 Building.BeaverStatue.Description.IronTeeth,働き者のビーバーの像。,
 Building.BeaverStatue.DisplayName,ビーバーの像,Statue of a beaver
 Building.BeaverStatue.FlavorDescription.Folktails,豊作の年には誇らしく、凶作の年には空腹を感じる。,The statue shows a beaver with a full belly so it can make one hungry when looking at it.
-Building.BeaverStatue.FlavorDescription.IronTeeth,鎌を持ったデザインは、とてもフォークテイルらしいと判断された。,This metal statue depicts a beaver worker with a raised hammer. Hammer and sickle is an emblem of Soviet Russia. Folktails must be same as faction name (Faction.Folktails.DisplayName).
+Building.BeaverStatue.FlavorDescription.IronTeeth,鎌を持ったオリジナルデザインは、とてもフォークテイルらしいと判断された。,This metal statue depicts a beaver worker with a raised hammer. Hammer and sickle is an emblem of Soviet Russia. Folktails must be same as faction name (Faction.Folktails.DisplayName).
 Building.Beehive.Description,近辺の作物の成長を促進する。,
 Building.Beehive.DisplayName,ハチの巣,
 Building.Beehive.FlavorDescription,「ブンブンいってるハチにもそのうちなれるさ」—ママ・ンゴネル,"Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
@@ -126,15 +124,13 @@ Building.Bench.FlavorDescription,時々、野蛮な奴らが公共物を食べ�
 Building.Blockage.Description,水をせき止める自然の障害物。取り壊せる。,Demolished meaning removed by a worker.
 Building.Blockage.DisplayName,せきとめ,"Not a dam since that's another building in game but if not possible it could be called a Natural Dam. Visually, it's a block made out of twigs and loose stones."
 Building.Blockage.FlavorDescription,泥と枝でダムを造っていたシンプルな時代があったなんて信じがたい。,
-Building.BotAssembler.Description,ビーバーの仕事を手伝う自律型のボットを組み立てる。,Bots should be the same as Bot.PluralDisplayName
+Building.BotAssembler.Description,日常のタスクをこなす自動ボットを集める。,Bots should be the same as Bot.PluralDisplayName
 Building.BotAssembler.DisplayName,ボット組立所,A factory for assembling bots. Bot should be the same as Bot.TemplateName
 Building.BotAssembler.FlavorDescription,すべての始まりは、「もし今日、仕事をしなくてよかったなら」という簡単な思い付きだった。—ピナ,
-Building.BotPartFactory.Description,ボットの部品を組み立てる。,Bot should be the same as Bot.TemplateName
+Building.BotPartFactory.Description,ボットの部品を製造する。,Bot should be the same as Bot.TemplateName
 Building.BotPartFactory.DisplayName,ボット部品工場,"A factory for creating bot parts, that are later assembled into full bots. Bot should be the same as Bot.TemplateName."
 Building.BotPartFactory.FlavorDescription,「できあがり！ あれ、このネジは何？」—ピナ,
-Building.Bramble.Description,灌漑および汚染拡大を防ぐ頑強な障壁。取り壊すのが困難で、へたに壊そうとすると怪我をする恐れがある。,
-Building.Bramble.DisplayName,ブランブル,
-Building.Brazier.Description,装飾用の箱に入った火。,
+Building.Brazier.Description,装飾的な囲いの中で安全に燃える炎。,
 Building.Brazier.DisplayName,火鉢,
 Building.Brazier.FlavorDescription,「うわぁ かっこいい」—スーリ,Play on words with lit meaning both lit up and cool. If possible try to adapt the phrase to fit your language. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible.
 Building.BrazierOfBonding.DisplayName,絆の火鉢,A large brazier surrounded by statues of a beaver family
@@ -144,7 +140,7 @@ Building.BreedingPod.DisplayName,繁殖ポッド,
 Building.BreedingPod.FlavorDescription,「子供はわしらの未来だ。来月までにもう12人必要だぞ」—キャズ爺,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.BuildersHut.Description,建設作業員を雇う。,
 Building.BuildersHut.DisplayName,建設作業員の小屋,
-Building.BuildersHut.FlavorDescription,ビーバローマは1日にして成らず。伝説によると6時間で成ったそうだ。,Beaverome is a mythical beaver city built by beavers of many different factions who banded together to work on timber-tech for the greater good of all beavers.
+Building.BuildersHut.FlavorDescription,ビーバローマは1日にして成らず。伝説によると6時間で成ったそうだ。,Beaverome is a mythical beaver city built by beavers of many different factions who banded together to work on timbertech for the greater good of all beavers.
 Building.BulletinPole.Description,民衆にメッセージを届けるための装飾用の柱。,
 Building.BulletinPole.DisplayName,公報の柱,
 Building.BulletinPole.FlavorDescription,仕事中に怪我をしましたか？ 補償を受けられるかもしれません！ スーリまでご相談ください。,Reference to common compensation scam text. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible.
@@ -160,18 +156,21 @@ Building.Centrifuge.FlavorDescription,このアイデアは、フォークテイ
 Building.ChargingStation.Description,ボットが補給する場所。,Bots should be the same as Bot.PluralDisplayName
 Building.ChargingStation.DisplayName,補給ステーション,A mechanically powered building where bots come to recharge
 Building.ChargingStation.FlavorDescription,非アイアンボット機器と一緒に使ってはいけない。,"Referring the annoying ""a different connector for each device"" trend in IT. Ironbot must be the same as Bot.DisplayName.IronTeeth"
-Building.Clock.Description,装飾用の時計。,
+Building.Clock.Description,おじいさんでも読めるような大きな装飾用時計。,
 Building.Clock.DisplayName,時計,
 Building.Clock.FlavorDescription,ビーバーがかつては水時計を使っていたとは想像しがたい。,Clepsydra is an ancient water clock.
 Building.CoffeeBrewery.Description,コーヒーを焙煎する。,Coffee should be the same as in Good.Coffee.DisplayName.
 Building.CoffeeBrewery.DisplayName,コーヒー焙煎所,A building that brews coffee.
 Building.CoffeeBrewery.FlavorDescription,消費期限さえなければ、アイアン・ティースは眠らず働き続けるだろう。,
-Building.ContemplationSpot.Description,ビーバーが自然について考えを巡らすことができる小さな場所。,
-Building.ContemplationSpot.DisplayName,思索スポット,
-Building.ContemplationSpot.FlavorDescription,ビーバーは、自然の気まぐれをいかに乗り越えるかを考えるためにここを訪れる。,
-Building.CompactWaterWheel.Description,水流をエネルギーへ変換する小型動力発生装置。,
+Building.CompactWaterWheel.Description,水流を動力へ変換する小型動力発生装置。,
 Building.CompactWaterWheel.DisplayName,小型水車,A water wheel that's smaller than other versions.
 Building.CompactWaterWheel.FlavorDescription,そう、水車を再発明できる。,A play on 'can't reinvent the wheel'
+Building.ContaminationBarrier.Description,地中の土壌汚染拡大を防ぐ。,Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
+Building.ContaminationBarrier.DisplayName,汚染防壁,Name of the building that stops spreading soil contamination that's placed on the ground and is presented as square shape with objects sticking out. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Barrier should be the same between Building.IrrigationBarrier.DisplayName and Building.ContaminationBarrier.DisplayName.
+Building.ContaminationBarrier.FlavorDescription,「1日1つの防壁で悪潮退治！」—士気高揚ポスター,"Reference to the ""An apple a day, keeps the doctor away"" proverb. If possible try to adapt the phrase to fit your language."
+Building.ContemplationSpot.Description,ビーバーが自然について考えを巡らすことができる小さな場所。,
+Building.ContemplationSpot.DisplayName,思索スポット,
+Building.ContemplationSpot.FlavorDescription,ビーバーがここで静かな時間を過ごし、母なる自然の気まぐれさに思いを馳せる。,
 Building.ControlTower.Description,近くのボットに信号を送り、性能ブーストを与える背の高い建物。,Bots should be the same as Bot.PluralDisplayName
 Building.ControlTower.DisplayName,制御タワー,A building that emits a signal to nearby bots
 Building.ControlTower.FlavorDescription,ボットはビーバーから与えられる命令に従わなければならない。ただし、ビーバーがいなくなった場所を除く。,"A loose adaptation of Asimov's second law of robotics (and a hint at the ""sentient AI"" scenario). Bot must be the same as Bot.TemplateName."
@@ -181,7 +180,7 @@ Building.Dam.FlavorDescription,公然の事実だが、公共インフラは水�
 Building.DanceHall.Description,ビーバーが尻尾を伸ばすことができるオープンホール。,
 Building.DanceHall.DisplayName,ダンスホール,
 Building.DanceHall.FlavorDescription,「ほらほら、アイアン・ティースみたいに突っ立ってないで」—スーリ,Iron Teeth must be the same as Faction.IronTeeth.DisplayName. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible.
-Building.DecontaminationPod.Description,汚水にさらされたビーバーを癒すためのタンク。,Badwater should be the same as Good.Badwater.DisplayName.
+Building.DecontaminationPod.Description,汚水に触れたビーバーが回復するための風呂。,Badwater should be the same as Good.Badwater.DisplayName.
 Building.DecontaminationPod.DisplayName,除染ポッド,Ideally the name of the building should refer to the contamination effect on the beaver (Need.BadwaterContamination).
 Building.DecontaminationPod.FlavorDescription,「スーリ、精製物は飲めないよ。お前は子供の頃に釜に落ちただろう！」—ママ・ンゴネル,"Reference to Obelix from Asterix and Obelix falling into a cauldron. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible. Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
 Building.DeepBadwaterPump.DisplayName,汚水ポンプ（深水）,"Badwater Pump Must be the same as Building.BadwaterPump.DisplayName, Deep should be the same as in Building.DeepWaterPump.DisplayName"
@@ -190,14 +189,14 @@ Building.DeepMechanicalFluidPump.DisplayName,自動汲水ポンプ（深水）,
 Building.DeepWaterPump.Description,飲料用に水を汲み上げ、ろ過する。汚水による汚染はポンプの速度を低下させる。,
 Building.DeepWaterPump.DisplayName,汲水ポンプ（深水）,A water pump which can access deeper water than a regular pump.
 Building.DeepWaterPump.FlavorDescription,「水は地球の裏側からやってくる。そこではガマが育ち、ビーバーが配管工をやっている」—アイアン・ティースの労働歌,"Adapted from Men at Work's famous 'Down Under' song ; Iron Teeth is a faction name, keep consistent (Faction.IronTeeth.DisplayName)"
-Building.Detailer.Description,ビーバーの尻尾をカスタマイズする。,This building allows the player to paint beavers' tails.
+Building.Detailer.Description,ビーバーのしっぽをカスタマイズする。,This building allows the player to paint beavers' tails.
 Building.Detailer.DisplayName,装飾アイテム,Detailer references that the tail customisations are details/decorations.
 Building.Detailer.Folktails.FlavorDescription,尻尾を飾りつけして、自分らしさを表現しよう。,"Only Folktails have ads, so they can also have magazines. ""Weird Tales"" is a famous pulp magazine."
 Building.Detailer.IronTeeth.FlavorDescription,きっと大したことないって。—スーリ,"Wordplay, as the IT variant looks painful to use."
 Building.DirtExcavator.Description,土砂を採取するための頑丈な採掘装置。岩盤に到達した後も、土砂を掘りおこしつづける。,Dirt must the same as Good.Dirt.DisplayName.
 Building.DirtExcavator.DisplayName,土砂採掘機,"A machine used to gather dirt, leaving a giant hole. Dirt must be the same as Good.Dirt.DisplayName."
 Building.DirtExcavator.FlavorDescription,ドリルとは別物！,It's literally not a drill. It's a different kind of mining equipment. ;)
-Building.DistrictCenter.Description,独自のビーバー人口、資源、個別の道路網を持った地区を立ち上げ、建設作業員を雇う。,
+Building.DistrictCenter.Description,独自のビーバー人口、物資、個別の道路網を持った地区を立ち上げ、建設作業員を雇う。,
 Building.DistrictCenter.DisplayName,地区の中心,
 Building.DistrictCenter.FlavorDescription.Folktails,「心地よさ、食べ物、そして頑丈な木」—フォークテイルのモットー,The motto must be the same as in Faction.Folktails.Description
 Building.DistrictCenter.FlavorDescription.IronTeeth,「働け、もっと働け」—アイアン・ティースのモットー,The motto must be the same as in Faction.IronTeeth.Description
@@ -219,26 +218,26 @@ Building.Dynamite.BeaverDeathMessage,{0}は爆発で亡くなりました。,{0}
 Building.Dynamite.CantDetonate,設置マスが低すぎるため、点火できません。,Message shows if dynamite is built on the lowest level of the map
 Building.Dynamite.Description,下の地形を破壊し、近くのダイナマイトを爆発させる。,Triggers can be changed to detonates
 Building.Dynamite.Detonate,点火,A button.
-Building.Dynamite.DisplayName,ダイナマイト,There's a resource called Explosives so they need to have different names
+Building.Dynamite.DisplayName,ダイナマイト,There's a good called Explosives so they need to have different names
 Building.Dynamite.ExplosionDepth,爆発深度：{0},"Explains how deep the dynamite explosion is, {0} stands for the vertical number of blocks"
 Building.Dynamite.FlavorDescription,終末を迎えた後の世界に適応するため、時に過激な手段も必要だった。,
-Building.EfficientFarmhouse.Description,作物の栽培および収穫を行う農夫を雇う。より多くの労働者が働けるようフォークテイルが設計した拡大版。,Farmhouse should be the same as in Building.Farmhouse.DisplayName
-Building.EfficientFarmhouse.DisplayName,効率的な農場,Farmhouse should be the same as in Building.Farmhouse.DisplayName
-Building.EfficientFarmhouse.FlavorDescription,効率的なのは「職場で食事をしない」方針のおかげ。,
-Building.EfficientMine.Description,鉱夫を雇い、地下遺跡から金属スクラップを取り出す。革新的な設計により、採掘速度を最速化する。,"Underground Ruins is a building, same as Building.Underground Ruins.DisplayName"
-Building.EfficientMine.DisplayName,効率的な鉱山,An extracting facility which can be placed on underground ruins.
-Building.EfficientMine.FlavorDescription,アイアン・ティースは地下調査を行うことで、対抗ビーバーの一歩先に出た。,"Reference to the ""upper hand"" phrase. The mine is built on top of underground human ruins."
 Building.EarthRecultivator.Folktails.Description,木の種を地球全体に撒き散らす。発射すると、その地域のビーバーは大喜びする。,
 Building.EarthRecultivator.Folktails.DisplayName,地球再生機,Earth meaning planet Earth and Recultivator meaning regenerating the planet.
 Building.EarthRecultivator.Folktails.FlavorDescription,種を蒔くたびに、希望が芽生えていく。,
 Building.EarthRepopulator.IronTeeth.Description,パイオニアを遠く離れた土地へ送り出す。打ち上げると、その地域のビーバーは大喜びする。,
 Building.EarthRepopulator.IronTeeth.DisplayName,地球の人口回復機,Earth meaning planet Earth and Repopulator meaning starting new colonies or restoring the population.
 Building.EarthRepopulator.IronTeeth.FlavorDescription,今では機密であるカタパルトを使用したテストを行ったあと、このデザインが代わりに採用された。,"This building looks like a plane runway, so this jokingly references a more primitive idea."
-Building.ExercisePlaza.Description,ビーバーのグループがエクササイズできる場所。,
+Building.EfficientFarmhouse.Description,作物の栽培および収穫を行う農夫を雇う。より多くの農夫が働けるようフォークテイルが設計した拡大版。,Farmhouse should be the same as in Building.Farmhouse.DisplayName
+Building.EfficientFarmhouse.DisplayName,効率的な農場,Farmhouse should be the same as in Building.Farmhouse.DisplayName
+Building.EfficientFarmhouse.FlavorDescription,効率的なのは「職場で食事をしない」方針のおかげ。,
+Building.EfficientMine.Description,鉱夫を雇い、地下遺跡から金属スクラップを取り出す。革新的な設計により、採掘速度を最速化する。,"Underground Ruins is a building, same as Building.Underground Ruins.DisplayName"
+Building.EfficientMine.DisplayName,効率的な鉱山,An extracting facility which can be placed on underground ruins.
+Building.EfficientMine.FlavorDescription,アイアン・ティースは地下調査を行うことで、対抗ビーバーの一歩先に出た。,"Reference to the ""upper hand"" phrase. The mine is built on top of underground human ruins."
+Building.ExercisePlaza.Description,体幹と柔軟性を鍛えるために定められた集団ルーティンを行うためのエリア。,
 Building.ExercisePlaza.DisplayName,エクササイズプラザ,
 Building.ExercisePlaza.FlavorDescription,アイアン・ティースは自分たちの創造物になりきっている。もっと強く、もっと速く。,"Reference to the Daft Punk song ""Harder, Better, Faster, Stronger""."
-Building.ExplosivesFactory.Description,汚水から爆薬を製造する。,Explosives and badwater being resource names. Badwater should be the same as Good.Badwater.DisplayName.
-Building.ExplosivesFactory.DisplayName,爆薬工場,Explosives is a resource name
+Building.ExplosivesFactory.Description,汚水から爆薬を製造する。,Explosives and badwater being goods names. Badwater should be the same as Good.Badwater.DisplayName.
+Building.ExplosivesFactory.DisplayName,爆薬工場,Explosives is name of a good.Explosives should be the same as Good.Explosives.PluralDisplayName
 Building.FarmerMonument.DisplayName,農夫の像,A large statue of a farmer carrying a bundle of wheat.
 Building.FarmerMonument.FlavorDescription,荒れ地を耕し、民を養う。,
 Building.Farmhouse.Description,作物を育てて収穫する農夫を雇う。,
@@ -265,18 +264,18 @@ Building.Forester.DisplayName,森番の詰所,A building with a worker that plan
 Building.Forester.FlavorDescription,ビーバー社会全体をもりもり盛り上げる森の管理者。,"Forresters are a family of central characters in ""Bold and Beautiful"", an extremely long-running American soap opera. Feel free to adapt this flavor, do not translate that literally."
 Building.FountainOfJoy.DisplayName,喜びの泉,A large water fountain with statues on top.
 Building.FountainOfJoy.FlavorDescription,誰かを幸せにすることができるのであれば、無駄とは言えない。,Water is a very preciuos resource in Timberborn - fountains could be seen as a waste.
-Building.GathererFlag.Description,野生の植物から資源を採集する。,
+Building.GathererFlag.Description,野生の植物から物資を採集する。,
 Building.GathererFlag.DisplayName,採集者の基点,Flag' could also be a Post or something similar as long as it is consistent with other Flags and different from Haulers Post
 Building.GathererFlag.FlavorDescription,カゴにベリーを集めていたら、偶然にもおいしいスイーツのアイデアが浮かんだ。,
-Building.GearWorkshop.Description,木の板から歯車を製造する。,Gears and Planks are resources; keep consistent.
-Building.GearWorkshop.DisplayName,歯車製造所,Gear is a resource
+Building.GearWorkshop.Description,木の板から歯車を製造する。,Gears and Planks are goods; keep consistent.
+Building.GearWorkshop.DisplayName,歯車製造所,Gear is a good
 Building.GearWorkshop.FlavorDescription,「ウッドギア（は）ソリッド！」というキャッチフレーズとともに、キャズ爺は工業化を急速に推し進めた。,"Metal Gear Solid is a famous Japanese video game series. Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.GeothermalEngine.Description,地熱地帯を利用して動力を発生させる大型タービン。,
 Building.GeothermalEngine.DisplayName,地熱エンジン,
 Building.GeothermalField.Description,絶え間ない動力を供給する自然の動力源。適切な装置を用いれば利用可能。,
 Building.GeothermalField.DisplayName,地熱地帯,
-Building.GravityBattery.Description,余剰エネルギーを備蓄し、エネルギーが不足しているときに供給する。高ければ高いほど、多くのエネルギーを蓄えられる。,
-Building.GravityBattery.DisplayName,重力バッテリー,"A battery in the form of a crane, that stores energy by raising a heavy weight above the ground."
+Building.GravityBattery.Description,余剰動力を蓄え、動力が不足しているときに供給する。高ければ高いほど、多くの動力を蓄えられる。,
+Building.GravityBattery.DisplayName,重力バッテリー,"A battery in the form of a crane, that stores power by raising a heavy weight above the ground."
 Building.GravityBattery.FlavorDescription,物理法則を作り上げてしまえば、こんな事もできるのだ。,Gravity batteries in the real world do not make sense from the physics standpoint.
 Building.GreaseFactory.Description,ボットマシン用の潤滑油を製造する工場。,Bots should be the same as in Bot.TemplateName. Grease should be the same as Good.Grease.DisplayName.
 Building.GreaseFactory.DisplayName,グリス工場,Grease should be the same as Good.Grease.DisplayName.
@@ -284,9 +283,9 @@ Building.GreaseFactory.FlavorDescription,「ロボットはシステマティッ
 Building.Grill.Description,野菜を焼く。,
 Building.Grill.DisplayName,グリル,A place that grills
 Building.Grill.FlavorDescription,「焼くも蒸かすもマッシュするも全部フライパンひとつで！ ジャガイモ料理500選」―ママ・ンゴネル,"Adapted quote from Lord of the Rings paired with a nod to an infamous Soviet-era cookbook ""500 potato dishes"". Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
-Building.Gristmill.Description,植物を挽いて粉にする。,"Plant matter meaning different parts of plants, such as roots or flowers."
+Building.Gristmill.Description,根や種を挽いて粉にする。,"Plant matter meaning different parts of plants, such as roots or flowers."
 Building.Gristmill.DisplayName,製粉所,
-Building.Gristmill.FlavorDescription,食事内容が複雑になってきたことをきっかけに、多段式食品加工が提案された。,
+Building.Gristmill.FlavorDescription,味覚が洗練されていくと、食事も洗練されていく。,
 Building.Hammock.Description,リラックスできるハンモック。,
 Building.Hammock.DisplayName,ハンモック,A free-standing hammock that beavers can rest in.
 Building.Hammock.FlavorDescription,伐採中の事故が多発するまで、木に縛り付けられていた。,
@@ -309,7 +308,7 @@ Building.IndustrialLumberMill.Description,丸太から板を切り出す。革�
 Building.IndustrialLumberMill.DisplayName,工業用製材所,Lumber Mill should be the same as in Building.LumberMill.DisplayName
 Building.IndustrialLumberMill.FlavorDescription,一丁のノコギリより二丁のノコギリ,"Referencing the ""two beavers are better than one"" song, plus the IT lumbermill has two saws rather than one that's in the FT version."
 Building.Inventor.DisplayName,発明家,
-Building.Inventor.FlavorDescription,キャズ爺の遺志を継ぎ、木工技術の発展を熱望している。,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
+Building.Inventor.FlavorDescription,ビーバーの発明者たちは、キャズ爺の遺志を継ぎ、木工技術の発展を熱望している。,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.IrrigationBarrier.Description,地中の灌漑および土壌汚染拡大を防ぐ。,Name of the building that stops spreading soil contamination that's placed on the ground and is presented as square with objects sticking out of the ground.
 Building.IrrigationBarrier.DisplayName,灌漑防壁,Name of the building that stops spreading soil irrigation (both moisture and contamination) that's placed on the ground and is presented as square with objects sticking out of the ground. Barrier should be the same between Building.IrrigationBarrier.DisplayName and Building.ContaminationBarrier.DisplayName.
 Building.IrrigationBarrier.FlavorDescription,アイアン・ティースは、砂漠生活を全面的に制御したがっている。,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
@@ -326,7 +325,7 @@ Building.LargePile.DisplayName,大きな鉄くず置き場,
 Building.LargePile.FlavorDescription,残念ながら誰も、出入りする丸太の『ログ』を管理していない。,"""Log"" pun — feel free to adapt."
 Building.LargePowerWheel.Description,ビーバーの力で動力を発生させる装置。複数の労働者を配置できるようにした改良型。,
 Building.LargePowerWheel.DisplayName,回し車（大）,
-Building.LargePowerWheel.FlavorDescription,アイアン・ティースだってメリーゴーランドが欲しかった。,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
+Building.LargePowerWheel.FlavorDescription,アイアン・ティースは自らのメリーゴーランドを欲しがった。,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
 Building.LargeRowhouse.DisplayName,テラスハウス（大）,"A rowhouse is a narrow and tall house that is connected to other homes on both sides, often built in a row. Building.Rowhouse"
 Building.LargeRowhouse.FlavorDescription,アイアン・ティースが高層複合建築を発展させた。,Referencing 'complex' meaning a group of buildings as well as a psychological behaviour.
 Building.LargeTank.DisplayName,大きなタンク,
@@ -339,9 +338,9 @@ Building.LargeWaterPump.FlavorDescription,「貯水池があれば、毎日水�
 Building.LargeWaterWheel.Description,さらに大きくて効率的な水車。横から支えられている。,
 Building.LargeWaterWheel.DisplayName,大きな水車,A water wheel that's bigger than other versions.
 Building.LargeWaterWheel.FlavorDescription,「もっと大きな水車が必要になるぞ」—キャズ爺,"Reference to a famous one-liner from ""Jaws"" (""you're gonna need a bigger boat"")"
-Building.LargeWindmill.Description,ブレードが大きければ、より大きなエネルギーを生み出せる。,
-Building.LargeWindmill.DisplayName,大きな風車,Advanced windmill that can rotate
-Building.LargeWindmill.FlavorDescription,追い風に勝る風なし。,"Tailwind being a wind blowing from behind, a pun since beavers have tails."
+Building.LargeWindTurbine.Description,風速に比例していっそうの動力を発生させる。,
+Building.LargeWindTurbine.DisplayName,大きなウィンドタービン,Advanced wind turbine that can rotate.
+Building.LargeWindTurbine.FlavorDescription,追い風に勝る風なし。,"Tailwind being a wind blowing from behind, a pun since beavers have tails."
 Building.Levee.Description,完全に水をせき止める。,
 Building.Levee.DisplayName,堤防,Different to a Dam
 Building.Levee.FlavorDescription,水工技術者たちが何世代にも渡って改良し、補強を重ねて仕上げた傑作。曰く、「ただの木の塊ではない」。,
@@ -351,7 +350,7 @@ Building.Lido.FlavorDescription,子ビーバーの初泳ぎを祝うため、ビ
 Building.Lodge.Description,夜を過ごす場所。,
 Building.Lodge.DisplayName,ロッジ,Type of housing; named after the beaver lodges
 Building.Lodge.FlavorDescription,「昔はビーバーのロッジって言やぁ、枝を積み上げただけの巣のことだった。今はどうかって？ さあ、どんなもんかね」―ママ・ンゴネル,
-Building.LumberMill.Description,丸太から板を切り出す。,Planks and Logs are resources so this needs to be consistent with their name
+Building.LumberMill.Description,丸太から板を製造する。,Planks and Logs are resources so this needs to be consistent with their name
 Building.LumberMill.DisplayName,製材所,
 Building.LumberMill.FlavorDescription,キャズ爺が先進的な木材加工技術を開発すると、古参のビーバーたちはくやしがってひどく歯ぎしりをした。,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.LumberjackFlag.Description,木を伐る木こりを雇う。,
@@ -360,13 +359,13 @@ Building.LumberjackFlag.FlavorDescription,「彼らは木こり、それでい�
 Building.MechanicalFluidPump.Description,片側で水または汚水を汲み上げ、反対側で水を排出する。通常のポンプよりも効率的。,Badwater should be the same as Good.Badwater.DisplayName.
 Building.MechanicalFluidPump.DisplayName,自動汲水ポンプ,A mechanically powered water pump.
 Building.MechanicalFluidPump.FlavorDescription,バケツを持って走るよりも、水を走らせた方がいい。,Running water meaning water that is moving.
-Building.MedicalBed.Description,怪我をしたビーバーが休む場所。,
+Building.MedicalBed.Description,怪我をしたビーバーがここに横になり、回復する。, 
 Building.MedicalBed.DisplayName,医療ベッド,A place where injured beavers come to lie down and rest
 Building.MedicalBed.FlavorDescription,「ただのかすり傷だよ。仕事に戻ってもいい？」—ピナ,Monty Python reference.
 Building.MediumTank.DisplayName,中くらいのタンク,
 Building.MediumTank.FlavorDescription,大干ばつがあってから、ビーバーたちはこれらを常備するようになった。,The Great Drought should remain capitalized to indicate it's a name of an event.
 Building.MediumWarehouse.DisplayName,中くらいの倉庫,
-Building.MediumWarehouse.FlavorDescription,終末後の世界は危険がいっぱい。十分な備蓄が必要だ。,
+Building.MediumWarehouse.FlavorDescription,終末後の世界を生き延びるには、十分な備蓄が必要だ。,
 Building.MemorialToFamily.DisplayName,家族の記念碑,A large brazier surrounded by statues of a beaver family
 Building.MetalFence.Description,金属で作った装飾用のフェンス。,
 Building.MetalFence.DisplayName,金属のフェンス,
@@ -379,10 +378,10 @@ Building.MetalPlatform5x5.DisplayName,金属製の足場 5x5,Numbers at the end 
 Building.Mine.Description,鉱夫を雇い、地下遺跡から金属スクラップを取り出す。,"Underground Ruins is a building, same as Building.Underground Ruins.DisplayName"
 Building.Mine.DisplayName,鉱山,An extracting facility which can be placed on underground ruins.
 Building.Mine.FlavorDescription,欲張って深く掘り下げ過ぎるなんてことなし。,"The mine provides an endless supply of scrap metal. Reference to 'they delved too greedily and too deep, and disturbed that from which they fled, Durin's Bane' from LOTR"
-Building.MiniLodge.Description,ビーバー1匹が住めるロッジ。,
+Building.MiniLodge.Description,ビーバー1匹が住める小さなロッジ。,
 Building.MiniLodge.DisplayName,ミニロッジ,A small lodge for only one beaver
 Building.MiniLodge.FlavorDescription,一人でも、大丈夫。,Referencing 'Two Beavers Are Better Than One' meme-song from 'How I Met Your Mother' TV show.
-Building.Motivatorium.Description,ビーバーにアイアン・ティースの基本理念を教えこむ、機械仕掛けの劇場。,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
+Building.Motivatorium.Description,アイアン・ティースの基本理念を教えこむ、機械仕掛けの劇場。,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
 Building.Motivatorium.DisplayName,ヤルキデルトリウム,
 Building.Motivatorium.FlavorDescription,「毎日、毎晩、わしらは闘っている。美しいことだ」—キャズ爺,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.MudBath.Description,泡を機械的に注入したぶくぶく泥風呂。,
@@ -394,10 +393,10 @@ Building.MudPit.FlavorDescription,子ビーバーはここで初めてのダム�
 Building.NaturalDam.Description,水をせき止める自然の障害物だが、上部の放水口からいくらか放水する。取り壊せる。,
 Building.NaturalDam.DisplayName,天然ダム,
 Building.NaturalOverhang.Description,突き出た岩の足場。橋や建造物の基礎として使うことができる。水漏れを阻止する。,
+Building.NaturalOverhang.FlavorDescription,「飛び降りる前に、下にちゃんと水があることを確認してね！」—スーリ,
 Building.NaturalOverhang2x1.DisplayName,岩の突出部 2x1,This structure is a solid rock overhang. Numbers at the end denote size X by Y.
 Building.NaturalOverhang3x1.DisplayName,岩の突出部 3x1,This structure is a solid rock overhang. Numbers at the end denote size X by Y.
 Building.NaturalOverhang4x1.DisplayName,岩の突出部 4x1,This structure is a solid rock overhang. Numbers at the end denote size X by Y.
-Building.NaturalOverhang.FlavorDescription,「飛び降りる前に、下にちゃんと水があることを確認してね！」—スーリ,
 Building.Numbercruncher.Description,ビーバーなしに計算を行う複雑な機械。,This machine is a primitive computer.
 Building.Numbercruncher.DisplayName,ナンバークランチャー,A machine that's a primitive computer. It generates science points by performing research.
 Building.Numbercruncher.FlavorDescription,使用中止になったディジットチューワーよりもはるかに優秀だ。,"Suggests that beavers - just like hoomans - create new generations of ""computers"" and retire old ones."
@@ -408,13 +407,13 @@ Building.OilPress.Description,適切な植物から油を搾り取る。,Oil sho
 Building.OilPress.DisplayName,搾油機,A building that's a giant press that squeezes out oil.
 Building.OilPress.FlavorDescription,好奇心旺盛な子供たちがクッキーや松ぼっくりなど、あらゆるものを潰すのに使っている。,"The process of squishing things with hydraulic press filmed in slo-mo is oddly fascinating, and makes for popular YT videos."
 Building.Overhang.Description,突き出た足場。橋や建造物の基礎として使うことができる。,
+Building.Overhang.FlavorDescription,「わぁ、雲につづく階段を作っているみたい。不思議だな…」―ピナ,
 Building.Overhang2x1.DisplayName,突出部 2x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang3x1.DisplayName,突出部 3x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang4x1.DisplayName,突出部 4x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang5x1.DisplayName,突出部 5x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang6x1.DisplayName,突出部 6x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
-Building.Overhang.FlavorDescription,「わぁ、雲につづく階段を作っているみたい。不思議だな…」―ピナ,
-Building.PaperMill.Description,機械化された製紙工場。,Paper is a resource.
+Building.PaperMill.Description,機械化された製紙工場。,Paper is a name of a good.
 Building.PaperMill.DisplayName,製紙工場,
 Building.PaperMill.FlavorDescription,元は清掃員のための乾燥したおやつだったものが、程なく別の用途を見出された。,
 Building.Path.Description,建造物は道でつながっている必要があります。,
@@ -456,26 +455,23 @@ Building.RooftopTerrace.FlavorDescription,夜明けまで語り合うにはぴ�
 Building.Rowhouse.Description,設置面積の小さい、実用的な共同住宅。,
 Building.Rowhouse.DisplayName,テラスハウス,"A rowhouse is a narrow and tall house that is connected to other homes on both sides, often built in a row."
 Building.Rowhouse.FlavorDescription,穴よりもテラスハウス。,
-Building.Ruins.Description,金属の採掘源。,Metal is a resource
+Building.Ruins.Description,金属スクラップの限りある採掘源。,Metal is a name of a good.
 Building.Ruins.DisplayName,遺跡,
-Building.Ruins.FlavorDescription,各地に点在している、人類が遺した廃墟。ビーバーはそこで、木材よりも優れた素材に出会ったのだった。,
-Building.Scarecrow.Description,鳥を追い払うための屋外装飾。,
+Building.Ruins.FlavorDescription,各地に点在している、人類が遺した廃墟。ビーバーはそこで、木材よりも優れた物資に出会ったのだった。,
+Building.Scarecrow.Description,かつては鳥を追い払うための屋外装飾だったもの。今は老若男女に悦びをもたらす。,
 Building.Scarecrow.DisplayName,かかし,
 Building.Scarecrow.FlavorDescription,フィールドで目立つ。,
-Building.ScavengerFlag.Description,清掃員は遺跡から金属のスクラップを集める。,Metal is a resource;Ruins are a building
+Building.ScavengerFlag.Description,清掃員は遺跡から金属のスクラップを集める。,Metal is a name of a good;Ruins are a building
 Building.ScavengerFlag.DisplayName,清掃員の基点,
 Building.ScavengerFlag.FlavorDescription,これまで木材だけで開拓を進めてきたビーバー社会に金属を持ち込んだ清掃員は、尊敬と軽蔑の視線を向けられている。,
-Building.Scratcher.Description,まごのてマシン。,
+Building.Scratcher.Description,届かないところをひっかいてくれる、まごのてマシン。,
 Building.Scratcher.DisplayName,スクラッチャー,A rotating brush which beavers use to scratch their fur. For reference google videos of cow scratchers.
 Building.Scratcher.FlavorDescription,くつろいでいる時ですら、アイアン・ティースは仕事に戻りたくてうずうずしている。,Itching meaning having an itch as well as an idiom for wanting to do something very much. If possible try to adapt the phrase to fit your language. Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
-Building.Shower.Description,シャワーでビーバーが清潔になれる場所。,
+Building.Shower.Description,毛を濡らす爽やかな川の水。,
 Building.Shower.DisplayName,シャワー,A simple shower for beavers.
 Building.Shower.FlavorDescription,荒れ地の征服を耐えやすいものにする。,
-Building.Shredder.Description,金属のスクラップを細かく粉砕し、ブロック状に圧縮する。,
-Building.Shredder.DisplayName,破砕機,
-Building.Shredder.FlavorDescription,ニンゲンのごみはビーバーの宝。,"Adapted from ""One man’s trash is another man’s treasure"""
 Building.Shrub.DisplayName,低木,Must be different than 'Bush' which is a plant in the game
-Building.Shrub.FlavorDescription,いろんなものに使える。実が生ると、見た目にも素敵で食べてもおいしい。,
+Building.Shrub.FlavorDescription,実用面も考えて、装飾品は美しく、かつおいしくあるべきだ。,
 Building.Slope.DisplayName,スロープ,
 Building.Slope.FlavorDescription,誰が作ったか知らないが、ありがたい。,
 Building.Sluice.AboveContaminationToggle,汚染度{0}以上で閉じる,"Label of a toggle that enables automation based on contamination level, {0} stands for currently set level, ie 5%"
@@ -485,16 +481,16 @@ Building.Sluice.Description,一方向きの自動排水。,
 Building.Sluice.DisplayName,制水弁,Also known as a sluice gate. Different than Building.Floodgate.DisplayName.
 Building.Sluice.DownstreamDepth,下流の水深 {0},{0} stands for chosen downstream depth maintained by the building.
 Building.Sluice.FlavorDescription,「スーリ、汚水を流すのをまた忘れたの？」—ママ・ンゴネル,Badwater has to be consistent with Good.Badwater.DisplayName
+Building.Sluice.MaximumDepthToggle,下流の水深{0}以上で閉じる,Label of a toggle that enables automation based on the maximum downstream depth of water
 Building.Sluice.Mode.Auto,自動,Label of the toggle that sets the sluice to work in automatic mode
 Building.Sluice.Mode.AutoClosed,自動: 閉,Label for sluice working in automatic mode and is closed
 Building.Sluice.Mode.AutoOpen,自動: 開,Label for sluice working in automatic mode and is opened
 Building.Sluice.Mode.Closed,閉,Label of the toggle that sets the sluice to be always closed
 Building.Sluice.Mode.Open,開,Label of the toggle that sets the sluice to be always open
 Building.Sluice.Synchronize,隣の制水弁と同期させる,
-Building.Sluice.MaximumDepthToggle,下流の水深{0}以上で閉じる,Label of a toggle that enables automation based on the maximum downstream depth of water
 Building.SmallIndustrialPile.DisplayName,小さな工業用の鉄くず置き場,
 Building.SmallIndustrialPile.FlavorDescription,「だから、屋根を付けて、それで工業的だと言ったんだ。最高だね。」—ピナ,
-Building.SmallPile.Description,大きな資源を保管する。,
+Building.SmallPile.Description,大きな物資を保管する。,
 Building.SmallPile.DisplayName,小さな鉄くず置き場,
 Building.SmallPile.FlavorDescription,建材を地面に捨てるなんて、良識のあるニンゲンはしない。,
 Building.SmallTank.Description,液体を蓄えられる。,
@@ -531,17 +527,19 @@ Building.SuspensionBridge3x1.DisplayName,吊り橋 3x1,Numbers at the end denote
 Building.SuspensionBridge4x1.DisplayName,吊り橋 4x1,Numbers at the end denote size X by Y
 Building.SuspensionBridge5x1.DisplayName,吊り橋 5x1,Numbers at the end denote size X by Y
 Building.SuspensionBridge6x1.DisplayName,吊り橋 6x1,Numbers at the end denote size X by Y
-Building.SwimmingPool.Description,スイミングプール。,
-Building.SwimmingPool.DisplayName,スイミングプール,
 Building.SwimmingPoll.FlavorDescription,「良いタイムだけど、まだまだ尻尾泳ぎの修行が必要だね！」—ピナ,"Backstroke is a swimming style, but beavers also have tails. Pina is a younger beaver figure that's exploring the world and isn't related to any faction in particular. Pina as a name relates to the pine tree, the translated name shouldn't suggest a gender if possible."
+Building.SwimmingPool.Description,水中で邪魔されず全身運動を行うための専用レーン。,
+Building.SwimmingPool.DisplayName,スイミングプール,
 Building.TappersShack.Description,木から樹液やシロップを採取するタッパーを雇う。,
 Building.TappersShack.DisplayName,タッパーの小屋,"A shack where workers tap trees to gather sap and syrups, similar to sugar shacks in Canada."
 Building.TappersShack.FlavorDescription,子供らは幼き頃から一滴一滴を無駄にするなと叩き込まれてきた。それが水であれ樹脂であれ。,
-Building.TeethGrindstone.Description,欠けた歯を研ぐために使う。,Broken teeth refers to Need.BrokenTeeth.CriticalDescription
+Building.TeethGrindstone.Description,欠けた歯を研ぐために使う。,Chipped teeth refers to Need.ChippedTeeth.CriticalDescription
 Building.TeethGrindstone.DisplayName,歯の砥石,A grindstone contraption for sharpening beaver teeth
-Building.TeethGrindstone.FlavorDescription,こんな道具があるのに、なぜわざわざ欠けた歯で自分を苦しめるのか？,"This building is used by beavers to clear the ""broken teeth"" status. Broken teeth refers to Need.BrokenTeeth.DisplayName."
+Building.TeethGrindstone.FlavorDescription,すべて日常の仕事の一部。,"This building is used by beavers to clear the ""chipped teeth"" status. Chipped teeth refers to Need.ChippedTeeth.DisplayName."
 Building.TerrainBlock.Description,人工的な地形ブロック。建設順序は上部にある矢印に従う。,Block of terrain refers to Building.TerrainBlock.DisplayName.
 Building.TerrainBlock.DisplayName,地形ブロック,A 1x1x1 chunk of terrain
+Building.Thorns.Description,灌漑および汚染拡大を防ぐ頑強な障壁。取り壊すのが困難で、へたに壊そうとすると怪我をする恐れがある。,
+Building.Thorns.DisplayName,トゲ,
 Building.TributeToIngenuity.DisplayName,創意工夫への賛美,Name of a monument
 Building.TributeToIngenuity.FlavorDescription,「もちろんこれには意図がある。人々に感銘を与えるためだ」—キャズ爺,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.TripleDynamite.DisplayName,トリプルダイナマイト,Dynamite that makes 3 blocks deep hole
@@ -575,7 +573,7 @@ Building.VerticalTubeway.DisplayName,垂直管路施設,"An expanded version of 
 Building.VerticalTubeway.FlavorDescription,上、上、下、下、左、右、左、右、後ろ、そして前へ。ありゃ、スタート地点に戻っちゃった。,Konami Code reference
 Building.WaterPump.Description,飲料用に水を汲み上げ、ろ過する。汚水による汚染はポンプの速度を低下させる。,Badwater should be the same as Good.Badwater.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Building.WaterPump.DisplayName,汲水ポンプ,
-Building.WaterPump.FlavorDescription,水をごくごく飲めば今日も元気に働ける。,"""Pump"" pun, feel free to adapt."
+Building.WaterPump.FlavorDescription,水をごくごく飲めば今日も元気に働ける。,"""Pumped"" pun, feel free to adapt."
 Building.WaterSeep.Description,水圧が制限された水源。,
 Building.WaterSeep.DisplayName,漏水,"A building that allows water to seep through, creating a natural water source."
 Building.WaterSource.DisplayName,水源,
@@ -583,17 +581,17 @@ Building.WaterSource.FlavorDescription,「川の流れよ永遠に」―ビー�
 Building.WaterWheel.Description,動力を発生させる。川岸に隣接した水の中に設置する。,Power is not an electrical but mechanical/kinetic energy.
 Building.WaterWheel.DisplayName,水車,
 Building.WaterWheel.FlavorDescription,キャズ爺の最高傑作。,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
-Building.WindGauge.Description,風の向きと強さを教えてくれる小さな風見。,
-Building.WindGauge.DisplayName,風速計,A decoration that turns towards the wind
-Building.WindGauge.FlavorDescription,「これにエンジンと翼をつければ、きっと自由に空も飛べるはず」—ピナ,"Referencing the Wright brothers and their first-ever aircraft. Pina is a younger beaver figure that's exploring the world and isn't related to any faction in particular. Pina as a name relates to the pine tree, the translated name shouldn't suggest a gender if possible."
-Building.WindGauge.WindStrength,風の強さ：{0}％,This tells how strong the wind is in percent between 0 and 100
+Building.Weathervane.Description,風の向きと強さを示す小さな風向計。,
+Building.Weathervane.DisplayName,風向計,A decoration that turns towards the wind
+Building.Weathervane.FlavorDescription,「これにエンジンと翼をつければ、きっと自由に空も飛べるはず」—ピナ,"Referencing the Wright brothers and their first-ever aircraft. Pina is a younger beaver figure that's exploring the world and isn't related to any faction in particular. Pina as a name relates to the pine tree, the translated name shouldn't suggest a gender if possible."
+Building.Weathervane.WindStrength,風の強さ：{0}％,This tells how strong the wind is in percent between 0 and 100
 Building.WindTunnel.Description,ビーバーを地面から浮かせ、エクストリーム体験を提供できる。,
 Building.WindTunnel.DisplayName,風洞,
 Building.WindTunnel.FlavorDescription,「わしは飛べると信じている。脱出速度を割り出しさえすればいいんだ」—キャズ爺,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
-Building.Windmill.Description,風を受けて動力を発生させる。動力の量は調整できる。,
-Building.Windmill.DisplayName,風車,
-Building.Windmill.FlavorDescription,「我々は風の中を舞うおがくず！」—フォークテイルの歌,"Reference to ""Dust in the Wind"" by Kansas."
-Building.WoodFence.Description,木で作った装飾用のフェンス。,
+Building.WindTurbine.Description,風速に比例して動力を発生させる。,
+Building.WindTurbine.DisplayName,ウィンドタービン,
+Building.WindTurbine.FlavorDescription,「我々は風の中を舞うおがくず！」—フォークテイルの歌,"Reference to ""Dust in the Wind"" by Kansas."
+Building.WoodFence.Description,丸太で作った装飾用のフェンス。,
 Building.WoodFence.DisplayName,木のフェンス,
 Building.WoodFence.FlavorDescription,ダムのようだが、ビーバー用である。,
 Building.WoodWorkshop.Description,板に樹脂を注入して強度を高める。,It produces treated / impregnated planks. The resin used is a pine resin.
@@ -634,16 +632,44 @@ Buildings.Wonder,<YellowHighlight>ワンダー：</YellowHighlight> ビーバー
 Camera.StateSaved,カメラの状態を保存しました,"Notification on top of the window when camera state(location, rotation) is saved by player."
 CancelPlantingTool.Description,更地に戻したい範囲を選択する。,Description of a tool that removes fields.
 CancelPlantingTool.Title,更地に戻す,Tool that removes fields so the beavers won't plant there.
-Carrying.Carry,運搬品：{0}（{1} /{2}kg）,{0} stands for Good.DisplayName {1} stands for carried good weight {2} stands for beaver lifting capacity. Tells player what the beaver is carrying and how much it weighs in comparison to the beaver's strength
+Carrying.Carry,運搬品：{0}（{1} / {2} kg）,{0} stands for Good.DisplayName {1} stands for carried good weight {2} stands for beaver lifting capacity. Tells player what the beaver is carrying and how much it weighs in comparison to the beaver's strength
 Carrying.Nothing,無し,When beaver is carrying nothing.
+Condition.DisplayName,状態,"Bot equivalent of wellbeing (how good they are taken care of, how good their mechanical condition is)"
+Console.CloseButton,閉,Label of the button that closes the console
+Console.Collapse,▲ 折りたたむ,Label of the button that collapses the console vertically. Please keep the arrow.
+Console.Expand,▼ 展開する,Label of the button that expands the console vertically. Please keep the arrow.
+Console.OpenFolderButton,ログフォルダを開く,Label of the button that opens the folder with logs
+ConstructionSites.DisplayName,建設場所,
+ConstructionSites.Info.WaitingForMaterials,（建材待ち）,Awaiting new materials to build
+ConstructionSites.Priority,建設優先度,
+ConstructionSites.PriorityTitle,建設優先度：,Setting a priority for construction work on a construction site
+ConstructionSites.Progress,進行度：{0}％,{0} stands for percentage of construction progress
+Core.BrowseFolder,フォルダ参照 ►,Opens file browser to either save folder or map folder. Please keep the arrow.
+Core.Cancel,キャンセル,A button please keep short
+Core.EmptyList,ここにはまだ何もありません。,A text shown in a list that does not contain any elements.
+Core.GameTip,ヒント：建造物（ロッジや倉庫など）が<YellowHighlight>盤石</YellowHighlight>である場合、その上にさらに建造物を作ることができます。,Tip that shows up while the game is loading. Solid is a keyword.
+Core.GoodNameAndAmount,{0} ({1}),"Used for example in building material costs, {0} stands for good name, {1} stands for amount"
+Core.GoodNameAndAmountPerHour,{0} ({1}/1時間),"Used for example in building good usage, {0} stands for good name, {1} stands for amount"
+Core.Load,ロード,A button please keep short
+Core.Loading,ロード中,Used in loading screen during loading
+Core.NavigationBack,戻る,Used in forms to navigate to the previous step.
+Core.NavigationNext,次へ,Used in forms to navigate to the next step.
+Core.No,いいえ,A button please keep short
+Core.OK,OK,A button please keep short
+Core.Overwrite,上書き保存,A button shown in prompts with confirmation that a file will be overwritten
+Core.Save,保存,A button please keep short
+Core.SaveAs,名前を付けて保存,A button please keep short
+Core.Start,スタート,A button please keep short
+Core.Status,ステータス：,Indication in interface about status of some property. For example 'Status: Enabled'
+Core.Yes,はい,
 CrashScreen.CommentPlaceholder,（任意）開発チームへのコメント,Shown in a crash screen text field where players can optionally enter a comment that will help track down the bug
 CrashScreen.EmailPlaceholder,（任意・連絡は必要な場合のみ）開発チームからの連絡用メールアドレス,Shown in a crash screen text field where players can optionally enter their email
 CrashScreen.HowToFindReport,レポートで送信されるデータをこちらで確認できます。,
 CrashScreen.HowToFindReportShort,エラーレポートはこちらで確認できます：,
 CrashScreen.Introduction,不測の事態でした。我々の責任ですが、クラッシュレポートを送っていただけますと問題解決に役立ちます。,
 CrashScreen.ManualInstructions,もしくは、手動でレポートを送信することも可能です。,
-CrashScreen.ModdedIntroduction,ゲームのMOD入りバージョンを実行されているようです。これがクラッシュの原因として考えられます。,
 CrashScreen.ModdedInstructions,MODの削除方法はこちらをご覧ください：,
+CrashScreen.ModdedIntroduction,ゲームのMOD入りバージョンを実行されているようです。これがクラッシュの原因として考えられます。,
 CrashScreen.PrivacyPolicyAccept,個人情報保護方針に,Next to a checkbox and followed by CrashScreen.PrivacyPolicyLink
 CrashScreen.PrivacyPolicyLink,同意する,Preceded by a checkbox and CrashScreen.PrivacyPolicyToggle
 CrashScreen.SendFail,送信に失敗しました。もう一度クリックしてください,
@@ -651,58 +677,31 @@ CrashScreen.SendReport,Timberborn開発チームにエラーレポートを送�
 CrashScreen.SendSuccess,ありがとうございます！ レポートを受け取りました。,
 CrashScreen.Sending,送信中…,
 CrashScreen.Title,エラー発生,
-Condition.DisplayName,状態,"Bot equivalent of wellbeing (how good they are taken care of, how good their mechanical condition is)"
-Console.CloseButton,閉,Label of the button that closes the console
-Console.Collapse,▲ 折りたたむ,Label of the button that collapses the console vertically. Please keep the arrow.
-Console.Expand,▼ 展開する,Label of the button that expands the console vertically. Please keep the arrow.
-Console.OpenDirectoryButton,ログフォルダを開く,Label of the button that opens the folder with logs
-ConstructionSites.DisplayName,建設場所,
-ConstructionSites.Priority,建設優先度,
-ConstructionSites.PriorityTitle,建設優先度：,Setting a priority for construction work on a construction site
-ConstructionSites.Progress,進行度：{0}％,{0} stands for percentage of construction progress
-ConstructionSites.Info.WaitingForMaterials,（建材待ち）,Awaiting new materials to build
-Core.BrowseDirectory,フォルダ参照 ►,Opens file browser to either save folder or map folder. Please keep the arrow.
-Core.Cancel,キャンセル,A button please keep short
-Core.EmptyList,ここにはまだ何もありません。,A text shown in a list that does not contain any elements.
-Core.GameTip,ヒント：建造物（ロッジや倉庫など）が<YellowHighlight>盤石</YellowHighlight>である場合、その上にさらに建造物を作ることができます。,Tip that shows up while the game is loading. Solid is a keyword.
-Core.Load,ロード,A button please keep short
-Core.Loading,ロード中,Used in loading screen during loading
-Core.NavigationNext,次へ,Used in forms to navigate to the next step.
-Core.NavigationBack,戻る,Used in forms to navigate to the previous step.
-Core.No,いいえ,A button please keep short
-Core.OK,OK,A button please keep short
-Core.Overwrite,上書き保存,A button shown in prompts with confirmation that a file will be overwritten
-Core.ResourceNameAndAmount,{0} ({1}),"Used for example in building material costs, {0} stands for resource name, {1} stands for amount"
-Core.ResourceNameAndAmountPerHour,{0} ({1}/1時間),"Used for example in building resource usage, {0} stands for resource name, {1} stands for amount"
-Core.Save,保存,A button please keep short
-Core.SaveAs,名前を付けて保存,A button please keep short
-Core.Start,スタート,A button please keep short
-Core.Status,ステータス：,Indication in interface about status of some property. For example 'Status: Enabled'
-Core.Yes,はい,
-Decals.Browse,参照,Label of a button that opens a file explorer with a directory with custom patterns. Please keep short.
+Decals.Browse,参照,Label of a button that opens a file explorer with a folder with custom patterns. Please keep short.
+Decals.Flip,パターンを反転,Label on a button to flip (mirror) the pattern in the decal panel building
 Decals.Refresh,再読み込み,Label of a button that refreshes/reloads custom patterns from disk. Please keep short.
 Decals.UserPatterns,カスタムパターン,Header of the panel that allows managing custom user patterns (loading custom images). Please keep short.
-Demolish.Blocked,上にアイテムがあるため、取り壊しができません。,Text of status message when trying to demolish an object (i.e. natural overhang) that has objects or buildings built on top of it preventing demolition.
-Demolish.Cancel,取り壊し中止,
-Demolish.Mark,取り壊し,Demolishing is removing with the use of builders. Must be different than 'Delete' which has a slightly different meaning in the game.
-Demolish.PriorityTitle,取り壊し優先度：,Setting a priority for demolition work on demolition target
-Demolishable.Science.Grants,入手：,"Text shown in entity panel when a building grants science points, like e.g. ""Grants 1000 points"". Please keep short."
-DemolishSelectionTool.Description,取り壊したい資源を選択する。取り壊した資源はすべて失われる。,
-DemolishSelectionTool.Title,選択して取り壊し,
-DemolishUnselectionTool.Title,取り壊しの選択解除,
-DemolishUnselectionTool.Description,取り壊し対象の選択を解除する。,
 DeletionBlocker.ObjectAtop,上に建造物があります。,Shown when the player tries to delete a structure that has another structure on top.
 DeletionBlocker.Prefix,消去できません。,Tooltip prefix for the delete button when the object cannot be deleted.
 DeletionBlocker.Stockpile.NotEmpty,中にまだ物が残っています。,Warning shown to player when trying to delete a stockpile that still has some goods inside.
 DeletionBlocker.TerrainPhysics,建設が地形を支えています。,Building can't be deleted when it has the terrain on top of it and it last valid support for the terrain
 DeletionTool.Description.Buildings,建物を解体できるツール。建築資材の一部と保管されているすべての品目は、再利用可能ながれきになる。,"Rubble should be the same as RecoveredGoodStack.DisplayName, ""Stored goods"" could be translated similar to Building.SmallWarehouse.Description"
 DeletionTool.Description.Objects,アイテムを消去する。,
-DeletionTool.Description.RecoveredGoodStack,がれきを消去できるツール。がれきに保存されている資源は失われる。,Rubble should be the same as RecoveredGoodStack.DisplayName
+DeletionTool.Description.RecoveredGoodStack,がれきを消去できるツール。がれきに保存されている物資は失われる。,Rubble should be the same as RecoveredGoodStack.DisplayName
 DeletionTool.Prompt.Buildings,本当に選択中の建物を取り壊しますか？ 元に戻すことはできません。,
 DeletionTool.Prompt.Objects,本当に選択中の対象を消去しますか？ 元に戻すことはできません。,
 DeletionTool.Title.Buildings,建物を取り壊す,
 DeletionTool.Title.Objects,アイテムの消去,
 DeletionTool.Title.RecoveredGoodStack,がれきの消去,Rubble should be the same as RecoveredGoodStack.DisplayName
+Demolish.Blocked,上にアイテムがあるため、取り壊しができません。,Text of status message when trying to demolish an object (i.e. natural overhang) that has objects or buildings built on top of it preventing demolition.
+Demolish.Cancel,取り壊し中止,
+Demolish.Mark,取り壊し,Demolishing is removing with the use of builders. Must be different than 'Delete' which has a slightly different meaning in the game.
+Demolish.PriorityTitle,取り壊し優先度：,Setting a priority for demolition work on demolition target
+DemolishSelectionTool.Description,取り壊したい資源を選択する。取り壊した資源はすべて失われる。,
+DemolishSelectionTool.Title,選択して取り壊し,
+DemolishUnselectionTool.Description,取り壊し対象の選択を解除する。,
+DemolishUnselectionTool.Title,取り壊しの選択解除,
+Demolishable.Science.Grants,入手：,"Text shown in entity panel when a building grants science points, like e.g. 'Grants 1000 points'. Please keep short."
 Distribution.BalanceInfo,接続されている地区は、倉庫の貯蔵率と運び出しの基準値に基づき、物資量の調整をする。,
 Distribution.ExportAll,制限なく全ての物資を運び出す,A setting for the distribution panel that makes it so all goods are exported.
 Distribution.ExportNone,物資を運び出さない,A setting for the distribution panel that makes it so no goods are exported.
@@ -727,10 +726,8 @@ Districts.DefaultDistrictName,第{0}地区,"{0} is a number. By default district
 Districts.Districts,地区,
 Districts.GlobalView,グローバルビュー,
 Duplication.DuplicateSettingsToolDescription,対象を選択し設定をペースト,Description of a tool which copies configuration from one building to another
-Dwelling.Inhabitants,住人：{0},{0} stands for a number. How many beavers live in this house.
-Dwelling.AssignAny,適当に割り当て,A button which assigns a random beaver to this house. Please keep short - constrained space.
-Dwelling.AssignUnemployed,無職を割り当て,A button which assigns a unemployed beaver to this house. Please keep short - constrained space.
 Dwelling.Dwellers,居住者,Header for the box of the inhabitants/tenants of this house
+Dwelling.Inhabitants,住人：{0},{0} stands for a number. How many beavers live in this house.
 Dwelling.Newborn,{0}が産まれました！,{0} stands for beaver name. Notification that shows when a new beaver is born.
 Dwelling.NoBeaverCanReach,この建物には誰も辿り着けません。,Information that this building is unreachable for any beavers.
 Dwelling.NoUnemployedCanReach,無職のビーバーはこの建物に辿り着けません。,Information that this building is unreachable for any unemployed beavers.
@@ -753,20 +750,20 @@ Experimental.WelcomeText,"このバージョンのTimberbornでは、プロト�
 この実験モードでは、<RedHighlight>ゲームの多くの部分が翻訳されておらず、選択された言語に関係なく英語で表示されます</RedHighlight>。そのため、時間のかかる翻訳を待つことなく、新たなコンテンツの追加や速やかな変更を行うことができます。
 
 ぜひ公式Discordサーバーをご覧いただき、新着コンテンツに関する議論にご参加ください。",Welcome text that is shown to players of the experimental versions of the game.
-Explosions.BlownInExplosionMessage,{0}は爆発で亡くなりました。,{0} stands for character name. Notification that shows when a character (Beaver/Bot) is killed/destroyed by an explosion (another bot or dynamite)
+Explosions.BlownInExplosionMessage,{0}は爆破されました。,{0} stands for character name. Notification that shows when a character (Beaver/Bot) is killed/destroyed by an explosion (another bot or dynamite)
 Faction.Folktails.Description,"のほほんとしてるけど、働き者。フォークテイルは熟練農家。自然を尊敬し、その見返りに収穫をたっぷりと得る。
 フォークテイルのモットー：<i>心地よさ、食べ物、そして頑丈な木。</i>",Description of a beaver faction
 Faction.Folktails.DisplayName,フォークテイル,Name of a faction
+Faction.Folktails.GameOver.Flavor,自然の恵みをうまく生かせないと、自然はそれを取り戻そうとする。,Flavor text of the game over panel
+Faction.Folktails.GameOver.Message,フォークテイルは、かつての人類と同じ悲しい運命に遭った。これで終わりだ。,Text of the game over panel
+Faction.Folktails.WonderCompletionFlavor,莫大な富と知識を手に入れたビーバーたちは、荒廃した地球に努力の結果を分け与えた。まだまだやることはあるが、地球はまた活気を取りもどすだろう。,Flavor text shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
+Faction.Folktails.WonderCompletionMessage,フォークテイルの自然と調和する信念を理解し、このマップの資源を使いフォークテイル陣営のワンダーを建設することができました。,A message that is shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
 Faction.IronTeeth.Description,"伝統的な木材道の理念を拒絶した異端者たち。鉄と科学の力で先進的な機械を製造する。
 発明の才、効率性、そして環境への配慮を度外視することで、発展をもたらす。
 アイアン・ティースのモットー：<i>働け、もっと働け。</i>",Description of a beaver faction
 Faction.IronTeeth.DisplayName,アイアン・ティース,Name of a faction
-Faction.Folktails.GameOver.Flavor,自然の恵みをうまく生かせないと、自然はそれを取り戻そうとする。,Flavor text of the game over panel
 Faction.IronTeeth.GameOver.Flavor,ときどき、ちょっとした不良部品が機械全体を壊すことがある。,Flavor text of the game over panel
-Faction.Folktails.GameOver.Message,フォークテイルは、かつての人類と同じ悲しい運命に遭った。これで終わりだ。,Text of the game over panel
 Faction.IronTeeth.GameOver.Message,アイアン・ティースの開拓地は、回復する余地もなく崩壊してしまった。これで終わりだ。,Text of the game over panel
-Faction.Folktails.WonderCompletionFlavor,莫大な富と知識を手に入れたビーバーたちは、荒廃した地球に努力の結果を分け与えた。まだまだやることはあるが、地球はまた活気を取りもどすだろう。,Flavor text shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
-Faction.Folktails.WonderCompletionMessage,フォークテイルの自然と調和する信念を理解し、このマップの資源を使いフォークテイル陣営のワンダーを建設することができました。,A message that is shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
 Faction.IronTeeth.WonderCompletionFlavor,パイオニアは荒れ地を飛び去り、繁栄していた開拓地を後にした。地球の回復には、新たに発見されたビーバーたちの繁栄が必要だった。,Flavor text shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
 Faction.IronTeeth.WonderCompletionMessage,優れた技術力をもって、アイアン・ティースの工業力でこのマップを制覇しアイアン・ティース陣営のワンダーを建設することができました。,A message that is shown when the player has mastered a map with the Iron Teeth faction. Mastery means building and activating a Wonder.
 FactionSelection.Header,陣営を選択,
@@ -777,7 +774,7 @@ Fields.Planting,植える,Preceded by Fields.PriorityAction
 Fields.PriorityAction,優先行動：,Which of the actions is prioritized.
 FileBrowser.Header,ファイルを選択,Header of the file browser window.
 FileBrowser.NoPermission,このフォルダーにアクセスする権限がありません。,Shown in the file browser when the user doesn't have permission to access the selected folder.
-FileBrowser.Open,開,Label of the button that opens currently selected directory or loads currently selected file.
+FileBrowser.Open,開,Label of the button that opens currently selected folder or loads currently selected file.
 FlexibleStart.ChooseStartLocation,スタート地点を選択,Text shown when the player is choosing a new starting location.
 FlexibleStart.Relocate,スタート地点を変更,Label of a button for changing the starting location.
 FlexibleStart.ResetStartLocation,初期設定に戻す,Label of a button for bringing back the initial starting location.
@@ -794,8 +791,8 @@ Gathering.Action,採集資源：,"Followed by a list of goods, like Gathers: Ber
 Gathering.Nothing,無し,Nothing is prioritized to be gathered.
 Gathering.Prioritize,優先採集：,Which resource is prioritized to be gathered.
 Goals.NotEligible,この陣営には該当項目がありません。,Preceded by Goals.Progress
-Goals.Unlocked,解放済み！,Preceded by Goals.Progress
 Goals.Progress,進行度：,
+Goals.Unlocked,解放済み！,Preceded by Goals.Progress
 Good.Algae.DisplayName,藻,"Algae that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific algae kind."
 Good.Algae.PluralDisplayName,藻,"Algae that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific algae kind."
 Good.AlgaeRation.DisplayName,藻のレーション,"Algae should be the same as in Good.Algae.DisplayName. Ration should be consistent between Good.AlgaeRation.DisplayName, Good.CornRation.DisplayName, Good.EggplantRation.DisplayName and Building.FoodFactory.Description"
@@ -808,16 +805,16 @@ Good.Berries.DisplayName,ベリー,Resource name
 Good.Berries.PluralDisplayName,ベリー,Resource name
 Good.Biofuel.DisplayName,バイオ燃料,Fuel made out of natural resources like plants.
 Good.Biofuel.PluralDisplayName,バイオ燃料,Fuel made out of natural resources like plants.
-Good.Book.DisplayName,本,Resource name
-Good.Book.PluralDisplayName,本,Resource name
+Good.Book.DisplayName,本,A name of a good.
+Good.Book.PluralDisplayName,本,A name of a good.
 Good.BotChassis.DisplayName,ボットの胴体,A big bot part that holds most of the machinery inside. Bot should be the same as Bot.TemplateName.
 Good.BotChassis.PluralDisplayName,ボットの胴体,A big bot part that holds most of the machinery inside. Bot should be the same as Bot.TemplateName.
 Good.BotHead.DisplayName,ボットの頭,A head of a bot. Bot should be the same as Bot.TemplateName.
 Good.BotHead.PluralDisplayName,ボットの頭,A head of a bot. Bot should be the same as Bot.TemplateName.
 Good.BotLimb.DisplayName,ボットの手足,An unspecified limb of a bot. Bot should be the same as Bot.TemplateName.
 Good.BotLimb.PluralDisplayName,ボットの手足,An unspecified limb of a bot. Bot should be the same as Bot.TemplateName.
-Good.Bread.DisplayName,パン,Resource name
-Good.Bread.PluralDisplayName,パン,Resource name
+Good.Bread.DisplayName,パン,A name of a good.
+Good.Bread.PluralDisplayName,パン,A name of a good.
 Good.CanolaOil.DisplayName,なたね油,Canola should be the same as in Good.CanolaSeeds.DisplayName.
 Good.CanolaOil.PluralDisplayName,なたね油,Canola should be the same as in Good.CanolaSeeds.DisplayName.
 Good.CanolaSeeds.DisplayName,なたねの種,An oil crop that grows tall and is full of yellow flowers.
@@ -852,54 +849,54 @@ Good.Eggplant.DisplayName,ナス,"Ordinary deep purple eggplant, also known as a
 Good.Eggplant.PluralDisplayName,ナス,"Ordinary deep purple eggplant, also known as aubergine."
 Good.EggplantRation.DisplayName,ナスのレーション,"Eggplant should be the same as Good.Eggplant.DisplayName. Ration should be consistent between Good.AlgaeRation.DisplayName, Good.CornRation.DisplayName, Good.EggplantRation.DisplayName and Building.FoodFactory.Description"
 Good.EggplantRation.PluralDisplayName,ナスのレーション,"Eggplant should be the same as Good.Eggplant.DisplayName. Ration should be consistent between Good.AlgaeRation.DisplayName, Good.CornRation.DisplayName, Good.EggplantRation.DisplayName and Building.FoodFactory.Description"
-Good.Extract.DisplayName,精製物,"A liquid resource produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
-Good.Extract.PluralDisplayName,精製物,"A liquid resource produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
-Good.Explosives.DisplayName,爆薬,Resource name. Not to be confused with the Dynamite building.
-Good.Explosives.PluralDisplayName,爆薬,Resource name. Not to be confused with the Dynamite building.
+Good.Explosives.DisplayName,爆薬,A name of a good. Not to be confused with the Dynamite building.
+Good.Explosives.PluralDisplayName,爆薬,A name of a good. Not to be confused with the Dynamite building.
+Good.Extract.DisplayName,精製物,"A liquid good produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
+Good.Extract.PluralDisplayName,精製物,"A liquid good produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
 Good.FermentedCassava.DisplayName,発酵したキャッサバ,"Cassava should be the same as Good.Cassava.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedCassava.PluralDisplayName,発酵したキャッサバ,"Cassava should be the same as Good.Cassava.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedMushroom.DisplayName,発酵したマッシュルーム,"Mushroom should be the same as Good.Mushroom.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedMushroom.PluralDisplayName,発酵したマッシュルーム,"Mushroom should be the same as Good.Mushroom.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedSoybean.DisplayName,発酵した大豆,"Soybean should be the same as Good.Soybean.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedSoybean.PluralDisplayName,発酵した大豆,"Soybean should be the same as Good.Soybean.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
-Good.Flour.DisplayName,小麦粉,Resource name
-Good.Flour.PluralDisplayName,小麦粉,Resource name
-Good.Gear.DisplayName,歯車,Resource name
-Good.Gear.PluralDisplayName,歯車,Resource name
+Good.Flour.DisplayName,小麦粉,A name of a good.
+Good.Flour.PluralDisplayName,小麦粉,A name of a good.
+Good.Gear.DisplayName,歯車,A name of a good.
+Good.Gear.PluralDisplayName,歯車,A name of a good.
 Good.Grease.DisplayName,グリス,Grease is a good used as lubricant for IronTeeth faction bot machinery to increase their performance.
 Good.Grease.PluralDisplayName,グリス,Grease is a good used as lubricant for IronTeeth faction bot machinery to increase their performance.
 Good.GrilledChestnut.DisplayName,焼き栗,"Grilled fruit of a Aesculus hippocastanum tree, also known as conkers, keep plant name same as Good.Chestnut.DisplayName."
 Good.GrilledChestnut.PluralDisplayName,焼き栗,"Grilled fruit of a Aesculus hippocastanum tree, also known as conkers, keep plant name same as Good.Chestnut.DisplayName."
-Good.GrilledPotato.DisplayName,グリルドポテト,Resource name
-Good.GrilledPotato.PluralDisplayName,グリルドポテト,Resource name
+Good.GrilledPotato.DisplayName,グリルドポテト,A name of a good.
+Good.GrilledPotato.PluralDisplayName,グリルドポテト,A name of a good.
 Good.GrilledSpadderdock.DisplayName,焼きセイヨウコウホネ,"Grilled plant Nuphar Lutea, keep plant name same as NaturalResource.Spadderdock.DisplayName"
 Good.GrilledSpadderdock.PluralDisplayName,焼きセイヨウコウホネ,"Grilled plant Nuphar Lutea, keep plant name same as NaturalResource.Spadderdock.DisplayName"
 Good.Kohlrabi.DisplayName,コールラビ,"Also called German turnip or turnip cabbage, it's a big, round turnip plant."
 Good.Kohlrabi.PluralDisplayName,コールラビ,"Also called German turnip or turnip cabbage, it's a big, round turnip plant."
-Good.Log.DisplayName,丸太,Resource name
-Good.Log.PluralDisplayName,丸太,Resource name
+Good.Log.DisplayName,丸太,A name of a good.
+Good.Log.PluralDisplayName,丸太,A name of a good.
 Good.MangroveFruit.DisplayName,マングローブの実,"Fruit of the mangrove tree, mangrove should be the same as in NaturalResource.Mangrove.DisplayName"
 Good.MangroveFruit.PluralDisplayName,マングローブの実,"Fruit of the mangrove tree, mangrove should be the same as in NaturalResource.Mangrove.DisplayName"
 Good.MaplePastry.DisplayName,メープルペストリー,A baked good filled with maple syrup.
 Good.MaplePastry.PluralDisplayName,メープルペストリー,A baked good filled with maple syrup.
 Good.MapleSyrup.DisplayName,メープルシロップ,Sweet syrup created from maple sap
 Good.MapleSyrup.PluralDisplayName,メープルシロップ,Sweet syrup created from maple sap
-Good.MetalBlock.DisplayName,金属ブロック,Resource name
-Good.MetalBlock.PluralDisplayName,金属ブロック,Resource name
+Good.MetalBlock.DisplayName,金属ブロック,A name of a good.
+Good.MetalBlock.PluralDisplayName,金属ブロック,A name of a good.
 Good.Mushroom.DisplayName,マッシュルーム,"Mushroom that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific mushroom, just the type of plant."
 Good.Mushroom.PluralDisplayName,マッシュルーム,"Mushroom that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific mushroom, just the type of plant."
-Good.Paper.DisplayName,紙,Resource name
-Good.Paper.PluralDisplayName,紙,Resource name
+Good.Paper.DisplayName,紙,A name of a good.
+Good.Paper.PluralDisplayName,紙,A name of a good.
 Good.PineResin.DisplayName,松脂,Also known as pine sap. Pine is the type of tree defined in NaturalResource.Pine.DisplayName.
 Good.PineResin.PluralDisplayName,松脂,Also known as pine sap. Pine is the type of tree defined in NaturalResource.Pine.DisplayName.
-Good.Plank.DisplayName,板,Resource name
-Good.Plank.PluralDisplayName,板,Resource name
-Good.Potato.DisplayName,ジャガイモ,Resource name
-Good.Potato.PluralDisplayName,ジャガイモ,Resource name
+Good.Plank.DisplayName,板,A name of a good.
+Good.Plank.PluralDisplayName,板,A name of a good.
+Good.Potato.DisplayName,ジャガイモ,A name of a good.
+Good.Potato.PluralDisplayName,ジャガイモ,A name of a good.
 Good.PunchCard.DisplayName,パンチカード,"Punch cards are goods used for increasing Folktails faction bot performance. They are similar in concept to old programming cards, where code was inputted into a machine through a card with a bunch of holes punched through it."
 Good.PunchCard.PluralDisplayName,パンチカード,"Punch cards are goods used for increasing Folktails faction bot performance. They are similar in concept to old programming cards, where code was inputted into a machine through a card with a bunch of holes punched through it."
-Good.ScrapMetal.DisplayName,金属スクラップ,Resource name
-Good.ScrapMetal.PluralDisplayName,金属スクラップ,Resource name
+Good.ScrapMetal.DisplayName,金属スクラップ,A name of a good.
+Good.ScrapMetal.PluralDisplayName,金属スクラップ,A name of a good.
 Good.Soybean.DisplayName,大豆,Soybeans can later be made into soy.
 Good.Soybean.PluralDisplayName,大豆,Soybeans can later be made into soy.
 Good.Spadderdock.DisplayName,セイヨウコウホネ,A plant formally called Nuphar Lutea
@@ -908,16 +905,17 @@ Good.SunflowerSeeds.DisplayName,向日葵の種,
 Good.SunflowerSeeds.PluralDisplayName,向日葵の種,
 Good.TreatedPlank.DisplayName,加工された板,Plank impregnated with resin. Use the same word for plank as in Good.Plank.
 Good.TreatedPlank.PluralDisplayName,加工された板,Plank impregnated with resin. Use the same word for plank as in Good.Plank.
-Good.Water.DisplayName,水,Resource name
-Good.Water.PluralDisplayName,水,Resource name
-Good.Wheat.DisplayName,小麦,Resource name
-Good.Wheat.PluralDisplayName,小麦,Resource name
+Good.Water.DisplayName,水,A name of a good.
+Good.Water.PluralDisplayName,水,A name of a good.
+Good.Wheat.DisplayName,小麦,A name of a good.
+Good.Wheat.PluralDisplayName,小麦,A name of a good.
 Good.WheatFlour.DisplayName,小麦粉,Flour made out of wheat. Use the same name for wheat as in Good.Wheat.
 Good.WheatFlour.PluralDisplayName,小麦粉,Flour made out of wheat. Use the same name for wheat as in Good.Wheat.
-GoodConsuming.SupplyDescription,使用量：{0},{0} stands for resource name and amount per hour.
-GoodConsuming.SupplyRemaining,あと{0}時間稼働,"{0} stands for hours. Describes a building which requires a certain resources to operate, such as water."
 GoodConsuming.NeedsHaulers,<YellowHighlight>運搬員が必要</YellowHighlight>,"Information, that this building won't be operational without haulers. Haulers are the same as in Building.HaulingPost.Description"
+GoodConsuming.SupplyDescription,使用量：{0},{0} stands for good name and amount per hour.
+GoodConsuming.SupplyRemaining,あと{0}時間稼働,"{0} stands for hours. Describes a building which requires a certain goods to operate, such as water."
 Goods.Amount,量,Header of a dropdown that allows to select a good. Please keep short.
+Goods.EatableRaw,生のまま食べられる。,Shown on a tooltip of goods that can be eaten raw.
 Goods.Nothing,無し,
 Goods.StoredIn,ここに保管する：,Header above a list of buildings that store selected good
 GridRendering.Visibility.Hide,建設ガイドラインを非表示,Shows construction guidelines when button is pressed.
@@ -926,16 +924,13 @@ Growing.GrowsWhenMature,成熟時に成長,"Information about fruits and other r
 Growing.Time,収穫まで：{0}日,{0} stands for a number of days. How many days left does this plant have to fully grow.
 Hauling.Prioritize,優先的に運搬,building is a noun in this sentence. This building will be prioritized by haulers.
 Inventory.Capacity,容量：,How much space there is in the storage
-Inventory.InStock,在庫：,Please keep short. Header above a list of resources in stock of the storage.
-Inventory.IsEmpty,在庫の物資がありません,
 Inventory.Goods,品目：,
-Inventory.Header.Stock,在庫数,Please keep short. Header above a column with amounts of resource in stock of the storage.
+Inventory.InStock,在庫：,Please keep short. Header above a list of goods in stock of the storage.
+Inventory.IsEmpty,在庫の物資がありません,
 Inventory.NothingSelected,無し,Text shown in a dropdown when no good is selected. Keep below 15 characters.
-Inventory.StartingInventory,初期物資,
-Inventory.StockpileOverlay.Show,倉庫のオーバーレイを表示する,Tooltip for button showing overlay over warehouses containing stored goods.
 Inventory.StockpileOverlay.Hide,倉庫のオーバーレイを非表示にする,Tooltip for button showing overlay over warehouses containing stored goods.
-Inventory.Undesired,要望外：,Please keep short. Which resources are not desired in the storage.
-KeyBindingsPanel.Header,キーの割り当て,Header of the key bindings box
+Inventory.StockpileOverlay.Show,倉庫のオーバーレイを表示する,Tooltip for button showing overlay over warehouses containing stored goods.
+Inventory.Undesired,要望外：,Please keep short. Which goods are not desired in the storage.
 Key.DownArrow,下矢印,Label of the down arrow key
 Key.LeftArrow,左矢印,Label of the left arrow key
 Key.LeftWindows,左Windows,Label of the left windows key
@@ -973,6 +968,7 @@ KeyBinding.IncreaseWorkers,必要労働者数を上げる,Label of the key that 
 KeyBinding.IncreaseWorkingHours,労働時間を延長する,Label of the key that increases settlement working hours
 KeyBinding.IncreaseWorkplacePriority,仕事場優先度を上げる,Label of the key that increases the priority of the selected workplace
 KeyBinding.InverseBrushDirection,ブラシの向きを反転,
+KeyBinding.LevelVisibilityCursorTool,可視レイヤー調整カーソルツール,Name of layer tool keybinding
 KeyBinding.LowerVisibleLayer,可視レイヤーを下げる,Label of the key that decreases the max visible vertical level of buildings
 KeyBinding.MechanicalTab,動力タブを開く,"Label of the key that opens the Settlement Panel and selects the Mechanical tab, Power should be the same as BatchControl.Mechanical"
 KeyBinding.MigrationTab,移住タブを開く,"Label of the key that opens the Settlement Panel and selects the Migration tab, Migration should be the same as BatchControl.Migration"
@@ -982,12 +978,12 @@ KeyBinding.MoveCameraLeft,カメラを左に移動,Label of the key that moves t
 KeyBinding.MoveCameraRight,カメラを右に移動,Label of the key that moves the camera right
 KeyBinding.MoveCameraUp,カメラを上に移動,Label of the key that moves the camera up
 KeyBinding.NextDistrict,次の地区を選択する,Label of the key that selects the next district
-KeyBinding.NextRootButton,次のツールバーカテゴリー,Label of the key that selects the next toolbar (bottom bar) category.
+KeyBinding.NextRootButton,次のツールグループ,Label of the key that selects the next toolbar (bottom bar) category.
 KeyBinding.NextTool,次のツール,Label of the key that selects the next tool from currently selected toolbar category.
 KeyBinding.OpenWellbeingPanel,幸福度パネルを開く,"Label of the key that opens the Well-being box, Well-being should be the same as Wellbeing.DisplayName"
 KeyBinding.PickVisibleLayer,可視レイヤーを選択する,Label of the key that picks the layer of the visible terrain currently under the cursor
 KeyBinding.PreviousDistrict,前の地区を選択する,Label of the key that selects the previous district
-KeyBinding.PreviousRootButton,前のツールバーカテゴリー,Label of the key that selects the previous toolbar (bottom bar) category.
+KeyBinding.PreviousRootButton,前のツールグループ,Label of the key that selects the previous toolbar (bottom bar) category.
 KeyBinding.PreviousTool,前のツール,Label of the key that selects the previous tool from currently selected toolbar category.
 KeyBinding.RaiseVisibleLayer,可視レイヤーを上げる,Label of the key that increases the max visible vertical level of buildings
 KeyBinding.RedoChanges,変更をやり直す,Key binding for redoing changes in Map editor.
@@ -1019,25 +1015,25 @@ KeyBinding.ToggleBatchControlBox,開拓地のパネル切り替え,Label of the 
 KeyBinding.ToggleBrushShape,ブラシの形の切り替え,"Label of the key that toggles the shape of the brush, 'brush shape' should be the same as MapEditor.Brush.Shape.Label"
 KeyBinding.ToggleBuildingPause,選択した建物の一時停止,Label of the key that pauses the selected building
 KeyBinding.ToggleConsole,コンソールの切り替え,Label of the key that toggles the console with logs
-KeyBinding.ToggleGuidelines,ガイドラインの切り替え,Toggle guidelines on/off
 KeyBinding.ToggleGUI,インターフェースの表示・非表示,Label of the key that hides/shows the whole user interface
+KeyBinding.ToggleGuidelines,ガイドラインの切り替え,Toggle guidelines on/off
 KeyBinding.ToggleHaulingPriority,運搬優先度の切り替え,Label of the key that toggles the hauling priority of the selected object
 KeyBinding.ToggleNaturalResources,自然資源の切り替え,Label of the key that shows/hides the natural resources in map editor. Natural resources should be the same as NaturalResources.Visibility.Show
 KeyBinding.ToggleStockpileOverlay,倉庫のオーバーレイの切り替え,Label of the key that shows/hides the storage overlay
 KeyBinding.ToggleStockpilePriority,倉庫優先度の切り替え,Label of the key that toggles the priority of the selected warehouse between StockpilePriority.Accept/StockpilePriority.Obtain/StockpilePriority.Supply/StockpilePriority.Empty
 KeyBinding.ToggleWaterVisibility,水の透明度の切り替え,Label of the key that makes water semi-transparent
-KeyBinding.WorkplacesTab,仕事場タブを開く,"Label of the key that opens the Settlement Panel and selects the Workplaces tab, Workplaces should be the same as BatchControl.Workplaces"
 KeyBinding.ToggleWorkerType,労働者の種類の切り替え,Keybinding for toggling the worker type.
 KeyBinding.UndoChanges,変更を取り消す,Key binding for undoing changes in Map editor.
 KeyBinding.UnlockTool,ツールをアンロック,Label of the key that unlocks the currently selected tool
+KeyBinding.WorkplacesTab,仕事場タブを開く,"Label of the key that opens the Settlement Panel and selects the Workplaces tab, Workplaces should be the same as BatchControl.Workplaces"
 KeyBinding.ZoomIn,拡大,Label of the key that zooms camera in
 KeyBinding.ZoomOut,縮小,Label of the key that zooms camera out
+KeyBindingBox.ClearBinding,消去,Text on the button in rebinding dialog box that clears the current key binding. Please keep short.
 KeyBindingBox.DuplicatedBinding,"このキーの組み合わせは既に次のものに当てられています：
 
 {0}
 
 本当にこれに割り当てますか？","Message shown on key rebinding dialog box when the user tries to assign a key combination that is already assigned to another key binding, {0} stands for the list of key bindings e.g. KeyBinding.Speed0, KeyBinding.ToggleGUI etc."
-KeyBindingBox.ClearBinding,消去,Text on the button in rebinding dialog box that clears the current key binding. Please keep short.
 KeyBindingBox.PrimaryBinding,一次割り当て,Header of the primary key bindings column in the key bindings panel
 KeyBindingBox.RebindingMessage,{0}に割り当てるキーを押してください,"Message shown on key rebinding dialog box, {0} stands for the name of the key binding e.g. KeyBinding.Speed0, KeyBinding.ToggleGUI etc."
 KeyBindingBox.ResetToDefault,初期設定に戻す,Text on the button in key bindings panel that resets all key bindings to their default bindings
@@ -1050,8 +1046,12 @@ KeyBindingGroup.Objects,オブジェクトコントロール,"Label for the key 
 KeyBindingGroup.SettlementPanel,開拓地のパネル,Label for the key binding group associated with settlement panel controls (opening panel and its tabs)
 KeyBindingGroup.Time,時間,Label for the key binding group associated with time controls (changing time speed)
 KeyBindingGroup.UI,UI,"Label for the key binding group associated with user interface controls (opening panels, toggling overlays etc)"
+KeyBindingsPanel.Header,キーの割り当て,Header of the key bindings box
 LevelVisibility.InfoTooltip,可視レイヤー,Tooltip for controls that allow the player to set the vertical level visibility
 LevelVisibility.ResetTooltip,可視レイヤーをリセット,Tooltip for button that resets the vertical vertical visibility
+LoadMapPanel.Delete,マップ消去,A button. Please keep short.
+LoadMapPanel.DeleteMapPrompt,本当に「{0}」を消去しますか？,{0} stands for map name
+LoadMapPanel.Header,マップ編集,
 LoadingIssue.BlockObjectLoadingIssue,オブジェクトの位置が無効だったため、消去されました： {0}。,
 LoadingIssue.ContinuePlaying,プレイを続ける,a button please keep short. Allows player to play dispite detected issues
 LoadingIssue.LoadingIssues,ロード中に問題発生,Shown when there are issues with loading map
@@ -1061,10 +1061,14 @@ LoadingIssue.MapIssuesWarning,"MODをインストールするか、または新�
 プレイを続行できますが、マップが不完全な可能性があります。",Shown when there are issues with loading map - warning player about possible reason and consequences
 LoadingIssue.PrefabNotFoundIssue,オブジェクトの種類が不明だったため、消去されました： {0}。,Warning shown when object type is not found in the game and cannot be instantiate.
 LoadingIssue.TerrainCutOffIssue,地形の高さが最大値を超えたため、切断されました。,Warning shwon when terrain in saved map exceeds the maximum height of the map.
-LoadMapPanel.Delete,マップ消去,A button. Please keep short.
-LoadMapPanel.DeleteMapPrompt,本当に「{0}」を消去しますか？,{0} stands for map name
-LoadMapPanel.Header,マップ編集,
 MainMenu.RosettaPerformanceWarning,パフォーマンス低下。,"Warning message displayed in the main menu when Rosetta (MacOS compatibility mode) is enabled. Preceded by the ""Rosetta: OFF"" message."
+MainMenu.UpdateInfoHeader,アップデート1.0 — 「実験」,Header of the update info panel that is shown in the main menu.
+MainMenu.UpdateInfoLink,<u>もっと読む</u>,Label of the link that opens web browser with the update details webpage.
+MainMenu.UpdateInfoText,"• 新インタラクティブ・マップオブジェクト
+• 新マップ：圧力、オアシス
+• 螺旋階段＆バナー
+• MODパイプラインの改善
+• 建造物の複製＆その他のプレイ環境の調整","Text shown in the update info panel with the latest update summary. Ziplines, Tubeways, Tunnels, power shafts and layer tool naming must be consistent with the usage of those terms in the rest of the game."
 MainMenu.WelcomeScreenStart,スタート！,A button please keep short
 MainMenu.WelcomeScreenText,"移住者の皆さん、こんにちは！
 
@@ -1075,42 +1079,32 @@ MainMenu.WelcomeScreenText,"移住者の皆さん、こんにちは！
 これは当ゲーム史上最も重要なアップデートなので、皆さまのフィードバックをお待ちしております。<i>「感想を送る」</i>ボタン、または公式Discordサーバーからぜひ共有してください。
 
 それでは、水分補給もお忘れなく！",
-MainMenu.WelcomeScreenTitle,早期アクセス版の情報,Header of the welcome screen popup.
-MainMenu.UpdateInfoHeader,アップデート1.0 — 「実験」,Header of the update info panel that is shown in the main menu.
-MainMenu.UpdateInfoLink,<u>もっと読む</u>,Label of the link that opens web browser with the update details webpage.
-MainMenu.UpdateInfoText,"• 新インタラクティブ・マップオブジェクト
-• 新マップ：圧力、オアシス
-• 螺旋階段＆バナー
-• MODパイプラインの改善
-• 建造物の複製＆その他のプレイ環境の調整","Text shown in the update info panel with the latest update summary. Ziplines, Tubeways, Tunnels, power shafts and layer tool naming must be consistent with the usage of those terms in the rest of the game."
 Manufactory.CurrentRecipe,レシピ：,Text before a dropdown for changing factory recipe - what the factory produces from what ingredients.
+MainMenu.WelcomeScreenTitle,早期アクセス版の情報,Header of the welcome screen popup.
 Manufactory.NoRecipeOption,無し,Text shown in a dropdown when no recipe is selected. Keep below 15 characters.
-Manufactory.Recipe.EfficientScrapMetal,金属スクラップ(高効率),A more efficient way of getting scrap metal using explosives. The metal scrap itself is not more efficient. Scrap Metal is Good.ScrapMetal.PluralDisplayName
 Manufactory.Recipe.BiofuelCarrot,バイオ燃料（ニンジン）,Recipe for making Biofuel out of Carrots. Keep consistent with Good.Biofuel.DisplayName and Good.Carrot.PluralDisplayName.
 Manufactory.Recipe.BiofuelPotato,バイオ燃料（ジャガイモ）,Recipe for making Biofuel out of Potatoes. Keep consistent with Good.Biofuel.DisplayName and Good.Potato.PluralDisplayName.
 Manufactory.Recipe.BiofuelSpadderdock,バイオ燃料（セイヨウコウホネ）,Recipe for making Biofuel out of Spadderdock. Keep consistent with Good.Biofuel.DisplayName and Good.Spadderdock.PluralDisplayName.
+Manufactory.Recipe.EfficientScrapMetal,金属スクラップ(高効率),A more efficient way of getting scrap metal using explosives. The metal scrap itself is not more efficient. Scrap Metal is Good.ScrapMetal.PluralDisplayName
 MapEditor.BlockObjectRandomizePlacement,アイテムの交代をランダムにし、向きを反転させる,Button to randomize the rotation and flip direction of the object being placed in the map editor
 MapEditor.Brush.AbsoluteTerrainHeight,地形（絶対高さ）,A tool that changes terrain height to an absolute value.
 MapEditor.Brush.Density,質量,Density of objects.
-MapEditor.Brush.Direction.Decrease,減らす,
-MapEditor.Brush.Direction.Increase,増やす,
 MapEditor.Brush.Direction.Label,ブラシの向き：,
+MapEditor.Brush.Direction.Lower,下げる,
+MapEditor.Brush.Direction.Raise,上げる,
 MapEditor.Brush.Height.Label,ブラシの高度,Either absolute or relative height at which brush will paint.
 MapEditor.Brush.NaturalResourceRemoval,自然資源を除去,Natural resources meaning trees and bushes
 MapEditor.Brush.NaturalResourceSpawning,自然資源,Natural resources meaning trees and bushes
-MapEditor.Brush.RandomizeYieldGrowth,作物の成長度をランダムにする,"This text is next to a toggle that randomizes the percentage growth of fruit, chestnuts or other things that can be gathered and regrow"
+MapEditor.Brush.RandomizeYieldGrowth,成育度ランダム化,"This text is next to a toggle that randomizes the percentage growth of fruit, chestnuts or other things that can be gathered and regrow"
 MapEditor.Brush.RelativeTerrainHeight,地形（相対高さ）,A tool that changes terrain height by a value relative to the original height.
 MapEditor.Brush.SculptingTerrain,地形（スカルプト）,Label of the brush that allows the player to sculpt the terrain (e.g. dig tunnels or create overhangs)
 MapEditor.Brush.Shape.Label,ブラシの形：,
 MapEditor.Brush.Shape.Round,丸,
 MapEditor.Brush.Shape.Square,四角,
 MapEditor.Brush.Size.Label,ブラシサイズ：,
-MapEditor.Exit,編集を終わる,A button please keep short
 MapEditor.FlowPreview.StartTest,流量テスト開始,Label of a button that starts water flow test in map editor.
 MapEditor.FlowPreview.StopTest,流量テスト停止,Label of a button that stops water flow test in map editor.
-MapEditor.Layers.Header,レイヤー,"A header above a list of map layers that can be hidden, such as water or trees"
 MapEditor.Layers.NaturalResources,自然資源,
-MapEditor.Layers.Water,水,
 MapEditor.LoadMap.Header,マップ選択,
 MapEditor.MapMetadata.Description,マップ詳細,Label of the map description
 MapEditor.MapMetadata.Title,マップデータ,Title of the map data panel in map editor. Currently it only contains the map description field to fill in.
@@ -1119,10 +1113,10 @@ MapEditor.NewMap,新規マップ,A button please keep short
 MapEditor.NewMap.Create,作成,A button which confirms new map parameters and starts the map editor
 MapEditor.NewMap.Header,新規マップ,
 MapEditor.NewMap.Size,サイズ：,
+MapEditor.NoStartingLocation,スタート地点を設定してください。,Notification that there is no starting location object. Keep consistent with Building.StartingLocation.DisplayName.
 MapEditor.NonCompatibleMapVersion,互換性のないマップバージョンです。,Warning shown in the map editor when the map version is not compatible with the current game version.
 MapEditor.NonCompatibleMapVersion.Tooltip,"このマップバージョン（{0}）は現在のゲームバージョン（{1}）と互換性がありません。
 互換性を持たせるには、マップをセーブしてください。",Tooltip shown over MapEditor.NonCompatibleMapVersion warning.
-MapEditor.NoStartingLocation,スタート地点を設定してください。,Notification that there is no starting location object. Keep consistent with Building.StartingLocation.DisplayName.
 MapEditor.Redo,やり直す,Label of a button that redoes changes in Map editor.
 MapEditor.SaveMap.Header,マップを保存,
 MapEditor.SaveMap.MapExists,マップ{0}はすでに存在します。,{0} stands for map name
@@ -1146,9 +1140,9 @@ MapEditor.Undo,取り消す,Label of a button that undoes changes in Map editor.
 MapEditor.UploadMap,マップをアップロード,Label of the button that uploads the map to some kind of online service
 MapMetadata.Beaverome.Description,伝説のメトロポリスを造り上げるため、ビーバーの祖先は七つの巨大なクレーターを干し上げた。今日の木工技術をもってしても、これは至難の業である。,
 MapMetadata.Beaverome.Name,ビーバローマ,The name of this map comes from Beaver + Rome - an ancient beaver city.
-MapMetadata.Canyon.Description,ビーバーは砂漠内で水が流れる渓谷を常に探している。ダムが作りやすいこの渓谷は全てにとっての安息の地となるであろう。,
+MapMetadata.Canyon.Description,ビーバーは砂漠内で水が流れる渓谷を探している。ダムが作りやすいこの渓谷は全てにとっての安息の地となるであろう。,
 MapMetadata.Canyon.Name,渓谷,
-MapMetadata.Cliffside.Description,古代人類の建築物の遺跡が、この孤立した渓谷のあちこちに散らばっている。ビーバーも、この世界に同じような跡を残すことを目指している。,
+MapMetadata.Cliffside.Description,古代のニンゲンの建築物の遺跡が、この孤立した渓谷のあちこちに散らばっている。ビーバーも、この世界に同じような跡を残すことを目指している。,
 MapMetadata.Cliffside.Name,崖の側面,
 MapMetadata.Craters.Description,これらのクレーターがどのようにして作られたのかは誰も知らない。事前調査のデータによれば、ニンゲンによる暴力的な関与があったことようだ。,
 MapMetadata.Craters.Name,クレーター,
@@ -1177,12 +1171,12 @@ MapMetadata.ThousandIslands.Description,生まれつき泳ぎが得意でも、�
 MapMetadata.ThousandIslands.Name,サウザンド・アイランド,
 MapMetadata.Waterfalls.Description,滝は単なる大きな水門であると子供たちに教えるのは、何世代にもわたり親たちが使ってきたトリックである。閉水レバーを探し、子供たちは何週間も駆け回るのである。,
 MapMetadata.Waterfalls.Name,滝,
-MapSelection.BrowseMaps,ローカルマップ参照,Label of the button that opens a file explorer with a directory with custom maps. Please keep short.
+MapSelection.BrowseMaps,ローカルマップ参照,Label of the button that opens a file explorer with a folder with custom maps. Please keep short.
 MapSelection.CustomMaps,カスタムマップ,Label of the toggle button that shows custom maps
 MapSelection.DownloadMaps,マップをダウンロード,Label of the button that opens some panel where custom maps can be downloaded
 MapSelection.Header,マップ選択,
-MapSelection.LocalMap,ローカルマップ,Tooltip of an icon in map selection panel that indicates that the map is stored in Documents directory.
-MapSelection.NoDescription,詳細なし,Text shown in map selection panel when the selected map has no description
+MapSelection.LocalMap,ローカルマップ,Tooltip of an icon in map selection panel that indicates that the map is stored in Documents folder.
+MapSelection.NoDescription,説明なし。,Text shown in map selection panel when the selected map has no description
 MapSelection.NonCompatibleMapVersion,このマップバージョン({0})は現在のゲームバージョン({1})と互換性がないため、読み込むことができません。,"{0} is the map version (e.g. 0.1.15.1), {1} is the game version (in the same format). This message is shown after a player tries to start game on (or edit) an incompatible map."
 MapSelection.OfficialMaps,公式マップ,Label of the toggle button that shows official maps
 MapSelection.Recommended,初心者向け,Label of the maps that are recommended for beginners
@@ -1191,7 +1185,7 @@ MapSelection.SemiCompatibleMapVersion,"このマップのバージョン ({0}) �
 本当にゲームを開始してよろしいですか？","{0} is the map version (e.g. 0.1.15.1), {1} is the game version (in the same format). This message is shown after a player tries to start game on an incompatible map."
 MapSelection.Unconventional,特殊,"Label of the maps that have some special, different, unconventional mechanics"
 Mechanical.Charge,残量,Current battery charge (how much power a battery has left)
-Mechanical.Efficiency,稼働効率：{0}％,{0} stands for efficiency percentage number. How efficient workshop is at using the energy.
+Mechanical.Efficiency,稼働効率：{0}％,{0} stands for efficiency percentage number. How efficient workshop is at using the power.\
 Mechanical.NetworkPower,動力供給量/需要量：{0} / {1},{0} stands for supply amount {1} stands for demand amount followed by PowerSymbol
 Mechanical.PowerCapacity,容量：,Stands for battery capacity.
 Mechanical.PowerCapacityPerMeter,hph / m,Stands for horse power hour per meter - used to describe battery capacity. hph should be same as Mechanical.PowerCapacitySymbol.
@@ -1215,8 +1209,6 @@ Menu.KeyBindings,キーの割り当て,A button please keep short
 Menu.LoadGame,読み込む,A button please keep short
 Menu.ModManager,MOD,Label of a button that opens the mod manager.
 Menu.NewGame,新しく始める,A button please keep short
-Menu.NewGamePrompt,"新しいゲームを開始しますか？
-保存されていない進捗は失われます。",
 Menu.NewMap,新規マップ作成,A button please keep short
 Menu.Resume,再開,"A button in game and map editor menu, please keep short"
 Menu.SaveGame,保存,A button please keep short
@@ -1233,7 +1225,7 @@ Migration.MigratePopulation,ビーバー移住,Button please keep short
 Migration.Minimum,最小,"Label shown in front of input field, with desired minimum amount of population in district"
 Migration.SameDistrict,同じ地区には移住できません。,Shown on tooltip of disabled migration buttons when the chosen districts are same
 Modding.ActiveMods,有効なMOD,A label for the list of mods active in the game.
-Modding.BrowseMods,ローカルMODフォルダ,Label of the button that opens a file explorer with a directory with mods. Please keep short.
+Modding.BrowseMods,ローカルMODフォルダ,Label of the button that opens a file explorer with a folder with mods. Please keep short.
 Modding.CloudSource,{0} MOD,"Tooltip with source of the mod. {0} is the name of the cloud platform, for example Steam Workshop."
 Modding.CreateMod,MODを作成,Label of a button that creates a new mod. Please keep short.
 Modding.CreateNewMod,新しいMODを作成,Label of a button that allows to create a new mod and a header of the panel that it opens.
@@ -1247,18 +1239,17 @@ Modding.MissingMod,MODがありません。,Shown on a tooltip for an icon that 
 Modding.ModCreatedMessage,"MODは次のフォルダに作成されました：
 <link><b>{0}</b></link>
 
-MODを読み込むには、ゲームを再起動してください。",Message shown when a mod is created successfully. {0} is a path to the mod directory. Do not remove <link><b> tags.
+MODを読み込むには、ゲームを再起動してください。",Message shown when a mod is created successfully. {0} is a path to the mod folder. Do not remove <link><b> tags.
 Modding.ModManagerHeader,MOD,Header of the mod manager panel.
 Modding.ModNameTaken,このMOD名はすでに使用されています。,Error shown when trying to create a mod with a name that is already used by another mod.
-Modding.ModsIncompatibilityMessage,保存時のMODがない状態でゲームをロードしようとしています。,A message displayed in the mod incompatibility dialog box.
-Modding.ModWarning.InvalidGameVersion,このMODを使用するには、ゲームバージョン{0}に更新する必要があります。,Message that is shown when a mod requires a higher game version. {0} is the required game version.
+Modding.ModWarning.InvalidGameVersion,このMODを使用するには、より新しいゲームバージョン{0}に更新する必要があります。,Message that is shown when a mod requires a higher game version. {0} is the required game version.
 Modding.ModWarning.MissingRequiredMod,必要なMOD: {0}。,Message that is shown when a mod is missing a required mod. {0} is the ID of the required mod.
 Modding.ModWarning.RequiredModInvalidOrder,必要なMOD「{0}」は、ロード順序でこのMODの下にあります。,Message that is shown when a required mod is below the mod in the load order. {0} is the ID of the required mod.
 Modding.ModWarning.RequiredModInvalidVersion,必要なMOD「{0}」のバージョンは、必要最低限のバージョン以下のものです。,Message that is shown when a required mod has a version below the minimum required version. {0} is the ID of the required mod.
 Modding.ModWarning.RequiredModNotEnabled,必要なMOD「{0}」が有効になっていません。,Message that is shown when a required mod is not enabled. {0} is the ID of the required mod.
+Modding.ModsIncompatibilityMessage,保存時のMODがない状態でゲームをロードしようとしています。,A message displayed in the mod incompatibility dialog box.
 Modding.NewModLanguage,言語コード,Label of a field that allows to set a language code for a localization mod. Please keep short.
 Modding.NewModName,MOD名,Label of a field that allows to set a name for a new mod. Please keep short.
-Modding.OpenDirectory,MODフォルダを開く,Label of a button that opens a file explorer with a directory with mods. Please keep short.
 Modding.ResetOrder,ロード順序をリセット,Label of a button that resets the order of mods.
 Modding.RestartWarning,変更は再起動するまで適用されません。,Message that is shown when the player has changed something in Mod Manager and need to restart the game for the changes to take effect.
 Modding.SavedMods,保存ファイルにあるMOD,A label for the list of mods found in the save file.
@@ -1314,12 +1305,12 @@ NaturalResource.Sunflower.DisplayName,向日葵,
 NaturalResource.Sunflower.FlavorDescription,照りつける太陽を恐れない精神の象徴としてこれを育てる。,It's a reference to drought being the main threat in the game.
 NaturalResource.Wheat.DisplayName,小麦,Plant Triticum aestivum
 NaturalResource.Wheat.FlavorDescription,「会いに行くよ、並木を抜けて、木をかじって。手にはいっぱいの小麦を抱えて」―ビーバーのうた,"Adapted from ""Fields of Gold"" by Sting."
-NaturalResources.Aquatic,<YellowHighlight>水生</YellowHighlight>：この植物は部分的に水に浸る必要があります。,Aquatic is a keyword. Shown after selecting an aquatic plant. Examples of aquatic plants include spadderdock or water lilies.
+NaturalResources.Aquatic,<YellowHighlight>水生</YellowHighlight>：部分的に水に浸っている必要があります。,Aquatic is a keyword. Shown after selecting an aquatic plant. Examples of aquatic plants include spadderdock or water lilies.
 NaturalResources.DaysToDie,あと{0}日で死亡,"Shown when natural resource is dying (from any reason), {0} stands for number of days left to die"
-NaturalResources.DiedFromContamination,汚染が原因で死にました。,Shown when a plant died after being contaminated for too long. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Please keep short.
-NaturalResources.DiedFromNotEnoughWater,水に浸かっていなかったため、死にました。,Shown when a water plant died after not being submerged in water for too long. Please keep short.
-NaturalResources.DiedFromTooMuchWater,浸水が原因で死にました。,Shown when a plant died after it had been submerged in water for too long. Please keep short.
-NaturalResources.Dried,干乾びてしまったため、死にました。,Shown for plants which died from lack of water. Please keep short.
+NaturalResources.DiedFromContamination,汚染により枯死。,Shown when a plant died after being contaminated for too long. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Please keep short.
+NaturalResources.DiedFromNotEnoughWater,水深不足で枯死。,Shown when a water plant died after not being submerged in water for too long. Please keep short.
+NaturalResources.DiedFromTooMuchWater,洪水により枯死。,Shown when a plant died after it had been submerged in water for too long. Please keep short.
+NaturalResources.Dried,乾燥により枯死。,Shown for plants which died from lack of water. Please keep short.
 NaturalResources.DroughtResistance,干ばつ耐性：{0} 日,The number of days a plant can survive in a drought.
 NaturalResources.GenericDied,萎れてしまった。,Refers to a plant.
 NaturalResources.Healthy,水を得て生き生きしている。,Shown when plant is healthy and has no problems with growth
@@ -1330,16 +1321,13 @@ NaturalResources.Visibility.Hide,自然資源を非表示,Tooltip for button hid
 NaturalResources.Visibility.Show,自然資源を表示,Tooltip for button showing natural resources
 Need.BadwaterContamination.DisplayName,中毒,Title of an effect that shows up when a beaver is contaminated. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Need.BeeSting.DisplayName,ハチ刺され,Title of an effect that shows up when a beaver has been stung by a bee.
-Need.BrokenTeeth.DisplayName,欠けた歯,Title of an effect that shows up when a beaver has broken its teeth
-Need.Energy.DisplayName,エネルギー,A need satisfied when a bot recharges.
-Need.Hunger.DeathMessage,は飢え死にしました。,Preceded by beaver name
+Need.ChippedTeeth.DisplayName,欠けた歯,Title of an effect that shows up when a beaver has chipped its teeth
+Need.Hunger.DeathMessage,餓死。,Preceded by beaver name.
 Need.Hunger.DisplayName,満腹度,Title of a beaver need related to its hunger
-Need.HammerAndSaw.DisplayName,ハンマーとノコギリ,A passive need that is always active and provides bonus to woodworking and metalworking.
 Need.Injury.DisplayName,怪我,Title of an effect that shows up when a beaver has been injured
-Need.Overheat.DisplayName,熱中症,An effect that occurs when a beaver spends too much time outside during drought.
+Need.Power.DisplayName,動力,A need satisfied when a bot recharges.
 Need.Roof.DisplayName,屋根,"Same as Building.Roof2x2.DisplayName without the size. It refers to roofs as one of the available decorations, do not confuse with Shelter which is a separate need."
 Need.Shelter.DisplayName,シェルター,A need that is fulfilled when a beaver has a house.
-Need.ShovelAndPan.DisplayName,ショベルとフライパン,A passive need that is always active and provides bonus to farming and cooking.
 Need.Sleep.DisplayName,睡眠,A need satisfied when a beaver sleeps.
 Need.Thirst.DeathMessage,はのどの渇きで死にました。,Preceded by beaver name
 Need.Thirst.DisplayName,水分,A need satisfied by providing water.
@@ -1352,20 +1340,25 @@ NeedGroup.Fun.DisplayName,楽しさ,"Name of a need group where needs are satisf
 NeedGroup.Happiness.DisplayName,幸福度,General happiness of the populace
 NeedGroup.Knowledge.DisplayName,知識,"Name of a need group where needs are satisfied when beavers learn new stuff, previously Need.Knowledge.DisplayName"
 NeedGroup.Nutrition.DisplayName,栄養,Same as the need named Nutrition
-NeedGroup.Passive.DisplayName,パッシブ,"Name of a group containing passive effects, that are always active, like Need.HammerAndSaw.DisplayName"
-NeedGroup.Temporary.DisplayName,一時効果,"Name of a need group containing temporary effects, both positive and negative."
 NeedGroup.SocialLife.DisplayName,社交,"Name of a need group where needs are satisfied by letting beavers be social and chat with other beavers, previously Need.SocialLife.DisplayName"
+NeedGroup.Temporary.DisplayName,一時効果,"Name of a need group containing temporary effects, both positive and negative."
 Needs.Beaver.DeathWarning,ビーバーが間もなく死んでしまいます。,
 Needs.HeatProtection,{0}から防護,"Shown on a tooltip, when need protects from heat effects. {0} stands for heat effect name."
 Needs.InRange,{0}マス以内,"{0} stands for radius size (area of effect), text is shown after Need.DisplayName to indicate its radius"
 Needs.SatisfiesInRange,{1}マス以内の{0}を満たす,{0} stands for Need.DisplayName {1} stands for radius size (area of effect)
+NewGame.Notification,木々と水場。新たな挑戦の始まりだ。,Notification when a new game is started
 NewGameConfigurationPanel.Aged,齢,"Describing age of beavers, between text fields, example: 'Starting beavers: [20] aged [10]'"
+NewGameConfigurationPanel.BadtideDuration,悪潮の期間,"Label of a setting, how long badtide season could be. Badtide should be the same as Weather.Badtide"
+NewGameConfigurationPanel.BadtideDurationHandicap,悪潮期間の短縮,"Label of a setting, makes badtide season shorter during a game, example usage: 'Badtide duration handicap: 50%. Badtide should be the same as Weather.Badtide"
+NewGameConfigurationPanel.ChanceForBadtide,悪潮の確率,"Label of a setting, what is the chance for a badtide season. Badtide should be the same as Weather.Badtide"
 NewGameConfigurationPanel.Custom,カスタム,Game mode keep short
 NewGameConfigurationPanel.Customize,カスタマイズ,Label of the button that opens the customization panel.
 NewGameConfigurationPanel.Cycles,サイクル,"Cycle is a unit of time shown after a number, example usage: '10 cycles'. Must be consistent with Weather.CycleAndDayLong."
+NewGameConfigurationPanel.CyclesBeforeBadtideRandomization,悪潮なしのサイクル,"Label of a setting, how many cycles there will be without badtide seaon possibility. Badtide should be the same as Weather.Badtide"
 NewGameConfigurationPanel.Days,日,"Shown after a number field, example usage: '10 days'"
-NewGameConfigurationPanel.DemolishableRecoveryRate,建物の返金率,"Label of a setting, defines how much resources (goods) user will get back after demolishing a building, example usage: 'Building refund rate: 75%'"
+NewGameConfigurationPanel.DemolishableRecoveryRate,建物の返金率,"Label of a setting, defines how much goods user will get back after demolishing a building, example usage: 'Building refund rate: 75%'"
 NewGameConfigurationPanel.DroughtDuration,干ばつの期間,"Label of a setting, how long drought is during each cycle."
+NewGameConfigurationPanel.DroughtDurationHandicap,干ばつ期間の短縮,"Label of a setting, makes droughts shorter during a game, example usage: 'Drought duration handicap: 50%"
 NewGameConfigurationPanel.Easy,イージー,Game mode keep short
 NewGameConfigurationPanel.EasyModeDescription,"初心者さんや、リラックスしてシティビルディングを楽しみたい方に。
 
@@ -1378,7 +1371,6 @@ NewGameConfigurationPanel.EnableBadtides,悪潮,"Label of the checkbox that enab
 NewGameConfigurationPanel.EnableDroughts,干ばつ,"Label of the checkbox that enables droughts, ""Droughts"" should be plural of Weather.Drought."
 NewGameConfigurationPanel.FoodConsumption,食料の消費量,"Label of a setting, how much food beavers consume during a game. For example 'Food consumption: 60%'"
 NewGameConfigurationPanel.For,/,"Specifies a duration, between text fields, example usage: 'Drought duration handicap: [50%] for [10] cycles'"
-NewGameConfigurationPanel.DroughtDurationHandicap,干ばつ期間の短縮,"Label of a setting, makes droughts shorter during a game, example usage: 'Drought duration handicap: 50%"
 NewGameConfigurationPanel.Hard,ハード,Game mode keep short
 NewGameConfigurationPanel.HardModeDescription,"ニンゲンは生き残れませんでした。きっと、あなたも。
 
@@ -1399,17 +1391,12 @@ NewGameConfigurationPanel.StartingAdults,開始時の大人の数,"Label of a se
 NewGameConfigurationPanel.StartingChildren,開始時の子供の数,"Label of a setting, number of children spawned at the start of a game."
 NewGameConfigurationPanel.StartingFood,開始時の食料,"Label of a setting, amount of food available at the start of a game."
 NewGameConfigurationPanel.StartingWater,開始時の水の量,"Label of a setting, amount of water available at the start of a game."
+NewGameConfigurationPanel.SubHeader,ゲームモード,
 NewGameConfigurationPanel.TemperateWeatherDuration,温暖な気候の続く期間,"Label of a setting, how long temperate weather is during each cycle."
 NewGameConfigurationPanel.To,～,"Describes a range of numbers, example usage: '20 to 50%'"
-NewGameConfigurationPanel.SubHeader,ゲームモード,
 NewGameConfigurationPanel.WaterConsumption,水の消費量,"Label of a setting, how much water beavers consume during a game, for example 'Water consumption: 60%'."
-NewGameConfigurationPanel.ChanceForBadtide,悪潮の確率,"Label of a setting, what is the chance for a badtide season. Badtide should be the same as Weather.Badtide"
-NewGameConfigurationPanel.CyclesBeforeBadtideRandomization,悪潮なしのサイクル,"Label of a setting, how many cycles there will be without badtide seaon possibility. Badtide should be the same as Weather.Badtide"
-NewGameConfigurationPanel.BadtideDuration,悪潮の期間,"Label of a setting, how long badtide season could be. Badtide should be the same as Weather.Badtide"
-NewGameConfigurationPanel.BadtideDurationHandicap,悪潮期間の短縮,"Label of a setting, makes badtide season shorter during a game, example usage: 'Badtide duration handicap: 50%. Badtide should be the same as Weather.Badtide"
 NewGameFactionPanel.SubHeader,陣営を選択,
 NewGameMapPanel.SubHeader,マップ選択,
-NewGame.Notification,木々と水場。新たな挑戦の始まりだ。,Notification when a new game is started
 NewMapPanel.Header,新規マップ作成,
 Planting.NoPriorityOption,無し,No resource is prioritized
 Planting.Prioritize,優先栽培：,Which resource to prioritize when planting.
@@ -1426,51 +1413,58 @@ Priorities.Low,低い,Please keep short
 Priorities.Normal,普通,Please keep short
 Priorities.High,高い,Please keep short
 Priorities.VeryHigh,とても高い,Please keep short
-RecoverableGood.RecoveredGoods,復元した物：,Label on tooltip that shows up when the player want to destroy building(s). Followed by list of resources.
-RecoveredGoodStack.DeletePrompt,がれきの中に保管されている資源はすべて失われます。本当に撤去しますか？,"Prompt shown when the player clicks delete button on chosen rubble,Rubble should be the same as RecoveredGoodStack.DisplayName"
+RecoverableGood.RecoveredGoods,復元した物資：,Label on tooltip that shows up when the player want to destroy building(s). Followed by list of goods.
+RecoveredGoodStack.DeletePrompt,がれきの中に保管されている物資はすべて失われます。本当に撤去しますか？,"Prompt shown when the player clicks delete button on chosen rubble,Rubble should be the same as RecoveredGoodStack.DisplayName"
 RecoveredGoodStack.Description,建物を解体した後に残る資材。建設者が集めることができる。,Description of stack of goods spawned after destroying a building. Builders should be translated the same way as in Building.BuildersHut.Description key
+RecoveredGoodStack.DisintegrationCountdown,あと{0}日で崩壊,Info on rubble entity panel disintegration countdown progress bar
 RecoveredGoodStack.DisplayName,がれき,Display name of stack of goods spawned after destroying a building
 RecoveredGoodStack.FlavorDescription,いずれにせよ、視界が遮られた。,
-RecoveredGoodStack.Priority,回収優先度：,Setting a priority for resources gathering work on a Rubble. Could be similar to Demolish.PriorityTitle
-Resources.EatableRaw,生のまま食べられる。,Shown on a tooltip of goods that can be eaten raw.
+RecoveredGoodStack.Priority,回収優先度：,Setting a priority for goods gathering work on a Rubble. Could be similar to Demolish.PriorityTitle
 Resources.GatheredBy,採集元：,"Header above list of buildings that can gather certain resource. Gathered is meant as general term, containing resource gathering of gatherers, farmers, lumberjacks, tappers."
 Ruins.ShuffleModel,シャッフルする,Shuffle as in Randomize.
+Saving.Autosave,自動保存,Name of the autosaved game
+Saving.CycleUnknown,サイクル不明,"Text shown in old save games labels that don't have cycle information. ""Cycle"" should be the same as in Weather.CycleAndDayLong"
 Saving.DeleteSave,セーブの消去,A button. Please keep short.
 Saving.DeleteSavePrompt,本当に「{0}」を消去しますか？,{0} stands for save name
 Saving.DeleteSettlement,開拓地の消去,A button. Please keep short.
 Saving.DeleteSettlementPrompt,本当に開拓地「{0}」を消去しますか？ この開拓地の全てのセーブを削除することになります。,{0} stands for settlement name
-Saving.Error,保存に失敗しました。不正な文字が含まれていないこと、ディスク容量が足りていることを確認してください。,Message shown to player when saving game or map failed
+Saving.Error,セーブできませんでした。規定外の文字は使わないでください。また、十分なストレージがあるか確認してください。,Message shown to player when saving game or map failed
 Saving.InvalidFile,"ロードしようとしたセーブは壊れています！
 
 開拓地: {0}
 セーブ: {1}",Error message shown after trying to load a save file that is corrupted.
 Saving.InvalidName,無効な名前。名前に不正な文字が含まれていないことを確認してください。,Error message shown after inputting a settlement name with illegal characters such > < ?.
 Saving.LoadGamePanelHeader,読み込む,
-Saving.MissingMacOSPermissionsLocKey,ハードドライブに『Timberborn』のセーブデータを保存するために、許可が必要です。ゲームを終了しますので、プライバシー設定を開き、データの保存に必要な権限を許可してください。,A message shown to players if they did not grant the necessary permissions on macOS.
+Saving.MissingMacOSPermissionsLocKey,デバイスに『Timberborn』のセーブデータを保存するために、許可が必要です。ゲームを終了しますので、設定を開き、データの保存に必要な権限を許可してください。,A message shown to players if they did not grant the necessary permissions on macOS.
 Saving.NameSettlement,あなたの開拓地を何と呼びますか？,A prompt in the box for naming your settlement after starting a new game.
-Saving.NonCompatibleSaveVersion,"このセーブデータの作成以降、ゲームに大幅な変更が行われたため、読み込みことができません。
-私たちはセーブの互換性の損失を最小限に留めるよう努めていますが、プレイヤーのフィードバックに応じてゲームの開発を続けているため、それが実現できない場合もあります。",
+Saving.NonCompatibleSaveVersion,"このセーブデータは現バージョンと互換性がありません。
+当方ではこういった事態が発生しないよう全力を尽くしております。最初からゲームをやり直し、新しい機能をお楽しみください。",
 Saving.SaveExists,セーブ「{0}」はすでに存在します。,{0} stands for save name
 Saving.SaveGamePanelHeader,保存,
 Saving.Saves,セーブ,One of the two headers in the load game panel. Shown above a list of saves assigned to a settlement.
-Saving.SemiCompatibleSaveVersion,"このセーブのバージョン ({0}) は現在のゲームバージョン ({1}) と互換性がありません。このセーブをロードすると、クラッシュしたり、ゲームが壊れたりするバグが発生する可能性があります。新機能を十分に楽しむためには、新しいゲームを始めることを強くお勧めします。
+Saving.SemiCompatibleSaveVersion,"このセーブのバージョン（{0}）は現在のバージョン（{1}）と互換性がありません。ロードすると、クラッシュしたり、ゲームが壊れたりするバグが発生する可能性があります。新機能を十分に楽しむためには、新しいゲームを始めることを強くお勧めします。
 
 本当にロードしてよろしいですか？","{0} is the save version (e.g. 0.1.15.1), {1} is the game version (in the same format). This message is shown after a player tries to load an incompatible save."
-Saving.SteamCompatibilityMessage,<RedHighlight><i>引き続き旧バージョンをお楽しみいただくには、Steam上でカスタムブランチ（ベータ）に切り替える必要があります。</i></RedHighlight>,Additional message on Steam that is shown when the save is not compatible with the current version of the game. It is shown below Saving.SemiCompatibleSaveVersion and Saving.NonCompatibleSaveVersion messages.
 Saving.Settlements,開拓地,One of the two headers in the load game panel. Shown above a list of settlements.
+Saving.SteamCompatibilityMessage,<RedHighlight><i>引き続き旧バージョンをお楽しみいただくには、Steam上でカスタムブランチ（ベータ）に切り替える必要があります。</i></RedHighlight>,Additional message on Steam that is shown when the save is not compatible with the current version of the game. It is shown below Saving.SemiCompatibleSaveVersion and Saving.NonCompatibleSaveVersion messages.
 Saving.TakenName,もう既にこの名前の開拓地が存在します。,Error message shown after inputting a settlement name that is already used.
-Saving.Autosave,自動保存,Name of the autosaved game
-Saving.CycleUnknown,サイクル不明,"Text shown in old save games labels that don't have cycle information. ""Cycle"" should be the same as in Weather.CycleAndDayLong"
 Science.SciencePoints,科学ポイント,The name of a resource which can be spent to unlock new technology
-Settings.Accessibility.Header,ユーザー補助,Header for accessibility section in settings panel
 Settings.Accessibility.DisableStarfieldRotation,星空の回転を無効にする,Label for disabling starfield (stars in the night sky) rotation in accessibility settings
-Settings.Analytics.Header,データ分析,Header for the data collection/analytics consent section.
+Settings.Accessibility.Header,ユーザー補助,Header for accessibility section in settings panel
 Settings.Analytics.ConsentToggle,データ分析を有効にしました,Selected when giving consent to data collection/analytics.
-Settings.Analytics.DeleteData,収集されたデータを削除,Selected when withdrawing consent to data collection/analytics.
 Settings.Analytics.DataDeleted,収集されたデータを削除しました。,Confirmation info that the collected data has been deleted.
+Settings.Analytics.DeleteData,収集されたデータを削除,Selected when withdrawing consent to data collection/analytics.
+Settings.Analytics.Header,データ分析,Header for the data collection/analytics consent section.
 Settings.GameSaving.AutoSavingOn,自動保存,
 Settings.GameSaving.Header,保存,
+Settings.Graphics.AnisotropicFiltering,異方性フィルタリング,Label for anisotropic textures quality option
 Settings.Graphics.AnisotropicTextures,異方性テクスチャ,Label for anisotropic textures quality option
+Settings.Graphics.AntiAliasing.FXAA,FXAA,Label for FXAA anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MSAAx2,MSAA x2,Label for MSAA with x2 resolution anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MSAAx4,MSAA x4,Label for MSAA with x4 resolution anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MSAAx8,MSAA x8,Label for MSAA with x8 resolution anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MacMSAAWarning,古いハードウェアではアーティファクトが発生する可能性があります。,Warning message for Mac users about potential artifacts when using MSAA anti-aliasing
+Settings.Graphics.AntiAliasing.SMAA,SMAA,Label for SMAA anti-aliasing option in graphics settings panel
 Settings.Graphics.AntiAliasingQuality,アンチエイリアス,Antialiasing dropdown label in graphics settings panel
 Settings.Graphics.Bloom,ブルーム,Label for bloom effect dropdown in graphics settings panel
 Settings.Graphics.Header,画質,Header for graphics quality section in settings panel
@@ -1497,16 +1491,17 @@ Settings.Input.KeyboardCameraRotationSpeed,キーボードカメラ回転速度,
 Settings.Input.KeyboardCameraZoomSpeed,キーボードカメラズーム速度,
 Settings.Input.LockCursorInWindow,ウィンドウのカーソルを固定する,"When this option is enabled, mouse cursor cannot leave game window / display"
 Settings.Input.MouseWheelCameraZoomSpeed,マウスホイールズーム速度,Label of a slider for setting the speed of camera zooming with the mouse wheel.
-Settings.Input.OnscreenKeyboard,Steam Big Picture キーボード：,Label for dropdown indicating OnScreen Keyboard mode
 Settings.Input.OnScreenKeyboard.Auto,自動,A dropdown item indicating OnScreen Keyboard mode.
-Settings.Input.OnScreenKeyboard.Enabled,有効,A dropdown item indicating OnScreen Keyboard mode.
 Settings.Input.OnScreenKeyboard.Disabled,無効,A dropdown item indicating OnScreen Keyboard mode.
+Settings.Input.OnScreenKeyboard.Enabled,有効,A dropdown item indicating OnScreen Keyboard mode.
+Settings.Input.OnscreenKeyboard,Steam Big Picture キーボード：,Label for dropdown indicating OnScreen Keyboard mode
 Settings.Input.SwapMouseCameraMovementWithRotation,カメラのマウスボタン切り替え,"When this option is enabled, the middle mouse button is swapped with the right mouse button"
 Settings.Language.Change,変更,Please keep short
-Settings.Language.Warning,変更はゲームのリスタート時に適用されます。,Warning shown when user changes language
-Settings.Language.Restart,今すぐリスタート,Please keep short
 Settings.Language.Current,言語：,
+Settings.Language.Restart,今すぐリスタート,Please keep short
+Settings.Language.Warning,変更する場合、ゲームの再起動が必要です。,Warning shown when user changes language
 Settings.Screen.AntiAliasing,アンチエイリアス,Label for anti-aliasing toggle in settings window
+Settings.Screen.Brightness,輝度,Label for overall brightness level setting in screen settings panel
 Settings.Screen.FrameRateLimit,フレームレート制限,Label of a dropdown for setting a FPS limit. It should probably be left unchanged in most languages.
 Settings.Screen.FrameRateLimit.Unlimited,無制限,A dropdown value indicating unlimited frame rate.
 Settings.Screen.FrameRateLimit.Value,{0} FPS,{0} is a number. FPS stands for Frames Per Second.
@@ -1530,13 +1525,13 @@ Settings.Sound.MasterVolume,マスター音量,
 Settings.Sound.MusicVolume,音楽,
 Settings.Sound.MuteWhenMinimized,画面最小化時や別画面選択時にはミュートにする,
 Settings.Sound.UIVolume,操作音,
-Settings.Tutorial.Header,チュートリアル,
 Settings.Tutorial.DisableTutorial,チュートリアルをオフにする,
+Settings.Tutorial.Header,チュートリアル,
 Settings.UI.Header,インターフェイス,
 Settings.UI.RunInBackground,バックグラウンドでもゲーム続行,A settings which controls whether the game should run when minimized or out of focus.
-Settings.UI.ShowFps,FPSカウンター表示,
+Settings.UI.ShowFps,FPSを表示,
 Settings.UI.UIScaleFactor,UIスケール,
-Status.BadwaterContamination.Incubation,このビーバーは汚水に浸かり過ぎました。今は大丈夫ですが、数日中に病気になります。,Shown as an status alert when beaver spents too much time in contaminated water (and will get sick soon). Badwater should be the same as Good.Badwater.DisplayName.
+Status.BadwaterContamination.Incubation,このビーバーは汚染された水に浸かり過ぎました。今は大丈夫ですが、数日中に病気になります。,Shown as an status alert when beaver spents too much time in contaminated water (and will get sick soon). Badwater should be the same as Good.Badwater.DisplayName.
 Status.BadwaterContamination.Incubation.Short,ビーバーの体調不良,Shown as an status alert when beaver spents too much time in contaminated badwater (and will get sick soon). Please keep short.
 Status.Beaver.Dead,死亡,Shown in the beaver info window to explain that the beaver died
 Status.BombActivationWarning,まもなく爆発。,Text shown in entity panel when count down is active for a water source.
@@ -1559,34 +1554,34 @@ Status.ConstructionSites.NoMaterials,必要な素材が足りません。,Shown 
 Status.ConstructionSites.NoMaterials.Short,建材が足りません,Notification that the construction can't be finished. Please keep short.
 Status.Distribution.InvalidConnection,建造物は二つの地区に接続している必要があります。,"Shown as status of District Crossing, when both entrances of the building are connected to the same district or when other half is not connected to any district"
 Status.Emptying.EmptyingInProgress,現在この建物を空にしています。新たに物を運び入れることはできません。,
-Status.FixedStockpile.Unreachable,資源を集めるには地区に接続。,Text shown in entity panel when a stockpile building is not connected to a district and its resources cannot be collected.
-Status.Hauling.NoHaulingPost,地区内に運搬員がいません。,Haulers are the same as in Building.HaulingPost.Description.
+Status.FixedStockpile.Unreachable,物資を集めるには地区に接続してください。,Text shown in entity panel when a stockpile building is not connected to a district and its goods cannot be collected.
+Status.Hauling.NoHaulingPost,機能するには運搬員が必要です。,Haulers are the same as in Building.HaulingPost.Description.
 Status.Homelessness.Stranded,立往生しています。,This status is activated after a beaver or a bot got stranded and cut off from the village.
 Status.Homelessness.Stranded.Short,立往生しています,This alert is activated after a beaver or a bot got stranded and cut off from the village. Please keep short
-Status.HydroponicGarden.CultivationHalted,栽培が停止されました。作物はまもなく枯れてしまいます。,"Shown as status of Hydroponic Garden building, when it is not able to produce and its crops are about to die."
+Status.HydroponicGarden.CultivationHalted,労働者または水が足りないため、栽培が停止されました。作物はまもなく枯れてしまいます。,"Shown as status of Hydroponic Garden building, when it is not able to produce and its crops are about to die."
 Status.HydroponicGarden.CultivationHalted.Short,栽培停止中,Alert that shows up when Hydroponic Garden building is not able to produce and growth is stopped. Please keep short.
 Status.Inventory.NoGoodSelected,物が選択されていません。,A warning that no good is selected for storage in warehouse.
 Status.Inventory.NoGoodSelected.Short,物が選択されていません,A warning that no good is selected for storage in warehouse. Please keep short.
 Status.Inventory.UnwantedStock,前回の物資がなくなるのを待機しています。,"A warning that there are different goods in a warehouse, than currently selected. Different goods needs to be taken out, before new selected goods can be brought in."
 Status.Manufactory.NoRecipe,レシピが選択されていません。,A warning that no recipe is selected for crafting
-Status.Manufactory.NoRecipe.Short,レシピが選択されていません,A warning that no recipe is selected for crafting. Please keep short.
-Status.Mechanical.NoPower,動力がないと稼働しない。動力発生装置に接続しよう。,
+Status.Manufactory.NoRecipe.Short,レシピなし,A warning that no recipe is selected for crafting. Please keep short.
+Status.Mechanical.NoPower,建物は動力がないと稼働しません。動力発生装置に接続しましょう。,
 Status.Mechanical.NoPower.Short,動力不足,Power is not an electrical but mechanical/kinetic energy. Please keep short.
 Status.NaturalResources.Contaminated,汚染されている。,Shown when a plant is dying because it is contaminated. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Status.NaturalResources.Drying,干乾びている。,Shown when a plant is dying because it has no access to the water
 Status.NaturalResources.NotEnoughWater,水不足。,Shown when a water plant is dying because its river or lake dried up.
 Status.NaturalResources.TooMuchWater,浸水した。,Shown when a plant is dying because it is submerged in water.
 Status.Need.BadwaterContamination,汚水により中毒になった。,This shows up in the selected beaver's panel when it is contaminated. Badwater should be the same as Good.Badwater.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
-Status.Need.BadwaterContamination.Short,ビーバーが中毒症にかかった,This shows up as an alert when a beaver is contaminated. Please keep short. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
+Status.Need.BadwaterContamination.Short,汚染されたビーバー,This shows up as an alert when a beaver is contaminated. Please keep short. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Status.Need.Biofuel,燃料切れ。,This shows up when a bot runs out of fuel.
 Status.Need.Biofuel.Short,ボットの燃料切れ,This shows up when a bot runs out of fuel. Please keep short. Bot should be the same as Bot.TemplateName.
-Status.Need.BrokenTeeth,歯が欠けた。,This shows up when a beaver has broken teeth.
-Status.Need.BrokenTeeth.Short,欠けた歯,This shows up when a beaver has broken teeth. Please keep short.
-Status.Need.Energy,エネルギー切れ。,This shows up when a bot runs out of energy.
-Status.Need.Energy.Short,ボットのエネルギー切れ,This shows up when a bot runs out of energy. Please keep short. Bot should be the same as Bot.TemplateName.
+Status.Need.ChippedTeeth,欠けた歯。,This shows up when a beaver has broken teeth.
+Status.Need.ChippedTeeth.Short,欠けた歯,This shows up when a beaver has broken teeth. Please keep short.
 Status.Need.Hunger,飢えている。,This shows up when a beaver's hunger reaches critical levels. Please keep short.
 Status.Need.Injury,怪我をした。,This shows up in the selected beaver's panel when it has an injury.
 Status.Need.Injury.Short,ビーバーが怪我した,This shows up as an alert when a beaver has an injury. Please keep short.
+Status.Need.Power,動力切れ。,This shows up when a bot runs out of power.
+Status.Need.Power.Short,ボットは動力切れです,This shows up when a bot runs out of power. Please keep short. Bot should be the same as Bot.TemplateName.
 Status.Need.Sleep,疲弊しています。,
 Status.Need.Thirst,喉が渇いた。,This shows up on the entity panel when a beaver is extremely thirsty
 Status.Object.UnreachableObject,地区から遠すぎて辿り着けません。 道もしくは新しい地区を作ってください。,"Shown when a building, construction site, demolishable object or rubble is out of a district's range."
@@ -1599,9 +1594,9 @@ Status.UnstableCoreActivationWarning,まもなく爆発。,Text shown in entity 
 Status.Wonder.NotEnoughGoods,発動するのに必要な素材が足りません。,Shown when the player tries to activate a Wonder but the building does not have all of its materials stored yet.
 Status.Wonder.NotEnoughWorkers,稼働させるのに必要な労働者が足りません。,Shown when the player tries to activate a Wonder but there are not enough workers to operate the building.
 Status.Work.LackOfResources,必要な素材が足りません。,
-Status.Work.LackOfResources.Short,建材が足りません,Please keep short.
+Status.Work.LackOfResources.Short,建物に物資が足りません,Please keep short.
 Status.Work.NoUnemployed,地区内に利用可能なビーバーはいません。,Shown when there are no unemployed workers available in a district to work in this building.
-Status.Work.NoUnemployed.Short,労働者が足りません,A notification that lets players know that the building has no workers. Please keep short.
+Status.Work.NoUnemployed.Short,建物に労働者が足りません,A notification that lets players know that the building has no workers. Please keep short.
 Status.Yielding.NothingToDoInRange,範囲内に仕事無し,
 SteamWorkshop.Changelog,変更ログ,Label of the text field that allows entering the changelog of the item to be uploaded to Steam Workshop.
 SteamWorkshop.Description,詳細,Label of the text field that allows entering the description of the item to be uploaded to Steam Workshop.
@@ -1636,14 +1631,19 @@ StockpilePriority.Supply.Long,他の倉庫に物資を供給する。,"Defines a
 TerrainPhysicsPostLoader.TerrainHasNoSupport,地形の支えが無効だったため消去されました。,Warning shown when loaded terrain has invalid physical support
 Thumbnail.NoPreview,プレビューなし,Text shown with default thumbnail when the selected map or save has no preview image
 Time.DaysShort,{0}日,"{0} stands for days, for example 16d. Please keep very short."
+Time.HourShort,時間,Hour abbreviation
+Time.HoursShort,{0}時間,"{0} stands for hours, for example 16h. Please keep very short. (renamed from Work.WorkingHoursShort)"
 TimedComponentActivator.CountdownNotActive,休止状態,Text shown in entity panel when count down is not active for entity.
 TimedComponentActivator.CyclesUntilCountdownActivation,カウントダウン発動サイクル,Label for input field shown in entity panel in editor. Allows to set a cycle number in which count down will start.
 TimedComponentActivator.DaysUntilActivationLoc,カウントダウン期間（日数）,Label for input field shown in entity panel in editor. Allows to set a number of days until activation.
 TimedComponentActivator.DaysUntilActivationProgress,あと{0}日で開始,Text shown in entity panel during gameplay when count down is active. Informs abount time left until activation.
 TimedComponentActivator.DaysUntilExplosionProgress,あと{0}日で爆発,Text shown in entity panel during gameplay when count down is active. Informs abount time left until activation.
 TimedComponentActivator.IsEnabledToggle,遅延発動,Label for toggle in entity panel in editor. Allows to enable or disable time activation.
-Time.HourShort,時間,Hour abbreviation
-Time.HoursShort,{0}時間,"{0} stands for hours, for example 16h. Please keep very short. (renamed from Work.WorkingHoursShort)"
+Toggle.Selected,(選択中),Indication in tooltip about selected item. Fore example: 'Planting (selected)'
+Toggle.State.Closed,閉,Indication in tooltip about toggle state. For example 'Status: Closed'
+Toggle.State.Off,オフ,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: off'
+Toggle.State.On,オン,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: on'
+Toggle.State.Open,開,Indication in tooltip about toggle state. For example 'Status: Open'
 ToolGroups.Decoration,装飾,Buildings and objects that are for decoration
 ToolGroups.Demolishing,建造物や資源を取り壊す,
 ToolGroups.DistrictManagement,地区の管理,"Toolbar category for buildings used for district management - that includes builders, moving goods and making new districts"
@@ -1652,13 +1652,13 @@ ToolGroups.Food,食料生産,Buildings pertaining to growing and production of f
 ToolGroups.ForestryPlanting,樹木を植える,This is in active voice
 ToolGroups.Housing,住居,Buildings that beavers can live in
 ToolGroups.Landscaping,地形変更,Buildings that allow changes to land such as Dams or Dynamite
-ToolGroups.NaturalOverhangs,岩の突出部,Name for the category grouping natural/rock overhangs in the toolbar.
 ToolGroups.MapEditor,マップエディタ,Objects specific to map editor such as starting point or water source
 ToolGroups.MapEditorObjects,オブジェクト,
 ToolGroups.MapEditorResources,資源,
 ToolGroups.MapEditorWater,水,
 ToolGroups.Metal,金属,Buildings that allow to collect and produce with metal
 ToolGroups.Monuments,記念碑,Awe-inspiring statues and fantastic contraptions
+ToolGroups.NaturalOverhangs,岩の突出部,Name for the category grouping natural/rock overhangs in the toolbar.
 ToolGroups.Other,その他,Buildings that don't fit in other categories
 ToolGroups.Paths,道・基礎,"Buildings that are made to be built and walked upon or to support other buildings such as paths, stairs and platforms"
 ToolGroups.Power,動力,Buildings that produce and transfer power
@@ -1667,92 +1667,160 @@ ToolGroups.Ruins,遺跡,Group for different types of ruin objects
 ToolGroups.Science,科学,Buildings that produce Science points
 ToolGroups.Storage,倉庫,Buildings that store goods and resources
 ToolGroups.TreeCutting,伐採,This is in active voice
-ToolGroups.Water,水,Buildings that gather and store water
+ToolGroups.Water,水,Buildings that gather and store water.
 ToolGroups.Wood,木材,Buildings that allow gathering and producing using wood
-TopBar.Badwater,汚水,A group of resources. Please keep short.
-TopBar.Food,食料生産,A group of resources. Please keep short.
-TopBar.Ingredients,材料,Resource group containing ingredients that can be made into edible foods (but are not edible on their own)
-TopBar.Logs,丸太,A group of resources. Please keep short.
-TopBar.Materials,素材,A group of resources. Please keep short.
-TopBar.Nothing,無し,A group of resources. Please keep short.
-TopBar.Science,科学,A group of resources. Please keep short.
-TopBar.Water,水,A group of resources. Please keep short.
-Toggle.State.On,オン,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: on'
-Toggle.State.Off,オフ,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: off'
-Toggle.State.Closed,閉,Indication in tooltip about toggle state. For example 'Status: Closed'
-Toggle.State.Open,開,Indication in tooltip about toggle state. For example 'Status: Open'
-Toggle.Selected,(選択中),Indication in tooltip about selected item. Fore example: 'Planting (selected)'
+TopBar.Badwater,汚水,A group of goods. Please keep short.
+TopBar.Food,食料生産,A group of goods. Please keep short.
+TopBar.Ingredients,材料,Please keep short.
+TopBar.Logs,丸太,A group of goods. Please keep short.
+TopBar.Materials,素材,A group of goods. Please keep short.
+TopBar.Nothing,無し,A group of goods. Please keep short.
+TopBar.Science,科学,A group of goods. Please keep short.
+TopBar.Water,水,A group of goods. Please keep short.
 TreeCuttingSelectionTool.Description,木を伐採する区画を決める。,Doesn't have to use a personal verb
 TreeCuttingSelectionTool.Title,伐採区画を選択,
 TreeCuttingUnselectionTool.Description,木を伐採する区画を解除する。,Doesn't have to use a personal verb
 TreeCuttingUnselectionTool.Title,伐採区画の選択解除,
+Tutorial.Basics,基本,Header of the tutorial section that covers the basic concepts
+Tutorial.Basics.ManagePause,ゲームはいつでも一時停止できます。状況を精査し、計画を立てましょう。,
+Tutorial.Basics.ManageSpeed,ビーバーたちの労働中や睡眠中にゲーム速度を上げ、ダウンタイムを短縮することもできます。,
+Tutorial.Basics.MoveCamera,まずはエリアを見てみましょう。,
+Tutorial.Basics.MoveCameraDown,カメラを後ろに移動,
+Tutorial.Basics.MoveCameraLeft,カメラを左に移動,
+Tutorial.Basics.MoveCameraRight,カメラを右に移動,
+Tutorial.Basics.MoveCameraUp,カメラを前に移動,
+Tutorial.Basics.Pause,停止,
+Tutorial.Basics.RotateCamera,では、ビューを回転させてみましょう。,
+Tutorial.Basics.RotateCameraLeft,カメラを左に回転,
+Tutorial.Basics.RotateCameraRight,カメラを右に回転,
+Tutorial.Basics.SetSpeed1,速度を > に設定,> shouldn't be removed as it is the symbol for normal speed on UI button.
+Tutorial.Basics.SetSpeed2,速度を >> に設定,>> shouldn't be removed as it is the symbol for fast speed on UI button.
+Tutorial.Basics.SetSpeed3,速度を >>> に設定,>>> shouldn't be removed as it is the symbol for very fast speed on UI button.
+Tutorial.Basics.Unpause,再生,
+Tutorial.Basics.ZoomCamera,近くでビーバーを見るのも、開拓地全体を眺めるのも自由自在です！,
+Tutorial.Basics.ZoomCameraIn,拡大,
+Tutorial.Basics.ZoomCameraOut,縮小,
 Tutorial.Building,建設する： {0} ({1}/{2}),"{0} stands for building name {1} stands for number of built buildings {2} stands for number of buildings to build. This is used in a goal description with the verb in active voice, for example 'Build: Warehouse (0/5)'."
+Tutorial.ConnectBuilding,接続する：{0} ({1}/{2}),"{0} stands for building name {1} stands for number of buildings connected with paths {2} stands for number of buildings to connect. This is used in a goal description with the verb in active voice, for example 'Connect: Lumberjack Flag (0/2)'."
 Tutorial.Continue,続ける,
 Tutorial.Disable,チュートリアルをオフにする,
 Tutorial.DisablePrompt,"本当にチュートリアルをオフにしますか？
 後で設定からオンにすることができます。",
-Tutorial.ConnectBuilding,接続する：{0} ({1}/{2}),"{0} stands for building name {1} stands for number of buildings connected with paths {2} stands for number of buildings to connect. This is used in a goal description with the verb in active voice, for example 'Connect: Lumberjack Flag (0/2)'."
-Tutorial.Finish,チュートリアル終了,
+Tutorial.Finish,閉,
+Tutorial.Forestry,森林,
+Tutorial.Forestry.Forester,"ビーバーには当然、安定した丸太の供給源が必要です。
+
+発明研究所の生成する科学ポイントを使って、森番の詰所をアンロックし、木を植えたい場所の近くに建造しましょう。","Logs is the same as Good.Log.PluralDisplayName, Inventor is the same as Building.Inventor.DisplayName, Science Points is the same as Science.SciencePoints, Forester is the same as Building.Forester.DisplayName"
+Tutorial.Forestry.MarkBirchesForPlanting,"「樹木を植える」ツールを使い、カバノキを何本か植えてみましょう。カバノキはすぐ育つので、できたての開拓地にはぴったりです。
+
+樹木も作物と同様、灌漑された緑のエリアでしか育ちません。
+
+伐採のときは植栽エリアをマークするのを忘れずに。","Plant Trees and Bushes is the same as ToolGroups.ForestryPlanting, Birches is the same as NaturalResource.Birch.DisplayName"
+Tutorial.GoodLuck,グッドラック！,
+Tutorial.GoodLuck.Description,"お見事！　素敵な街の基盤ができました。でも油断せずに。大変なのはここからです。
+
+初めてのダムを築き、新たな技術を開発し、住民を増やし、死なせないようにしなければいけません。
+
+うまくいけば、この不毛の土地はビーバーのユートピアとなります。失敗すれば、ニンゲンと同じ運命をたどることでしょう。",Dam refers to Building.Dam.DisplayName
+Tutorial.HousingAndPopulation,住居と住民,
+Tutorial.HousingAndPopulation.BeaverBirth,子ビーバーの誕生,If there's no special name for beaver children in your language use 'have a child'.
+Tutorial.HousingAndPopulation.GrowPopulation,"ビーバーは、空いている住居スロットがない限り、繁殖しません。フォークテイルには、大人2匹と空きスロットがなければ魔法は起こらないのです。
+
+ヒント：ビーバーの子供は、文字通り子ビーバーと呼ばれます。","The Tip is optional if there's no special name for beaver children in your language. If that's the case, remove this part."
+Tutorial.HousingAndPopulation.Lodges,"ビーバー1匹よりも2匹がいい！　住居はビーバーたちの環境を改善し、フォークテイルの人口を増やしてくれます。
+
+ビーバーたちは自ら空いた住居スロットに入ります。",Folktails is the same as faction as Faction.Folktails.DisplayName
+Tutorial.Introduction.Description,"『Timberborn』へようこそ！　このチュートリアルで荒れ地への一歩を踏み出し、最初の数日を生き延びましょう。
+
+ここでは、ビーバーのコミュニティを繁栄させるために必要なツールの使い方を学べます。
+
+ステップを進めていくと、ここにヒントが現れます。",
 Tutorial.MarkPlantables,植える：{0} ({1}/{2}),"{0} stands for resource name {1} stands for number of marked resource tiles {2} stands for number of tiles to mark with resource. This is used in a goal description with the verb in active voice, for example 'Plant: Carrot (0/5)'."
 Tutorial.MarkTrees,伐採する木を選択する。,
-Tutorial.PanelTitle,チュートリアル,
 Tutorial.PlaceBuilding,設置する：{0} ({1}/{2}),"{0} stands for building name {1} stands for number of built buildings {2} stands for number of buildings to build. This is used in a goal description with the verb in active voice, for example 'Place: Warehouse (0/5)'."
+Tutorial.PowerAndPlanks,動力と板,
+Tutorial.PowerAndPlanks.LumberMill,"いよいよ板材の生産です！
+
+水車のすぐ隣に製材所を建築しましょう。遠くに建て、パワーシャフトで水車と接続することもできます。
+
+ヒント：製材所やロッジなどといった建物の多くは、壁と壁を密着させることで動力を伝達することができます。パワーシャフトは不要です！","Planks is the same as Good.Plank.PluralDisplayName, LumberMill is the same as Building.LumberMill.DisplayName, Water Wheel is the same as Building.WaterWheel.DisplayName, Power Shafts is the same as Building.PowerShaft.DisplayName, Lodge is the same as Building.Lodge.DisplayName"
+Tutorial.PowerAndPlanks.WaterWheel,"より高度な建物は動力を必要とします。またビーバーは川から動力を得ることを好みます。
+
+川沿いの流水の中に水車を設置しましょう。",Water Wheel is the same as Building.WaterWheel.DisplayName
 Tutorial.PowerBuilding,動力を与える：{0} ({1}/{2}),"{0} stands for building name {1} stands for number of powered buildings {2} stands for number of buildings to power. This is used in a goal description with the verb in active voice, for example 'Power: Lumber Mill (0/1)'."
 Tutorial.Progress,({0}/{1}),{0} stands for number of achieved goals {1} stands for total number of goals
-Tutorial.TextToggle.Hide,テキストを非表示,Tooltip for tutorial button hiding intro text
-Tutorial.TextToggle.Show,テキストを表示,Tooltip for tutorial button showing intro text
+Tutorial.Science,科学,Header of the tutorial section that covers the science
+Tutorial.Science.AccumulateScience,蓄積：科学ポイント（{0}/{1}）,"{0} stands for amount of Science Points accumulated, {1} stands for amount needed"
+Tutorial.Science.Inventor,"ビーバーは動物界のエンジニア。彼らのランバーパンクなアイディアを現実にするときです。
+
+発明研究所を作り、科学ポイントを生成しましょう。","Inventor is the same as Building.Inventor.DisplayName, Science Points is the same as Science.SciencePoints"
+Tutorial.Science.SciencePoints,"しばらくの間、発明研究所に仕事をさせておきましょう。
+
+十分な科学ポイントが溜まったら、消費して、より高度な建物をアンロックできます。","Inventor is the same as Building.Inventor.DisplayName, Science Points is the same as Science.SciencePoints"
+Tutorial.Science.Unlock,アンロック：{0},{0} stands for the name of the building to unlock
 Tutorial.SelectGood,{0}の対象選択：{1}{2},{0} stands for building name {1} stands for good name {2} stands for Tutorial.Progress. This is used in a goal description with the verb in active voice. for example 'Set: Warehouse to Bread (0/5)'.
-Tutorial.Stage.PlaceLumberjacks,"ようこそ！ このチュートリアルでは、ビーバーの開拓地を造るための基礎知識を学ぶことができます。
+Tutorial.Storage,保管庫,
+Tutorial.Storage.Pile,"多くの建物には最初から保管庫がついていますが、すぐにいっぱいになります。
 
-新しい開拓地には丸太が必要です。木を伐採できるのは木こりだけなので、近くの木の横に木こりの基点を2つ置きましょう。",Logs is the name of the resource and Lumberjack Flag is the name of the building
-Tutorial.Stage.MarkTrees,"木こりたちは、あなたから指示があるまで作業を始めません。伐採ツールを使い、切る場所に印を付けましょう。
+より多くの丸太を貯蔵するには、大きな丸太置き場を作りましょう。
 
-マウスボタンを長押しして、一度に複数のマスを選択しましょう。
+倉庫系の建物は、それぞれ1種類の物資のみを保管できます。建物を選択すると、保管する物資を設定できます。","Large Pile is the same as Building.LargePile.DisplayName, Logs is same as Good.Log.PluralDisplayName"
+Tutorial.Storage.Tanks,すべての液体はタンクに保管されます。これにはポンプで汲み上げてきた水も含まれます。,"Small Tank is the same as Building.SmallTank.DisplayName, Water is same as Good.Water.DisplayName"
+Tutorial.Storage.Warehouses,"最後に、ベリー用の保管庫も作りましょう。また、これからやってくるニンジンの収穫期にも備えなければなりません。
 
-木こりの基点からは、その範囲内の木しか伐採できません。基点を選択すると確認できます。",Lumberjack Flag is a name of a building. 'Cut trees' must be the same as ToolGroups.TreeCutting.
-Tutorial.Stage.WaterPump,ビーバーの生存には水が必要です。飲料水を安定供給するために、汲水ポンプを造りましょう。このポンプは地区の中心に接続する必要があります。,Water Pump and District Center are names of buildings
-Tutorial.Stage.Gatherer,"ビーバーには水だけでなく食料も必要です。ブルーベリーの茂みの近くに採集者の基点を造りましょう。
+食料は、他の箱入りの物資と同じく、倉庫に保管されます。","Berries is the same as Good.Berries.PluralDisplayName, Carrot is the same as in Good.Carrot.DisplayName"
+Tutorial.Tutorial,チュートリアル,
+Tutorial.WaterAndFood,水と食料,
+Tutorial.WaterAndFood.Farmhouse,"今後はもっと栄養価の高い食料も必要になってきます。農場を造ると、作物を植えたり収穫したりすることができます。
 
-採集者は基点の範囲内で自動的にベリーを採集します。採集者の基点を選択すると、範囲を確認することができます。",
-Tutorial.Stage.MarkBirchesForPlanting,"木を植えられるようになりました。「樹木を植える」ツールを選び、カバノキを植えましょう。
+基点と同様、農場の範囲は限られています。
 
-作物と同様、木の成長にも水が欠かせません。また、伐採のための目印をお忘れなく！",Plant trees and bushes must be the same as ToolGroups.ForestryPlanting.
-Tutorial.Stage.MarkCarrots,"何をどこに植えるかを指示されるまで、農場の労働者たちは仕事を始められません。「作物を植える」ツールを使い、ニンジン畑に印をつけましょう。
+ヒント：労働者の数が不足している場合、一部の建物を一時停止することができます。建物を選択して一時停止ボタンをクリックしましょう。",Farmhouse is the same as in Building.Farmhouse.DisplayName
+Tutorial.WaterAndFood.Gatherer,"ビーバーには水だけでなく食料も必要です。
 
-作物は灌漑地に植える必要があります。それ以外の土壌では、乾燥して枯れてしまいます。",Plant crops must be the same as ToolGroups.FieldsPlanting.
-Tutorial.Stage.BasicStorage,"全ての設置した建物には倉庫があるものの、これらはすぐに一杯になってしまいます。
+採集者は基点の範囲内で自動的にベリーを採集します。基点を設置すると、範囲を確認できます。
 
-丸太と水を備蓄するための倉庫を増設しましょう。それぞれの倉庫には、1種類の資源しか置くことができません。資源の種類は建物を選択すると設定できます。",
-Tutorial.Stage.ExpandStorage,丸太と水の保管場所ができました。ベリーやこれから収穫するニンジンの保管場所も、同じように用意しましょう。,"water is same as Good.Water.DisplayName, logs is same as Good.Log.PluralDisplayName"
-Tutorial.Stage.FinishLumberjacks,"地区の建築範囲にない場合、基点は造ることができません。
+ブルーベリーの茂みの近くに採集者の基点を造りましょう。","Berries is the same as Good.Berries.PluralDisplayName, Gatherer Flag is the same as Building.GathererFlag.DisplayName, Blueberry Bushes refers to NaturalResource.Blueberry.DisplayName"
+Tutorial.WaterAndFood.MarkCarrots,"何をどこに植えるかを指示されるまで、農場の労働者たちは仕事を始められません。
 
-「地区の中心」を選択すると、その建築範囲が表示されます。入口に続く道を造ることで範囲を広げることができます。","Lumberjack Flag, District Center and Path are names of buildings"
-Tutorial.Stage.ConnectLumberjacks,"入口のある建物は、経路で地区の中心に接続されている必要があります。「木こりの基点」と「地区の中心」をつなぐ道を造りましょう。
- 
-「地区の中心」を選択すると、経路沿いの範囲を確認することができます。",District Center and Path are building names
-Tutorial.Stage.Lodges,"住居はビーバーの幸福度を高め、フォークテイルの数を増やすことができます。
+「作物を植える」ツールを使い、ニンジン畑に印をつけましょう。
 
-すべてのビーバーを収容できるだけのロッジを建設しましょう。
+作物は灌漑地に植える必要があります。それ以外の土壌では、乾燥して枯れてしまいます。","Plant Crops is the same as in ToolGroups.FieldsPlanting, Carrot is the same as in Good.Carrot.DisplayName"
+Tutorial.WaterAndFood.WaterPump,"ビーバーの生存には水が必要です。
 
-子ビーバースロットが空いていない場合、ビーバーは繁殖しません。",Lodge is a name of a building.
-Tutorial.Stage.Inventor,科学ポイントは、より高度な建築物をアンロックするために使用します。科学ポイントは発明家が時間経過で溜めてくれます。,Inventor is the name of a building. Science Points must be the same as Science.SciencePoints.
-Tutorial.Stage.WaterWheel,"これでより高度な資源の生産が可能になりました、中には動力を必要とする建築物もあります。
+飲料水を安定供給するために、汲水ポンプを造りましょう。ポンプを地区の中心に接続するのを忘れずに。","Water Pump is the same as Building.WaterPump.DisplayName, District Center is the same as Building.DistrictCenter.DisplayName"
+Tutorial.Wellbeing,幸福度,
+Tutorial.Wellbeing.Beaver,"あなたの行動がビーバーたちに与える影響を確認できます。
 
-川のほとりに「水車」を造りましょう。水車は水流に依存するため、水がないと動力を生み出すことができなくなります。",Water Wheel is a name of a building
-Tutorial.Stage.LumberMill,"いよいよ板材の生産です！ 製材所を建設し、パワーシャフトで水車と接続しましょう。
+クリックしてビーバーを選択すると、パネルに現在の幸福度や属性、ニーズなどが表示されます。
 
-多くの建物は、壁と壁を密着させることで動力を伝達することができます。",Lumber Mill and Water Wheel are the names of buildings.
-Tutorial.Stage.Farmhouse,"集落には安定した食料供給が必要です。農場を造ると、作物を植えたり収穫したりすることができます。
+一部のニーズはマイナス値になることがあり、深刻なペナルティが発生したり、死亡の原因になったりします。",Well-being is the same as Wellbeing.DisplayName
+Tutorial.Wellbeing.Campfire,"幸福度はビーバーがどれだけ満足しているかを示す指標です。「労働スピード」「移動スピード」「寿命」の3属性に影響を及ぼします。
 
-労働者の数が不足している場合、一部の建物を一時停止することができます。建物を選択して一時停止ボタンをクリックしましょう。
+幸福度をアップさせる主な方法のひとつに、娯楽施設の建設があります。娯楽施設は、ビーバーが仕事をしていないときに入る建物のことです。","Well-being is the same as Wellbeing.DisplayName, working speed is the same Bonus.WorkingSpeed, movement speed is the same as Bonus.MovementSpeed, lifespan refers to Bonus.LifeExpectancy"
+Tutorial.Wellbeing.OpenWellbeingPanel,幸福度パネルを開く,Keep similar to KeyBinding.OpenWellbeingPanel
+Tutorial.Wellbeing.SelectBeaver,ビーバーを選択してニーズを確認しよう,
+Tutorial.Wellbeing.Shrub,"幸福度は装飾の近くにいることでも上がります。ビーバーは意図的に装飾に近づくことはしないので、住民たちが集まりやすい場所に配置しましょう。
 
-他の多くの建築物と同様、農場の範囲は限られています。",Farmhouse should be the same as in Building.Farmhouse.DisplayName
-Tutorial.Stage.Forester,安定した丸太の供給源が必要です。森番の詰所をアンロックし、木を植えたい場所の近くに建造しましょう。,Forester is a name of a building
-Tutorial.Stage.KeepPlaying,"これであなたの開拓地は、水流がある限り自給自足が可能になりました。ビーバーたちが干ばつをしのげるよう、ダムを建設したり、タンクを増やしたりしてあげましょう。
+最もシンプルな装飾は低木です。ビーバーたちはちょっとした緑でも喜ぶのです。","Well-being is the same as Wellbeing.DisplayName, Shrub is the same as Building.Shrub.DisplayName"
+Tutorial.Wellbeing.WellbeingPanel,"ビーバーたちにとっては、社会全体の幸せが重要です。画面の左上では、開拓地の幸福度の平均値が確認できます。
 
-チュートリアルでご説明したのはごく基本的な内容です。ご自分で発見できることは、他にもたくさんありますよ。
+クリックして、すべてのニーズの達成度を見てみましょう。荒れ地での生活をよりよくしてゆく方法はたくさんあります。",Well-being is the same as Wellbeing.DisplayName
+Tutorial.Wood,木材,
+Tutorial.Wood.ConnectLumberjacks,"入口のある建物は、道路で地区の中心に接続されている必要があります。建物を選択すると、その入り口が矢印でマークされます。
 
-それでは！",Water Tank is a building name.
+「木こりの基点」と「地区の中心」をつなぐ道を造りましょう。","Lumberjack Flag is the same as Building.LumberjackFlag.DisplayName, District Center is the same as Building.DistrictCenter.DisplayName, Paths refers to Building.Path.DisplayName"
+Tutorial.Wood.FinishLumberjacks,"地区の建築範囲にない場合、基点は造ることができません。
+
+「地区の中心」を選択すると、その建築範囲が表示されます。「地区の中心」の入口に続く道路を造ることで範囲を広げることができます。","Flags referers to Lumberjack Flag as in Building.LumberjackFlag.DisplayName, District Center is the same as Building.DistrictCenter.DisplayName, Paths refers to Building.Path.DisplayName"
+Tutorial.Wood.MarkTrees,"木こりたちは、あなたが伐採用にマークしたエリアでのみ木を伐ります。
+
+木は、木こりの基点の範囲内でなければなりません。基点を選択して範囲を確認してみましょう。
+
+では、「伐採区画を選択」ツールを使ってみましょう。複数のタイルを一度に選択するには、マウスのボタンを長押ししてください。","Lumberjacks refers to workers working in Building.LumberjackFlag.DisplayName, Lumberjack Flag is the same as Building.LumberjackFlag.DisplayName. Mark Tree Cutting Area tool is the same as TreeCuttingSelectionTool.Title"
+Tutorial.Wood.PlaceLumberjacks,"ビーバーの開拓地には丸太が必要です。それもたくさん。木を伐採できるのは木こりだけです。
+
+近くの木の隣に木こりの基点を設置しましょう。","Logs is same as Good.Log.PluralDisplayName, Lumberjack Flag is the same as Building.LumberjackFlag.DisplayName"
 UnstableCore.ExplosionRadius,爆発範囲,Label of a field that allows to set explosion radius of an unstable core.
 Water.Strength,力強さ,Followed by a number which tells how much water a water source produces
 WaterInputCoordinates.Depth,水深,Depth reached by the water input building (e.g. a water pump).
@@ -1789,18 +1857,18 @@ WonderCompletion.Panel.Statistics,統計データ:,Title of the statistics secti
 WonderCompletion.Statistic.BeaversBorn,産まれたビーバー:,A text for flavor statistic that shows how many beavers have been born during the game.
 WonderCompletion.Statistic.BeaversExploded,爆死したビーバー:,A text for flavor statistic that shows how many beavers have died to a dynamite during the game.
 WonderCompletion.Statistic.BotsManufactured,製造されたボット:,A text for flavor statistic that shows how many bots have been created during the game.
-WonderCompletion.Statistic.BrokenTeeth,欠けた歯:,A text for flavor statistic that shows how many times a beaver has broken a tooth during the game.
+WonderCompletion.Statistic.ChippedTeeth,欠けた歯：,A text for flavor statistic that shows how many times a beaver has chipped a tooth during the game.
 WonderCompletion.Statistic.DaysPassed,経過日数:,A text for statistic that shows how many days have passed until wonder was built.
 WonderCompletion.Statistic.DynamiteDetonated,起爆したダイナマイト:,A text for flavor statistic that shows how many times dynamite has been detonated during the game.
 WonderCompletion.Statistic.TailsPainted,カスタムした尻尾:,A text for flavor statistic that shows how many tails have been handled by the detailer.
 WonderCompletion.Statistic.TreesCut,切った木:,A text for flavor statistic that shows how many trees have been cut down during the game.
-WonderCompletion.Statistic.WaterConsumed,消費した水:,A text for flavor statistic that shows how many units of water have been consumed during the game.
+WonderCompletion.Statistic.WaterConsumed,飲んだ水：,A text for flavor statistic that shows how many units of water have been consumed during the game.
 WonderCompletion.WonderCompleted,完成したワンダー: {0},Text that is shown when the player has built and activated a Wonder. {0} is the name of the faction that the player performed this with. Wonder should be the same as Buildings.Wonder.
 Work.BeaverOnly,<YellowHighlight>ビーバーのみ：</YellowHighlight> この仕事場はビーバーのみ作業できる。,Shown on a tooltip at workplaces where only beavers can work in
 Work.BotOnly,<YellowHighlight>ボットのみ：</YellowHighlight> この仕事場はボットのみ作業できる。,Shown on a tooltip at workplaces where only bots can work in. Bots should be the same as Bot.PluralDisplayName.
 Work.CurrentWorkers,労働者数：{0} / {1},Please keep short. {0} stands for the desired number of workers. {1} stands for max number of workers that can work in building.
-Work.DefaultAllowedWorker,新たな建造物で働ける労働者：,Global setting for who is allowed to work in a new building: beavers or bots
-Work.DefaultAllowedWorker.Tooltip,この地区内における新たな建造物で働ける労働者を設定します。,Shown on a tooltip for a toggle deciding the default worker setting between beavers and bots.
+Work.DefaultAllowedWorker,新たな建造物で働くデフォルト労働者：,Global setting for who is allowed to work in a new building: beavers or bots
+Work.DefaultAllowedWorker.Tooltip,この地区内における新たな建造物は、初期設定ではこのタイプの労働者となっています。,Shown on a tooltip for a toggle deciding the default worker setting between beavers and bots.
 Work.FuelRemaining,残りの燃料：{0}％,"{0} stands for a number between 0 and 100, for example 10% means that most of the fuel has been depleted."
 Work.Incapacitated,負傷または故障,Label before a number of characters unfit for work (for example injured beavers or broken bots)
 Work.MaxDepth,最大深度：{0},"Explains how deep a building can reach, for example how deep it can pump water from. {0} stands for a number. Example usage: 'Depth: 5'"
@@ -1810,6 +1878,7 @@ Work.Productivity,生産性：,How productive a workplace is. Followed by a perc
 Work.ProductivityTip,素材の運搬などの無駄な時間に対し、生産工程に割いている時間の割合。,Tooltip of how productivity works
 Work.Vacant,空き,Denotes an empty workplace slot without a worker.
 Work.VacantPlural,空き数,Label before number of vacant work slots
+Work.WorkRefusalWarning,労働不可,Please keep short. A warning inside a tooltip that a beaver or a bot won't work if certain circumstances occur (like beaver is sick or bot is out of power).
 Work.Workers,労働者数：{0},{0} stands for number of workers
 Work.WorkersLabel,労働者数,Label before number of workers
 Work.WorkingHoursTooltip,労働時間：,
@@ -1817,7 +1886,6 @@ Work.Workplace.DisplayName,仕事場,"Header of a section where various aspects 
 Work.WorkplaceUnlock.CantUnlock,科学ポイントが不足しているめ、ボットに仕事場を解放できません。,Prompt when the player doesn't have enough science points to unlock a workplace for bots. Bots should be the same as Bot.PluralDisplayName.
 Work.WorkplaceUnlock.Prompt,この仕事場をボットに解放しますか？ 科学ポイントを {0} 消費します。,"{0} stands for amount. Prompt when the  player presses to unlock a workplace for bots. Science Points must be the same as Science.SciencePoints, Bots as Bot.PluralDisplayName"
 Work.WorkplaceUnlock.Tooltip,この仕事場をボットに解放する。,Shown on a blocked workplace's tooltip. Bots should be the same as Bot.PluralDisplayName.
-Work.WorkRefusalWarning,労働不可,Please keep short. A warning inside a tooltip that a beaver or a bot won't work if certain circumstances occur (like beaver is sick or bot is out of energy).
 Zipline.AddConnection,接続ポイントを追加,Tooltip text for button with plus icon adding a connection between two zipline towers or stations.
 Zipline.BlockedWarning,前に進めません！,Error message when zipline path is obstructed
 Zipline.Connections,接続ポイント：,A header above icon representation of connections between zipline towers or stations.

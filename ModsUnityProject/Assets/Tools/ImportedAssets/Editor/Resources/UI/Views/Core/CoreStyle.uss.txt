@@ -354,12 +354,23 @@ NineSliceTextField {
     -unity-text-align: middle-left;
     --background-image: resource('UI/Images/Backgrounds/bg-square-3');
     --background-slice-scale: 0.5;
-    --background-slice: 10;
+    --background-slice: 20;
     align-self: center;
+    flex-direction: row;
 }
 
 .tooltip--not-centered {
     align-items: flex-start;
+}
+
+.tooltip-key-binding {
+    background-color: rgb(154, 134, 94);
+    font-size: 12px;
+    white-space: normal;
+    margin-left: 8px;
+    padding: 0 4px;
+    justify-content: center;
+    -unity-text-align: middle-center;
 }
 
 .tooltip-wrapper {
@@ -372,7 +383,6 @@ NineSliceTextField {
 .unity-list-view > .unity-scroll-view > .unity-scroll-view__content-and-vertical-scroll-container > .unity-scroll-view__content-viewport > .unity-list-view__empty-label {
     display: none;
 }
-
 
 .slider > .unity-slider__input > .unity-base-slider__drag-container > .unity-base-slider__dragger {
     height: 16px;
@@ -649,7 +659,11 @@ NineSliceTextField {
 
 .progress-bar {
     flex-grow: 1;
-    height: 28px;
+    min-height: 28px;
+}
+
+.progress-bar--no-grow {
+    flex-grow: 0;
 }
 
 .progress-bar__item {
@@ -680,6 +694,19 @@ NineSliceTextField {
     height: 100%;
 }
 
+.progress-bar__content-container {
+    width: 100%;
+    height: 100%;
+}
+
+.progress-bar Label {
+    -unity-text-align: middle-center;
+}
+
+.progress-bar LocalizableLabel {
+    -unity-text-align: middle-center;
+}
+
 .unity-text--shaded .unity-text-element {
     text-shadow: 0px 1px 0px black;
 }
@@ -692,7 +719,7 @@ NineSliceTextField {
     --click-sound: "UI.Click";
 }
 
-.clickable-hierarchy . * {
+.clickable-hierarchy * {
     --click-sound: "UI.Click";
 }
 
@@ -720,4 +747,11 @@ NineSliceTextField {
 .precise-slider__buttons {
     flex-direction: row;
     margin-left: 16px;
+}
+
+.key-binding {
+    color: rgb(0, 0, 0);
+    background-color: rgb(154, 134, 94);
+    font-size: 13px;
+    white-space: normal;
 }

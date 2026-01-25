@@ -145,9 +145,12 @@
 }
 
 .title-screen {
-    background-image: resource('UI/Images/LoadingScreen/mainmenu_bg_Manual');
     flex-grow: 1;
     flex-shrink: 1;
+}
+
+.title-screen-background {
+    background-image: resource('UI/Images/LoadingScreen/mainmenu_bg_Manual');
     -unity-background-scale-mode: scale-and-crop;
 }
 
@@ -585,4 +588,11 @@
     padding: 5px;
     margin: 10px 0;
     -unity-text-align: upper-left;
+}
+
+.intro-box {
+    width: 100%;
+    height: 100%;
+    background-image: resource("Intro/Intro");
+    background-size: cover;
 }

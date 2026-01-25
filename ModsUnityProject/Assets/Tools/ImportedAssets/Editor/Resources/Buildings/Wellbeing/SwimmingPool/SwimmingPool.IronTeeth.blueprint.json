@@ -54,183 +54,181 @@
     "DisablingFeatureToggle": ""
   },
   "BlockObjectSpec": {
-    "BlocksSpec": {
-      "Size": {
-        "X": 3,
-        "Y": 4,
-        "Z": 2
-      },
-      "BlockSpecs": [
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "None",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        }
-      ]
+    "Size": {
+      "X": 3,
+      "Y": 4,
+      "Z": 2
     },
+    "Blocks": [
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "None",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      }
+    ],
     "Entrance": {
       "HasEntrance": true,
       "Coordinates": {

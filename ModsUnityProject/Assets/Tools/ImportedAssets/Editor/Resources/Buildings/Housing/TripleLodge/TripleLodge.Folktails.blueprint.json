@@ -51,99 +51,97 @@
     "DisablingFeatureToggle": ""
   },
   "BlockObjectSpec": {
-    "BlocksSpec": {
-      "Size": {
-        "X": 3,
-        "Y": 2,
-        "Z": 2
-      },
-      "BlockSpecs": [
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        }
-      ]
+    "Size": {
+      "X": 3,
+      "Y": 2,
+      "Z": 2
     },
+    "Blocks": [
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      }
+    ],
     "Entrance": {
       "HasEntrance": true,
       "Coordinates": {
@@ -262,7 +260,7 @@
     ]
   },
   "TransputProviderSpec": {
-    "TransputSpecs": [
+    "Transputs": [
       {
         "Coordinates": {
           "X": 0,
@@ -374,7 +372,7 @@
     ],
     "IgnoreRotation": false
   },
-  "MechanicalConnectorReceiverSpec": {},
+  "MechanicalConnectorTargetSpec": {},
   "Children": {
     "#Finished": {
       "TimbermeshSpec": {

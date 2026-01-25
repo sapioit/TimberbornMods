@@ -6,29 +6,27 @@
     "DisablingFeatureToggle": ""
   },
   "BlockObjectSpec": {
-    "BlocksSpec": {
-      "Size": {
-        "X": 1,
-        "Y": 2,
-        "Z": 1
-      },
-      "BlockSpecs": [
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": false,
-          "Underground": false
-        }
-      ]
+    "Size": {
+      "X": 1,
+      "Y": 2,
+      "Z": 1
     },
+    "Blocks": [
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": false,
+        "Underground": false
+      }
+    ],
     "Entrance": {
       "HasEntrance": false,
       "Coordinates": {
@@ -69,7 +67,7 @@
     "FlavorDescriptionLocKey": "Building.NaturalOverhang.FlavorDescription",
     "Icon": "MapEditor/Objects/NaturalOverhang2x1/NaturalOverhang2x1Icon"
   },
-  "StartableHorizontalWaterObstacleSpec": {
+  "FinishableHorizontalWaterObstacleSpec": {
     "Obstacles": [
       {
         "X": 0,
@@ -95,7 +93,7 @@
     "DemolishTimeInHours": 4.0,
     "ShowDemolishButtonInEntityPanel": true
   },
-  "StartableWaterObstacleSpec": {
+  "FinishableWaterObstacleSpec": {
     "Height": 1.0
   },
   "BlockObjectNavMeshAdderSpec": {},

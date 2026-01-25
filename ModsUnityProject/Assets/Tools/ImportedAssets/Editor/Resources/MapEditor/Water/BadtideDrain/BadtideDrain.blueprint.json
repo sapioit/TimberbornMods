@@ -15,36 +15,34 @@
     "DefaultStrength": 1.0
   },
   "BlockObjectSpec": {
-    "BlocksSpec": {
-      "Size": {
-        "X": 1,
-        "Y": 3,
-        "Z": 1
-      },
-      "BlockSpecs": [
-        {
-          "MatterBelow": "Ground",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": true,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Ground",
-          "Occupations": "All",
-          "Stackable": "BlockObject",
-          "OccupyAllBelow": true,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "Any",
-          "Occupations": "Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        }
-      ]
+    "Size": {
+      "X": 1,
+      "Y": 3,
+      "Z": 1
     },
+    "Blocks": [
+      {
+        "MatterBelow": "Ground",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": true,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Ground",
+        "Occupations": "All",
+        "Stackable": "BlockObject",
+        "OccupyAllBelow": true,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "Any",
+        "Occupations": "Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      }
+    ],
     "Entrance": {
       "HasEntrance": false,
       "Coordinates": {
@@ -112,7 +110,7 @@
       "BadtideWeather"
     ]
   },
-  "StartableHorizontalWaterObstacleSpec": {
+  "FinishableHorizontalWaterObstacleSpec": {
     "Obstacles": [
       {
         "X": 0,
@@ -135,8 +133,14 @@
       }
     ]
   },
-  "StartableWaterObstacleSpec": {
+  "FinishableWaterObstacleSpec": {
     "Height": 1.0
+  },
+  "BlockObjectNavMeshSettingsSpec": {
+    "NoAutoWalls": false,
+    "GenerateFloorsOnStackable": true,
+    "EdgeGroups": [],
+    "UnblockedCoordinates": []
   },
   "Children": {
     "#Model": {

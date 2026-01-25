@@ -80,7 +80,6 @@
 }
 
 .tool-group__tooltip-wrapper {
-    width: 300px;
     top: -25px;
     position: absolute;
     align-self: center;
@@ -199,6 +198,14 @@
     color: rgb(176, 150, 98);
 }
 
-.tutorial-tool--highlighted > .bottom-bar-button__frame {
+.tutorial-tool--highlighted .bottom-bar-button__frame {
     background-image: resource('UI/Images/BottomBar/button-frame-02');
+}
+
+.tutorial-tool--highlighted .bottom-bar-button--main {
+    -unity-background-image-tint-color: yellow;
+}
+
+.tutorial-tool--highlighted .bottom-bar-button__background {
+    background-image: resource('UI/Images/BottomBar/subbutton-bg-03');
 }

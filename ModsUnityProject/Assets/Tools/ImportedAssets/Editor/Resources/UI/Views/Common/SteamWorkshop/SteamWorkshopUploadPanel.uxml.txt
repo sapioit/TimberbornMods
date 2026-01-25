@@ -46,7 +46,10 @@
                     <cui:NineSliceTextField name="Changelog" multiline="true" vertical-scroller-visibility="Auto" class="text-field text-field--large scroll--green-decorated steam-workshop-upload-panel__changelog" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TagsContent" class="steam-workshop-upload-panel__tags-content">
-                    <cui:LocalizableLabel name="TagsHeader" text="Tags" text-loc-key="SteamWorkshop.Tags" class="steam-workshop-upload-panel__non-updatable-label steam-workshop-upload-panel__label" />
+                    <ui:VisualElement name="SectionHeader" class="steam-workshop-upload-panel__section-header">
+                        <cui:LocalizableLabel name="TagsHeader" text="Tags" text-loc-key="SteamWorkshop.Tags" class="steam-workshop-upload-panel__label" />
+                        <cui:LocalizableToggle name="UpdateTags" text="Update" text-loc-key="SteamWorkshop.Update" class="game-toggle game-toggle--small game-text-normal" />
+                    </ui:VisualElement>
                     <cui:NineSliceVisualElement name="TagsBackground" class="steam-workshop-upload-panel__tags-background">
                         <ui:ScrollView name="Tags" vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Hidden" class="scroll--green-decorated steam-workshop-upload-panel__tags" />
                     </cui:NineSliceVisualElement>

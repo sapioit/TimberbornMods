@@ -3,5 +3,7 @@
         <Style src="/Assets/Resources/UI/Views/Common/DebuggingPanel/DebuggingPanelStyle.uss" />
         <ui:VisualElement name="DraggingIcon" class="debugging-panel__dragging-icon" />
         <ui:Label name="PanelHeader" text="Debug mode panel" class="game-text-heading debugging-panel__title" />
+        <ui:Button name="MinimizeIcon" class="debugging-panel__minimize-icon" />
+        <ui:VisualElement name="Content" />
     </ui:VisualElement>
 </ui:UXML>

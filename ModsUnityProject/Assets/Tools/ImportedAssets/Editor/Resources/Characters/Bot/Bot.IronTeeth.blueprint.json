@@ -65,7 +65,7 @@
       }
     ]
   },
-  "WellbeingBonusesReceiverSpec": {
+  "WellbeingBonusesSubjectSpec": {
     "Bonuses": [
       "WorkingSpeed",
       "MovementSpeed"

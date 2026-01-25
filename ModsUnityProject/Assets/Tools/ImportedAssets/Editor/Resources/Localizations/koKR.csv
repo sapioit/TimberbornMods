@@ -12,9 +12,9 @@ AnalyticsConsent.Info,"Timberborn 플레이 방식에 관한 데이터를 공유
 Attractions.LoadRate,인기도,Header above a panel showing how popular an attraction is in each hour during the day
 Attractions.Visitors,방문자,"A header above a list of beavers visiting an attraction, such as a campfire."
 Attractions.VisitorsLimit,방문자: {0},{0} stands for capacity. Tells players the max capacity of the attraction in a shorter way
-Autosave.Success,자동 저장됨,"Notification on top of the window when autosave succeeded. Keep short, it disappears after 2 seconds"
 Autosave.Failure,자동 저장 실패,Notification on top of the window when autosave failed. It disappears after 10 seconds
 Autosave.FailureDueToFullDisk,디스크 공간이 부족하여 자동 저장 실패,Notification on top of the window when autosave failed. It disappears after 10 seconds
+Autosave.Success,자동 저장됨,"Notification on top of the window when autosave succeeded. Keep short, it disappears after 2 seconds"
 BatchControl.Distribution,배급,Title of the distribution panel
 BatchControl.Housing,주택,Tooltip of a tab allowing to manage housing buildings.
 BatchControl.Mechanical,동력,Tooltip of a tab allowing to manage mechanical buildings. Power must be the same as used in Mechanical.PowerInput and other Mechanical. keys.
@@ -24,24 +24,24 @@ BatchControl.Population,인구,Tooltip of a tab allowing to manage population.
 BatchControl.ShowInfo,정착지 관리,Button opening a window to view and manage multiple buildings and characters at once . Please keep short
 BatchControl.Storage,보관소,Tooltip of a tab allowing to manage warehouses.
 BatchControl.Workplaces,작업장,Tooltip of a tab allowing to manage workplaces.
-Beaver.Adulthood,성체,Next to a progress bar that shows when a baby beaver reaches adulthood.
 Beaver.Adult.TemplateName,비버 성체,
+Beaver.Adulthood,성체,Next to a progress bar that shows when a baby beaver reaches adulthood.
 Beaver.Age,나이: {0},"{0} stands for number of days, for example 'Age: 5'."
 Beaver.Child.TemplateName,비버 새끼,
 Beaver.DeadNameSuffix,(죽음),Preceded by beaver name and age
 Beaver.DiedOldAge,{0}이(가) 고령으로 사망했습니다.,{0} stands for beaver name
 Beaver.Employment,고용,Header of a section that tells of how many and where beavers are working
 Beaver.GrewUp,{0}이(가) 성장했습니다.,{0} stands for beaver name. A notification that a beaver achieved maturity.
-Beaver.House,거주지: {0},{0} stands for Building.DisplayName. Tells which type of building the beaver resides in.
 Beaver.Homeless,노숙자,Signifies that the beaver has no home
 Beaver.HomelessPlural,노숙자,Label before number of homeless beavers
+Beaver.House,거주지: {0},{0} stands for Building.DisplayName. Tells which type of building the beaver resides in.
 Beaver.Launched,{0}을(를) 발사했습니다.,{0} stands for beaver name. A notification that a beaver has been launched in a plane.
 Beaver.PluralDisplayName,비버,
 Beaver.Population.Adults,성체,Label before number of adult beavers
 Beaver.Population.Children,새끼,Label before number of kit beavers
+Beaver.Population.Contaminated,오염됨,Header of the list of beavers contaminated by badwater. Should be similar or same as Need.BadwaterContamination.DisplayName
 Beaver.Population.ContaminatedAdults,오염된 성체,"Label before number of adult beavers contaminated by badwater. ""Contaminated"" should be similar or same as Need.BadwaterContamination.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project."
 Beaver.Population.ContaminatedChildren,오염된 새끼,"Label before number of children beavers contaminated by badwater. ""Contaminated"" should be similar or same as Need.BadwaterContamination.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project."
-Beaver.Population.Contaminated,오염됨,Header of the list of beavers contaminated by badwater. Should be similar or same as Need.BadwaterContamination.DisplayName
 Beaver.Unemployed,실업자,"Signifies that the beaver has no job, singular"
 Beaver.UnemployedPlural,실업자,"Used in population statistics, followed by the number of unemployed beavers"
 Beaver.Workplace,근무지: {0},{0} stands for Building.DisplayName. Tells which type of building the beaver works in.
@@ -50,7 +50,6 @@ Bonus.CuttingSuccessChance,절단 확률,Cutting chance when cutting down a tree
 Bonus.GrowthSpeed,성장 속도,Speed at which young beavers grow up
 Bonus.LifeExpectancy,수명,The presumed length of beavers' life.
 Bonus.MovementSpeed,이동 속도,"Describes how fast character can move (bonus to walking, running and swimming)."
-Bonus.Source,{0} 제공자:,{0} stands for Bonus name. Header above a list of needs that give this bonus.
 Bonus.WorkingSpeed,작업 속도,Speed at which the beavers work.
 Bot.BeaversPerished,"비버 이야기까지 꺼낼 필요도 없어.
 인간은 모든 걸 갖고 있었지. 신선한 공기, 깨끗한 물까지.
@@ -68,12 +67,12 @@ Breeding.NutrientsNeeded,필요한 영양분:,Followed by a list of nutrients ne
 Breeding.Progress,사육 진행도,Label inside a progress bar describing production progress of new beaver in breeding facility
 BuilderPriorityTool.Description,"이 도구로 건설, 철거 및 잔해 속 물품 수집의 우선순위를 정하세요.",Rubble should be plural version of RecoveredGoodStack.DisplayName
 BuilderPriorityTool.Tip,아이템을 클릭해서 우선순위를 정하거나 버튼을 누른 상태로 더 큰 영역을 선택하세요.,
-Building.Agora.Description,비버들이 목재 관련 주제에 대해 토론할 수 있는 커다란 집회소입니다.,
-Building.Agora.DisplayName,아고라,
-Building.Agora.FlavorDescription,초록색 비콘에 불이 들어오면 나무꼬리들이 모이는 신호입니다.,Folktails must be same as faction as Faction.Folktails.DisplayName.
 Building.AdvancedBreedingPod.Description,고급 사육 프로세스를 활용해 일을 하고 싶어 하는 성체 비버를 생산합니다.,Breeding should be the same as Building.BreedingPod.DisplayName
 Building.AdvancedBreedingPod.DisplayName,고급 사육 포드,
 Building.AdvancedBreedingPod.FlavorDescription,한 꼬마가 가마솥에 담긴 추출물을 다 마신 후 급성장하는 모습을 보고 떠올린 아이디어입니다.,"Extract must be the same as Good.Extract.DisplayName, kit is a young beaver."
+Building.Agora.Description,비버들이 목재 관련 주제에 대해 토론할 수 있는 커다란 집회소입니다.,
+Building.Agora.DisplayName,아고라,
+Building.Agora.FlavorDescription,초록색 비콘에 불이 들어오면 나무꼬리들이 모이는 신호입니다.,Folktails must be same as faction as Faction.Folktails.DisplayName.
 Building.AncientAquiferDrill.DisplayName,고대 대수층 드릴,
 Building.AquaticFarmhouse.Description,<YellowHighlight>수생</YellowHighlight> 농작물을 심고 수확하는 농부를 고용합니다.,"Aquatic is a keyword, must be the same as in NaturalResources.Aquatic."
 Building.AquaticFarmhouse.DisplayName,수생 농가,A farmhouse that specializes in water plants.
@@ -82,7 +81,9 @@ Building.Aquifer.Description,지하의 수원입니다.,
 Building.Aquifer.DisplayName,대수층,
 Building.AquiferDrill.Description,대수층에서 물을 추출합니다.,
 Building.AquiferDrill.DisplayName,대수층 드릴,
-Building.BadwaterDischarge.Description,오염수 원천을 봉인합니다. 마음대로 열거나 닫을 수 있습니다. 열면 가뭄 동안 오염수의 흐름을 유지합니다.,"Badwater Source must be the same as Building.BadwaterSource.DisplayName, Badwater must be the same as Good.Badwater.DisplayName."
+Building.BadtideDrain.Description,오염 조류가 밀려오는 동안 오염수를 뿜어냅니다.,
+Building.BadtideDrain.DisplayName,오염 조류 배수구,
+Building.BadwaterDischarge.Description,오염수 원천을 봉인합니다. 열거나 닫을 수 있습니다. 열면 가뭄 동안에도 오염수가 흐릅니다.,"Badwater Source must be the same as Building.BadwaterSource.DisplayName, Badwater must be the same as Good.Badwater.DisplayName."
 Building.BadwaterDischarge.DisplayName,오염수 방류,"Name of the building that can either stop flow of badwater or enforce flow with full power. It's a dome shaped, mechanical building that opens and closes like a camera shutter. Badwater must be the same as Good.Badwater.DisplayName."
 Building.BadwaterDischarge.FlavorDescription,진짜 토목 기사만 드나들 수 있습니다.,This is a reference to a youtuber called Real Civil Engineer.
 Building.BadwaterDome.Description,오염수 원천을 봉인합니다. 마음대로 열거나 닫을 수 있습니다.,"Badwater Source must be the same as Building.BadwaterSource.DisplayName, Badwater must be the same as Good.Badwater.DisplayName."
@@ -98,9 +99,6 @@ Building.BadwaterSeep.Description,수압이 제한적인 오염수 원천입니�
 Building.BadwaterSeep.DisplayName,스며드는 오염수 샘,"A building that allows badwater to seep through, creating a natural badwater source."
 Building.BadwaterSource.DisplayName,오염수 원천,A crack or spring in the ground spuming badwater. Badwater should be the same as Good.Badwater.DisplayName.
 Building.BadwaterSource.FlavorDescription,"""왜 인간이 깽판친 걸 우리가 치워야 해? 아, 맞다. 전부 죽었지."" —피나",
-Building.ContaminationBarrier.Description,토양 오염이 그 아래로 퍼지는 것을 방지합니다.,Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
-Building.ContaminationBarrier.DisplayName,오염 장벽,Name of the building that stops spreading soil contamination that's placed on the ground and is presented as square shape with objects sticking out. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Barrier should be the same between Building.IrrigationBarrier.DisplayName and Building.ContaminationBarrier.DisplayName.
-Building.ContaminationBarrier.FlavorDescription,"""하루에 한 번 장벽을 쌓아 오염 조류를 막으세요!"" —동기 부여 포스터","Reference to the ""An apple a day, keeps the doctor away"" proverb. If possible try to adapt the phrase to fit your language."
 Building.Bakery.Description,다양한 밀가루로 빵과 페이스트리를 만드는 곳.,Pastry being a baked good.
 Building.Bakery.DisplayName,빵집,Building that bakes bread
 Building.Bakery.FlavorDescription,"""톱밥이 뿌려진 갓 구운 빵이 최고지."" —응오넬 여사","Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
@@ -114,7 +112,7 @@ Building.BeaverStatue.Description.Folktails,잘 먹는 비버의 조각상.,
 Building.BeaverStatue.Description.IronTeeth,열심히 일하는 비버의 조각상.,
 Building.BeaverStatue.DisplayName,비버 조각상,Statue of a beaver
 Building.BeaverStatue.FlavorDescription.Folktails,풍년일 때는 자랑스럽고 흉년일 때는 배고프게 합니다.,The statue shows a beaver with a full belly so it can make one hungry when looking at it.
-Building.BeaverStatue.FlavorDescription.IronTeeth,낫이 들어간 디자인은 너무 나무꼬리 같을 거라 생각했죠.,This metal statue depicts a beaver worker with a raised hammer. Hammer and sickle is an emblem of Soviet Russia. Folktails must be same as faction name (Faction.Folktails.DisplayName).
+Building.BeaverStatue.FlavorDescription.IronTeeth,낫이 들어간 원래 디자인은 너무 나무꼬리 같을 거라 생각했죠.,This metal statue depicts a beaver worker with a raised hammer. Hammer and sickle is an emblem of Soviet Russia. Folktails must be same as faction name (Faction.Folktails.DisplayName).
 Building.Beehive.Description,주변 농작물의 성장을 촉진합니다.,
 Building.Beehive.DisplayName,벌집,
 Building.Beehive.FlavorDescription,"""윙윙 소리도 곧 익숙해지더라."" —응오넬 여사","Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
@@ -126,15 +124,13 @@ Building.Bench.FlavorDescription,무뢰한들이 가끔 공공장소에서 식�
 Building.Blockage.Description,물을 차단하는 천연 장벽. 철거 가능합니다.,Demolished meaning removed by a worker.
 Building.Blockage.DisplayName,자연 댐,"Not a dam since that's another building in game but if not possible it could be called a Natural Dam. Visually, it's a block made out of twigs and loose stones."
 Building.Blockage.FlavorDescription,옛날에는 진흙과 나뭇가지로 댐을 만들었다는 전설이 있습니다.,
-Building.BotAssembler.Description,비버의 일상 업무를 도와주는 자동 봇을 조립합니다.,Bots should be the same as Bot.PluralDisplayName
+Building.BotAssembler.Description,일상 업무를 수행하는 자동 봇을 조립합니다.,Bots should be the same as Bot.PluralDisplayName
 Building.BotAssembler.DisplayName,봇 조립공,A factory for assembling bots. Bot should be the same as Bot.TemplateName
 Building.BotAssembler.FlavorDescription,"""오늘 일을 빠져도 됐었다면""이라는 식으로 시작하죠. —피나",
-Building.BotPartFactory.Description,봇 부품을 만듭니다.,Bot should be the same as Bot.TemplateName
+Building.BotPartFactory.Description,봇 부품을 제조합니다.,Bot should be the same as Bot.TemplateName
 Building.BotPartFactory.DisplayName,봇 부품 공장,"A factory for creating bot parts, that are later assembled into full bots. Bot should be the same as Bot.TemplateName."
 Building.BotPartFactory.FlavorDescription,"""끝! 잠깐, 이 나사가 왜 남는 거지?"" —피나",
-Building.Bramble.Description,관개와 오염을 모두 막는 뚫을 수 없는 장애물입니다. 철거하기 어려우며 철거를 시도하는 사람은 다칠 수 있습니다.,
-Building.Bramble.DisplayName,가시덤불,
-Building.Brazier.Description,장식 상자의 난로.,
+Building.Brazier.Description,장식용 구조물 안에 안전하게 담긴 활활 타오르는 불입니다.,
 Building.Brazier.DisplayName,화로,
 Building.Brazier.FlavorDescription,"""우와, 삐까뻔쩍하네요."" —술리",Play on words with lit meaning both lit up and cool. If possible try to adapt the phrase to fit your language. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible.
 Building.BrazierOfBonding.DisplayName,결속의 화로,A large brazier surrounded by statues of a beaver family
@@ -144,7 +140,7 @@ Building.BreedingPod.DisplayName,사육 포드,
 Building.BreedingPod.FlavorDescription,"""새끼 비버는 우리의 미래다. 다음 달까지 열두 마리 더 필요해."" —카즈코 선생","Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.BuildersHut.Description,건축업자를 더 고용합니다.,
 Building.BuildersHut.DisplayName,건축업자의 움막,
-Building.BuildersHut.FlavorDescription,비버로마는 하루아침에 이루어진 것이 아닙니다. 전설에 의하면 6시간이 걸렸다고 합니다.,Beaverome is a mythical beaver city built by beavers of many different factions who banded together to work on timber-tech for the greater good of all beavers.
+Building.BuildersHut.FlavorDescription,비버로마는 하루아침에 이루어진 것이 아닙니다. 전설에 의하면 6시간이 걸렸다고 합니다.,Beaverome is a mythical beaver city built by beavers of many different factions who banded together to work on timbertech for the greater good of all beavers.
 Building.BulletinPole.Description,대중에게 메시지를 전하는 장식용 기둥.,
 Building.BulletinPole.DisplayName,게시판 기둥,
 Building.BulletinPole.FlavorDescription,직장에서 부상을 입으셨나요? 보상금 대상자일 수도 있습니다! 술리에게 연락하세요.,Reference to common compensation scam text. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible.
@@ -160,18 +156,21 @@ Building.Centrifuge.FlavorDescription,나무꼬리 회전목마가 너무 빨리
 Building.ChargingStation.Description,봇을 재충전하는 장소입니다.,Bots should be the same as Bot.PluralDisplayName
 Building.ChargingStation.DisplayName,충전소,A mechanically powered building where bots come to recharge
 Building.ChargingStation.FlavorDescription,아이언봇이 아닌 장치로는 사용하지 마세요.,"Referring the annoying ""a different connector for each device"" trend in IT. Ironbot must be the same as Bot.DisplayName.IronTeeth"
-Building.Clock.Description,장식용 시계.,
+Building.Clock.Description,할아버지도 알아볼 수 있을 만큼 큰 장식용 시계입니다.,
 Building.Clock.DisplayName,시계,
 Building.Clock.FlavorDescription,옛날 비버가 물시계를 사용했다고 생각하기는 힘듭니다.,Clepsydra is an ancient water clock.
 Building.CoffeeBrewery.Description,커피를 내립니다.,Coffee should be the same as in Good.Coffee.DisplayName.
 Building.CoffeeBrewery.DisplayName,커피 공장,A building that brews coffee.
 Building.CoffeeBrewery.FlavorDescription,섭취 제한을 두지 않았다면 철의 이빨은 절대 잠들지 못했을 겁니다.,
-Building.ContemplationSpot.Description,비버들이 자연을 고찰하기 위해 찾는 작은 장소.,
-Building.ContemplationSpot.DisplayName,사색 장소,
-Building.ContemplationSpot.FlavorDescription,비버들은 이곳에서 자연의 변덕에 대처하는 방법을 고찰합니다.,
 Building.CompactWaterWheel.Description,물의 흐름을 동력으로 전환하는 소형 발전기.,
 Building.CompactWaterWheel.DisplayName,소형 물레바퀴,A water wheel that's smaller than other versions.
 Building.CompactWaterWheel.FlavorDescription,"돌고 도는 인생, 돌고 도는 물레바퀴.",A play on 'can't reinvent the wheel'
+Building.ContaminationBarrier.Description,토양 오염이 그 아래로 퍼지는 것을 방지합니다.,Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
+Building.ContaminationBarrier.DisplayName,오염 장벽,Name of the building that stops spreading soil contamination that's placed on the ground and is presented as square shape with objects sticking out. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Barrier should be the same between Building.IrrigationBarrier.DisplayName and Building.ContaminationBarrier.DisplayName.
+Building.ContaminationBarrier.FlavorDescription,"""하루에 한 번 장벽을 쌓아 오염 조류를 막으세요!"" —동기 부여 포스터","Reference to the ""An apple a day, keeps the doctor away"" proverb. If possible try to adapt the phrase to fit your language."
+Building.ContemplationSpot.Description,비버들이 자연을 고찰하기 위해 찾는 작은 장소.,
+Building.ContemplationSpot.DisplayName,사색 장소,
+Building.ContemplationSpot.FlavorDescription,비버들이 대자연의 변덕을 곱씹으며 조용히 시간을 보내는 곳입니다.,
 Building.ControlTower.Description,주변 봇에게 신호를 보내 능력을 향상시키는 거대한 건축물입니다.,Bots should be the same as Bot.PluralDisplayName
 Building.ControlTower.DisplayName,지휘탑,A building that emits a signal to nearby bots
 Building.ControlTower.FlavorDescription,봇은 비버가 존재하지 않는 곳을 제외한 모든 곳에서 비버의 명령에 복종해야 합니다.,"A loose adaptation of Asimov's second law of robotics (and a hint at the ""sentient AI"" scenario). Bot must be the same as Bot.TemplateName."
@@ -181,7 +180,7 @@ Building.Dam.FlavorDescription,"모두가 알다시피, 문명의 토대는 물�
 Building.DanceHall.Description,비버들이 꼬리를 풀어둘 수 있는 열린 회장입니다.,
 Building.DanceHall.DisplayName,무도회장,
 Building.DanceHall.FlavorDescription,"""자, 지루한 강철 이빨 놈들처럼 가만히 서있지 마세요."" —술리",Iron Teeth must be the same as Faction.IronTeeth.DisplayName. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible.
-Building.DecontaminationPod.Description,오염수에 노출된 비버가 회복할 수 있는 통.,Badwater should be the same as Good.Badwater.DisplayName.
+Building.DecontaminationPod.Description,오염수에 노출된 비버가 회복할 수 있는 목욕통.,Badwater should be the same as Good.Badwater.DisplayName.
 Building.DecontaminationPod.DisplayName,오염 정화 포드,Ideally the name of the building should refer to the contamination effect on the beaver (Need.BadwaterContamination).
 Building.DecontaminationPod.FlavorDescription,"""술리, 그 추출물을 마시면 안 돼. 새끼였을 때 가마솥에 빠진 적이 있잖니!"" —응오넬 여사","Reference to Obelix from Asterix and Obelix falling into a cauldron. Suli is a younger beaver that likes to play tricks on their fellow beavers and isn't related to any faction in particular. Translated name shouldn't suggest a gender if possible. Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
 Building.DeepBadwaterPump.DisplayName,깊은 오염수 펌프,"Badwater Pump Must be the same as Building.BadwaterPump.DisplayName, Deep should be the same as in Building.DeepWaterPump.DisplayName"
@@ -197,7 +196,7 @@ Building.Detailer.IronTeeth.FlavorDescription,"자, 손에 넣는다고 해로�
 Building.DirtExcavator.Description,진흙을 수집하는 대형 채굴 장치. 기반암에 도달한 후에도 계속해서 진흙을 생산합니다.,Dirt must the same as Good.Dirt.DisplayName.
 Building.DirtExcavator.DisplayName,진흙 굴착기,"A machine used to gather dirt, leaving a giant hole. Dirt must be the same as Good.Dirt.DisplayName."
 Building.DirtExcavator.FlavorDescription,드릴이 아닙니다!,It's literally not a drill. It's a different kind of mining equipment. ;)
-Building.DistrictCenter.Description,"고유의 인구, 자원, 경로를 설립합니다. 건축업자를 고용합니다.",
+Building.DistrictCenter.Description,"고유의 인구, 물품, 경로를 설립합니다. 건축업자를 고용합니다.",
 Building.DistrictCenter.DisplayName,구역 센터,
 Building.DistrictCenter.FlavorDescription.Folktails,"""편안함, 식량 그리고 튼튼한 나무."" —나무꼬리 신조",The motto must be the same as in Faction.Folktails.Description
 Building.DistrictCenter.FlavorDescription.IronTeeth,"""열심히 일하세, 열심히 일하세."" —강철 이빨 신조",The motto must be the same as in Faction.IronTeeth.Description
@@ -219,31 +218,31 @@ Building.Dynamite.BeaverDeathMessage,{0}이(가) 폭발로 사망했습니다.,{
 Building.Dynamite.CantDetonate,너무 낮아 폭파할 수 없습니다.,Message shows if dynamite is built on the lowest level of the map
 Building.Dynamite.Description,아래에 있는 지형을 파괴하고 인접한 다이너마이트를 작동시킵니다.,Triggers can be changed to detonates
 Building.Dynamite.Detonate,폭발,A button.
-Building.Dynamite.DisplayName,다이너마이트,There's a resource called Explosives so they need to have different names
+Building.Dynamite.DisplayName,다이너마이트,There's a good called Explosives so they need to have different names
 Building.Dynamite.ExplosionDepth,폭발 깊이: {0},"Explains how deep the dynamite explosion is, {0} stands for the vertical number of blocks"
-Building.Dynamite.FlavorDescription,비버들은 포스트 아포칼립스 세상에서 살아남기 위해 극단적인 수단도 가리지 않습니다.,
-Building.EfficientFarmhouse.Description,농작물을 심고 수확하는 농부를 고용합니다. 나무꼬리식 확장 설계로 더 많은 노동자를 수용합니다.,Farmhouse should be the same as in Building.Farmhouse.DisplayName
-Building.EfficientFarmhouse.DisplayName,효율적인 농가,Farmhouse should be the same as in Building.Farmhouse.DisplayName
-Building.EfficientFarmhouse.FlavorDescription,"효율성은 ""작업 중 취식 금지"" 정책에 따라 달라집니다.",
-Building.EfficientMine.Description,지하 유적에서 고철을 파내는 광부를 고용합니다. 혁신적인 디자인으로 채굴 속도를 높입니다.,"Underground Ruins is a building, same as Building.Underground Ruins.DisplayName"
-Building.EfficientMine.DisplayName,효율적인 광산,An extracting facility which can be placed on underground ruins.
-Building.EfficientMine.FlavorDescription,강철 이빨은 지하를 가장 먼저 조사하여 우위를 점했습니다.,"Reference to the ""upper hand"" phrase. The mine is built on top of underground human ruins."
+Building.Dynamite.FlavorDescription,포스트 아포칼립스 세상에 적응하려면 극단적인 수단도 필요했습니다.,
 Building.EarthRecultivator.Folktails.Description,지구 곳곳에 나무 씨앗을 퍼뜨립니다. 발사하면 해당 영역에 있는 비버가 더 행복해집니다.,
 Building.EarthRecultivator.Folktails.DisplayName,지구 재경작기,Earth meaning planet Earth and Recultivator meaning regenerating the planet.
 Building.EarthRecultivator.Folktails.FlavorDescription,씨앗 하나하나가 희망으로 자랍니다.,
 Building.EarthRepopulator.IronTeeth.Description,머나먼 땅에 개척자를 보냅니다. 발사하면 해당 영역에 있는 비버가 더 행복해집니다.,
 Building.EarthRepopulator.IronTeeth.DisplayName,지구 재이주기,Earth meaning planet Earth and Repopulator meaning starting new colonies or restoring the population.
 Building.EarthRepopulator.IronTeeth.FlavorDescription,현재는 기밀로 분류된 투석기 테스트를 몇 차례 거친 후 이 디자인이 대신 채택되었습니다.,"This building looks like a plane runway, so this jokingly references a more primitive idea."
-Building.ExercisePlaza.Description,여러 비버들이 운동할 수 있는 공간입니다.,
+Building.EfficientFarmhouse.Description,농작물을 심고 수확하는 농부를 고용합니다. 나무꼬리식 확장 설계로 더 많은 농부를 수용합니다.,Farmhouse should be the same as in Building.Farmhouse.DisplayName
+Building.EfficientFarmhouse.DisplayName,효율적인 농가,Farmhouse should be the same as in Building.Farmhouse.DisplayName
+Building.EfficientFarmhouse.FlavorDescription,"효율성은 ""작업 중 취식 금지"" 정책에 따라 달라집니다.",
+Building.EfficientMine.Description,지하 유적에서 고철을 파내는 광부를 고용합니다. 혁신적인 디자인으로 채굴 속도를 높입니다.,"Underground Ruins is a building, same as Building.Underground Ruins.DisplayName"
+Building.EfficientMine.DisplayName,효율적인 광산,An extracting facility which can be placed on underground ruins.
+Building.EfficientMine.FlavorDescription,강철 이빨은 지하를 가장 먼저 조사하여 우위를 점했습니다.,"Reference to the ""upper hand"" phrase. The mine is built on top of underground human ruins."
+Building.ExercisePlaza.Description,체계적인 단체 운동을 하며 코어 힘과 유연성을 기르는 공간입니다.,
 Building.ExercisePlaza.DisplayName,운동 광장,
 Building.ExercisePlaza.FlavorDescription,"강철 이빨은 항상 더 튼튼하고, 더 좋고, 더 빠르고, 더 강한 자신의 창조물처럼 되고 싶어 합니다.","Reference to the Daft Punk song ""Harder, Better, Faster, Stronger""."
-Building.ExplosivesFactory.Description,오염수로 폭발물을 제조합니다.,Explosives and badwater being resource names. Badwater should be the same as Good.Badwater.DisplayName.
-Building.ExplosivesFactory.DisplayName,폭발물 공장,Explosives is a resource name
+Building.ExplosivesFactory.Description,오염수로 폭발물을 제조합니다.,Explosives and badwater being goods names. Badwater should be the same as Good.Badwater.DisplayName.
+Building.ExplosivesFactory.DisplayName,폭발물 공장,Explosives is name of a good.Explosives should be the same as Good.Explosives.PluralDisplayName
 Building.FarmerMonument.DisplayName,농부 기념비,A large statue of a farmer carrying a bundle of wheat.
 Building.FarmerMonument.FlavorDescription,황무지를 길들이고 사람들을 먹여 살렸습니다.,
 Building.Farmhouse.Description,농작물을 심고 수확하는 농부를 고용합니다.,
 Building.Farmhouse.DisplayName,농가,
-Building.Farmhouse.FlavorDescription,농업은 오늘날 비버 사회의 중요한 한 축이 되었습니다.,
+Building.Farmhouse.FlavorDescription,농업은 오늘날 비버 사회의 중요한 한 축입니다.,
 Building.Fermenter.Description,식물을 발효해 영양가 있는 음식을 생산합니다.,Ferments should be the same as in Building.Fermenter.DisplayName
 Building.Fermenter.DisplayName,발효기,A building that ferments plants to make food.
 Building.Fermenter.FlavorDescription,몇 차례의 사건 이후 발효가 허용되는 품목이 제한되었습니다.,Referrencing fermentation used to produce alcoholic beverages.
@@ -265,18 +264,18 @@ Building.Forester.DisplayName,수목 관리원,A building with a worker that pla
 Building.Forester.FlavorDescription,수목 관리원들은 비버 사회의 중추적인 역할을 합니다.,"Forresters are a family of central characters in ""Bold and Beautiful"", an extremely long-running American soap opera. Feel free to adapt this flavor, do not translate that literally."
 Building.FountainOfJoy.DisplayName,즐거움의 분수,A large water fountain with statues on top.
 Building.FountainOfJoy.FlavorDescription,행복할 수 있다면 아깝지 않습니다.,Water is a very preciuos resource in Timberborn - fountains could be seen as a waste.
-Building.GathererFlag.Description,야생 식물에서 자원을 채집합니다.,
+Building.GathererFlag.Description,야생 식물에서 물품을 채집합니다.,
 Building.GathererFlag.DisplayName,채집원 깃발,Flag' could also be a Post or something similar as long as it is consistent with other Flags and different from Haulers Post
 Building.GathererFlag.FlavorDescription,비버들은 베리를 바구니에 집어넣다가 우연히 맛있는 디저트를 발견했습니다.,
-Building.GearWorkshop.Description,판자로 톱니바퀴를 만듭니다.,Gears and Planks are resources; keep consistent.
-Building.GearWorkshop.DisplayName,톱니바퀴 작업장,Gear is a resource
+Building.GearWorkshop.Description,판자로 톱니바퀴를 만듭니다.,Gears and Planks are goods; keep consistent.
+Building.GearWorkshop.DisplayName,톱니바퀴 작업장,Gear is a good
 Building.GearWorkshop.FlavorDescription,"""톱니바퀴가 돌아야 세상도 돌아간다고!""는 카즈코 선생이 빠른 산업화를 추진하면서 자주 하던 말이죠.","Metal Gear Solid is a famous Japanese video game series. Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.GeothermalEngine.Description,지열 지대를 이용해 동력을 생산하는 대형 터빈입니다.,
 Building.GeothermalEngine.DisplayName,지열 엔진,
 Building.GeothermalField.Description,적절한 장치를 이용하면 안정적인 무료 동력을 얻을 수 있는 에너지원입니다.,
 Building.GeothermalField.DisplayName,지열 지대,
-Building.GravityBattery.Description,남은 에너지를 저장했다가 네트워크의 전력이 모자랄 때 공급합니다. 높게 지을수록 에너지도 많이 보관할 수 있습니다.,
-Building.GravityBattery.DisplayName,중력 배터리,"A battery in the form of a crane, that stores energy by raising a heavy weight above the ground."
+Building.GravityBattery.Description,남은 동력을 저장했다가 네트워크의 전력이 모자랄 때 공급합니다. 높게 지을수록 동력도 많이 보관할 수 있습니다.,
+Building.GravityBattery.DisplayName,중력 배터리,"A battery in the form of a crane, that stores power by raising a heavy weight above the ground."
 Building.GravityBattery.FlavorDescription,나만의 물리 법칙을 발명할 수 있는 곳입니다.,Gravity batteries in the real world do not make sense from the physics standpoint.
 Building.GreaseFactory.Description,봇의 작동을 더욱 부드럽게 가동할 수 있는 미끄러운 그리스를 생산하는 공장입니다.,Bots should be the same as in Bot.TemplateName. Grease should be the same as Good.Grease.DisplayName.
 Building.GreaseFactory.DisplayName,그리스 공장,Grease should be the same as Good.Grease.DisplayName.
@@ -284,9 +283,9 @@ Building.GreaseFactory.FlavorDescription,"""봇이 체계적이고, 유압 자�
 Building.Grill.Description,식물을 굽습니다.,
 Building.Grill.DisplayName,그릴,A place that grills
 Building.Grill.FlavorDescription,"""들러붙지 않는 팬에 굽고, 으깨고, 삶아라!"" —응오넬 여사의 ""500가지 감자 요리""","Adapted quote from Lord of the Rings paired with a nod to an infamous Soviet-era cookbook ""500 potato dishes"". Ma' Ngonel is an almost legendary figure - a beaver grandma, known for her stern hand, cooking skills and respect among both kits and adult beavers. Her name is an inside joke, as our community constantly demands an addition of catapults, mangonels etc."
-Building.Gristmill.Description,식물을 갈아 밀가루로 만듭니다.,"Plant matter meaning different parts of plants, such as roots or flowers."
+Building.Gristmill.Description,뿌리와 씨를 갈아 밀가루로 만듭니다.,"Plant matter meaning different parts of plants, such as roots or flowers."
 Building.Gristmill.DisplayName,제분소,
-Building.Gristmill.FlavorDescription,식단이 다양해지면서 식품 가공도 다단계화되었습니다.,
+Building.Gristmill.FlavorDescription,입맛이 까다로워지자 음식의 수준도 올라갔습니다.,
 Building.Hammock.Description,휴식을 취할 수 있는 흔들리는 시트.,
 Building.Hammock.DisplayName,해먹,A free-standing hammock that beavers can rest in.
 Building.Hammock.FlavorDescription,예전에는 나무에 매달아 쓰는 물건이었지만 나무를 잘라버리는 사고가 너무 많이 발생하면서 옛말이 되었습니다.,
@@ -326,11 +325,11 @@ Building.LargePile.DisplayName,통나무 더미,
 Building.LargePile.FlavorDescription,그윽한 통나무 향기가 물씬 풍깁니다.,"""Log"" pun — feel free to adapt."
 Building.LargePowerWheel.Description,비버가 직접 동력을 생산합니다. 다수의 노동자를 배치할 수 있도록 재설계되었습니다.,
 Building.LargePowerWheel.DisplayName,대형 동력 회전바퀴,
-Building.LargePowerWheel.FlavorDescription,강철 이빨은 또한 회전목마를 원했습니다.,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
+Building.LargePowerWheel.FlavorDescription,강철 이빨은 자신들만의 회전목마를 원했습니다.,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
 Building.LargeRowhouse.DisplayName,대형 연립주택,"A rowhouse is a narrow and tall house that is connected to other homes on both sides, often built in a row. Building.Rowhouse"
 Building.LargeRowhouse.FlavorDescription,철의 이빨은 고층 빌딩에 유별나게 집착합니다.,Referencing 'complex' meaning a group of buildings as well as a psychological behaviour.
 Building.LargeTank.DisplayName,대형 탱크,
-Building.LargeTank.FlavorDescription,"수영장으로 생각하는 새끼 비버들도 있지만, 산업용으로 제작된 수조입니다.",
+Building.LargeTank.FlavorDescription,"수영장으로 쓰려는 새끼 비버들도 있지만, 산업용으로 제작된 수조입니다.",
 Building.LargeWarehouse.DisplayName,대형 창고,
 Building.LargeWarehouse.FlavorDescription,물품으로 가득한 내부는 발 디딜 틈조차 없습니다.,"""No room to swing a cat"" is an English idiom, feel free to adapt."
 Building.LargeWaterPump.Description,비버들이 마실 수 있도록 많은 양의 물을 퍼내고 정화합니다. 오염수가 발생하면 펌프 속도가 느려집니다.,Badwater should be the same as Good.Badwater.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
@@ -339,9 +338,9 @@ Building.LargeWaterPump.FlavorDescription,"""저수지가 있어 매일 물을 �
 Building.LargeWaterWheel.Description,더 크고 효율적인 물레바퀴. 지지대는 측면에 있습니다.,
 Building.LargeWaterWheel.DisplayName,대형 물레바퀴,A water wheel that's bigger than other versions.
 Building.LargeWaterWheel.FlavorDescription,"""더 큰 바퀴가 필요할 겁니다."" —카즈코 선생","Reference to a famous one-liner from ""Jaws"" (""you're gonna need a bigger boat"")"
-Building.LargeWindmill.Description,더 큰 날개로 더 많은 동력을 생산합니다.,
-Building.LargeWindmill.DisplayName,대형 풍차,Advanced windmill that can rotate
-Building.LargeWindmill.FlavorDescription,풍차 바람이 최고죠.,"Tailwind being a wind blowing from behind, a pun since beavers have tails."
+Building.LargeWindTurbine.Description,풍속에 비례해 더 많은 동력을 생산합니다.,
+Building.LargeWindTurbine.DisplayName,대형 풍력 터빈,Advanced wind turbine that can rotate.
+Building.LargeWindTurbine.FlavorDescription,풍차 바람이 최고죠.,"Tailwind being a wind blowing from behind, a pun since beavers have tails."
 Building.Levee.Description,물을 완전히 차단합니다.,
 Building.Levee.DisplayName,제방,Different to a Dam
 Building.Levee.FlavorDescription,"비버 수도 기술자들이 수 세대에 걸쳐 강화하고 개량한 덕에 완벽해졌습니다. ""단순한 나무토막""이 아닙니다.",
@@ -360,13 +359,13 @@ Building.LumberjackFlag.FlavorDescription,"""그들은 나무꾼, 나무를 베�
 Building.MechanicalFluidPump.Description,물 또는 오염수를 끌어와 이동시킵니다. 일반 펌프보다 효율적입니다.,Badwater should be the same as Good.Badwater.DisplayName.
 Building.MechanicalFluidPump.DisplayName,기계식 유체 펌프,A mechanically powered water pump.
 Building.MechanicalFluidPump.FlavorDescription,양동이를 들고 다니는 것보다는 편하죠.,Running water meaning water that is moving.
-Building.MedicalBed.Description,부상을 입은 비버가 쉬러 오는 곳입니다.,
+Building.MedicalBed.Description,부상을 입은 비버가 누워서 쉬며 회복하는 곳입니다., 
 Building.MedicalBed.DisplayName,의료용 침상,A place where injured beavers come to lie down and rest
 Building.MedicalBed.FlavorDescription,"""살짝 긁혔을 뿐인데. 일하러 돌아가도 괜찮지?"" —피나",Monty Python reference.
 Building.MediumTank.DisplayName,중형 탱크,
 Building.MediumTank.FlavorDescription,대가뭄 이후 비버들은 항상 근처에 이걸 몇 개 챙겨두기로 했습니다.,The Great Drought should remain capitalized to indicate it's a name of an event.
 Building.MediumWarehouse.DisplayName,중형 창고,
-Building.MediumWarehouse.FlavorDescription,사방에 위험이 도사리는 포스트 아포칼립스 세상에서 물품 보관은 매우 중요합니다.,
+Building.MediumWarehouse.FlavorDescription,위험이 도사리는 포스트 아포칼립스 세상에서 물품 보관은 매우 중요합니다.,
 Building.MemorialToFamily.DisplayName,가족 기념비,A large brazier surrounded by statues of a beaver family
 Building.MetalFence.Description,금속으로 만들어진 장식용 울타리입니다.,
 Building.MetalFence.DisplayName,금속 울타리,
@@ -379,10 +378,10 @@ Building.MetalPlatform5x5.DisplayName,금속 플랫폼 5x5,Numbers at the end de
 Building.Mine.Description,지하 유적에서 고철을 파내는 광부를 고용합니다.,"Underground Ruins is a building, same as Building.Underground Ruins.DisplayName"
 Building.Mine.DisplayName,광산,An extracting facility which can be placed on underground ruins.
 Building.Mine.FlavorDescription,아낌없이 주는 광산입니다.,"The mine provides an endless supply of scrap metal. Reference to 'they delved too greedily and too deep, and disturbed that from which they fled, Durin's Bane' from LOTR"
-Building.MiniLodge.Description,비버 한 마리에게 딱 맞는 작은 오두막입니다.,
+Building.MiniLodge.Description,비버 한 마리를 위한 작은 오두막입니다.,
 Building.MiniLodge.DisplayName,미니 오두막,A small lodge for only one beaver
 Building.MiniLodge.FlavorDescription,작지만 안락합니다.,Referencing 'Two Beavers Are Better Than One' meme-song from 'How I Met Your Mother' TV show.
-Building.Motivatorium.Description,비버들에게 강철 이빨의 핵심 가치를 교육하는 기계식 극장입니다.,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
+Building.Motivatorium.Description,강철 이빨의 핵심 가치를 가르치는 기계식 극장입니다.,Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
 Building.Motivatorium.DisplayName,동기부여소,
 Building.Motivatorium.FlavorDescription,"""낮에도, 밤에도, 우리는 생존을 위해 몸부림치죠. 아름다운 일이에요."" —카즈코 선생","Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.MudBath.Description,거품 기계로 더욱 품위 있는 진흙 목욕.,
@@ -393,11 +392,11 @@ Building.MudPit.DisplayName,진흙 구덩이,"This building is a pit filled with
 Building.MudPit.FlavorDescription,새끼들이 처음으로 작은 댐을 만드는 곳입니다.,
 Building.NaturalDam.Description,물을 차단하지만 상단의 배수로를 통해 약간의 물을 내보내는 천연 장벽. 철거 가능합니다.,
 Building.NaturalDam.DisplayName,천연 댐,
-Building.NaturalOverhang.Description,툭 튀어나와 다리나 다른 건물을 위한 토대로 이용할 수 있는 바위 플랫폼입니다. 물이 새지 않게 막아줍니다.,
+Building.NaturalOverhang.Description,툭 튀어나와 다리나 토대로 이용하는 바위 플랫폼입니다. 물이 스며들지 않습니다.,
+Building.NaturalOverhang.FlavorDescription,"""점프하기 전에 밑에 물이 있는지 꼭 확인해요!"" —술리",
 Building.NaturalOverhang2x1.DisplayName,천연 돌출부 2x1,This structure is a solid rock overhang. Numbers at the end denote size X by Y.
 Building.NaturalOverhang3x1.DisplayName,천연 돌출부 3x1,This structure is a solid rock overhang. Numbers at the end denote size X by Y.
 Building.NaturalOverhang4x1.DisplayName,천연 돌출부 4x1,This structure is a solid rock overhang. Numbers at the end denote size X by Y.
-Building.NaturalOverhang.FlavorDescription,"""점프하기 전에 밑에 물이 있는지 꼭 확인해요!"" —술리",
 Building.Numbercruncher.Description,비버의 조작 없이도 계산식을 척척 푸는 정교한 기계입니다.,This machine is a primitive computer.
 Building.Numbercruncher.DisplayName,대형 컴퓨터,A machine that's a primitive computer. It generates science points by performing research.
 Building.Numbercruncher.FlavorDescription,오래된 컴퓨터에 비교하면 압도적으로 월등합니다.,"Suggests that beavers - just like hoomans - create new generations of ""computers"" and retire old ones."
@@ -408,13 +407,13 @@ Building.OilPress.Description,적합한 식물에서 기름을 짜냅니다.,Oil
 Building.OilPress.DisplayName,기름 프레스,A building that's a giant press that squeezes out oil.
 Building.OilPress.FlavorDescription,호기심 많은 아이가 쿠키부터 솔방울까지 모든 걸 으깨는 데 사용합니다.,"The process of squishing things with hydraulic press filmed in slo-mo is oddly fascinating, and makes for popular YT videos."
 Building.Overhang.Description,툭 튀어나와 다리나 다른 건물을 위한 토대로 이용할 수 있는 플랫폼입니다.,
+Building.Overhang.FlavorDescription,"""아, 우리가 구름으로 가는 계단을 짓고 있나 봐. 궁금해지네..."" —피나",
 Building.Overhang2x1.DisplayName,돌출부 2x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang3x1.DisplayName,돌출부 3x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang4x1.DisplayName,돌출부 4x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang5x1.DisplayName,돌출부 5x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
 Building.Overhang6x1.DisplayName,돌출부 6x1,An artificial overhang made out of wood and metal that allows new buildings to be put on top of it. Numbers at the end denote size X by Y.
-Building.Overhang.FlavorDescription,"""아, 우리가 구름으로 가는 계단을 짓고 있나 봐. 궁금해지네..."" —피나",
-Building.PaperMill.Description,기계식 종이 공장입니다.,Paper is a resource.
+Building.PaperMill.Description,기계식 종이 공장입니다.,Paper is a name of a good.
 Building.PaperMill.DisplayName,제지공장,
 Building.PaperMill.FlavorDescription,수집꾼을 위한 마른 간식으로 시작해 지금은 다용도로 사용되고 있습니다.,
 Building.Path.Description,건물은 길로 연결해야 합니다.,
@@ -456,26 +455,23 @@ Building.RooftopTerrace.FlavorDescription,야경을 감상하며 밤새도록 �
 Building.Rowhouse.Description,적은 공간을 차지하는 실용적인 공동 주택.,
 Building.Rowhouse.DisplayName,연립주택,"A rowhouse is a narrow and tall house that is connected to other homes on both sides, often built in a row."
 Building.Rowhouse.FlavorDescription,땅굴집에 비하면 천국이죠.,
-Building.Ruins.Description,금속의 원천.,Metal is a resource
+Building.Ruins.Description,제한된 양의 고철이 있습니다.,Metal is a name of a good.
 Building.Ruins.DisplayName,유적,
-Building.Ruins.FlavorDescription,곳곳에서 발견되는 인간의 유적은 비버에게 나무보다 우월한 자원이라는 상상할 수 없는 것을 제공했습니다.,
-Building.Scarecrow.Description,새를 내쫓는 용도의 장식품.,
+Building.Ruins.FlavorDescription,곳곳에서 발견되는 인간의 유적은 비버에게 나무보다 우월한 물품이라는 상상할 수 없는 것을 제공했습니다.,
+Building.Scarecrow.Description,원래 새를 내쫓는 용도였지만 이제 노소를 막론하고 즐거움을 주는 장식품입니다.,
 Building.Scarecrow.DisplayName,허수아비,
 Building.Scarecrow.FlavorDescription,사실은 새를 짝사랑합니다.,
-Building.ScavengerFlag.Description,수집꾼은 유적에서 고철을 수집합니다.,Metal is a resource;Ruins are a building
+Building.ScavengerFlag.Description,수집꾼은 유적에서 고철을 수집합니다.,Metal is a name of a good;Ruins are a building
 Building.ScavengerFlag.DisplayName,수집꾼의 깃발,
 Building.ScavengerFlag.FlavorDescription,나무가 전통인 곳에 금속을 들여오는 수집꾼은 일부 비버로부터는 인정을 받고 다른 비버로부터는 멸시를 받습니다.,
-Building.Scratcher.Description,스크래치용 기계.,
+Building.Scratcher.Description,손이 닿지 않는 곳이 간지러울 때 긁어 주는 기계입니다.,
 Building.Scratcher.DisplayName,스크래처,A rotating brush which beavers use to scratch their fur. For reference google videos of cow scratchers.
 Building.Scratcher.FlavorDescription,휴식을 취하고 있을 때도 강철 이빨은 일을 하고 싶어 입 안에 가시가 돋습니다.,Itching meaning having an itch as well as an idiom for wanting to do something very much. If possible try to adapt the phrase to fit your language. Iron Teeth must be the same as Faction.IronTeeth.DisplayName.
-Building.Shower.Description,비버가 샤워하며 기분 전환을 하는 곳입니다.,
+Building.Shower.Description,강물을 시원하게 뿜어 털을 적셔 줍니다.,
 Building.Shower.DisplayName,샤워장,A simple shower for beavers.
 Building.Shower.FlavorDescription,황무지 정복이 훨씬 쉬워집니다.,
-Building.Shredder.Description,고철을 절단하여 블록으로 압축합니다.,
-Building.Shredder.DisplayName,절단기,
-Building.Shredder.FlavorDescription,인간에게는 쓰레기일지 몰라도 비버에겐 보물입니다.,"Adapted from ""One man’s trash is another man’s treasure"""
 Building.Shrub.DisplayName,관목,Must be different than 'Bush' which is a plant in the game
-Building.Shrub.FlavorDescription,실용성을 중시하는 비버에게 장식은 보기 좋을 뿐만 아니라 맛도 좋아야 합니다.,
+Building.Shrub.FlavorDescription,실용성이 있으려면 장식은 보기 좋고 맛도 좋아야 합니다.,
 Building.Slope.DisplayName,경사로,
 Building.Slope.FlavorDescription,"누가 놓았는지는 모르지만, 비버들은 감사하게 생각합니다.",
 Building.Sluice.AboveContaminationToggle,오염 초과 시 닫기: {0},"Label of a toggle that enables automation based on contamination level, {0} stands for currently set level, ie 5%"
@@ -485,16 +481,16 @@ Building.Sluice.Description,한 방향으로 물을 자동 방류합니다.,
 Building.Sluice.DisplayName,통문,Also known as a sluice gate. Different than Building.Floodgate.DisplayName.
 Building.Sluice.DownstreamDepth,하류 깊이 {0},{0} stands for chosen downstream depth maintained by the building.
 Building.Sluice.FlavorDescription,"""술리, 또 오염수 내리는 걸 깜빡한 거야?"" —응오넬 여사",Badwater has to be consistent with Good.Badwater.DisplayName
+Building.Sluice.MaximumDepthToggle,하류 깊이 초과 시 닫기: {0},Label of a toggle that enables automation based on the maximum downstream depth of water
 Building.Sluice.Mode.Auto,자동,Label of the toggle that sets the sluice to work in automatic mode
 Building.Sluice.Mode.AutoClosed,자동: 닫힘,Label for sluice working in automatic mode and is closed
 Building.Sluice.Mode.AutoOpen,자동: 열림,Label for sluice working in automatic mode and is opened
 Building.Sluice.Mode.Closed,닫힘,Label of the toggle that sets the sluice to be always closed
 Building.Sluice.Mode.Open,열림,Label of the toggle that sets the sluice to be always open
 Building.Sluice.Synchronize,인근의 통문과 동기화,
-Building.Sluice.MaximumDepthToggle,하류 깊이 초과 시 닫기: {0},Label of a toggle that enables automation based on the maximum downstream depth of water
 Building.SmallIndustrialPile.DisplayName,소형 공업용 더미,
 Building.SmallIndustrialPile.FlavorDescription,"""그래서 지붕을 꼭대기에 올려놓고는 공업용이라고 하던데. 클래식하지."" —피나",
-Building.SmallPile.Description,커다란 자원을 보관합니다.,
+Building.SmallPile.Description,커다란 물품을 보관합니다.,
 Building.SmallPile.DisplayName,소형 더미,
 Building.SmallPile.FlavorDescription,자존심이 있는 개인들은 땅바닥에 건설 자재를 버리지 않습니다.,
 Building.SmallTank.Description,액체를 보관합니다.,
@@ -531,17 +527,19 @@ Building.SuspensionBridge3x1.DisplayName,현수교 3x1,Numbers at the end denote
 Building.SuspensionBridge4x1.DisplayName,현수교 4x1,Numbers at the end denote size X by Y
 Building.SuspensionBridge5x1.DisplayName,현수교 5x1,Numbers at the end denote size X by Y
 Building.SuspensionBridge6x1.DisplayName,현수교 6x1,Numbers at the end denote size X by Y
-Building.SwimmingPool.Description,수영장입니다.,
-Building.SwimmingPool.DisplayName,수영장,
 Building.SwimmingPoll.FlavorDescription,"""자유형은 잘하니까 꼬리영을 연습하자!"" —피나","Backstroke is a swimming style, but beavers also have tails. Pina is a younger beaver figure that's exploring the world and isn't related to any faction in particular. Pina as a name relates to the pine tree, the translated name shouldn't suggest a gender if possible."
+Building.SwimmingPool.Description,물에 잠긴 상태에서 방해 없이 전신 운동을 할 수 있게 선을 친 레인입니다.,
+Building.SwimmingPool.DisplayName,수영장,
 Building.TappersShack.Description,나무에서 수액을 채취하는 채취자를 고용합니다.,
 Building.TappersShack.DisplayName,채취자의 오두막,"A shack where workers tap trees to gather sap and syrups, similar to sugar shacks in Canada."
 Building.TappersShack.FlavorDescription,물이든 레진이든 모든 물방울이 중요하다는 것을 아이들에게 일찍부터 가르칩니다.,
-Building.TeethGrindstone.Description,부러진 이를 날카롭게 가는 데 사용합니다.,Broken teeth refers to Need.BrokenTeeth.CriticalDescription
+Building.TeethGrindstone.Description,깨진 이를 날카롭게 갑니다.,Chipped teeth refers to Need.ChippedTeeth.CriticalDescription
 Building.TeethGrindstone.DisplayName,치아 숫돌,A grindstone contraption for sharpening beaver teeth
-Building.TeethGrindstone.FlavorDescription,이 도구가 있는데 굳이 부러진 치아로 고통받을 이유가 있을까요?,"This building is used by beavers to clear the ""broken teeth"" status. Broken teeth refers to Need.BrokenTeeth.DisplayName."
+Building.TeethGrindstone.FlavorDescription,살아남으려면 이를 갈아야 합니다.,"This building is used by beavers to clear the ""chipped teeth"" status. Chipped teeth refers to Need.ChippedTeeth.DisplayName."
 Building.TerrainBlock.Description,인공 지형 블록. 위에 있는 화살표를 따라 순서대로 건설합니다.,Block of terrain refers to Building.TerrainBlock.DisplayName.
 Building.TerrainBlock.DisplayName,지형 블록,A 1x1x1 chunk of terrain
+Building.Thorns.Description,관개와 오염을 모두 막는 뚫을 수 없는 장애물입니다. 철거하기 어려우며 철거를 시도하는 사람은 다칠 수 있습니다.,
+Building.Thorns.DisplayName,가시,
 Building.TributeToIngenuity.DisplayName,창의력을 위한 공물,Name of a monument
 Building.TributeToIngenuity.FlavorDescription,"""물론 목적이 있습니다. 인상적입니다."" —카즈코 선생","Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
 Building.TripleDynamite.DisplayName,삼중 다이너마이트,Dynamite that makes 3 blocks deep hole
@@ -555,7 +553,7 @@ Building.TriplePlatform.FlavorDescription,기둥을 갉는 건 엄격히 금지�
 Building.Tubeway.Description,비좁긴 하지만 비버들이 빠르게 이동할 수 있는 이동 수단입니다.,
 Building.Tubeway.DisplayName,관로,"Tubeways are used as a network of large pipes for faster transportation around the map. Departure and arrival  happens in Building.TubewayStation.DisplayName, so they should be named similarly."
 Building.Tubeway.FlavorDescription,비버 두 마리가 서로 머리를 부딪치면 기상천외한 강철 이빨 발명품이 탄생한다고 합니다.,Hitting your head can be a source of crazy ideas in cartoons. Iron Teeth should be the same as Faction.IronTeeth.DisplayName
-Building.TubewayStation.Description,관로 노선의 출입구 역할을 합니다.,
+Building.TubewayStation.Description,관로 노선의 출입구입니다.,
 Building.TubewayStation.DisplayName,관로 역,"Beavers use it to enter Building.Tubeway.DisplayName, so they should be named similarly."
 Building.TubewayStation.FlavorDescription,폐소 공포증이 있는 비버는 다른 길을 선택하는 게 좋습니다.,"Tubeways are very tight corridors, so they wouldn't be accessible for beavers scared of such places."
 Building.Tunnel.Description,지형을 관통하며 그 자리를 플랫폼으로 대체합니다. 지형이나 구조물 아래를 보려면 레이어 도구를 사용하세요.,"Platform is a building, same as Building.Platform.DisplayName"
@@ -575,25 +573,25 @@ Building.VerticalTubeway.DisplayName,수직 관로,"An expanded version of the B
 Building.VerticalTubeway.FlavorDescription,"위, 위, 아래, 아래, 왼쪽, 오른쪽, 왼쪽, 오른쪽, 뒤로, 앞으로 이동하세요. 흠, 다시 제자리네요.",Konami Code reference
 Building.WaterPump.Description,비버들이 마실 수 있도록 물을 퍼내고 정화합니다. 오염수가 발생하면 펌프 속도가 느려집니다.,Badwater should be the same as Good.Badwater.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Building.WaterPump.DisplayName,물 펌프,
-Building.WaterPump.FlavorDescription,신선한 물 한 모금에 기분까지 상쾌해집니다.,"""Pump"" pun, feel free to adapt."
+Building.WaterPump.FlavorDescription,신선한 물 한 모금에 기분이 상쾌해집니다.,"""Pumped"" pun, feel free to adapt."
 Building.WaterSeep.Description,수압이 제한적인 수원입니다.,
 Building.WaterSeep.DisplayName,스며드는 샘,"A building that allows water to seep through, creating a natural water source."
 Building.WaterSource.DisplayName,물의 원천,
 Building.WaterSource.FlavorDescription,"""당신의 강이 언제나 흐르길."" —비버식 인사법",
-Building.WaterWheel.Description,"동력을 생산하며, 강둑의 물에 설치해야 합니다.",Power is not an electrical but mechanical/kinetic energy.
+Building.WaterWheel.Description,"동력을 생산하며, 강둑을 따라 흐르는 물에 설치해야 합니다.",Power is not an electrical but mechanical/kinetic energy.
 Building.WaterWheel.DisplayName,물레바퀴,
 Building.WaterWheel.FlavorDescription,카즈코 선생의 대표작.,"Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
-Building.WindGauge.Description,바람의 방향과 세기를 알려주는 작은 바람개비.,
-Building.WindGauge.DisplayName,풍력계,A decoration that turns towards the wind
-Building.WindGauge.FlavorDescription,"""내 예상이 맞다면, 여기에 엔진이랑 날개 한 쌍만 붙이면 충분히 날릴 수 있어."" —피나","Referencing the Wright brothers and their first-ever aircraft. Pina is a younger beaver figure that's exploring the world and isn't related to any faction in particular. Pina as a name relates to the pine tree, the translated name shouldn't suggest a gender if possible."
-Building.WindGauge.WindStrength,풍력: {0}%,This tells how strong the wind is in percent between 0 and 100
+Building.Weathervane.Description,바람의 방향과 세기를 표시하는 작은 풍향계.,
+Building.Weathervane.DisplayName,풍향계,A decoration that turns towards the wind
+Building.Weathervane.FlavorDescription,"""내 예상이 맞다면, 여기에 엔진이랑 날개 한 쌍만 붙이면 충분히 날릴 수 있어."" —피나","Referencing the Wright brothers and their first-ever aircraft. Pina is a younger beaver figure that's exploring the world and isn't related to any faction in particular. Pina as a name relates to the pine tree, the translated name shouldn't suggest a gender if possible."
+Building.Weathervane.WindStrength,풍력: {0}%,This tells how strong the wind is in percent between 0 and 100
 Building.WindTunnel.Description,비버를 땅에서 들어 올려 극한의 경험을 줄 수 있는 기계입니다.,
 Building.WindTunnel.DisplayName,바람 터널,
 Building.WindTunnel.FlavorDescription,"""난 날 수 있어요. 탈출 속도를 알아내야겠지만."" —카즈코 선생","Ol' Kazko is a legendary forefather of modern beavers, famous inventor, pioneer of rapid industrialization."
-Building.Windmill.Description,바람으로 상당한 양의 동력을 생산합니다.,
-Building.Windmill.DisplayName,풍차,
-Building.Windmill.FlavorDescription,우리는 그저 바람에 흩날리는 톱밥일 뿐! —나무꼬리 민요,"Reference to ""Dust in the Wind"" by Kansas."
-Building.WoodFence.Description,나무로 만들어진 장식용 울타리입니다.,
+Building.WindTurbine.Description,풍속에 비례해 동력을 생산합니다.,
+Building.WindTurbine.DisplayName,풍력 터빈,
+Building.WindTurbine.FlavorDescription,우리는 그저 바람에 흩날리는 톱밥일 뿐! —나무꼬리 민요,"Reference to ""Dust in the Wind"" by Kansas."
+Building.WoodFence.Description,통나무로 만들어진 장식용 울타리입니다.,
 Building.WoodFence.DisplayName,나무 울타리,
 Building.WoodFence.FlavorDescription,댐과 비슷하지만 비버를 위한 곳입니다.,
 Building.WoodWorkshop.Description,판자에 송진을 덧입혀 더욱 단단하게 만듭니다.,It produces treated / impregnated planks. The resin used is a pine resin.
@@ -634,16 +632,44 @@ Buildings.Wonder,<YellowHighlight>불가사의:</YellowHighlight> 비버 공학�
 Camera.StateSaved,카메라 위치 저장 완료,"Notification on top of the window when camera state(location, rotation) is saved by player."
 CancelPlantingTool.Description,심기 영역을 지정 해제하는 데 사용하세요.,Description of a tool that removes fields.
 CancelPlantingTool.Title,심기 영역 제거,Tool that removes fields so the beavers won't plant there.
-Carrying.Carry,운반 중: {0} ({1}/{2} kg),{0} stands for Good.DisplayName {1} stands for carried good weight {2} stands for beaver lifting capacity. Tells player what the beaver is carrying and how much it weighs in comparison to the beaver's strength
+Carrying.Carry,운반 중: {0} ({1}/{2}kg),{0} stands for Good.DisplayName {1} stands for carried good weight {2} stands for beaver lifting capacity. Tells player what the beaver is carrying and how much it weighs in comparison to the beaver's strength
 Carrying.Nothing,없음,When beaver is carrying nothing.
+Condition.DisplayName,조건,"Bot equivalent of wellbeing (how good they are taken care of, how good their mechanical condition is)"
+Console.CloseButton,닫기,Label of the button that closes the console
+Console.Collapse,▲ 접기,Label of the button that collapses the console vertically. Please keep the arrow.
+Console.Expand,▼ 펴기,Label of the button that expands the console vertically. Please keep the arrow.
+Console.OpenFolderButton,로그 폴더 열기,Label of the button that opens the folder with logs
+ConstructionSites.DisplayName,건설 현장,
+ConstructionSites.Info.WaitingForMaterials,(재료 기다리는 중),Awaiting new materials to build
+ConstructionSites.Priority,건설 우선순위,
+ConstructionSites.PriorityTitle,건설 우선순위:,Setting a priority for construction work on a construction site
+ConstructionSites.Progress,진행도: {0}%,{0} stands for percentage of construction progress
+Core.BrowseFolder,폴더 탐색 ►,Opens file browser to either save folder or map folder. Please keep the arrow.
+Core.Cancel,취소,A button please keep short
+Core.EmptyList,아직 아무것도 없습니다.,A text shown in a list that does not contain any elements.
+Core.GameTip,"팁: 오두막이나 창고처럼 <YellowHighlight>견고</YellowHighlight>로 표시된 건물의 경우, 지붕에 다른 구조물을 건설할 수 있습니다.",Tip that shows up while the game is loading. Solid is a keyword.
+Core.GoodNameAndAmount,{0} ({1}),"Used for example in building material costs, {0} stands for good name, {1} stands for amount"
+Core.GoodNameAndAmountPerHour,{0} (시간당 {1}),"Used for example in building good usage, {0} stands for good name, {1} stands for amount"
+Core.Load,불러오기,A button please keep short
+Core.Loading,불러오는 중,Used in loading screen during loading
+Core.NavigationBack,뒤로,Used in forms to navigate to the previous step.
+Core.NavigationNext,다음,Used in forms to navigate to the next step.
+Core.No,아니요,A button please keep short
+Core.OK,확인,A button please keep short
+Core.Overwrite,덮어쓰기,A button shown in prompts with confirmation that a file will be overwritten
+Core.Save,저장,A button please keep short
+Core.SaveAs,다른 이름으로 저장,A button please keep short
+Core.Start,시작,A button please keep short
+Core.Status,상태:,Indication in interface about status of some property. For example 'Status: Enabled'
+Core.Yes,예,
 CrashScreen.CommentPlaceholder,(선택) 개발팀에 보낼 의견,Shown in a crash screen text field where players can optionally enter a comment that will help track down the bug
 CrashScreen.EmailPlaceholder,(선택) 개발팀에서 연락을 드릴 경우를 위한 이메일 주소,Shown in a crash screen text field where players can optionally enter their email
 CrashScreen.HowToFindReport,보고서에 포함될 데이터는 여기에서 확인할 수 있습니다.,
 CrashScreen.HowToFindReportShort,오류 보고서는 여기에서 확인할 수 있습니다.,
 CrashScreen.Introduction,"예기치 못한 결과입니다. 전부 저희의 책임이며, 충돌 보고서를 보내주시면 문제를 해결하는 데 큰 도움이 됩니다.",
 CrashScreen.ManualInstructions,혹은 보고서를 직접 보내실 수 있습니다:,
-CrashScreen.ModdedIntroduction,충돌의 원인이 될 수 있는 모드 버전의 게임을 실행 중인 것으로 보입니다.,
 CrashScreen.ModdedInstructions,모드를 제거하는 방법에 대한 지침은 여기에서 확인할 수 있습니다.,
+CrashScreen.ModdedIntroduction,충돌의 원인이 될 수 있는 모드 버전의 게임을 실행 중인 것으로 보입니다.,
 CrashScreen.PrivacyPolicyAccept,다음에 동의합니다.,Next to a checkbox and followed by CrashScreen.PrivacyPolicyLink
 CrashScreen.PrivacyPolicyLink,개인정보 처리방침,Preceded by a checkbox and CrashScreen.PrivacyPolicyToggle
 CrashScreen.SendFail,보내지 못했습니다. 클릭해서 다시 시도하세요.,
@@ -651,58 +677,31 @@ CrashScreen.SendReport,Timberborn 팀에게 오류 보고서 보내기,
 CrashScreen.SendSuccess,보고서를 받았습니다. 감사합니다!,
 CrashScreen.Sending,보내는 중...,
 CrashScreen.Title,이런... 버그라니 :'(,
-Condition.DisplayName,조건,"Bot equivalent of wellbeing (how good they are taken care of, how good their mechanical condition is)"
-Console.CloseButton,닫기,Label of the button that closes the console
-Console.Collapse,▲ 접기,Label of the button that collapses the console vertically. Please keep the arrow.
-Console.Expand,▼ 펴기,Label of the button that expands the console vertically. Please keep the arrow.
-Console.OpenDirectoryButton,로그 폴더 열기,Label of the button that opens the folder with logs
-ConstructionSites.DisplayName,건설 현장,
-ConstructionSites.Priority,건설 우선순위,
-ConstructionSites.PriorityTitle,건설 우선순위:,Setting a priority for construction work on a construction site
-ConstructionSites.Progress,진행도: {0}%,{0} stands for percentage of construction progress
-ConstructionSites.Info.WaitingForMaterials,(재료 기다리는 중),Awaiting new materials to build
-Core.BrowseDirectory,경로 탐색 ►,Opens file browser to either save folder or map folder. Please keep the arrow.
-Core.Cancel,취소,A button please keep short
-Core.EmptyList,아직 아무것도 없습니다.,A text shown in a list that does not contain any elements.
-Core.GameTip,"팁: 오두막이나 창고처럼 <YellowHighlight>견고</YellowHighlight>로 표시된 건물의 경우, 지붕에 다른 구조물을 건설할 수 있습니다.",Tip that shows up while the game is loading. Solid is a keyword.
-Core.Load,불러오기,A button please keep short
-Core.Loading,불러오는 중,Used in loading screen during loading
-Core.NavigationNext,다음,Used in forms to navigate to the next step.
-Core.NavigationBack,뒤로,Used in forms to navigate to the previous step.
-Core.No,아니요,A button please keep short
-Core.OK,확인,A button please keep short
-Core.Overwrite,덮어쓰기,A button shown in prompts with confirmation that a file will be overwritten
-Core.ResourceNameAndAmount,{0} ({1}),"Used for example in building material costs, {0} stands for resource name, {1} stands for amount"
-Core.ResourceNameAndAmountPerHour,{0} (시간당 {1}),"Used for example in building resource usage, {0} stands for resource name, {1} stands for amount"
-Core.Save,저장,A button please keep short
-Core.SaveAs,다른 이름으로 저장,A button please keep short
-Core.Start,시작,A button please keep short
-Core.Status,상태:,Indication in interface about status of some property. For example 'Status: Enabled'
-Core.Yes,예,
-Decals.Browse,탐색,Label of a button that opens a file explorer with a directory with custom patterns. Please keep short.
+Decals.Browse,탐색,Label of a button that opens a file explorer with a folder with custom patterns. Please keep short.
+Decals.Flip,무늬 뒤집기,Label on a button to flip (mirror) the pattern in the decal panel building
 Decals.Refresh,새로고침,Label of a button that refreshes/reloads custom patterns from disk. Please keep short.
 Decals.UserPatterns,맞춤형 무늬,Header of the panel that allows managing custom user patterns (loading custom images). Please keep short.
-Demolish.Blocked,위에 있는 오브젝트가 철거를 방해합니다.,Text of status message when trying to demolish an object (i.e. natural overhang) that has objects or buildings built on top of it preventing demolition.
-Demolish.Cancel,철거 취소,
-Demolish.Mark,철거,Demolishing is removing with the use of builders. Must be different than 'Delete' which has a slightly different meaning in the game.
-Demolish.PriorityTitle,철거 우선순위:,Setting a priority for demolition work on demolition target
-Demolishable.Science.Grants,부여:,"Text shown in entity panel when a building grants science points, like e.g. ""Grants 1000 points"". Please keep short."
-DemolishSelectionTool.Description,철거할 자원을 지정하세요. 모든 자원이 사라집니다.,
-DemolishSelectionTool.Title,철거할 자원 지정,
-DemolishUnselectionTool.Title,철거할 자원 지정 해제,
-DemolishUnselectionTool.Description,철거할 자원을 지정 해제하세요.,
 DeletionBlocker.ObjectAtop,위에 구조물이 있습니다.,Shown when the player tries to delete a structure that has another structure on top.
 DeletionBlocker.Prefix,삭제할 수 없습니다.,Tooltip prefix for the delete button when the object cannot be deleted.
 DeletionBlocker.Stockpile.NotEmpty,안에 남은 물품이 있습니다.,Warning shown to player when trying to delete a stockpile that still has some goods inside.
 DeletionBlocker.TerrainPhysics,건물이 지형을 지지합니다.,Building can't be deleted when it has the terrain on top of it and it last valid support for the terrain
 DeletionTool.Description.Buildings,이 도구를 사용하여 건물을 철거합니다. 건설 재료의 일부와 모든 저장 물품은 회수 가능한 잔해를 납깁니다.,"Rubble should be the same as RecoveredGoodStack.DisplayName, ""Stored goods"" could be translated similar to Building.SmallWarehouse.Description"
 DeletionTool.Description.Objects,이 도구로 오브젝트를 삭제하세요.,
-DeletionTool.Description.RecoveredGoodStack,이 도구를 사용하여 잔해를 삭제합니다. 잔해에 저장된 모든 자원이 사라집니다.,Rubble should be the same as RecoveredGoodStack.DisplayName
+DeletionTool.Description.RecoveredGoodStack,이 도구를 사용하여 잔해를 삭제합니다. 잔해에 저장된 모든 물품이 사라집니다.,Rubble should be the same as RecoveredGoodStack.DisplayName
 DeletionTool.Prompt.Buildings,선택한 건물을 철거하시겠습니까? 이 작업은 되돌릴 수 없습니다.,
 DeletionTool.Prompt.Objects,선택한 오브젝트를 파괴하시겠습니까? 이 작업은 되돌릴 수 없습니다.,
 DeletionTool.Title.Buildings,건물 철거,
 DeletionTool.Title.Objects,오브젝트 삭제,
 DeletionTool.Title.RecoveredGoodStack,잔해 삭제,Rubble should be the same as RecoveredGoodStack.DisplayName
+Demolish.Blocked,위에 있는 오브젝트가 철거를 방해합니다.,Text of status message when trying to demolish an object (i.e. natural overhang) that has objects or buildings built on top of it preventing demolition.
+Demolish.Cancel,철거 취소,
+Demolish.Mark,철거,Demolishing is removing with the use of builders. Must be different than 'Delete' which has a slightly different meaning in the game.
+Demolish.PriorityTitle,철거 우선순위:,Setting a priority for demolition work on demolition target
+DemolishSelectionTool.Description,철거할 자원을 지정하세요. 모든 자원이 사라집니다.,
+DemolishSelectionTool.Title,철거할 자원 지정,
+DemolishUnselectionTool.Description,철거할 자원을 지정 해제하세요.,
+DemolishUnselectionTool.Title,철거할 자원 지정 해제,
+Demolishable.Science.Grants,부여:,"Text shown in entity panel when a building grants science points, like e.g. 'Grants 1000 points'. Please keep short."
 Distribution.BalanceInfo,연결된 구역은 보관소 채우기 속도와 맞춤형 수출 임곗값에 따라 상품 간의 균형을 유지합니다.,
 Distribution.ExportAll,제한 없이 물품을 수출,A setting for the distribution panel that makes it so all goods are exported.
 Distribution.ExportNone,물품을 수출하지 않음,A setting for the distribution panel that makes it so no goods are exported.
@@ -727,10 +726,8 @@ Districts.DefaultDistrictName,구역 {0},"{0} is a number. By default districts 
 Districts.Districts,구역,
 Districts.GlobalView,전체 시점,
 Duplication.DuplicateSettingsToolDescription,설정을 붙여 넣을 대상을 선택하세요,Description of a tool which copies configuration from one building to another
-Dwelling.Inhabitants,주민: {0},{0} stands for a number. How many beavers live in this house.
-Dwelling.AssignAny,무작위 지정:,A button which assigns a random beaver to this house. Please keep short - constrained space.
-Dwelling.AssignUnemployed,실업자 지정:,A button which assigns a unemployed beaver to this house. Please keep short - constrained space.
 Dwelling.Dwellers,거주자,Header for the box of the inhabitants/tenants of this house
+Dwelling.Inhabitants,주민: {0},{0} stands for a number. How many beavers live in this house.
 Dwelling.Newborn,{0}이(가) 태어났습니다!,{0} stands for beaver name. Notification that shows when a new beaver is born.
 Dwelling.NoBeaverCanReach,어떠한 비버도 이 거주지에 갈 수 없습니다.,Information that this building is unreachable for any beavers.
 Dwelling.NoUnemployedCanReach,실업자 비버는 이 거주지에 갈 수 없습니다.,Information that this building is unreachable for any unemployed beavers.
@@ -757,16 +754,16 @@ Explosions.BlownInExplosionMessage,{0}이(가) 폭발에 휘말렸습니다.,{0}
 Faction.Folktails.Description,"소탈하면서도 근면한 나무꼬리는 농사 전문가입니다. 이들은 자연을 존중하며, 자연은 이들에게 풍족한 자원을 제공합니다.
 신조: <i>편안함, 식량 그리고 튼튼한 나무.</i>",Description of a beaver faction
 Faction.Folktails.DisplayName,나무꼬리,Name of a faction
+Faction.Folktails.GameOver.Flavor,자연이 준 선물을 제대로 쓰지 못하면 자연은 그것을 도로 가져갑니다.,Flavor text of the game over panel
+Faction.Folktails.GameOver.Message,나무꼬리가 인간과 같은 전철을 밟았습니다. 이것으로 끝입니다.,Text of the game over panel
+Faction.Folktails.WonderCompletionFlavor,엄청난 부와 지식을 축적한 비버들이 고통받는 지구와 노동의 결실을 나눴습니다. 아직 해야 할 일이 많지만 지구는 다시 한번 번영할 수 있습니다.,Flavor text shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
+Faction.Folktails.WonderCompletionMessage,축하합니다! 자연을 지향하는 나무꼬리의 방식을 익히고 이 지도의 자원으로 세력의 불가사의를 건설했습니다.,A message that is shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
 Faction.IronTeeth.Description,"나무가 진리라는 고정관념을 깨고, 철기와 과학을 숙달하여 첨단 기계를 만들 수 있게 되었습니다.
 독창성, 효율성, 그리고 친환경과는 거리가 먼 방식으로 발전을 달성합니다.  
 신조: <i>열심히 일하자, 열심히 일하자.</i>",Description of a beaver faction
 Faction.IronTeeth.DisplayName,강철 이빨,Name of a faction
-Faction.Folktails.GameOver.Flavor,자연이 준 선물을 제대로 쓰지 못하면 자연은 그것을 도로 가져갑니다.,Flavor text of the game over panel
 Faction.IronTeeth.GameOver.Flavor,때로는 아주 작은 결함 하나가 기계 전체를 망가뜨리기도 합니다.,Flavor text of the game over panel
-Faction.Folktails.GameOver.Message,나무꼬리가 인간과 같은 전철을 밟았습니다. 이것으로 끝입니다.,Text of the game over panel
 Faction.IronTeeth.GameOver.Message,강철 이빨 정착지가 손쓸 틈도 없이 무너졌습니다. 이것으로 끝입니다.,Text of the game over panel
-Faction.Folktails.WonderCompletionFlavor,엄청난 부와 지식을 축적한 비버들이 고통받는 지구와 노동의 결실을 나눴습니다. 아직 해야 할 일이 많지만 지구는 다시 한번 번영할 수 있습니다.,Flavor text shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
-Faction.Folktails.WonderCompletionMessage,축하합니다! 자연을 지향하는 나무꼬리의 방식을 익히고 이 지도의 자원으로 세력의 불가사의를 건설했습니다.,A message that is shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
 Faction.IronTeeth.WonderCompletionFlavor,개척자들이 번성하는 정착지를 뒤로하고 황무지 위로 날아갔습니다. 지구가 회복하려면 새롭게 찾은 비버의 번영을 나눠야 합니다.,Flavor text shown when the player has mastered a map with the Folktails faction. Mastery means building and activating a Wonder.
 Faction.IronTeeth.WonderCompletionMessage,수고하셨습니다! 뛰어난 기술로 강철 이빨의 근면성을 활용하고 이 지도를 정복하여 세력의 불가사의를 건설했습니다.,A message that is shown when the player has mastered a map with the Iron Teeth faction. Mastery means building and activating a Wonder.
 FactionSelection.Header,세력 선택,
@@ -777,7 +774,7 @@ Fields.Planting,심는 중,Preceded by Fields.PriorityAction
 Fields.PriorityAction,행동 우선순위:,Which of the actions is prioritized.
 FileBrowser.Header,파일 선택,Header of the file browser window.
 FileBrowser.NoPermission,이 폴더에 액세스할 수 있는 권한이 없습니다.,Shown in the file browser when the user doesn't have permission to access the selected folder.
-FileBrowser.Open,열림,Label of the button that opens currently selected directory or loads currently selected file.
+FileBrowser.Open,열림,Label of the button that opens currently selected folder or loads currently selected file.
 FlexibleStart.ChooseStartLocation,시작 지점을 선택하세요,Text shown when the player is choosing a new starting location.
 FlexibleStart.Relocate,시작 지점 변경,Label of a button for changing the starting location.
 FlexibleStart.ResetStartLocation,기본값 초기화,Label of a button for bringing back the initial starting location.
@@ -794,8 +791,8 @@ Gathering.Action,채집:,"Followed by a list of goods, like Gathers: Berries"
 Gathering.Nothing,없음,Nothing is prioritized to be gathered.
 Gathering.Prioritize,우선순위:,Which resource is prioritized to be gathered.
 Goals.NotEligible,이 세력을 플레이하는 동안에는 이용할 수 없습니다!,Preceded by Goals.Progress
-Goals.Unlocked,잠금 해제됨!,Preceded by Goals.Progress
 Goals.Progress,진행도:,
+Goals.Unlocked,잠금 해제됨!,Preceded by Goals.Progress
 Good.Algae.DisplayName,해조류,"Algae that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific algae kind."
 Good.Algae.PluralDisplayName,해조류,"Algae that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific algae kind."
 Good.AlgaeRation.DisplayName,해조류 식량,"Algae should be the same as in Good.Algae.DisplayName. Ration should be consistent between Good.AlgaeRation.DisplayName, Good.CornRation.DisplayName, Good.EggplantRation.DisplayName and Building.FoodFactory.Description"
@@ -808,16 +805,16 @@ Good.Berries.DisplayName,베리,Resource name
 Good.Berries.PluralDisplayName,베리,Resource name
 Good.Biofuel.DisplayName,생물 연료,Fuel made out of natural resources like plants.
 Good.Biofuel.PluralDisplayName,생물 연료,Fuel made out of natural resources like plants.
-Good.Book.DisplayName,책,Resource name
-Good.Book.PluralDisplayName,책,Resource name
+Good.Book.DisplayName,책,A name of a good.
+Good.Book.PluralDisplayName,책,A name of a good.
 Good.BotChassis.DisplayName,봇 뼈대,A big bot part that holds most of the machinery inside. Bot should be the same as Bot.TemplateName.
 Good.BotChassis.PluralDisplayName,봇 뼈대,A big bot part that holds most of the machinery inside. Bot should be the same as Bot.TemplateName.
 Good.BotHead.DisplayName,봇 머리,A head of a bot. Bot should be the same as Bot.TemplateName.
 Good.BotHead.PluralDisplayName,봇 머리,A head of a bot. Bot should be the same as Bot.TemplateName.
 Good.BotLimb.DisplayName,봇 사지,An unspecified limb of a bot. Bot should be the same as Bot.TemplateName.
 Good.BotLimb.PluralDisplayName,봇 사지,An unspecified limb of a bot. Bot should be the same as Bot.TemplateName.
-Good.Bread.DisplayName,빵,Resource name
-Good.Bread.PluralDisplayName,빵,Resource name
+Good.Bread.DisplayName,빵,A name of a good.
+Good.Bread.PluralDisplayName,빵,A name of a good.
 Good.CanolaOil.DisplayName,카놀라 기름,Canola should be the same as in Good.CanolaSeeds.DisplayName.
 Good.CanolaOil.PluralDisplayName,카놀라 기름,Canola should be the same as in Good.CanolaSeeds.DisplayName.
 Good.CanolaSeeds.DisplayName,카놀라 씨,An oil crop that grows tall and is full of yellow flowers.
@@ -852,54 +849,54 @@ Good.Eggplant.DisplayName,가지,"Ordinary deep purple eggplant, also known as a
 Good.Eggplant.PluralDisplayName,가지,"Ordinary deep purple eggplant, also known as aubergine."
 Good.EggplantRation.DisplayName,가지 식량,"Eggplant should be the same as Good.Eggplant.DisplayName. Ration should be consistent between Good.AlgaeRation.DisplayName, Good.CornRation.DisplayName, Good.EggplantRation.DisplayName and Building.FoodFactory.Description"
 Good.EggplantRation.PluralDisplayName,가지 식량,"Eggplant should be the same as Good.Eggplant.DisplayName. Ration should be consistent between Good.AlgaeRation.DisplayName, Good.CornRation.DisplayName, Good.EggplantRation.DisplayName and Building.FoodFactory.Description"
-Good.Extract.DisplayName,추출물,"A liquid resource produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
-Good.Extract.PluralDisplayName,추출물,"A liquid resource produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
-Good.Explosives.DisplayName,폭발물,Resource name. Not to be confused with the Dynamite building.
-Good.Explosives.PluralDisplayName,폭발물,Resource name. Not to be confused with the Dynamite building.
+Good.Explosives.DisplayName,폭발물,A name of a good. Not to be confused with the Dynamite building.
+Good.Explosives.PluralDisplayName,폭발물,A name of a good. Not to be confused with the Dynamite building.
+Good.Extract.DisplayName,추출물,"A liquid good produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
+Good.Extract.PluralDisplayName,추출물,"A liquid good produced from badwater in centrifuges which is used for manufacturing advanced buildings, machines and dynamite. While raw badwater is dangerous, extract is a useful chemical."
 Good.FermentedCassava.DisplayName,발효 카사바,"Cassava should be the same as Good.Cassava.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedCassava.PluralDisplayName,발효 카사바,"Cassava should be the same as Good.Cassava.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedMushroom.DisplayName,발효 버섯,"Mushroom should be the same as Good.Mushroom.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedMushroom.PluralDisplayName,발효 버섯,"Mushroom should be the same as Good.Mushroom.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedSoybean.DisplayName,발효 콩,"Soybean should be the same as Good.Soybean.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
 Good.FermentedSoybean.PluralDisplayName,발효 콩,"Soybean should be the same as Good.Soybean.DisplayName, fermented should be the same as in Building.Fermenter.DisplayName or Building.Fermenter.Description"
-Good.Flour.DisplayName,밀가루,Resource name
-Good.Flour.PluralDisplayName,밀가루,Resource name
-Good.Gear.DisplayName,톱니바퀴,Resource name
-Good.Gear.PluralDisplayName,톱니바퀴,Resource name
+Good.Flour.DisplayName,밀가루,A name of a good.
+Good.Flour.PluralDisplayName,밀가루,A name of a good.
+Good.Gear.DisplayName,톱니바퀴,A name of a good.
+Good.Gear.PluralDisplayName,톱니바퀴,A name of a good.
 Good.Grease.DisplayName,그리스,Grease is a good used as lubricant for IronTeeth faction bot machinery to increase their performance.
 Good.Grease.PluralDisplayName,그리스,Grease is a good used as lubricant for IronTeeth faction bot machinery to increase their performance.
 Good.GrilledChestnut.DisplayName,구운 밤,"Grilled fruit of a Aesculus hippocastanum tree, also known as conkers, keep plant name same as Good.Chestnut.DisplayName."
 Good.GrilledChestnut.PluralDisplayName,구운 밤,"Grilled fruit of a Aesculus hippocastanum tree, also known as conkers, keep plant name same as Good.Chestnut.DisplayName."
-Good.GrilledPotato.DisplayName,구운 감자,Resource name
-Good.GrilledPotato.PluralDisplayName,구운 감자,Resource name
+Good.GrilledPotato.DisplayName,구운 감자,A name of a good.
+Good.GrilledPotato.PluralDisplayName,구운 감자,A name of a good.
 Good.GrilledSpadderdock.DisplayName,구운 노란 수련,"Grilled plant Nuphar Lutea, keep plant name same as NaturalResource.Spadderdock.DisplayName"
 Good.GrilledSpadderdock.PluralDisplayName,구운 노란 수련,"Grilled plant Nuphar Lutea, keep plant name same as NaturalResource.Spadderdock.DisplayName"
 Good.Kohlrabi.DisplayName,콜라비,"Also called German turnip or turnip cabbage, it's a big, round turnip plant."
 Good.Kohlrabi.PluralDisplayName,콜라비,"Also called German turnip or turnip cabbage, it's a big, round turnip plant."
-Good.Log.DisplayName,통나무,Resource name
-Good.Log.PluralDisplayName,통나무,Resource name
+Good.Log.DisplayName,통나무,A name of a good.
+Good.Log.PluralDisplayName,통나무,A name of a good.
 Good.MangroveFruit.DisplayName,맹그로브 열매,"Fruit of the mangrove tree, mangrove should be the same as in NaturalResource.Mangrove.DisplayName"
 Good.MangroveFruit.PluralDisplayName,맹그로브 열매,"Fruit of the mangrove tree, mangrove should be the same as in NaturalResource.Mangrove.DisplayName"
 Good.MaplePastry.DisplayName,메이플 페이스트리,A baked good filled with maple syrup.
 Good.MaplePastry.PluralDisplayName,메이플 페이스트리,A baked good filled with maple syrup.
 Good.MapleSyrup.DisplayName,메이플 시럽,Sweet syrup created from maple sap
 Good.MapleSyrup.PluralDisplayName,메이플 시럽,Sweet syrup created from maple sap
-Good.MetalBlock.DisplayName,금속 블록,Resource name
-Good.MetalBlock.PluralDisplayName,금속 블록,Resource name
+Good.MetalBlock.DisplayName,금속 블록,A name of a good.
+Good.MetalBlock.PluralDisplayName,금속 블록,A name of a good.
 Good.Mushroom.DisplayName,버섯,"Mushroom that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific mushroom, just the type of plant."
 Good.Mushroom.PluralDisplayName,버섯,"Mushroom that's been cultivated in the Hydroponic Garden, it's processed into an edible ration. It doesn't specifically represent any specific mushroom, just the type of plant."
-Good.Paper.DisplayName,종이,Resource name
-Good.Paper.PluralDisplayName,종이,Resource name
+Good.Paper.DisplayName,종이,A name of a good.
+Good.Paper.PluralDisplayName,종이,A name of a good.
 Good.PineResin.DisplayName,소나무 송진,Also known as pine sap. Pine is the type of tree defined in NaturalResource.Pine.DisplayName.
 Good.PineResin.PluralDisplayName,소나무 송진,Also known as pine sap. Pine is the type of tree defined in NaturalResource.Pine.DisplayName.
-Good.Plank.DisplayName,판자,Resource name
-Good.Plank.PluralDisplayName,판자,Resource name
-Good.Potato.DisplayName,감자,Resource name
-Good.Potato.PluralDisplayName,감자,Resource name
+Good.Plank.DisplayName,판자,A name of a good.
+Good.Plank.PluralDisplayName,판자,A name of a good.
+Good.Potato.DisplayName,감자,A name of a good.
+Good.Potato.PluralDisplayName,감자,A name of a good.
 Good.PunchCard.DisplayName,천공 카드,"Punch cards are goods used for increasing Folktails faction bot performance. They are similar in concept to old programming cards, where code was inputted into a machine through a card with a bunch of holes punched through it."
 Good.PunchCard.PluralDisplayName,천공 카드,"Punch cards are goods used for increasing Folktails faction bot performance. They are similar in concept to old programming cards, where code was inputted into a machine through a card with a bunch of holes punched through it."
-Good.ScrapMetal.DisplayName,고철,Resource name
-Good.ScrapMetal.PluralDisplayName,고철,Resource name
+Good.ScrapMetal.DisplayName,고철,A name of a good.
+Good.ScrapMetal.PluralDisplayName,고철,A name of a good.
 Good.Soybean.DisplayName,콩,Soybeans can later be made into soy.
 Good.Soybean.PluralDisplayName,콩,Soybeans can later be made into soy.
 Good.Spadderdock.DisplayName,노란 수련,A plant formally called Nuphar Lutea
@@ -908,34 +905,32 @@ Good.SunflowerSeeds.DisplayName,해바라기씨,
 Good.SunflowerSeeds.PluralDisplayName,해바라기씨,
 Good.TreatedPlank.DisplayName,강화 판자,Plank impregnated with resin. Use the same word for plank as in Good.Plank.
 Good.TreatedPlank.PluralDisplayName,강화 판자,Plank impregnated with resin. Use the same word for plank as in Good.Plank.
-Good.Water.DisplayName,물,Resource name
-Good.Water.PluralDisplayName,물,Resource name
-Good.Wheat.DisplayName,밀,Resource name
-Good.Wheat.PluralDisplayName,밀,Resource name
+Good.Water.DisplayName,물,A name of a good.
+Good.Water.PluralDisplayName,물,A name of a good.
+Good.Wheat.DisplayName,밀,A name of a good.
+Good.Wheat.PluralDisplayName,밀,A name of a good.
 Good.WheatFlour.DisplayName,밀가루,Flour made out of wheat. Use the same name for wheat as in Good.Wheat.
 Good.WheatFlour.PluralDisplayName,밀가루,Flour made out of wheat. Use the same name for wheat as in Good.Wheat.
-GoodConsuming.SupplyDescription,사용: {0},{0} stands for resource name and amount per hour.
-GoodConsuming.SupplyRemaining,{0}시간 동안 보급품이 지속됩니다,"{0} stands for hours. Describes a building which requires a certain resources to operate, such as water."
 GoodConsuming.NeedsHaulers,<YellowHighlight>운반원이 필요합니다.</YellowHighlight>,"Information, that this building won't be operational without haulers. Haulers are the same as in Building.HaulingPost.Description"
+GoodConsuming.SupplyDescription,사용: {0},{0} stands for good name and amount per hour.
+GoodConsuming.SupplyRemaining,{0}시간 동안 보급품이 지속됩니다,"{0} stands for hours. Describes a building which requires a certain goods to operate, such as water."
 Goods.Amount,수량,Header of a dropdown that allows to select a good. Please keep short.
+Goods.EatableRaw,생으로 먹을 수 있습니다.,Shown on a tooltip of goods that can be eaten raw.
 Goods.Nothing,없음,
 Goods.StoredIn,보관 장소:,Header above a list of buildings that store selected good
 GridRendering.Visibility.Hide,건설 가이드라인 숨기기,Shows construction guidelines when button is pressed.
 GridRendering.Visibility.Show,건설 가이드라인 표시,Shows construction guidelines when button is pressed.
 Growing.GrowsWhenMature,더 성숙해지면 자랍니다,"Information about fruits and other resources, that grows when plant is mature and not when it is in seedling stage"
 Growing.Time,성장까지 남은 일수: {0},{0} stands for a number of days. How many days left does this plant have to fully grow.
-Hauling.Prioritize,운반원의 건물 우선순위,building is a noun in this sentence. This building will be prioritized by haulers.
+Hauling.Prioritize,운반원의 우선순위,building is a noun in this sentence. This building will be prioritized by haulers.
 Inventory.Capacity,용량:,How much space there is in the storage
-Inventory.InStock,재고:,Please keep short. Header above a list of resources in stock of the storage.
-Inventory.IsEmpty,재고 없음,
 Inventory.Goods,물품:,
-Inventory.Header.Stock,재고,Please keep short. Header above a column with amounts of resource in stock of the storage.
+Inventory.InStock,재고:,Please keep short. Header above a list of goods in stock of the storage.
+Inventory.IsEmpty,재고 없음,
 Inventory.NothingSelected,없음,Text shown in a dropdown when no good is selected. Keep below 15 characters.
-Inventory.StartingInventory,시작 물품,
-Inventory.StockpileOverlay.Show,보관소 오버레이 표시,Tooltip for button showing overlay over warehouses containing stored goods.
 Inventory.StockpileOverlay.Hide,보관소 오버레이 숨기기,Tooltip for button showing overlay over warehouses containing stored goods.
-Inventory.Undesired,불필요:,Please keep short. Which resources are not desired in the storage.
-KeyBindingsPanel.Header,키 설정,Header of the key bindings box
+Inventory.StockpileOverlay.Show,보관소 오버레이 표시,Tooltip for button showing overlay over warehouses containing stored goods.
+Inventory.Undesired,불필요:,Please keep short. Which goods are not desired in the storage.
 Key.DownArrow,아래 화살표,Label of the down arrow key
 Key.LeftArrow,왼쪽 화살표,Label of the left arrow key
 Key.LeftWindows,왼쪽 Windows,Label of the left windows key
@@ -973,6 +968,7 @@ KeyBinding.IncreaseWorkers,노동자 목표치 증가,Label of the key that incr
 KeyBinding.IncreaseWorkingHours,노동 시간 증가,Label of the key that increases settlement working hours
 KeyBinding.IncreaseWorkplacePriority,작업장 우선순위 증가,Label of the key that increases the priority of the selected workplace
 KeyBinding.InverseBrushDirection,브러시 방향 반전,
+KeyBinding.LevelVisibilityCursorTool,레벨 가시성 커서 도구,Name of layer tool keybinding
 KeyBinding.LowerVisibleLayer,레이어 표시 낮춤,Label of the key that decreases the max visible vertical level of buildings
 KeyBinding.MechanicalTab,동력 탭 열기,"Label of the key that opens the Settlement Panel and selects the Mechanical tab, Power should be the same as BatchControl.Mechanical"
 KeyBinding.MigrationTab,이주 탭 열기,"Label of the key that opens the Settlement Panel and selects the Migration tab, Migration should be the same as BatchControl.Migration"
@@ -982,12 +978,12 @@ KeyBinding.MoveCameraLeft,카메라 왼쪽 이동,Label of the key that moves th
 KeyBinding.MoveCameraRight,카메라 오른쪽 이동,Label of the key that moves the camera right
 KeyBinding.MoveCameraUp,카메라 위로 이동,Label of the key that moves the camera up
 KeyBinding.NextDistrict,다음 구역 선택,Label of the key that selects the next district
-KeyBinding.NextRootButton,다음 툴바 카테고리,Label of the key that selects the next toolbar (bottom bar) category.
+KeyBinding.NextRootButton,다음 도구 그룹,Label of the key that selects the next toolbar (bottom bar) category.
 KeyBinding.NextTool,다음 도구,Label of the key that selects the next tool from currently selected toolbar category.
 KeyBinding.OpenWellbeingPanel,복지 패널 열기,"Label of the key that opens the Well-being box, Well-being should be the same as Wellbeing.DisplayName"
 KeyBinding.PickVisibleLayer,레이어 표시 고르기,Label of the key that picks the layer of the visible terrain currently under the cursor
 KeyBinding.PreviousDistrict,이전 구역 선택,Label of the key that selects the previous district
-KeyBinding.PreviousRootButton,이전 툴바 카테고리,Label of the key that selects the previous toolbar (bottom bar) category.
+KeyBinding.PreviousRootButton,이전 도구 그룹,Label of the key that selects the previous toolbar (bottom bar) category.
 KeyBinding.PreviousTool,이전 도구,Label of the key that selects the previous tool from currently selected toolbar category.
 KeyBinding.RaiseVisibleLayer,레이어 표시 올림,Label of the key that increases the max visible vertical level of buildings
 KeyBinding.RedoChanges,변경 사항 다시 실행,Key binding for redoing changes in Map editor.
@@ -1019,25 +1015,25 @@ KeyBinding.ToggleBatchControlBox,정착 패널 토글,Label of the key that open
 KeyBinding.ToggleBrushShape,브러시 모양 토글,"Label of the key that toggles the shape of the brush, 'brush shape' should be the same as MapEditor.Brush.Shape.Label"
 KeyBinding.ToggleBuildingPause,선택한 건물 일시 정지,Label of the key that pauses the selected building
 KeyBinding.ToggleConsole,콘솔 토글,Label of the key that toggles the console with logs
-KeyBinding.ToggleGuidelines,가이드라인 토글,Toggle guidelines on/off
 KeyBinding.ToggleGUI,인터페이스 표시 토글,Label of the key that hides/shows the whole user interface
+KeyBinding.ToggleGuidelines,가이드라인 토글,Toggle guidelines on/off
 KeyBinding.ToggleHaulingPriority,운반 우선순위 토글,Label of the key that toggles the hauling priority of the selected object
 KeyBinding.ToggleNaturalResources,천연자원 토글,Label of the key that shows/hides the natural resources in map editor. Natural resources should be the same as NaturalResources.Visibility.Show
 KeyBinding.ToggleStockpileOverlay,보관소 오버레이 토글,Label of the key that shows/hides the storage overlay
 KeyBinding.ToggleStockpilePriority,창고 우선순위 토글,Label of the key that toggles the priority of the selected warehouse between StockpilePriority.Accept/StockpilePriority.Obtain/StockpilePriority.Supply/StockpilePriority.Empty
 KeyBinding.ToggleWaterVisibility,물 표시 토글,Label of the key that makes water semi-transparent
-KeyBinding.WorkplacesTab,작업장 탭 열기,"Label of the key that opens the Settlement Panel and selects the Workplaces tab, Workplaces should be the same as BatchControl.Workplaces"
 KeyBinding.ToggleWorkerType,노동자 유형 토글,Keybinding for toggling the worker type.
 KeyBinding.UndoChanges,변경 사항 실행 취소,Key binding for undoing changes in Map editor.
 KeyBinding.UnlockTool,도구 잠금 해제,Label of the key that unlocks the currently selected tool
+KeyBinding.WorkplacesTab,작업장 탭 열기,"Label of the key that opens the Settlement Panel and selects the Workplaces tab, Workplaces should be the same as BatchControl.Workplaces"
 KeyBinding.ZoomIn,확대,Label of the key that zooms camera in
 KeyBinding.ZoomOut,축소,Label of the key that zooms camera out
+KeyBindingBox.ClearBinding,지우기,Text on the button in rebinding dialog box that clears the current key binding. Please keep short.
 KeyBindingBox.DuplicatedBinding,"이 키 조합은 다음 작업에 이미 지정되었습니다.
 
 {0}
 
 그래도 지정하시겠습니까?","Message shown on key rebinding dialog box when the user tries to assign a key combination that is already assigned to another key binding, {0} stands for the list of key bindings e.g. KeyBinding.Speed0, KeyBinding.ToggleGUI etc."
-KeyBindingBox.ClearBinding,지우기,Text on the button in rebinding dialog box that clears the current key binding. Please keep short.
 KeyBindingBox.PrimaryBinding,기본 설정,Header of the primary key bindings column in the key bindings panel
 KeyBindingBox.RebindingMessage,키를 눌러 {0}에 대한 조작을 재지정하세요.,"Message shown on key rebinding dialog box, {0} stands for the name of the key binding e.g. KeyBinding.Speed0, KeyBinding.ToggleGUI etc."
 KeyBindingBox.ResetToDefault,기본값 초기화,Text on the button in key bindings panel that resets all key bindings to their default bindings
@@ -1050,8 +1046,12 @@ KeyBindingGroup.Objects,오브젝트 조작,"Label for the key binding group ass
 KeyBindingGroup.SettlementPanel,정착지 패널,Label for the key binding group associated with settlement panel controls (opening panel and its tabs)
 KeyBindingGroup.Time,시간,Label for the key binding group associated with time controls (changing time speed)
 KeyBindingGroup.UI,사용자 인터페이스,"Label for the key binding group associated with user interface controls (opening panels, toggling overlays etc)"
+KeyBindingsPanel.Header,키 설정,Header of the key bindings box
 LevelVisibility.InfoTooltip,레이어 표시,Tooltip for controls that allow the player to set the vertical level visibility
 LevelVisibility.ResetTooltip,레이어 표시 초기화,Tooltip for button that resets the vertical vertical visibility
+LoadMapPanel.Delete,지도 삭제,A button. Please keep short.
+LoadMapPanel.DeleteMapPrompt,정말로 {0}을(를) 삭제할까요?,{0} stands for map name
+LoadMapPanel.Header,지도 편집,
 LoadingIssue.BlockObjectLoadingIssue,위치가 유효하지 않은 오브젝트({0})가 삭제됐습니다.,
 LoadingIssue.ContinuePlaying,플레이 계속하기,a button please keep short. Allows player to play dispite detected issues
 LoadingIssue.LoadingIssues,불러오기 문제,Shown when there are issues with loading map
@@ -1061,10 +1061,14 @@ LoadingIssue.MapIssuesWarning,"빠진 모드나 최신 게임 버전 때문에 �
 계속 플레이할 수 있지만 지도가 완전하지 않을 수 있습니다.",Shown when there are issues with loading map - warning player about possible reason and consequences
 LoadingIssue.PrefabNotFoundIssue,유형을 알 수 없는 오브젝트({0})가 삭제됐습니다.,Warning shown when object type is not found in the game and cannot be instantiate.
 LoadingIssue.TerrainCutOffIssue,지형이 허용된 최대 높이를 초과하여 잘렸습니다.,Warning shwon when terrain in saved map exceeds the maximum height of the map.
-LoadMapPanel.Delete,지도 삭제,A button. Please keep short.
-LoadMapPanel.DeleteMapPrompt,정말로 {0}을(를) 삭제할까요?,{0} stands for map name
-LoadMapPanel.Header,지도 편집,
 MainMenu.RosettaPerformanceWarning,성능이 하락합니다.,"Warning message displayed in the main menu when Rosetta (MacOS compatibility mode) is enabled. Preceded by the ""Rosetta: OFF"" message."
+MainMenu.UpdateInfoHeader,업데이트 1.0 - 실험,Header of the update info panel that is shown in the main menu.
+MainMenu.UpdateInfoLink,<u>더 보기</u>,Label of the link that opens web browser with the update details webpage.
+MainMenu.UpdateInfoText,"• 상호작용 가능한 새로운 지도 오브젝트
+• 신규 지도: 압력, 오아시스
+• 나선 계단과 현수막
+• 업그레이드된 모딩 파이프라인
+• 건물 복제 및 기타 편의성 개선","Text shown in the update info panel with the latest update summary. Ziplines, Tubeways, Tunnels, power shafts and layer tool naming must be consistent with the usage of those terms in the rest of the game."
 MainMenu.WelcomeScreenStart,시작!,A button please keep short
 MainMenu.WelcomeScreenText,"안녕하세요!
 
@@ -1075,42 +1079,32 @@ MainMenu.WelcomeScreenText,"안녕하세요!
 이번 업데이트는 그 어떤 업데이트보다 중요하기 때문에 여러분의 피드백을 꼭 듣고 싶습니다. <i>피드백 사이트로 가기</i> 버튼을 사용하거나 공식 Discord 서버로 가서 피드백을 남겨 주세요.
 
 행운을 빌며, 수시로 잊지 말고 수분을 공급하세요!",
-MainMenu.WelcomeScreenTitle,앞서 해보기 정보,Header of the welcome screen popup.
-MainMenu.UpdateInfoHeader,업데이트 1.0 - 실험,Header of the update info panel that is shown in the main menu.
-MainMenu.UpdateInfoLink,<u>더 보기</u>,Label of the link that opens web browser with the update details webpage.
-MainMenu.UpdateInfoText,"• 상호작용 가능한 새로운 지도 오브젝트
-• 신규 지도: 압력, 오아시스
-• 나선 계단과 현수막
-• 업그레이드된 모딩 파이프라인
-• 건물 복제 및 기타 편의성 개선","Text shown in the update info panel with the latest update summary. Ziplines, Tubeways, Tunnels, power shafts and layer tool naming must be consistent with the usage of those terms in the rest of the game."
 Manufactory.CurrentRecipe,레시피:,Text before a dropdown for changing factory recipe - what the factory produces from what ingredients.
+MainMenu.WelcomeScreenTitle,앞서 해보기 정보,Header of the welcome screen popup.
 Manufactory.NoRecipeOption,없음,Text shown in a dropdown when no recipe is selected. Keep below 15 characters.
-Manufactory.Recipe.EfficientScrapMetal,고철 (효율),A more efficient way of getting scrap metal using explosives. The metal scrap itself is not more efficient. Scrap Metal is Good.ScrapMetal.PluralDisplayName
 Manufactory.Recipe.BiofuelCarrot,생물 연료 (당근),Recipe for making Biofuel out of Carrots. Keep consistent with Good.Biofuel.DisplayName and Good.Carrot.PluralDisplayName.
 Manufactory.Recipe.BiofuelPotato,생물 연료 (감자),Recipe for making Biofuel out of Potatoes. Keep consistent with Good.Biofuel.DisplayName and Good.Potato.PluralDisplayName.
 Manufactory.Recipe.BiofuelSpadderdock,생물 연료 (노란 수련),Recipe for making Biofuel out of Spadderdock. Keep consistent with Good.Biofuel.DisplayName and Good.Spadderdock.PluralDisplayName.
+Manufactory.Recipe.EfficientScrapMetal,고철 (효율),A more efficient way of getting scrap metal using explosives. The metal scrap itself is not more efficient. Scrap Metal is Good.ScrapMetal.PluralDisplayName
 MapEditor.BlockObjectRandomizePlacement,회전 및 뒤집기 방향 무작위 설정,Button to randomize the rotation and flip direction of the object being placed in the map editor
 MapEditor.Brush.AbsoluteTerrainHeight,지형 (절대 높이),A tool that changes terrain height to an absolute value.
 MapEditor.Brush.Density,밀도,Density of objects.
-MapEditor.Brush.Direction.Decrease,감소,
-MapEditor.Brush.Direction.Increase,증가,
 MapEditor.Brush.Direction.Label,브러시 방향:,
+MapEditor.Brush.Direction.Lower,내리기,
+MapEditor.Brush.Direction.Raise,올리기,
 MapEditor.Brush.Height.Label,브러시 높이:,Either absolute or relative height at which brush will paint.
 MapEditor.Brush.NaturalResourceRemoval,천연자원 제거,Natural resources meaning trees and bushes
 MapEditor.Brush.NaturalResourceSpawning,천연자원,Natural resources meaning trees and bushes
-MapEditor.Brush.RandomizeYieldGrowth,성장률 무작위 설정,"This text is next to a toggle that randomizes the percentage growth of fruit, chestnuts or other things that can be gathered and regrow"
+MapEditor.Brush.RandomizeYieldGrowth,무작위 성숙,"This text is next to a toggle that randomizes the percentage growth of fruit, chestnuts or other things that can be gathered and regrow"
 MapEditor.Brush.RelativeTerrainHeight,지형 (상대 높이),A tool that changes terrain height by a value relative to the original height.
 MapEditor.Brush.SculptingTerrain,지형 (조형),Label of the brush that allows the player to sculpt the terrain (e.g. dig tunnels or create overhangs)
 MapEditor.Brush.Shape.Label,브러시 모양:,
 MapEditor.Brush.Shape.Round,원형,
 MapEditor.Brush.Shape.Square,정사각형,
 MapEditor.Brush.Size.Label,브러시 크기:,
-MapEditor.Exit,편집기 나가기,A button please keep short
 MapEditor.FlowPreview.StartTest,흐름 테스트 시작,Label of a button that starts water flow test in map editor.
 MapEditor.FlowPreview.StopTest,흐름 테스트 중단,Label of a button that stops water flow test in map editor.
-MapEditor.Layers.Header,레이어,"A header above a list of map layers that can be hidden, such as water or trees"
 MapEditor.Layers.NaturalResources,천연자원,
-MapEditor.Layers.Water,물,
 MapEditor.LoadMap.Header,지도 선택,
 MapEditor.MapMetadata.Description,지도 설명,Label of the map description
 MapEditor.MapMetadata.Title,지도 데이터,Title of the map data panel in map editor. Currently it only contains the map description field to fill in.
@@ -1119,10 +1113,10 @@ MapEditor.NewMap,새로운 지도,A button please keep short
 MapEditor.NewMap.Create,제작,A button which confirms new map parameters and starts the map editor
 MapEditor.NewMap.Header,새로운 지도,
 MapEditor.NewMap.Size,크기:,
+MapEditor.NoStartingLocation,시작 지점을 추가하세요.,Notification that there is no starting location object. Keep consistent with Building.StartingLocation.DisplayName.
 MapEditor.NonCompatibleMapVersion,호환되지 않은 지도 버전.,Warning shown in the map editor when the map version is not compatible with the current game version.
 MapEditor.NonCompatibleMapVersion.Tooltip,"해당 지도 버전({0})은 현재 게임 버전({1})과 호환되지 않습니다. 
 지도를 저장해서 호환이 가능하도록 만드세요.",Tooltip shown over MapEditor.NonCompatibleMapVersion warning.
-MapEditor.NoStartingLocation,시작 지점을 추가하세요.,Notification that there is no starting location object. Keep consistent with Building.StartingLocation.DisplayName.
 MapEditor.Redo,다시 실행,Label of a button that redoes changes in Map editor.
 MapEditor.SaveMap.Header,지도 저장,
 MapEditor.SaveMap.MapExists,{0} 지도는 이미 존재합니다.,{0} stands for map name
@@ -1146,7 +1140,7 @@ MapEditor.Undo,실행 취소,Label of a button that undoes changes in Map editor
 MapEditor.UploadMap,지도 업로드,Label of the button that uploads the map to some kind of online service
 MapMetadata.Beaverome.Description,전설적인 메트로폴리스를 건설하기 위해 선대 비버들은 7개의 거대 크레이터에서 물을 비워냈습니다. 오늘날의 목재 기술로도 이건 사소한 업적이 아니죠.,
 MapMetadata.Beaverome.Name,비버로마,The name of this map comes from Beaver + Rome - an ancient beaver city.
-MapMetadata.Canyon.Description,비버들은 사막에서 아직 강이 흐르고 있는 계곡을 항상 찾습니다. 쉽게 댐을 건설할 수 있는 이 협곡은 모두에게 안전한 피난처가 되어줄 것입니다.,
+MapMetadata.Canyon.Description,비버들은 사막에서 아직 강이 흐르고 있는 계곡을 찾습니다. 쉽게 댐을 건설할 수 있는 이 협곡은 모두에게 안전한 피난처가 되어줄 것입니다.,
 MapMetadata.Canyon.Name,협곡,
 MapMetadata.Cliffside.Description,고대 인류 건축물 유적이 곳곳에 남아 있는 외딴 골짜기입니다. 비버들은 이와 비슷한 자취를 세상에 남기고 싶어 합니다.,
 MapMetadata.Cliffside.Name,낭떠러지,
@@ -1158,7 +1152,7 @@ MapMetadata.HelixMountain.Description,비버들은 강바닥의 모양이 실용
 MapMetadata.HelixMountain.Name,헬릭스 산,The name of this map refers to the spiral shape of its central mountain.
 MapMetadata.Hollows.Description,이 풍요로운 구덩이는 예비 정착민에게 아주 중요한 곳입니다. 깎여 나간 지형에는 많은 기회가 숨어 있죠. 나이가 아주 많은 비버들은 이곳에 보물이 묻혀 있다고 속삭이기도 합니다.,
 MapMetadata.Hollows.Name,구덩이,
-MapMetadata.Lakes.Description,요즘에는 호수와 강이 풍부한 지역이 드뭅니다. 하지만 조금이나마 남아있는 곳은 지구에 아직 희망이 있다는 걸 보여주죠.,
+MapMetadata.Lakes.Description,요즘에는 호수와 강이 풍부한 지역이 드뭅니다. 조금이나마 남아있는 곳은 지구에 아직 희망이 있다는 걸 보여주죠.,
 MapMetadata.Lakes.Name,호수,
 MapMetadata.Meander.Description,비버 엔지니어들은 자연스럽게 구부러진 강둑을 활용하기 위해 노력합니다. 제한된 공간을 최대한 활용하는 계획을 세우는 것이 가장 어려운 부분입니다.,
 MapMetadata.Meander.Name,곡류,
@@ -1177,12 +1171,12 @@ MapMetadata.ThousandIslands.Description,타고난 수영선수에게도 군도�
 MapMetadata.ThousandIslands.Name,천 개의 섬,
 MapMetadata.Waterfalls.Description,새끼 비버에게 폭포는 그냥 단순히 큰 수문이라고 말하는 것이 오랜 육아의 지혜입니다. 그러면 여기에서 몇 주 내내 레버를 끄려고 할 거거든요.,
 MapMetadata.Waterfalls.Name,폭포,
-MapSelection.BrowseMaps,로컬 지도 탐색,Label of the button that opens a file explorer with a directory with custom maps. Please keep short.
+MapSelection.BrowseMaps,로컬 지도 탐색,Label of the button that opens a file explorer with a folder with custom maps. Please keep short.
 MapSelection.CustomMaps,맞춤형 지도,Label of the toggle button that shows custom maps
 MapSelection.DownloadMaps,지도 다운로드,Label of the button that opens some panel where custom maps can be downloaded
 MapSelection.Header,지도 선택,
-MapSelection.LocalMap,로컬 지도,Tooltip of an icon in map selection panel that indicates that the map is stored in Documents directory.
-MapSelection.NoDescription,설명 없음,Text shown in map selection panel when the selected map has no description
+MapSelection.LocalMap,로컬 지도,Tooltip of an icon in map selection panel that indicates that the map is stored in Documents folder.
+MapSelection.NoDescription,제공된 설명이 없습니다.,Text shown in map selection panel when the selected map has no description
 MapSelection.NonCompatibleMapVersion,해당 맵 버전({0})은 현재 게임 버전({1})과 호환되지 않아 로드할 수 없습니다.,"{0} is the map version (e.g. 0.1.15.1), {1} is the game version (in the same format). This message is shown after a player tries to start game on (or edit) an incompatible map."
 MapSelection.OfficialMaps,공식 지도,Label of the toggle button that shows official maps
 MapSelection.Recommended,초보자 친화,Label of the maps that are recommended for beginners
@@ -1191,7 +1185,7 @@ MapSelection.SemiCompatibleMapVersion,"이 지도 버전({0})은 현재 게임 �
 게임을 시작하시겠습니까?","{0} is the map version (e.g. 0.1.15.1), {1} is the game version (in the same format). This message is shown after a player tries to start game on an incompatible map."
 MapSelection.Unconventional,파격적,"Label of the maps that have some special, different, unconventional mechanics"
 Mechanical.Charge,충전,Current battery charge (how much power a battery has left)
-Mechanical.Efficiency,효율: {0}%,{0} stands for efficiency percentage number. How efficient workshop is at using the energy.
+Mechanical.Efficiency,효율: {0}%,{0} stands for efficiency percentage number. How efficient workshop is at using the power.\
 Mechanical.NetworkPower,네트워크 동력 공급 / 수요: {0} / {1},{0} stands for supply amount {1} stands for demand amount followed by PowerSymbol
 Mechanical.PowerCapacity,용량,Stands for battery capacity.
 Mechanical.PowerCapacityPerMeter,hph / m,Stands for horse power hour per meter - used to describe battery capacity. hph should be same as Mechanical.PowerCapacitySymbol.
@@ -1215,8 +1209,6 @@ Menu.KeyBindings,키 설정,A button please keep short
 Menu.LoadGame,게임 불러오기,A button please keep short
 Menu.ModManager,모드,Label of a button that opens the mod manager.
 Menu.NewGame,새 게임,A button please keep short
-Menu.NewGamePrompt,"새 게임을 시작하시겠습니까?
-저장되지 않은 진행 상황은 사라집니다.",
 Menu.NewMap,새로운 지도 제작,A button please keep short
 Menu.Resume,재개,"A button in game and map editor menu, please keep short"
 Menu.SaveGame,게임 저장,A button please keep short
@@ -1233,7 +1225,7 @@ Migration.MigratePopulation,주민 이주,Button please keep short
 Migration.Minimum,최소,"Label shown in front of input field, with desired minimum amount of population in district"
 Migration.SameDistrict,같은 구역으로 이주할 수 없습니다.,Shown on tooltip of disabled migration buttons when the chosen districts are same
 Modding.ActiveMods,활성 모드,A label for the list of mods active in the game.
-Modding.BrowseMods,로컬 모드 탐색,Label of the button that opens a file explorer with a directory with mods. Please keep short.
+Modding.BrowseMods,로컬 모드 탐색,Label of the button that opens a file explorer with a folder with mods. Please keep short.
 Modding.CloudSource,{0} 모드,"Tooltip with source of the mod. {0} is the name of the cloud platform, for example Steam Workshop."
 Modding.CreateMod,모드 제작,Label of a button that creates a new mod. Please keep short.
 Modding.CreateNewMod,새로운 모드 제작,Label of a button that allows to create a new mod and a header of the panel that it opens.
@@ -1244,21 +1236,20 @@ Modding.IncreasePriority,불러오기 우선순위 증가,Label of a button that
 Modding.LoadConfirmation,불러오시겠습니까?,A message displayed in the mod incompatibility dialog box.
 Modding.LocalSource,로컬 모드,Tooltip saying that the mod is stored locally.
 Modding.MissingMod,모드가 빠졌습니다.,Shown on a tooltip for an icon that indicates a missing of a mod saved in save file.
-Modding.ModCreatedMessage,"모드가 다음 경로에 생성됐습니다.
+Modding.ModCreatedMessage,"모드가 다음 폴더에 생성됐습니다.
 <link><b>{0}</b></link>
 
-불러오려면 게임을 재시작하세요.",Message shown when a mod is created successfully. {0} is a path to the mod directory. Do not remove <link><b> tags.
+불러오려면 게임을 재시작하세요.",Message shown when a mod is created successfully. {0} is a path to the mod folder. Do not remove <link><b> tags.
 Modding.ModManagerHeader,모드,Header of the mod manager panel.
 Modding.ModNameTaken,이미 있는 모드 이름입니다.,Error shown when trying to create a mod with a name that is already used by another mod.
-Modding.ModsIncompatibilityMessage,저장할 때 사용되었던 모드가 빠진 채로 게임을 불러오려고 합니다.,A message displayed in the mod incompatibility dialog box.
-Modding.ModWarning.InvalidGameVersion,이 모드를 쓰려면 상위 게임 버전({0})이 필요합니다.,Message that is shown when a mod requires a higher game version. {0} is the required game version.
+Modding.ModWarning.InvalidGameVersion,이 모드를 쓰려면 더 최신 버전의 게임({0})이 필요합니다.,Message that is shown when a mod requires a higher game version. {0} is the required game version.
 Modding.ModWarning.MissingRequiredMod,{0} 모드가 필요합니다.,Message that is shown when a mod is missing a required mod. {0} is the ID of the required mod.
 Modding.ModWarning.RequiredModInvalidOrder,"필요한 ""{0}"" 모드의 불러오기 순서가 이 모드 뒤에 있습니다.",Message that is shown when a required mod is below the mod in the load order. {0} is the ID of the required mod.
-Modding.ModWarning.RequiredModInvalidVersion,"필요한 ""{0}"" 모드의 버전이 최소 필요 버전보다 낮습니다.",Message that is shown when a required mod has a version below the minimum required version. {0} is the ID of the required mod.
+Modding.ModWarning.RequiredModInvalidVersion,필요한 '{0}' 모드의 버전이 최소 필요 버전보다 낮습니다.,Message that is shown when a required mod has a version below the minimum required version. {0} is the ID of the required mod.
 Modding.ModWarning.RequiredModNotEnabled,"필요한 ""{0}"" 모드가 활성화되지 않았습니다.",Message that is shown when a required mod is not enabled. {0} is the ID of the required mod.
+Modding.ModsIncompatibilityMessage,저장할 때 사용되었던 모드가 빠진 채로 게임을 불러오려고 합니다.,A message displayed in the mod incompatibility dialog box.
 Modding.NewModLanguage,언어 코드,Label of a field that allows to set a language code for a localization mod. Please keep short.
 Modding.NewModName,모드 이름,Label of a field that allows to set a name for a new mod. Please keep short.
-Modding.OpenDirectory,모드 경로 열기,Label of a button that opens a file explorer with a directory with mods. Please keep short.
 Modding.ResetOrder,불러오기 순서 초기화,Label of a button that resets the order of mods.
 Modding.RestartWarning,변경 사항은 재시작 후에 적용됩니다.,Message that is shown when the player has changed something in Mod Manager and need to restart the game for the changes to take effect.
 Modding.SavedMods,저장 파일 모드,A label for the list of mods found in the save file.
@@ -1314,11 +1305,11 @@ NaturalResource.Sunflower.DisplayName,해바라기,
 NaturalResource.Sunflower.FlavorDescription,타오르는 태양도 두렵지 않다는 것을 보여주기 위해 기릅니다.,It's a reference to drought being the main threat in the game.
 NaturalResource.Wheat.DisplayName,밀,Plant Triticum aestivum
 NaturalResource.Wheat.FlavorDescription,"""황금빛 들판을 걷다 보면, 구름 한 점 없는 하늘의 태양조차 까먹을 거예요."" —비버 발라드","Adapted from ""Fields of Gold"" by Sting."
-NaturalResources.Aquatic,<YellowHighlight>수생</YellowHighlight>: 이 식물의 일부는 반드시 물속에 잠겨 있어야 합니다.,Aquatic is a keyword. Shown after selecting an aquatic plant. Examples of aquatic plants include spadderdock or water lilies.
+NaturalResources.Aquatic,<YellowHighlight>수생</YellowHighlight>: 일부는 반드시 물속에 잠겨 있어야 합니다.,Aquatic is a keyword. Shown after selecting an aquatic plant. Examples of aquatic plants include spadderdock or water lilies.
 NaturalResources.DaysToDie,죽음까지: {0}일,"Shown when natural resource is dying (from any reason), {0} stands for number of days left to die"
-NaturalResources.DiedFromContamination,오염 때문에 죽었습니다.,Shown when a plant died after being contaminated for too long. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Please keep short.
+NaturalResources.DiedFromContamination,오염으로 인해 죽었습니다.,Shown when a plant died after being contaminated for too long. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project. Please keep short.
 NaturalResources.DiedFromNotEnoughWater,물속에 잠겨 있지 않아 죽었습니다.,Shown when a water plant died after not being submerged in water for too long. Please keep short.
-NaturalResources.DiedFromTooMuchWater,물속에 잠겨 죽었습니다.,Shown when a plant died after it had been submerged in water for too long. Please keep short.
+NaturalResources.DiedFromTooMuchWater,침수로 인해 죽었습니다.,Shown when a plant died after it had been submerged in water for too long. Please keep short.
 NaturalResources.Dried,말라서 죽었습니다.,Shown for plants which died from lack of water. Please keep short.
 NaturalResources.DroughtResistance,가뭄 저항: {0}일,The number of days a plant can survive in a drought.
 NaturalResources.GenericDied,죽었습니다.,Refers to a plant.
@@ -1330,16 +1321,13 @@ NaturalResources.Visibility.Hide,천연자원 숨기기,Tooltip for button hidin
 NaturalResources.Visibility.Show,천연자원 표시,Tooltip for button showing natural resources
 Need.BadwaterContamination.DisplayName,오염,Title of an effect that shows up when a beaver is contaminated. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Need.BeeSting.DisplayName,벌에 쏘임,Title of an effect that shows up when a beaver has been stung by a bee.
-Need.BrokenTeeth.DisplayName,치아 부러짐,Title of an effect that shows up when a beaver has broken its teeth
-Need.Energy.DisplayName,에너지,A need satisfied when a bot recharges.
-Need.Hunger.DeathMessage,(이)가 굶주림으로 사망했습니다.,Preceded by beaver name
+Need.ChippedTeeth.DisplayName,이 깨짐,Title of an effect that shows up when a beaver has chipped its teeth
+Need.Hunger.DeathMessage,(이)가 굶어 죽었습니다.,Preceded by beaver name.
 Need.Hunger.DisplayName,허기,Title of a beaver need related to its hunger
-Need.HammerAndSaw.DisplayName,망치와 톱,A passive need that is always active and provides bonus to woodworking and metalworking.
 Need.Injury.DisplayName,부상,Title of an effect that shows up when a beaver has been injured
-Need.Overheat.DisplayName,과열,An effect that occurs when a beaver spends too much time outside during drought.
+Need.Power.DisplayName,동력,A need satisfied when a bot recharges.
 Need.Roof.DisplayName,지붕,"Same as Building.Roof2x2.DisplayName without the size. It refers to roofs as one of the available decorations, do not confuse with Shelter which is a separate need."
 Need.Shelter.DisplayName,주거지,A need that is fulfilled when a beaver has a house.
-Need.ShovelAndPan.DisplayName,삽과 프라이팬,A passive need that is always active and provides bonus to farming and cooking.
 Need.Sleep.DisplayName,수면,A need satisfied when a beaver sleeps.
 Need.Thirst.DeathMessage,(이)가 갈증으로 사망했습니다.,Preceded by beaver name
 Need.Thirst.DisplayName,갈증,A need satisfied by providing water.
@@ -1352,20 +1340,25 @@ NeedGroup.Fun.DisplayName,흥미,"Name of a need group where needs are satisfied
 NeedGroup.Happiness.DisplayName,행복도,General happiness of the populace
 NeedGroup.Knowledge.DisplayName,지식,"Name of a need group where needs are satisfied when beavers learn new stuff, previously Need.Knowledge.DisplayName"
 NeedGroup.Nutrition.DisplayName,영양,Same as the need named Nutrition
-NeedGroup.Passive.DisplayName,패시브,"Name of a group containing passive effects, that are always active, like Need.HammerAndSaw.DisplayName"
-NeedGroup.Temporary.DisplayName,일시 효과,"Name of a need group containing temporary effects, both positive and negative."
 NeedGroup.SocialLife.DisplayName,사회생활,"Name of a need group where needs are satisfied by letting beavers be social and chat with other beavers, previously Need.SocialLife.DisplayName"
+NeedGroup.Temporary.DisplayName,일시 효과,"Name of a need group containing temporary effects, both positive and negative."
 Needs.Beaver.DeathWarning,비버가 곧 죽습니다.,
 Needs.HeatProtection,대책 필요: {0},"Shown on a tooltip, when need protects from heat effects. {0} stands for heat effect name."
 Needs.InRange,{0}타일 내,"{0} stands for radius size (area of effect), text is shown after Need.DisplayName to indicate its radius"
 Needs.SatisfiesInRange,{1}타일 내 {0}을(를) 충족합니다,{0} stands for Need.DisplayName {1} stands for radius size (area of effect)
+NewGame.Notification,목재와 물을 찾았습니다. 새로운 시작입니다.,Notification when a new game is started
 NewGameConfigurationPanel.Aged,나이,"Describing age of beavers, between text fields, example: 'Starting beavers: [20] aged [10]'"
+NewGameConfigurationPanel.BadtideDuration,오염 조류 길이,"Label of a setting, how long badtide season could be. Badtide should be the same as Weather.Badtide"
+NewGameConfigurationPanel.BadtideDurationHandicap,오염 조류 길이 핸디캡,"Label of a setting, makes badtide season shorter during a game, example usage: 'Badtide duration handicap: 50%. Badtide should be the same as Weather.Badtide"
+NewGameConfigurationPanel.ChanceForBadtide,오염 조류 확률,"Label of a setting, what is the chance for a badtide season. Badtide should be the same as Weather.Badtide"
 NewGameConfigurationPanel.Custom,맞춤형,Game mode keep short
 NewGameConfigurationPanel.Customize,사용자 지정,Label of the button that opens the customization panel.
 NewGameConfigurationPanel.Cycles,주기,"Cycle is a unit of time shown after a number, example usage: '10 cycles'. Must be consistent with Weather.CycleAndDayLong."
+NewGameConfigurationPanel.CyclesBeforeBadtideRandomization,오염 조류 제외 주기,"Label of a setting, how many cycles there will be without badtide seaon possibility. Badtide should be the same as Weather.Badtide"
 NewGameConfigurationPanel.Days,일,"Shown after a number field, example usage: '10 days'"
-NewGameConfigurationPanel.DemolishableRecoveryRate,건물 환불 비율,"Label of a setting, defines how much resources (goods) user will get back after demolishing a building, example usage: 'Building refund rate: 75%'"
+NewGameConfigurationPanel.DemolishableRecoveryRate,건물 환불 비율,"Label of a setting, defines how much goods user will get back after demolishing a building, example usage: 'Building refund rate: 75%'"
 NewGameConfigurationPanel.DroughtDuration,가뭄 길이,"Label of a setting, how long drought is during each cycle."
+NewGameConfigurationPanel.DroughtDurationHandicap,가뭄 길이 핸디캡,"Label of a setting, makes droughts shorter during a game, example usage: 'Drought duration handicap: 50%"
 NewGameConfigurationPanel.Easy,쉬움,Game mode keep short
 NewGameConfigurationPanel.EasyModeDescription,"게임을 배우거나 여유로운 플레이를 즐기기에 적합합니다.
 
@@ -1378,7 +1371,6 @@ NewGameConfigurationPanel.EnableBadtides,오염 조류,"Label of the checkbox th
 NewGameConfigurationPanel.EnableDroughts,가뭄,"Label of the checkbox that enables droughts, ""Droughts"" should be plural of Weather.Drought."
 NewGameConfigurationPanel.FoodConsumption,식량 섭취율,"Label of a setting, how much food beavers consume during a game. For example 'Food consumption: 60%'"
 NewGameConfigurationPanel.For,기간,"Specifies a duration, between text fields, example usage: 'Drought duration handicap: [50%] for [10] cycles'"
-NewGameConfigurationPanel.DroughtDurationHandicap,가뭄 길이 핸디캡,"Label of a setting, makes droughts shorter during a game, example usage: 'Drought duration handicap: 50%"
 NewGameConfigurationPanel.Hard,어려움,Game mode keep short
 NewGameConfigurationPanel.HardModeDescription,"인간은 생존에 실패했으며 당신도 실패할 겁니다.
 
@@ -1399,26 +1391,21 @@ NewGameConfigurationPanel.StartingAdults,시작 성체,"Label of a setting, numb
 NewGameConfigurationPanel.StartingChildren,시작 새끼,"Label of a setting, number of children spawned at the start of a game."
 NewGameConfigurationPanel.StartingFood,시작 식량,"Label of a setting, amount of food available at the start of a game."
 NewGameConfigurationPanel.StartingWater,시작 물,"Label of a setting, amount of water available at the start of a game."
+NewGameConfigurationPanel.SubHeader,게임 모드,
 NewGameConfigurationPanel.TemperateWeatherDuration,온화한 날씨 길이,"Label of a setting, how long temperate weather is during each cycle."
 NewGameConfigurationPanel.To,에서,"Describes a range of numbers, example usage: '20 to 50%'"
-NewGameConfigurationPanel.SubHeader,게임 모드,
 NewGameConfigurationPanel.WaterConsumption,물 섭취율,"Label of a setting, how much water beavers consume during a game, for example 'Water consumption: 60%'."
-NewGameConfigurationPanel.ChanceForBadtide,오염 조류 확률,"Label of a setting, what is the chance for a badtide season. Badtide should be the same as Weather.Badtide"
-NewGameConfigurationPanel.CyclesBeforeBadtideRandomization,오염 조류 제외 주기,"Label of a setting, how many cycles there will be without badtide seaon possibility. Badtide should be the same as Weather.Badtide"
-NewGameConfigurationPanel.BadtideDuration,오염 조류 길이,"Label of a setting, how long badtide season could be. Badtide should be the same as Weather.Badtide"
-NewGameConfigurationPanel.BadtideDurationHandicap,오염 조류 길이 핸디캡,"Label of a setting, makes badtide season shorter during a game, example usage: 'Badtide duration handicap: 50%. Badtide should be the same as Weather.Badtide"
 NewGameFactionPanel.SubHeader,세력을 선택하세요,
 NewGameMapPanel.SubHeader,지도 선택,
-NewGame.Notification,목재와 물을 찾았습니다. 새로운 시작입니다.,Notification when a new game is started
 NewMapPanel.Header,새로운 지도 제작,
 Planting.NoPriorityOption,없음,No resource is prioritized
 Planting.Prioritize,자원 우선순위:,Which resource to prioritize when planting.
 Planting.ReplantDeadTrees,벌목 표시가 없는 죽은 나무를 다시 심기,Label of toggle in forester panel fragment
 Planting.UnlockPrompt,{1}을(를) 심으려면 {0}을(를) 잠금 해제하세요.,{0} stands for Building.DisplayName {1} stands for NaturalResource.DisplayName.
 PlantingTool.Description,이 도구로 심을 영역을 지정하세요.,
-PlantingTool.RequiredBuilding,필요 건물: {0},{0} stands for Building.DisplayName.
-PlayerData.CorruptedDataInfo.CorruptedFilePresent,<link><b>게임 문서 경로</b></link>에서 손상된 플레이어 데이터 파일 사본을 찾아볼 수 있습니다.,Corrupted means broken or unusable due to some error.
-PlayerData.CorruptedDataInfo.Header,플레이어 데이터 파일을 읽는 데 문제가 발생했습니다. 로컬 백업에서 콘텐츠를 복원했지만 환경 설정(잠금 해제한 세력과 마스터한 지도 등) 일부가 손실되었을 수 있습니다.,
+PlantingTool.RequiredBuilding,건물 필요: {0},{0} stands for Building.DisplayName.
+PlayerData.CorruptedDataInfo.CorruptedFilePresent,<link><b>게임 문서 폴더</b></link>에서 손상된 플레이어 데이터 파일 사본을 찾아볼 수 있습니다.,Corrupted means broken or unusable due to some error.
+PlayerData.CorruptedDataInfo.Header,플레이어 파일을 읽는 데 문제가 발생했습니다. 로컬 백업에서 콘텐츠를 복원했지만 세부 정보(잠금 해제한 세력과 마스터한 지도 등) 일부가 손실되었을 수 있습니다.,
 Population.AllPerished,"비버들은 모두 죽었지만 강물은 계속 흘러갔고,
 그들의 짧은 존재는 한 점의 나무 먼지로만 남았습니다.",UI information displayed as a tooltip when the entire population has died.
 Priorities.VeryLow,매우 낮음,Please keep short
@@ -1426,51 +1413,58 @@ Priorities.Low,낮음,Please keep short
 Priorities.Normal,중간,Please keep short
 Priorities.High,높음,Please keep short
 Priorities.VeryHigh,매우 높음,Please keep short
-RecoverableGood.RecoveredGoods,회수한 물품:,Label on tooltip that shows up when the player want to destroy building(s). Followed by list of resources.
-RecoveredGoodStack.DeletePrompt,잔해에 저장된 모든 자원이 사라집니다. 정말로 제거하시겠습니까?,"Prompt shown when the player clicks delete button on chosen rubble,Rubble should be the same as RecoveredGoodStack.DisplayName"
+RecoverableGood.RecoveredGoods,회수한 물품:,Label on tooltip that shows up when the player want to destroy building(s). Followed by list of goods.
+RecoveredGoodStack.DeletePrompt,잔해에 저장된 모든 물품이 사라집니다. 정말로 제거하시겠습니까?,"Prompt shown when the player clicks delete button on chosen rubble,Rubble should be the same as RecoveredGoodStack.DisplayName"
 RecoveredGoodStack.Description,건물 철거 후 남은 재료. 건축업자가 모을 수 있습니다.,Description of stack of goods spawned after destroying a building. Builders should be translated the same way as in Building.BuildersHut.Description key
+RecoveredGoodStack.DisintegrationCountdown,분해까지: {0}일,Info on rubble entity panel disintegration countdown progress bar
 RecoveredGoodStack.DisplayName,잔해,Display name of stack of goods spawned after destroying a building
 RecoveredGoodStack.FlavorDescription,어쨌든 시야를 막았다.,
-RecoveredGoodStack.Priority,수집 우선순위:,Setting a priority for resources gathering work on a Rubble. Could be similar to Demolish.PriorityTitle
-Resources.EatableRaw,생으로 먹을 수 있습니다.,Shown on a tooltip of goods that can be eaten raw.
+RecoveredGoodStack.Priority,수집 우선순위:,Setting a priority for goods gathering work on a Rubble. Could be similar to Demolish.PriorityTitle
 Resources.GatheredBy,채집원:,"Header above list of buildings that can gather certain resource. Gathered is meant as general term, containing resource gathering of gatherers, farmers, lumberjacks, tappers."
 Ruins.ShuffleModel,무작위 모델,Shuffle as in Randomize.
+Saving.Autosave,자동 저장,Name of the autosaved game
+Saving.CycleUnknown,알 수 없는 주기,"Text shown in old save games labels that don't have cycle information. ""Cycle"" should be the same as in Weather.CycleAndDayLong"
 Saving.DeleteSave,저장 파일 삭제,A button. Please keep short.
 Saving.DeleteSavePrompt,정말로 {0}을(를) 삭제할까요?,{0} stands for save name
 Saving.DeleteSettlement,정착지 삭제,A button. Please keep short.
 Saving.DeleteSettlementPrompt,정착지 {0}을(를) 삭제하시겠습니까? 이 정착지의 모든 저장 파일이 삭제됩니다.,{0} stands for settlement name
-Saving.Error,"저장하지 못했습니다! 이름에 사용할 수 없는 문자가 있는지 확인하고, 디스크에 여유 공간이 있는지 확인하세요.",Message shown to player when saving game or map failed
+Saving.Error,저장 실패! 사용할 수 없는 문자를 쓰지 말고 저장 공간이 충분한지 확인하세요.,Message shown to player when saving game or map failed
 Saving.InvalidFile,"불러 오려는 저장 파일이 손상되었습니다!
 
 정착지: {0}
 저장 파일: {1}",Error message shown after trying to load a save file that is corrupted.
 Saving.InvalidName,유효하지 않은 이름입니다. 사용할 수 없는 문자가 있는지 확인하세요.,Error message shown after inputting a settlement name with illegal characters such > < ?.
 Saving.LoadGamePanelHeader,게임 불러오기,
-Saving.MissingMacOSPermissionsLocKey,Timberborn이 하드 드라이브에 게임을 저장하려면 권한이 필요합니다. 이제 게임이 닫히고 필요한 권한을 부여할 수 있는 개인 정보 설정 창이 열립니다.,A message shown to players if they did not grant the necessary permissions on macOS.
+Saving.MissingMacOSPermissionsLocKey,Timberborn이 장치에 게임을 저장하려면 권한이 필요합니다. 이제 Timberborn이 닫히고 필요한 권한을 부여할 수 있는 설정 창이 열립니다.,A message shown to players if they did not grant the necessary permissions on macOS.
 Saving.NameSettlement,정착지의 이름을 무엇으로 하시겠습니까?,A prompt in the box for naming your settlement after starting a new game.
-Saving.NonCompatibleSaveVersion,"해당 저장은 대규모 점검 전에 만들어져 불러올 수 없습니다.
-저장 데이터의 미호환을 최소화하기 위해 노력하고 있으나 플레이어 피드백을 적용하고 게임 개발을 진행한다고 해도 무조건적으로 호환되는 것은 아닙니다.",
+Saving.NonCompatibleSaveVersion,"이 저장 파일은 현재 버전과 호환되지 않습니다.
+저희는 이런 일이 발생하지 않도록 노력하고 있습니다. 새롭게 추가된 기능을 즐기려면 새 게임을 시작해 주세요.",
 Saving.SaveExists,"""{0}"" 저장 파일은 이미 존재합니다.",{0} stands for save name
 Saving.SaveGamePanelHeader,게임 저장,
 Saving.Saves,저장,One of the two headers in the load game panel. Shown above a list of saves assigned to a settlement.
-Saving.SemiCompatibleSaveVersion,"이 저장 파일({0})은 현재 게임 버전({1})과 호환되지 않습니다. 로드하면 충돌이나 버그가 발생할 수 있습니다. 새롭게 추가된 기능을 즐기려면 새 게임으로 시작하는 것을 권장합니다. 
+Saving.SemiCompatibleSaveVersion,"저장된 버전({0})이 현재 버전({1})과 호환되지 않습니다. 로드하면 충돌이나 게임을 진행할 수 없는 문제가 발생할 수 있습니다. 새롭게 추가된 기능을 즐기려면 새 게임으로 시작하는 것을 권장합니다.  
 
 불러오시겠습니까?","{0} is the save version (e.g. 0.1.15.1), {1} is the game version (in the same format). This message is shown after a player tries to load an incompatible save."
-Saving.SteamCompatibilityMessage,<RedHighlight><i>Steam 클라이언트에서 브랜치를 전환하여 이전 버전의 게임을 플레이할 수 있습니다.</i></RedHighlight>,Additional message on Steam that is shown when the save is not compatible with the current version of the game. It is shown below Saving.SemiCompatibleSaveVersion and Saving.NonCompatibleSaveVersion messages.
 Saving.Settlements,정착지,One of the two headers in the load game panel. Shown above a list of settlements.
+Saving.SteamCompatibilityMessage,<RedHighlight><i>Steam 클라이언트에서 브랜치를 전환하여 이전 버전의 게임을 플레이할 수 있습니다.</i></RedHighlight>,Additional message on Steam that is shown when the save is not compatible with the current version of the game. It is shown below Saving.SemiCompatibleSaveVersion and Saving.NonCompatibleSaveVersion messages.
 Saving.TakenName,같은 이름의 정착지가 이미 존재합니다.,Error message shown after inputting a settlement name that is already used.
-Saving.Autosave,자동 저장,Name of the autosaved game
-Saving.CycleUnknown,알 수 없는 주기,"Text shown in old save games labels that don't have cycle information. ""Cycle"" should be the same as in Weather.CycleAndDayLong"
 Science.SciencePoints,과학 포인트,The name of a resource which can be spent to unlock new technology
-Settings.Accessibility.Header,접근성,Header for accessibility section in settings panel
 Settings.Accessibility.DisableStarfieldRotation,별하늘 회전 끄기,Label for disabling starfield (stars in the night sky) rotation in accessibility settings
-Settings.Analytics.Header,분석,Header for the data collection/analytics consent section.
+Settings.Accessibility.Header,접근성,Header for accessibility section in settings panel
 Settings.Analytics.ConsentToggle,분석 활성화,Selected when giving consent to data collection/analytics.
-Settings.Analytics.DeleteData,수집한 데이터 삭제,Selected when withdrawing consent to data collection/analytics.
 Settings.Analytics.DataDeleted,수집한 데이터를 삭제했습니다.,Confirmation info that the collected data has been deleted.
+Settings.Analytics.DeleteData,수집한 데이터 삭제,Selected when withdrawing consent to data collection/analytics.
+Settings.Analytics.Header,분석,Header for the data collection/analytics consent section.
 Settings.GameSaving.AutoSavingOn,자동 저장,
 Settings.GameSaving.Header,저장 중,
+Settings.Graphics.AnisotropicFiltering,이방성 필터링,Label for anisotropic textures quality option
 Settings.Graphics.AnisotropicTextures,이방성 텍스처,Label for anisotropic textures quality option
+Settings.Graphics.AntiAliasing.FXAA,FXAA,Label for FXAA anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MSAAx2,MSAA x2,Label for MSAA with x2 resolution anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MSAAx4,MSAA x4,Label for MSAA with x4 resolution anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MSAAx8,MSAA x8,Label for MSAA with x8 resolution anti-aliasing option in graphics settings panel
+Settings.Graphics.AntiAliasing.MacMSAAWarning,구형 하드웨어에서 아티팩트 문제가 발생할 수 있습니다.,Warning message for Mac users about potential artifacts when using MSAA anti-aliasing
+Settings.Graphics.AntiAliasing.SMAA,SMAA,Label for SMAA anti-aliasing option in graphics settings panel
 Settings.Graphics.AntiAliasingQuality,안티 에일리어싱,Antialiasing dropdown label in graphics settings panel
 Settings.Graphics.Bloom,블룸,Label for bloom effect dropdown in graphics settings panel
 Settings.Graphics.Header,그래픽 품질,Header for graphics quality section in settings panel
@@ -1497,16 +1491,17 @@ Settings.Input.KeyboardCameraRotationSpeed,키보드 회전 속도,
 Settings.Input.KeyboardCameraZoomSpeed,키보드 확대/축소 속도,
 Settings.Input.LockCursorInWindow,게임 창 내부로 커서 고정,"When this option is enabled, mouse cursor cannot leave game window / display"
 Settings.Input.MouseWheelCameraZoomSpeed,마우스 휠 확대/축소 속도,Label of a slider for setting the speed of camera zooming with the mouse wheel.
-Settings.Input.OnscreenKeyboard,Steam Big Picture 키보드:,Label for dropdown indicating OnScreen Keyboard mode
 Settings.Input.OnScreenKeyboard.Auto,자동,A dropdown item indicating OnScreen Keyboard mode.
-Settings.Input.OnScreenKeyboard.Enabled,활성화,A dropdown item indicating OnScreen Keyboard mode.
 Settings.Input.OnScreenKeyboard.Disabled,비활성화,A dropdown item indicating OnScreen Keyboard mode.
+Settings.Input.OnScreenKeyboard.Enabled,활성화,A dropdown item indicating OnScreen Keyboard mode.
+Settings.Input.OnscreenKeyboard,Steam Big Picture 키보드:,Label for dropdown indicating OnScreen Keyboard mode
 Settings.Input.SwapMouseCameraMovementWithRotation,카메라 버튼 변경,"When this option is enabled, the middle mouse button is swapped with the right mouse button"
 Settings.Language.Change,변경,Please keep short
-Settings.Language.Warning,변경 사항은 게임 재시작 후에 적용됩니다.,Warning shown when user changes language
-Settings.Language.Restart,지금 재시작,Please keep short
 Settings.Language.Current,언어:,
+Settings.Language.Restart,지금 재시작,Please keep short
+Settings.Language.Warning,변경 사항을 적용하려면 게임을 재시작해야 합니다.,Warning shown when user changes language
 Settings.Screen.AntiAliasing,안티 에일리어싱,Label for anti-aliasing toggle in settings window
+Settings.Screen.Brightness,밝기,Label for overall brightness level setting in screen settings panel
 Settings.Screen.FrameRateLimit,프레임률 한도,Label of a dropdown for setting a FPS limit. It should probably be left unchanged in most languages.
 Settings.Screen.FrameRateLimit.Unlimited,무제한,A dropdown value indicating unlimited frame rate.
 Settings.Screen.FrameRateLimit.Value,{0}FPS,{0} is a number. FPS stands for Frames Per Second.
@@ -1530,13 +1525,13 @@ Settings.Sound.MasterVolume,마스터 볼륨,
 Settings.Sound.MusicVolume,음악 볼륨,
 Settings.Sound.MuteWhenMinimized,최소화 또는 아웃포커스 시 음소거,
 Settings.Sound.UIVolume,UI 볼륨,
-Settings.Tutorial.Header,튜토리얼,
 Settings.Tutorial.DisableTutorial,튜토리얼 끄기,
+Settings.Tutorial.Header,튜토리얼,
 Settings.UI.Header,인터페이스,
 Settings.UI.RunInBackground,백그라운드 실행 유지,A settings which controls whether the game should run when minimized or out of focus.
 Settings.UI.ShowFps,FPS 표시,
 Settings.UI.UIScaleFactor,UI 비율,
-Status.BadwaterContamination.Incubation,이 비버는 오염수에 너무 오래 머물러 있었습니다. 지금은 괜찮지만 며칠 후면 아파질 겁니다.,Shown as an status alert when beaver spents too much time in contaminated water (and will get sick soon). Badwater should be the same as Good.Badwater.DisplayName.
+Status.BadwaterContamination.Incubation,이 비버는 오염된 물에 너무 오래 머물러 있었습니다. 지금은 괜찮지만 며칠 후면 아파질 겁니다.,Shown as an status alert when beaver spents too much time in contaminated water (and will get sick soon). Badwater should be the same as Good.Badwater.DisplayName.
 Status.BadwaterContamination.Incubation.Short,비버가 아픕니다,Shown as an status alert when beaver spents too much time in contaminated badwater (and will get sick soon). Please keep short.
 Status.Beaver.Dead,죽음,Shown in the beaver info window to explain that the beaver died
 Status.BombActivationWarning,곧 폭발합니다.,Text shown in entity panel when count down is active for a water source.
@@ -1550,7 +1545,7 @@ Status.Buildings.Flooded,침수됨.,Notification that shows in the selected buil
 Status.Buildings.Flooded.Short,침수된 건물,Alert that shows up when a building is flooded. Please keep short.
 Status.Buildings.NeedsWater,이 건물이 작동하려면 더 깊은 물이 필요합니다.,
 Status.Buildings.NeedsWater.Short,건물에 물이 부족합니다,Please keep short.
-Status.Buildings.Paused,작동 중지됨.,"Alternative terms: Paused, Switched off"
+Status.Buildings.Paused,일시 정지됐습니다.,"Alternative terms: Paused, Switched off"
 Status.Buildings.PipeObstructed,파이프가 막혔습니다.,Text shown in building panel when input pipe of water pump is obstructed.
 Status.Buildings.Unreachable,이 건물과 길로 연결된 구역 센터가 없습니다.,Shown when a building isn't connected to a District Center.
 Status.Buildings.Unreachable.Short,연결되지 않은 건물,Shown when a building isn't connected to a District Center. Please keep short.
@@ -1559,34 +1554,34 @@ Status.ConstructionSites.NoMaterials,필요한 재료를 구할 수 없습니다
 Status.ConstructionSites.NoMaterials.Short,건설 재료 부족,Notification that the construction can't be finished. Please keep short.
 Status.Distribution.InvalidConnection,건물이 두 구역을 연결해야 합니다.,"Shown as status of District Crossing, when both entrances of the building are connected to the same district or when other half is not connected to any district"
 Status.Emptying.EmptyingInProgress,건물이 비워지는 중이며 새로운 물건을 보관할 수 없습니다.,
-Status.FixedStockpile.Unreachable,자원을 수집하려면 구역으로 연결하세요.,Text shown in entity panel when a stockpile building is not connected to a district and its resources cannot be collected.
-Status.Hauling.NoHaulingPost,이 구역에는 운반원이 없습니다.,Haulers are the same as in Building.HaulingPost.Description.
+Status.FixedStockpile.Unreachable,물품을 수집하려면 구역으로 연결하세요.,Text shown in entity panel when a stockpile building is not connected to a district and its goods cannot be collected.
+Status.Hauling.NoHaulingPost,작동하려면 운반원이 필요합니다.,Haulers are the same as in Building.HaulingPost.Description.
 Status.Homelessness.Stranded,경로 상실.,This status is activated after a beaver or a bot got stranded and cut off from the village.
 Status.Homelessness.Stranded.Short,경로 상실,This alert is activated after a beaver or a bot got stranded and cut off from the village. Please keep short
-Status.HydroponicGarden.CultivationHalted,재배가 중단되었습니다. 작물이 곧 죽습니다.,"Shown as status of Hydroponic Garden building, when it is not able to produce and its crops are about to die."
+Status.HydroponicGarden.CultivationHalted,노동자 또는 물 부족으로 재배가 중단되었습니다. 곧 작물이 죽습니다.,"Shown as status of Hydroponic Garden building, when it is not able to produce and its crops are about to die."
 Status.HydroponicGarden.CultivationHalted.Short,재배 중단,Alert that shows up when Hydroponic Garden building is not able to produce and growth is stopped. Please keep short.
 Status.Inventory.NoGoodSelected,선택된 물품이 없습니다.,A warning that no good is selected for storage in warehouse.
 Status.Inventory.NoGoodSelected.Short,선택된 물품 없음,A warning that no good is selected for storage in warehouse. Please keep short.
 Status.Inventory.UnwantedStock,이전 재고가 반출될 때까지 대기 중,"A warning that there are different goods in a warehouse, than currently selected. Different goods needs to be taken out, before new selected goods can be brought in."
-Status.Manufactory.NoRecipe,선택된 레시피가 없습니다.,A warning that no recipe is selected for crafting
-Status.Manufactory.NoRecipe.Short,선택된 레시피 없음,A warning that no recipe is selected for crafting. Please keep short.
-Status.Mechanical.NoPower,건물이 작동하려면 동력이 필요합니다. 동력 발전기를 연결하세요.,
+Status.Manufactory.NoRecipe,선택된 레시피 없음.,A warning that no recipe is selected for crafting
+Status.Manufactory.NoRecipe.Short,레시피 없음,A warning that no recipe is selected for crafting. Please keep short.
+Status.Mechanical.NoPower,건물이 작동하려면 동력이 필요합니다. 발전기를 연결하세요.,
 Status.Mechanical.NoPower.Short,건물에 동력이 부족합니다,Power is not an electrical but mechanical/kinetic energy. Please keep short.
 Status.NaturalResources.Contaminated,오염됨.,Shown when a plant is dying because it is contaminated. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Status.NaturalResources.Drying,말라가고 있습니다.,Shown when a plant is dying because it has no access to the water
 Status.NaturalResources.NotEnoughWater,물 부족.,Shown when a water plant is dying because its river or lake dried up.
 Status.NaturalResources.TooMuchWater,침수됨.,Shown when a plant is dying because it is submerged in water.
 Status.Need.BadwaterContamination,오염수로 인해 오염되었습니다.,This shows up in the selected beaver's panel when it is contaminated. Badwater should be the same as Good.Badwater.DisplayName. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
-Status.Need.BadwaterContamination.Short,비버가 오염되었습니다,This shows up as an alert when a beaver is contaminated. Please keep short. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
+Status.Need.BadwaterContamination.Short,오염된 비버,This shows up as an alert when a beaver is contaminated. Please keep short. Ideally all uses of the word contaminate/contamination/contaminated should be uniform across the project.
 Status.Need.Biofuel,연료 부족.,This shows up when a bot runs out of fuel.
 Status.Need.Biofuel.Short,봇의 연료가 바닥났습니다,This shows up when a bot runs out of fuel. Please keep short. Bot should be the same as Bot.TemplateName.
-Status.Need.BrokenTeeth,치아 부러짐.,This shows up when a beaver has broken teeth.
-Status.Need.BrokenTeeth.Short,치아 부러짐,This shows up when a beaver has broken teeth. Please keep short.
-Status.Need.Energy,에너지 부족.,This shows up when a bot runs out of energy.
-Status.Need.Energy.Short,봇의 에너지가 바닥났습니다,This shows up when a bot runs out of energy. Please keep short. Bot should be the same as Bot.TemplateName.
+Status.Need.ChippedTeeth,이 깨짐.,This shows up when a beaver has broken teeth.
+Status.Need.ChippedTeeth.Short,이 깨짐,This shows up when a beaver has broken teeth. Please keep short.
 Status.Need.Hunger,굶주림.,This shows up when a beaver's hunger reaches critical levels. Please keep short.
 Status.Need.Injury,부상당함.,This shows up in the selected beaver's panel when it has an injury.
 Status.Need.Injury.Short,비버가 다쳤습니다,This shows up as an alert when a beaver has an injury. Please keep short.
+Status.Need.Power,동력 부족.,This shows up when a bot runs out of power.
+Status.Need.Power.Short,봇의 동력이 바닥났습니다,This shows up when a bot runs out of power. Please keep short. Bot should be the same as Bot.TemplateName.
 Status.Need.Sleep,탈진 상태.,
 Status.Need.Thirst,탈수 상태.,This shows up on the entity panel when a beaver is extremely thirsty
 Status.Object.UnreachableObject,구역에서 너무 멀리 떨어져 접근할 수 없습니다. 길 혹은 새로운 구역을 만드세요.,"Shown when a building, construction site, demolishable object or rubble is out of a district's range."
@@ -1599,9 +1594,9 @@ Status.UnstableCoreActivationWarning,곧 폭발합니다.,Text shown in entity p
 Status.Wonder.NotEnoughGoods,재료가 부족하여 발사할 수 없습니다.,Shown when the player tries to activate a Wonder but the building does not have all of its materials stored yet.
 Status.Wonder.NotEnoughWorkers,노동자가 부족하여 발사할 수 없습니다.,Shown when the player tries to activate a Wonder but there are not enough workers to operate the building.
 Status.Work.LackOfResources,필요한 재료를 구할 수 없습니다.,
-Status.Work.LackOfResources.Short,건물 내 재료 부족,Please keep short.
+Status.Work.LackOfResources.Short,건물에 물품이 부족합니다,Please keep short.
 Status.Work.NoUnemployed,구역 내에 노동자가 없습니다.,Shown when there are no unemployed workers available in a district to work in this building.
-Status.Work.NoUnemployed.Short,건물 내 노동자 부족,A notification that lets players know that the building has no workers. Please keep short.
+Status.Work.NoUnemployed.Short,건물에 직원이 없습니다,A notification that lets players know that the building has no workers. Please keep short.
 Status.Yielding.NothingToDoInRange,범위 안에 할 일이 없습니다,
 SteamWorkshop.Changelog,변경 내역,Label of the text field that allows entering the changelog of the item to be uploaded to Steam Workshop.
 SteamWorkshop.Description,설명,Label of the text field that allows entering the description of the item to be uploaded to Steam Workshop.
@@ -1636,14 +1631,19 @@ StockpilePriority.Supply.Long,물품을 다른 창고로 옮깁니다.,"Defines 
 TerrainPhysicsPostLoader.TerrainHasNoSupport,지지대가 유효하지 않은 지형이 삭제됐습니다.,Warning shown when loaded terrain has invalid physical support
 Thumbnail.NoPreview,미리보기 없음,Text shown with default thumbnail when the selected map or save has no preview image
 Time.DaysShort,{0}일,"{0} stands for days, for example 16d. Please keep very short."
+Time.HourShort,시간,Hour abbreviation
+Time.HoursShort,{0}시간,"{0} stands for hours, for example 16h. Please keep very short. (renamed from Work.WorkingHoursShort)"
 TimedComponentActivator.CountdownNotActive,비활성,Text shown in entity panel when count down is not active for entity.
 TimedComponentActivator.CyclesUntilCountdownActivation,카운트다운 활성화 주기,Label for input field shown in entity panel in editor. Allows to set a cycle number in which count down will start.
 TimedComponentActivator.DaysUntilActivationLoc,카운트다운 지속 일수,Label for input field shown in entity panel in editor. Allows to set a number of days until activation.
 TimedComponentActivator.DaysUntilActivationProgress,활성화까지: {0}일,Text shown in entity panel during gameplay when count down is active. Informs abount time left until activation.
 TimedComponentActivator.DaysUntilExplosionProgress,폭발까지: {0}일,Text shown in entity panel during gameplay when count down is active. Informs abount time left until activation.
 TimedComponentActivator.IsEnabledToggle,지연 활성화,Label for toggle in entity panel in editor. Allows to enable or disable time activation.
-Time.HourShort,시간,Hour abbreviation
-Time.HoursShort,{0}시간,"{0} stands for hours, for example 16h. Please keep very short. (renamed from Work.WorkingHoursShort)"
+Toggle.Selected,(선택됨),Indication in tooltip about selected item. Fore example: 'Planting (selected)'
+Toggle.State.Closed,닫힘,Indication in tooltip about toggle state. For example 'Status: Closed'
+Toggle.State.Off,꺼짐,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: off'
+Toggle.State.On,켜짐,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: on'
+Toggle.State.Open,열림,Indication in tooltip about toggle state. For example 'Status: Open'
 ToolGroups.Decoration,장식,Buildings and objects that are for decoration
 ToolGroups.Demolishing,건물과 자원을 철거합니다,
 ToolGroups.DistrictManagement,구역 관리,"Toolbar category for buildings used for district management - that includes builders, moving goods and making new districts"
@@ -1652,13 +1652,13 @@ ToolGroups.Food,식량,Buildings pertaining to growing and production of food
 ToolGroups.ForestryPlanting,나무와 덤불 심기,This is in active voice
 ToolGroups.Housing,주택,Buildings that beavers can live in
 ToolGroups.Landscaping,조경,Buildings that allow changes to land such as Dams or Dynamite
-ToolGroups.NaturalOverhangs,천연 돌출부,Name for the category grouping natural/rock overhangs in the toolbar.
 ToolGroups.MapEditor,지도 편집기,Objects specific to map editor such as starting point or water source
 ToolGroups.MapEditorObjects,오브젝트,
 ToolGroups.MapEditorResources,자원,
 ToolGroups.MapEditorWater,물,
 ToolGroups.Metal,금속,Buildings that allow to collect and produce with metal
 ToolGroups.Monuments,기념물,Awe-inspiring statues and fantastic contraptions
+ToolGroups.NaturalOverhangs,천연 돌출부,Name for the category grouping natural/rock overhangs in the toolbar.
 ToolGroups.Other,기타,Buildings that don't fit in other categories
 ToolGroups.Paths,길과 구조물,"Buildings that are made to be built and walked upon or to support other buildings such as paths, stairs and platforms"
 ToolGroups.Power,동력,Buildings that produce and transfer power
@@ -1667,92 +1667,160 @@ ToolGroups.Ruins,유적,Group for different types of ruin objects
 ToolGroups.Science,과학,Buildings that produce Science points
 ToolGroups.Storage,보관소,Buildings that store goods and resources
 ToolGroups.TreeCutting,나무 베기,This is in active voice
-ToolGroups.Water,물,Buildings that gather and store water
+ToolGroups.Water,물,Buildings that gather and store water.
 ToolGroups.Wood,나무,Buildings that allow gathering and producing using wood
-TopBar.Badwater,오염수,A group of resources. Please keep short.
-TopBar.Food,식량,A group of resources. Please keep short.
-TopBar.Ingredients,재료,Resource group containing ingredients that can be made into edible foods (but are not edible on their own)
-TopBar.Logs,통나무,A group of resources. Please keep short.
-TopBar.Materials,재료,A group of resources. Please keep short.
-TopBar.Nothing,없음,A group of resources. Please keep short.
-TopBar.Science,과학,A group of resources. Please keep short.
-TopBar.Water,물,A group of resources. Please keep short.
-Toggle.State.On,켜짐,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: on'
-Toggle.State.Off,꺼짐,Indication in tooltip about toggle state. For example 'Prioritize building by haulers: off'
-Toggle.State.Closed,닫힘,Indication in tooltip about toggle state. For example 'Status: Closed'
-Toggle.State.Open,열림,Indication in tooltip about toggle state. For example 'Status: Open'
-Toggle.Selected,(선택됨),Indication in tooltip about selected item. Fore example: 'Planting (selected)'
+TopBar.Badwater,오염수,A group of goods. Please keep short.
+TopBar.Food,식량,A group of goods. Please keep short.
+TopBar.Ingredients,재료,Please keep short.
+TopBar.Logs,통나무,A group of goods. Please keep short.
+TopBar.Materials,재료,A group of goods. Please keep short.
+TopBar.Nothing,없음,A group of goods. Please keep short.
+TopBar.Science,과학,A group of goods. Please keep short.
+TopBar.Water,물,A group of goods. Please keep short.
 TreeCuttingSelectionTool.Description,이 도구를 사용해서 나무를 자를 영역을 지정하세요.,Doesn't have to use a personal verb
 TreeCuttingSelectionTool.Title,나무 자르기 영역 지정,
 TreeCuttingUnselectionTool.Description,이 도구를 사용해서 나무를 잘라낼 영역을 해제하세요.,Doesn't have to use a personal verb
 TreeCuttingUnselectionTool.Title,나무 자르기 영역 해제,
+Tutorial.Basics,기본,Header of the tutorial section that covers the basic concepts
+Tutorial.Basics.ManagePause,게임은 언제든 일시 정지할 수 있습니다. 이는 상황을 파악하고 계획을 세우는 데 도움이 됩니다.,
+Tutorial.Basics.ManageSpeed,비버들이 일하거나 잠자는 동안 비가동시간을 줄이기 위해 게임 속도를 높일 수도 있습니다.,
+Tutorial.Basics.MoveCamera,먼저 주변을 한번 둘러보겠습니다.,
+Tutorial.Basics.MoveCameraDown,카메라 뒤쪽 이동,
+Tutorial.Basics.MoveCameraLeft,카메라 왼쪽 이동,
+Tutorial.Basics.MoveCameraRight,카메라 오른쪽 이동,
+Tutorial.Basics.MoveCameraUp,카메라 앞쪽 이동,
+Tutorial.Basics.Pause,일시 정지,
+Tutorial.Basics.RotateCamera,이제 시점을 회전하세요.,
+Tutorial.Basics.RotateCameraLeft,카메라 왼쪽 회전,
+Tutorial.Basics.RotateCameraRight,카메라 오른쪽 회전,
+Tutorial.Basics.SetSpeed1,속도 > 설정,> shouldn't be removed as it is the symbol for normal speed on UI button.
+Tutorial.Basics.SetSpeed2,속도 >> 설정,>> shouldn't be removed as it is the symbol for fast speed on UI button.
+Tutorial.Basics.SetSpeed3,속도 >>> 설정,>>> shouldn't be removed as it is the symbol for very fast speed on UI button.
+Tutorial.Basics.Unpause,일시 정지 해제,
+Tutorial.Basics.ZoomCamera,비버들을 가까이서 확인하거나 정착지를 더 넓은 시야로 볼 수 있습니다!,
+Tutorial.Basics.ZoomCameraIn,확대,
+Tutorial.Basics.ZoomCameraOut,축소,
 Tutorial.Building,건설: {0} ({1}/{2}),"{0} stands for building name {1} stands for number of built buildings {2} stands for number of buildings to build. This is used in a goal description with the verb in active voice, for example 'Build: Warehouse (0/5)'."
+Tutorial.ConnectBuilding,연결: {0} ({1}/{2}),"{0} stands for building name {1} stands for number of buildings connected with paths {2} stands for number of buildings to connect. This is used in a goal description with the verb in active voice, for example 'Connect: Lumberjack Flag (0/2)'."
 Tutorial.Continue,계속하기,
 Tutorial.Disable,튜토리얼 끄기,
 Tutorial.DisablePrompt,"튜토리얼을 끄시겠습니까?
 나중에 환경설정에서 다시 켤 수 있습니다.",
-Tutorial.ConnectBuilding,연결: {0} ({1}/{2}),"{0} stands for building name {1} stands for number of buildings connected with paths {2} stands for number of buildings to connect. This is used in a goal description with the verb in active voice, for example 'Connect: Lumberjack Flag (0/2)'."
-Tutorial.Finish,튜토리얼 닫기,
+Tutorial.Finish,닫기,
+Tutorial.Forestry,수목 관리,
+Tutorial.Forestry.Forester,"비버에게 안정적인 통나무 공급이 필요하다는 건 말할 것도 없죠.
+
+발명가가 생산하는 과학 포인트를 사용해 수목 관리원을 잠금 해제한 뒤 나무를 심고 싶은 영역에 건설하세요.","Logs is the same as Good.Log.PluralDisplayName, Inventor is the same as Building.Inventor.DisplayName, Science Points is the same as Science.SciencePoints, Forester is the same as Building.Forester.DisplayName"
+Tutorial.Forestry.MarkBirchesForPlanting,"나무와 덤불 심기 도구를 사용해 자작나무를 심으세요. 자작나무는 성장 속도가 빨라 초기 정착지에 적합합니다.
+
+농작물과 마찬가지로, 나무도 관개된 녹지에서만 성장합니다.
+
+베려면 먼저 심기 영역을 지정하는 것을 잊지 마세요.","Plant Trees and Bushes is the same as ToolGroups.ForestryPlanting, Birches is the same as NaturalResource.Birch.DisplayName"
+Tutorial.GoodLuck,행운을 빕니다!,
+Tutorial.GoodLuck.Description,"수고하셨습니다! 훌륭한 도시를 세우기 위한 토대를 마련했습니다. 하지만 정신 바짝 차리세요. 진짜 싸움은 지금부터니까요.
+
+첫 번째 댐을 건설하고, 신기술을 활용하고, 인구를 늘리며 유지하세요.
+
+성공한다면 이 황량한 땅은 비버 유토피아로 변할 것입니다. 실패한다면 인류와 같은 운명을 맞게 되겠죠.",Dam refers to Building.Dam.DisplayName
+Tutorial.HousingAndPopulation,주택과 인구,
+Tutorial.HousingAndPopulation.BeaverBirth,새끼를 낳으세요,If there's no special name for beaver children in your language use 'have a child'.
+Tutorial.HousingAndPopulation.GrowPopulation,"비버는 이용 가능한 빈 주택 슬롯이 없으면 새끼를 낳지 않습니다. 나무꼬리는 성체 둘과 빈 슬롯 하나가 있어야 마법이 일어납니다.
+
+팁: 비버의 자식은 새끼라고 불립니다.","The Tip is optional if there's no special name for beaver children in your language. If that's the case, remove this part."
+Tutorial.HousingAndPopulation.Lodges,"비버 하나보다는 둘이 낫습니다! 집은 비버의 복지를 개선하고 나무꼬리 인구를 늘립니다.
+
+비버는 이용 가능한 주택 슬롯에 자동으로 배정됩니다.",Folktails is the same as faction as Faction.Folktails.DisplayName
+Tutorial.Introduction.Description,"Timberborn에 오신 것을 환영합니다! 이 튜토리얼에서는 황무지에서 첫발을 내딛고 초기에 생존하실 수 있도록 도와드리겠습니다.
+
+번성하는 비버 공동체를 만드는 데 필요한 도구를 어떻게 사용하면 되는지 알려 드리겠습니다.
+
+단계를 진행해 나가는 동안 관련 팁이 이곳에 나타납니다.",
 Tutorial.MarkPlantables,식물: {0} ({1}/{2}),"{0} stands for resource name {1} stands for number of marked resource tiles {2} stands for number of tiles to mark with resource. This is used in a goal description with the verb in active voice, for example 'Plant: Carrot (0/5)'."
 Tutorial.MarkTrees,벨 나무를 지정하세요.,
-Tutorial.PanelTitle,튜토리얼,
 Tutorial.PlaceBuilding,배치: {0} ({1}/{2}),"{0} stands for building name {1} stands for number of built buildings {2} stands for number of buildings to build. This is used in a goal description with the verb in active voice, for example 'Place: Warehouse (0/5)'."
+Tutorial.PowerAndPlanks,동력과 판자,
+Tutorial.PowerAndPlanks.LumberMill,"판자를 생산할 시간입니다!
+
+물레바퀴 바로 옆에 제재소를 건설하세요. 좀 더 떨어진 곳에 건설한 뒤 구동축으로 연결할 수도 있습니다.
+
+팁: 제재소나 오두막 등 많은 건물은 붙어 있으면 구동축 없이도 서로 동력을 전달합니다!","Planks is the same as Good.Plank.PluralDisplayName, LumberMill is the same as Building.LumberMill.DisplayName, Water Wheel is the same as Building.WaterWheel.DisplayName, Power Shafts is the same as Building.PowerShaft.DisplayName, Lodge is the same as Building.Lodge.DisplayName"
+Tutorial.PowerAndPlanks.WaterWheel,"고급 건물에는 동력이 필요하며 비버들은 강에서 동력을 얻는 것을 좋아합니다.
+
+강둑을 따라 흐르는 물에 물레바퀴를 설치하세요.",Water Wheel is the same as Building.WaterWheel.DisplayName
 Tutorial.PowerBuilding,동력: {0} ({1}/{2}),"{0} stands for building name {1} stands for number of powered buildings {2} stands for number of buildings to power. This is used in a goal description with the verb in active voice, for example 'Power: Lumber Mill (0/1)'."
 Tutorial.Progress,({0}/{1}),{0} stands for number of achieved goals {1} stands for total number of goals
-Tutorial.TextToggle.Hide,내용 숨기기,Tooltip for tutorial button hiding intro text
-Tutorial.TextToggle.Show,내용 보기,Tooltip for tutorial button showing intro text
+Tutorial.Science,과학,Header of the tutorial section that covers the science
+Tutorial.Science.AccumulateScience,누적: 과학 포인트 ({0}/{1}),"{0} stands for amount of Science Points accumulated, {1} stands for amount needed"
+Tutorial.Science.Inventor,"비버들은 동물계의 엔지니어입니다. 비버들의 목재펑크 아이디어를 현실로 만들 시간입니다.
+
+발명가를 만들어 과학 포인트를 생산하세요.","Inventor is the same as Building.Inventor.DisplayName, Science Points is the same as Science.SciencePoints"
+Tutorial.Science.SciencePoints,"일단 발명가가 일하게 두세요.
+
+과학 포인트가 충분히 누적되면 누적된 과학 포인트를 써서 고급 건물을 잠금 해제할 수 있습니다.","Inventor is the same as Building.Inventor.DisplayName, Science Points is the same as Science.SciencePoints"
+Tutorial.Science.Unlock,잠금 해제: {0},{0} stands for the name of the building to unlock
 Tutorial.SelectGood,설정: {0}(을)를 {1}(으)로 {2},{0} stands for building name {1} stands for good name {2} stands for Tutorial.Progress. This is used in a goal description with the verb in active voice. for example 'Set: Warehouse to Bread (0/5)'.
-Tutorial.Stage.PlaceLumberjacks,"환영합니다! 이 튜토리얼에서는 비버 정착지 건설에 필요한 기본적인 요소들을 알려드릴 겁니다.
+Tutorial.Storage,보관소,
+Tutorial.Storage.Pile,"많은 건물에 자체 보관소가 있지만 금방 차 버립니다.
 
-모든 정착지에는 통나무가 필수죠! 오직 나무꾼만이 나무를 벨 수 있으니, 주변에 있는 나무 옆에 나무꾼 깃발을 배치하세요.",Logs is the name of the resource and Lumberjack Flag is the name of the building
-Tutorial.Stage.MarkTrees,"나무꾼은 지시하지 않으면 일하지 않습니다. 나무 베기 도구를 사용해 구역을 지정하세요.
+통나무 더미를 지어 더 많은 통나무를 보관하세요.
 
-마우스 버튼을 누른 상태로 여러 타일을 동시에 선택하세요.
+보관소 건물은 각각 한 물품을 보관합니다. 건물을 선택한 후 보관할 물품을 설정할 수 있습니다.","Large Pile is the same as Building.LargePile.DisplayName, Logs is same as Good.Log.PluralDisplayName"
+Tutorial.Storage.Tanks,액체는 모두 탱크에 보관됩니다. 여기에는 지금까지 퍼낸 물도 포함됩니다.,"Small Tank is the same as Building.SmallTank.DisplayName, Water is same as Good.Water.DisplayName"
+Tutorial.Storage.Warehouses,"마지막으로 베리를 둘 보관소를 준비해 보겠습니다. 곧 있을 당근 수확에도 대비해야 합니다.
 
-나무꾼 깃발의 범위 내에 있는 나무만 벨 수 있습니다. 깃발을 선택해 범위를 확인하세요.",Lumberjack Flag is a name of a building. 'Cut trees' must be the same as ToolGroups.TreeCutting.
-Tutorial.Stage.WaterPump,비버에게 물은 생존을 위한 필수 요소입니다. 물 펌프를 건설하여 안정적으로 식수를 공급하세요. 구역 센터와 연결해야 합니다.,Water Pump and District Center are names of buildings
-Tutorial.Stage.Gatherer,"비버에게는 물과 더불어 식량이 필요합니다. 블루베리 덤불 근처에 채집원 깃발을 건설하세요.
+식량도 상자에 담긴 다른 여러 물품과 마찬가지로 창고에 보관됩니다.","Berries is the same as Good.Berries.PluralDisplayName, Carrot is the same as in Good.Carrot.DisplayName"
+Tutorial.Tutorial,튜토리얼,
+Tutorial.WaterAndFood,물과 식량,
+Tutorial.WaterAndFood.Farmhouse,"장기적으로 보면 더 영양가 있는 식량이 필요합니다. 농가를 건설해서 농작물을 심고 수확하세요.
 
-채집원은 깃발 범위 내의 베리를 자동으로 채집합니다. 채집원 깃발을 선택해 범위를 확인하세요.",
-Tutorial.Stage.MarkBirchesForPlanting,"이제 나무를 심을 수 있습니다. 나무와 덤불 심기 도구를 선택하고 자작나무를 심으세요.
+농가는 깃발과 마찬가지로 범위가 제한적입니다.
 
-농작물과 마찬가지로, 나무가 성장하려면 물이 필요합니다. 나무를 베려면 먼저 지정하는 것을 잊지 마세요!",Plant trees and bushes must be the same as ToolGroups.ForestryPlanting.
-Tutorial.Stage.MarkCarrots,"농부는 무엇을, 어디에 심으라고 지시해야만 일을 시작합니다. 농작물 심기 도구로 당근밭을 지정하세요.
+팁: 노동자가 부족할 경우, 다른 건물을 일시 정지할 수 있습니다. 건물을 선택하고 일시 정지 버튼을 누르세요.",Farmhouse is the same as in Building.Farmhouse.DisplayName
+Tutorial.WaterAndFood.Gatherer,"비버에게는 물과 더불어 식량이 필요합니다.
 
-농작물은 관개된 땅에만 심을 수 있습니다. 그렇지 않을 경우, 농작물이 말라죽습니다.",Plant crops must be the same as ToolGroups.FieldsPlanting.
-Tutorial.Stage.BasicStorage,"배치한 모든 건물에 보관 공간이 남아 있으면 빨리 채워지게 됩니다.
+채집원은 채집원 깃발 범위 내의 베리를 자동으로 채집합니다. 범위는 깃발을 배치할 때 확인할 수 있습니다.
 
-통나무와 물을 비축할 건물을 추가로 건설하세요. 보관소 건물은 각각 한 종류의 자원으로만 채울 수 있습니다. 자원의 종류는 건물을 선택한 후에 설정할 수 있습니다.",
-Tutorial.Stage.ExpandStorage,통나무와 물의 보관 공간을 마련한 후에는 마찬가지로 베리와 앞으로 있을 당근 수확을 위한 보관 공간도 준비해야 합니다.,"water is same as Good.Water.DisplayName, logs is same as Good.Log.PluralDisplayName"
-Tutorial.Stage.FinishLumberjacks,"깃발은 구역의 건설 범위 내에 건설할 수 있습니다.
+블루베리 덤불 근처에 채집원 깃발을 건설하세요.","Berries is the same as Good.Berries.PluralDisplayName, Gatherer Flag is the same as Building.GathererFlag.DisplayName, Blueberry Bushes refers to NaturalResource.Blueberry.DisplayName"
+Tutorial.WaterAndFood.MarkCarrots,"농부는 무엇을, 어디에 심으라고 지시해야만 일을 시작합니다.
 
-구역 센터를 선택해서 범위를 확인하세요. 입구에 길을 연결해 범위를 확장할 수 있습니다.","Lumberjack Flag, District Center and Path are names of buildings"
-Tutorial.Stage.ConnectLumberjacks,"입구가 있는 모든 건물은 구역 센터로 이어지는 길이 있어야 합니다. 길을 만들어서 나무꾼 깃발과 구역 센터를 연결하세요.
- 
-구역 센터를 선택하면 범위를 확인할 수 있습니다.",District Center and Path are building names
-Tutorial.Stage.Lodges,"집이 있으면 비버의 복지와 나무꼬리 인구수가 증가합니다.
+농작물 심기 도구로 당근밭을 지정하세요.
 
-충분한 오두막을 건설하여 모든 비버에게 거주 공간을 제공하세요.
+농작물은 관개된 녹지에만 심을 수 있습니다. 그렇지 않을 경우, 식물이 말라죽습니다.","Plant Crops is the same as in ToolGroups.FieldsPlanting, Carrot is the same as in Good.Carrot.DisplayName"
+Tutorial.WaterAndFood.WaterPump,"비버에게 물은 생존을 위한 필수 요소입니다.
 
-비버는 빈 슬롯이 없으면 새끼를 낳지 않습니다.",Lodge is a name of a building.
-Tutorial.Stage.Inventor,과학 점수는 고급 건물을 잠금 해제할 때 사용됩니다. 발명가는 시간이 지나면서 과학 포인트를 생산합니다.,Inventor is the name of a building. Science Points must be the same as Science.SciencePoints.
-Tutorial.Stage.WaterWheel,"이제 고급 자원을 생산할 수 있지만, 우선 건물에 동력을 공급해야 합니다.
+물 펌프를 건설하여 안정적으로 식수를 확보하세요. 펌프는 구역 센터와 연결해야 합니다.","Water Pump is the same as Building.WaterPump.DisplayName, District Center is the same as Building.DistrictCenter.DisplayName"
+Tutorial.Wellbeing,복지,
+Tutorial.Wellbeing.Beaver,"당신의 행동이 비버에게 어떤 영향을 미치는지 확인할 수 있습니다.
 
-강가에 수레바퀴를 건설하세요. 수레바퀴는 물의 흐름에 의존하며, 물이 없을 경우 에너지 생산을 멈춥니다.",Water Wheel is a name of a building
-Tutorial.Stage.LumberMill,"판자를 생산할 시간입니다! 제재소를 건설하고 구동축이 연결된 수레바퀴와 연결하세요.
+비버를 클릭해 선택하세요. 패널에서 현재 복지, 속성, 욕구를 확인할 수 있습니다.
 
-대다수의 붙어있는 건물은 동력을 전달할 수 있습니다.",Lumber Mill and Water Wheel are the names of buildings.
-Tutorial.Stage.Farmhouse,"정착지에는 안정적인 식량원이 필요합니다. 농가를 건설해서 농작물을 심고 수확하세요.
+어떤 욕구는 값이 마이너스까지 떨어지며 심각한 페널티나 사망을 유발할 수 있습니다.",Well-being is the same as Wellbeing.DisplayName
+Tutorial.Wellbeing.Campfire,"복지는 비버가 얼마나 만족하고 있는지를 나타내는 지표입니다. 작업 속도, 이동 속도, 수명 등 세 가지 속성에 영향을 줍니다.
 
-노동자가 부족할 경우, 다른 건물을 일시정지할 수 있습니다. 건물을 선택하고 일시정지 버튼을 누르세요.
+복지를 높이는 주요 방법 중 하나는 명소를 활용하는 것입니다. 명소는 비버가 일하지 않을 때 이용하는 건물입니다.","Well-being is the same as Wellbeing.DisplayName, working speed is the same Bonus.WorkingSpeed, movement speed is the same as Bonus.MovementSpeed, lifespan refers to Bonus.LifeExpectancy"
+Tutorial.Wellbeing.OpenWellbeingPanel,복지 패널 열기,Keep similar to KeyBinding.OpenWellbeingPanel
+Tutorial.Wellbeing.SelectBeaver,비버 선택하고 욕구 확인하기,
+Tutorial.Wellbeing.Shrub,"복지는 장식 주변에서도 증가합니다. 비버가 일부러 장식에 접근하지는 않으니 정착민이 시간을 보내는 곳 가까이 장식을 배치하세요.
 
-다른 건물과 마찬가지로, 농가의 범위는 제한적입니다.",Farmhouse should be the same as in Building.Farmhouse.DisplayName
-Tutorial.Stage.Forester,안정적인 통나무 공급이 필요합니다. 수목 관리원을 잠금 해제하고 나무를 심고 싶은 곳에 건설하세요.,Forester is a name of a building
-Tutorial.Stage.KeepPlaying,"이제 물이 흐르는 한 정착지는 자급자족할 수 있습니다. 댐을 건설하거나 탱크를 추가하여 비버들이 가뭄을 견뎌낼 수 있도록 도와주세요.
+관목은 가장 단순한 장식입니다. 비버는 푸른 식물이라면 뭐든 좋아합니다.","Well-being is the same as Wellbeing.DisplayName, Shrub is the same as Building.Shrub.DisplayName"
+Tutorial.Wellbeing.WellbeingPanel,"비버에게는 사회 전체가 중요합니다. 화면 왼쪽 상단에서 정착지의 평균 복지를 확인할 수 있습니다.
 
-튜토리얼에서는 기본적인 요소만을 다루며, 스스로 발견할 수 있는 다양한 메커니즘이 남아있습니다.
+클릭해서 충족 가능한 모든 욕구의 상태를 확인하세요. 황무지에서의 삶을 더 견딜 만하게 하는 방법은 많습니다.",Well-being is the same as Wellbeing.DisplayName
+Tutorial.Wood,나무,
+Tutorial.Wood.ConnectLumberjacks,"입구가 있는 모든 건물은 구역 센터로 이어지는 길이 있어야 합니다. 건물을 선택하면 화살표로 표시된 입구를 확인할 수 있습니다.
 
-행운을 빕니다!",Water Tank is a building name.
+길을 만들어서 나무꾼 깃발과 구역 센터를 연결하세요.","Lumberjack Flag is the same as Building.LumberjackFlag.DisplayName, District Center is the same as Building.DistrictCenter.DisplayName, Paths refers to Building.Path.DisplayName"
+Tutorial.Wood.FinishLumberjacks,"깃발은 구역의 건설 범위 내에 건설할 수 있습니다.
+
+구역 센터를 선택해서 범위를 확인하세요. 구역 센터 입구에 길을 연결해 범위를 확장할 수 있습니다.","Flags referers to Lumberjack Flag as in Building.LumberjackFlag.DisplayName, District Center is the same as Building.DistrictCenter.DisplayName, Paths refers to Building.Path.DisplayName"
+Tutorial.Wood.MarkTrees,"나무꾼은 벌목 대상으로 지정한 영역의 나무만 벱니다.
+
+나무는 나무꾼 깃발 범위 내에 있어야 합니다. 깃발을 선택해 범위를 확인하세요.
+
+이제 나무 자르기 영역 지정 도구를 사용하세요. 마우스 버튼을 누른 상태로 여러 타일을 동시에 선택할 수 있습니다.","Lumberjacks refers to workers working in Building.LumberjackFlag.DisplayName, Lumberjack Flag is the same as Building.LumberjackFlag.DisplayName. Mark Tree Cutting Area tool is the same as TreeCuttingSelectionTool.Title"
+Tutorial.Wood.PlaceLumberjacks,"모든 비버 정착지에는 통나무가 필요합니다. 그것도 아주 많이 필요하죠. 나무는 나무꾼만 벨 수 있습니다. 
+
+주변에 있는 나무 옆에 나무꾼 깃발을 건설하세요.","Logs is same as Good.Log.PluralDisplayName, Lumberjack Flag is the same as Building.LumberjackFlag.DisplayName"
 UnstableCore.ExplosionRadius,폭발 반경,Label of a field that allows to set explosion radius of an unstable core.
 Water.Strength,힘,Followed by a number which tells how much water a water source produces
 WaterInputCoordinates.Depth,깊이,Depth reached by the water input building (e.g. a water pump).
@@ -1789,18 +1857,18 @@ WonderCompletion.Panel.Statistics,통계:,Title of the statistics section in the
 WonderCompletion.Statistic.BeaversBorn,비버 태어남:,A text for flavor statistic that shows how many beavers have been born during the game.
 WonderCompletion.Statistic.BeaversExploded,비버 폭발함:,A text for flavor statistic that shows how many beavers have died to a dynamite during the game.
 WonderCompletion.Statistic.BotsManufactured,봇 제작함:,A text for flavor statistic that shows how many bots have been created during the game.
-WonderCompletion.Statistic.BrokenTeeth,이 부러짐:,A text for flavor statistic that shows how many times a beaver has broken a tooth during the game.
+WonderCompletion.Statistic.ChippedTeeth,이 깨짐:,A text for flavor statistic that shows how many times a beaver has chipped a tooth during the game.
 WonderCompletion.Statistic.DaysPassed,경과 날짜:,A text for statistic that shows how many days have passed until wonder was built.
 WonderCompletion.Statistic.DynamiteDetonated,다이너마이트 폭파함:,A text for flavor statistic that shows how many times dynamite has been detonated during the game.
 WonderCompletion.Statistic.TailsPainted,꼬리 색칠함:,A text for flavor statistic that shows how many tails have been handled by the detailer.
 WonderCompletion.Statistic.TreesCut,나무 벰:,A text for flavor statistic that shows how many trees have been cut down during the game.
-WonderCompletion.Statistic.WaterConsumed,물 섭취함:,A text for flavor statistic that shows how many units of water have been consumed during the game.
+WonderCompletion.Statistic.WaterConsumed,물 마심:,A text for flavor statistic that shows how many units of water have been consumed during the game.
 WonderCompletion.WonderCompleted,불가사의 완성: {0},Text that is shown when the player has built and activated a Wonder. {0} is the name of the faction that the player performed this with. Wonder should be the same as Buildings.Wonder.
 Work.BeaverOnly,<YellowHighlight>비버 전용:</YellowHighlight> 이 작업장에는 비버만 일할 수 있습니다.,Shown on a tooltip at workplaces where only beavers can work in
 Work.BotOnly,<YellowHighlight>봇 전용:</YellowHighlight> 이 작업장에는 봇만 일할 수 있습니다.,Shown on a tooltip at workplaces where only bots can work in. Bots should be the same as Bot.PluralDisplayName.
 Work.CurrentWorkers,노동자: {0} / {1},Please keep short. {0} stands for the desired number of workers. {1} stands for max number of workers that can work in building.
-Work.DefaultAllowedWorker,새 건물에 허용된 노동자:,Global setting for who is allowed to work in a new building: beavers or bots
-Work.DefaultAllowedWorker.Tooltip,이 설정에 맞춰서 해당 구역 내 새 건물에 노동자를 들여보냅니다.,Shown on a tooltip for a toggle deciding the default worker setting between beavers and bots.
+Work.DefaultAllowedWorker,새 건물의 기본 노동자 유형:,Global setting for who is allowed to work in a new building: beavers or bots
+Work.DefaultAllowedWorker.Tooltip,해당 구역 내 새 건물은 처음에 이 유형의 노동자를 사용하도록 설정합니다.,Shown on a tooltip for a toggle deciding the default worker setting between beavers and bots.
 Work.FuelRemaining,남은 연료: {0}%,"{0} stands for a number between 0 and 100, for example 10% means that most of the fuel has been depleted."
 Work.Incapacitated,작업 불능,Label before a number of characters unfit for work (for example injured beavers or broken bots)
 Work.MaxDepth,최대 깊이: {0},"Explains how deep a building can reach, for example how deep it can pump water from. {0} stands for a number. Example usage: 'Depth: 5'"
@@ -1810,6 +1878,7 @@ Work.Productivity,생산성:,How productive a workplace is. Followed by a percen
 Work.ProductivityTip,재료 운반 등의 비가동시간이 아닌 생산에 소비된 시간의 비율,Tooltip of how productivity works
 Work.Vacant,공석,Denotes an empty workplace slot without a worker.
 Work.VacantPlural,공석,Label before number of vacant work slots
+Work.WorkRefusalWarning,업무 거부,Please keep short. A warning inside a tooltip that a beaver or a bot won't work if certain circumstances occur (like beaver is sick or bot is out of power).
 Work.Workers,노동자: {0},{0} stands for number of workers
 Work.WorkersLabel,노동자,Label before number of workers
 Work.WorkingHoursTooltip,노동 시간,
@@ -1817,7 +1886,6 @@ Work.Workplace.DisplayName,작업장,"Header of a section where various aspects 
 Work.WorkplaceUnlock.CantUnlock,과학 포인트가 부족하여 해당 봇용 작업장을 잠금 해제할 수 없습니다.,Prompt when the player doesn't have enough science points to unlock a workplace for bots. Bots should be the same as Bot.PluralDisplayName.
 Work.WorkplaceUnlock.Prompt,봇용 작업장을 잠금 해제하시겠습니까? 과학 포인트를 {0}만큼 사용합니다.,"{0} stands for amount. Prompt when the  player presses to unlock a workplace for bots. Science Points must be the same as Science.SciencePoints, Bots as Bot.PluralDisplayName"
 Work.WorkplaceUnlock.Tooltip,봇용 작업장을 잠금 해제합니다.,Shown on a blocked workplace's tooltip. Bots should be the same as Bot.PluralDisplayName.
-Work.WorkRefusalWarning,업무 거부,Please keep short. A warning inside a tooltip that a beaver or a bot won't work if certain circumstances occur (like beaver is sick or bot is out of energy).
 Zipline.AddConnection,연결 추가,Tooltip text for button with plus icon adding a connection between two zipline towers or stations.
 Zipline.BlockedWarning,라인이 막혔어요!,Error message when zipline path is obstructed
 Zipline.Connections,연결:,A header above icon representation of connections between zipline towers or stations.

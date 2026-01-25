@@ -64,29 +64,27 @@
     "DisablingFeatureToggle": ""
   },
   "BlockObjectSpec": {
-    "BlocksSpec": {
-      "Size": {
-        "X": 1,
-        "Y": 2,
-        "Z": 1
-      },
-      "BlockSpecs": [
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        },
-        {
-          "MatterBelow": "GroundOrStackable",
-          "Occupations": "Bottom, Top, Corners, Path, Middle",
-          "Stackable": "None",
-          "OccupyAllBelow": false,
-          "Underground": false
-        }
-      ]
+    "Size": {
+      "X": 1,
+      "Y": 2,
+      "Z": 1
     },
+    "Blocks": [
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      },
+      {
+        "MatterBelow": "GroundOrStackable",
+        "Occupations": "Bottom, Top, Corners, Path, Middle",
+        "Stackable": "None",
+        "OccupyAllBelow": false,
+        "Underground": false
+      }
+    ],
     "Entrance": {
       "HasEntrance": true,
       "Coordinates": {
@@ -170,7 +168,7 @@
     ]
   },
   "TransputProviderSpec": {
-    "TransputSpecs": [
+    "Transputs": [
       {
         "Coordinates": {
           "X": 0,
@@ -192,7 +190,7 @@
     ],
     "IgnoreRotation": false
   },
-  "MechanicalConnectorReceiverSpec": {},
+  "MechanicalConnectorTargetSpec": {},
   "TemplateAttachmentsSpec": {
     "Attachments": [
       {
