@@ -4,7 +4,7 @@
 
 using HarmonyLib;
 using Timberborn.BaseComponentSystem;
-using Timberborn.PowerGenerating;
+using Timberborn.PowerGeneration;
 
 // ReSharper disable UnusedMember.Local
 // ReSharper disable InconsistentNaming

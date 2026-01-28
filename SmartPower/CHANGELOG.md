@@ -1,3 +1,6 @@
+# v1.14.3 (January 27th, 2026)
+* [Change] Update to support game version `1.0.8.0`.
+
 # v1.14.2 (January 14th, 2026)
 * [Fix] Generators repeatedly turn ON and OFF.
 

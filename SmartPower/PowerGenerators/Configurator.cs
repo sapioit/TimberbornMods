@@ -4,7 +4,7 @@
 
 using Bindito.Core;
 using IgorZ.TimberDev.Utils;
-using Timberborn.PowerGenerating;
+using Timberborn.PowerGeneration;
 using Timberborn.TemplateInstantiation;
 
 // ReSharper disable InconsistentNaming
