@@ -179,19 +179,23 @@ sealed class DynamiteScriptableComponent : ScriptableComponentBase {
 
       // Detonate the dynamite, but wait till all beavers are off the block.
       var blockOccupancyService = StaticBindings.DependencyContainer.GetInstance<IBlockOccupancyService>();
-      yield return new WaitUntil(
-          () => !dynamite || !dynamite.Enabled
-              || !blockOccupancyService.OccupantPresentOnArea(behavior.BlockObject, MinDistanceToCheckOccupants));
-      if (dynamite && dynamite.Enabled) {
+      while (dynamite
+             && blockOccupancyService.OccupantPresentOnArea(behavior.BlockObject, MinDistanceToCheckOccupants)) {
+        yield return new WaitForFixedUpdate();
+      }
+      if (dynamite) {
         HostedDebugLog.Fine(dynamite, "Detonate from automation!");
         dynamite.Trigger();
       }
       if (repeatCount <= 0) {
         yield return YieldAbort();
       }
-      
+
       // Wait for the old object to clean up.
-      yield return new WaitUntil(() => !dynamite);
+      // ReSharper disable once LoopVariableIsNeverChangedInsideLoop
+      while (dynamite) {
+        yield return new WaitForFixedUpdate();
+      }
       var expectedPlaceCoord = new Vector3Int(coordinates.x, coordinates.y, coordinates.z - effectiveDepth);
       var newHeight = terrainService.GetTerrainHeightBelow(expectedPlaceCoord);
       if (newHeight == 0 || newHeight != expectedPlaceCoord.z) {

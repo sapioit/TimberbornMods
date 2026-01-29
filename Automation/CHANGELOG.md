@@ -1,3 +1,6 @@
+# v3.3.1 (January 28th, 2026):
+* [Fix] Dynamite detonation doesn't work.
+
 # v3.3.0 (January 22nd, 2026):
 * [Feature] Introduce "Copy rule" button to the rules editor to quickly duplicate an existing rule.
 * [Feature] Introduce "Invert rule" button to the rules editor that turns rule into the opposite condition/action.
