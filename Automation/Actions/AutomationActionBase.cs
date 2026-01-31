@@ -2,6 +2,7 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.Conditions;
@@ -117,7 +118,11 @@ public abstract class AutomationActionBase : IAutomationAction, IAutomationCondi
   public abstract string UiDescription { get; }
 
   /// <inheritdoc/>
-  public abstract IAutomationAction CloneDefinition();
+  public virtual IAutomationAction CloneDefinition() {
+    var clone = (AutomationActionBase)Activator.CreateInstance(GetType());
+    clone.TemplateFamily = TemplateFamily;
+    return clone;
+  }
 
   /// <inheritdoc/>
   public virtual bool CheckSameDefinition(IAutomationAction other) {

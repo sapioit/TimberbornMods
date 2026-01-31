@@ -27,7 +27,9 @@ sealed class ScriptedAction : AutomationActionBase {
 
   /// <inheritdoc/>
   public override IAutomationAction CloneDefinition() {
-    return new ScriptedAction { TemplateFamily = TemplateFamily, Expression = Expression };
+    var clone = (ScriptedAction)base.CloneDefinition();
+    clone.Expression = Expression;
+    return clone;
   }
 
   /// <inheritdoc/>

@@ -100,7 +100,10 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
 
   /// <inheritdoc/>
   public override IAutomationCondition CloneDefinition() {
-    return new ScriptedCondition { Expression = Expression, Precondition = Precondition };
+    var clone = (ScriptedCondition)base.CloneDefinition();
+    clone.Expression = Expression;
+    clone.Precondition = Precondition;
+    return clone;
   }
 
   /// <inheritdoc/>

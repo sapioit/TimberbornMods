@@ -92,15 +92,15 @@ public class StatusToggleAction : AutomationActionBase {
 
   /// <inheritdoc/>
   public override IAutomationAction CloneDefinition() {
-    return new StatusToggleAction() {
-        StatusKind = StatusKind,
-        Description = Description,
-        StatusToken = StatusToken,
-        ActionKind = ActionKind,
-        StatusIcon = StatusIcon,
-        StatusText = StatusText,
-        AlertText = AlertText,
-    };
+    var clone = (StatusToggleAction)base.CloneDefinition();
+    clone.StatusKind = StatusKind;
+    clone.Description = Description;
+    clone.StatusToken = StatusToken;
+    clone.ActionKind = ActionKind;
+    clone.StatusIcon = StatusIcon;
+    clone.StatusText = StatusText;
+    clone.AlertText = AlertText;
+    return clone;
   }
 
   /// <inheritdoc/>

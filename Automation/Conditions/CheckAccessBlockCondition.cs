@@ -48,7 +48,9 @@ public sealed class CheckAccessBlockCondition : AutomationConditionBase {
 
   /// <inheritdoc/>
   public override IAutomationCondition CloneDefinition() {
-    return new CheckAccessBlockCondition { IsReversedCondition = IsReversedCondition };
+    var clone = (CheckAccessBlockCondition)base.CloneDefinition();
+    clone.IsReversedCondition = IsReversedCondition;
+    return clone;
   }
 
   /// <inheritdoc/>

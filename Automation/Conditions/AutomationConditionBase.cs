@@ -114,7 +114,11 @@ public abstract class AutomationConditionBase : IAutomationCondition {
   public abstract bool IsInErrorState { get; }
 
   /// <inheritdoc/>
-  public abstract IAutomationCondition CloneDefinition();
+  public virtual IAutomationCondition CloneDefinition() {
+    var clone = (AutomationConditionBase)Activator.CreateInstance(GetType());
+    clone.IsEnabled = IsEnabled;
+    return clone;
+  }
 
   /// <inheritdoc/>
   public virtual void Activate(bool noTrigger = false) {
