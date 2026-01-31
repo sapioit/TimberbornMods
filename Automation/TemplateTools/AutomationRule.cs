@@ -21,6 +21,7 @@ namespace IgorZ.Automation.TemplateTools;
 /// <seealso cref="IAutomationAction"/>
 sealed class AutomationRule : IGameSerializable {
   #region Implementation of IGameSerializable
+
   static readonly PropertyKey<AutomationConditionBase> ConditionPropertyKey = new("Condition");
   static readonly PropertyKey<AutomationActionBase> ActionPropertyKey = new("Action");
 
@@ -38,11 +39,11 @@ sealed class AutomationRule : IGameSerializable {
     objectSaver.Set(ConditionPropertyKey, Condition, AutomationConditionBase.ConditionSerializer);
     objectSaver.Set(ActionPropertyKey, Action, AutomationActionBase.ActionSerializer);
   }
+
   #endregion
 
   #region API
-  /// <summary>Serializer that handles persistence the rules.</summary>
-  public static readonly StaticClassSerializer<AutomationRule> RuleSerializer = new();
+
   public AutomationConditionBase Condition { get; private set; }
   public AutomationActionBase Action { get; private set; }
 
@@ -61,9 +62,11 @@ sealed class AutomationRule : IGameSerializable {
   public bool IsValidAt(AutomationBehavior obj) {
     return Condition.IsValidAt(obj) && Action.IsValidAt(obj);
   }
+
   #endregion
 
   #region Implentation
+
   /// <inheritdoc/>
   [SuppressMessage("ReSharper", "Unity.NoNullPropagation")]
   public override string ToString() {
@@ -71,5 +74,6 @@ sealed class AutomationRule : IGameSerializable {
     var coords = Action.Behavior?.GetComponent<BlockObject>().Coordinates;
     return $"[Rule:condition=[{Condition}];action=[{Action}];at={prefabName}@{coords}]";
   }
+
   #endregion
 }
