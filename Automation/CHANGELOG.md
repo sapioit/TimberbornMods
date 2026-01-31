@@ -1,3 +1,6 @@
+# v3.4.0 (started on January 20th, 2026):
+* [Feature] The stock game "copy building settings" feature is now also copying the automation rules. 
+
 # v3.3.1 (January 28th, 2026):
 * [Fix] Dynamite detonation doesn't work.
 

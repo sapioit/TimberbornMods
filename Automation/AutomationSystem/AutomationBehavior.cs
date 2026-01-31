@@ -10,6 +10,7 @@ using IgorZ.Automation.Actions;
 using IgorZ.TimberDev.Utils;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
+using Timberborn.DuplicationSystem;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
 using Timberborn.Persistence;
@@ -23,7 +24,7 @@ namespace IgorZ.Automation.AutomationSystem;
 /// <summary>The component that keeps all the automation state on the building.</summary>
 public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IInitializableEntity,
                                          IFinishedStateListener, IStartableComponent, IPersistentEntity,
-                                         IDeletableEntity {
+                                         IDeletableEntity, IDuplicable<AutomationBehavior> {
 
   const string AutomationErrorIcon = "IgorZ.Automation/error-icon-script-failed";
   const string AutomationErrorAlertLocKey = "IgorZ.Automation.ShowStatusAction.AutomationErrorAlert";
@@ -301,6 +302,25 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
   public void Start() {
     foreach (var component in _dynamicComponents.Values) {
       component.Start();
+    }
+  }
+
+  #endregion
+
+  #region IDuplicable implementation
+
+  /// <inheritdoc/>
+  public bool IsDuplicable => HasActions;
+
+  /// <inheritdoc/>
+  public void DuplicateFrom(AutomationBehavior source) {
+    if (source.Actions.Count == 0) {
+      return;
+    }
+    HostedDebugLog.Info(this, "Duplicating {0} rules from {1}", source.Actions.Count, source);
+    ClearAllRules();
+    foreach (var action in source.Actions) {
+      AddRule(action.Condition.CloneDefinition(), action.CloneDefinition());
     }
   }
 
