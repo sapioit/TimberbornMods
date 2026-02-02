@@ -83,10 +83,17 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
 
   /// <inheritdoc/>
   protected override void OnBehaviorAssigned() {
-    if (_lastScriptError != null) {
-      Behavior.ReportError(this);
-    }
     ParseAndApply();
+    if (!IsEnabled) {
+      return;
+    }
+    if (_lastScriptError != null) {
+      Behavior.ReportError(this);  // The error can be a runtime error, loaded from the persistent state.
+      return;
+    }
+    _registeredSignals =
+        StaticBindings.DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
+    _canRunOnUnfinishedBuildings = _registeredSignals.Select(x => x.OnUnfinished).Aggregate((x, y) => x || y); 
   }
 
   /// <inheritdoc/>
@@ -228,20 +235,16 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
 
   void ParseAndApply() {
     if (_parsingResult != default) {
-      throw new InvalidOperationException("ParseAndApply should only be called once.");
+      throw new InvalidOperationException($"{nameof(ParseAndApply)} should only be called once.");
     }
     ResetScriptError();
     _parsedExpression = ParseAndValidate(Expression, Behavior, out _parsingResult);
     if (_parsedExpression == null) {
       _lastScriptError = ParseErrorLocKey;
-      Behavior.ReportError(this);
       return;
     }
     Behavior.IncrementStateVersion();
     Expression = StaticBindings.DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
-    _registeredSignals =
-        StaticBindings.DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
-    _canRunOnUnfinishedBuildings = _registeredSignals.Select(x => x.OnUnfinished).Aggregate((x, y) => x || y); 
   }
 
   bool CheckPrecondition(AutomationBehavior behavior) {

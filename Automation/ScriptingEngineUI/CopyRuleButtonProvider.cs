@@ -22,6 +22,7 @@ sealed class CopyRuleButtonProvider : IEditorButtonProvider {
     var newRow = dialog.InsertScriptedRuleAt(dialog.RuleRows.IndexOf(ruleRow) + 1);
     newRow.ConditionExpression = ruleRow.ConditionExpression;
     newRow.ActionExpression = ruleRow.ActionExpression;
+    newRow.IsEnabled = ruleRow.IsEnabled;
     newRow.SwitchToViewMode();
   }
 

@@ -1,5 +1,7 @@
 # v3.4.0 (started on January 20th, 2026):
-* [Feature] The stock game "copy building settings" feature is now also copying the automation rules. 
+* [Feature] The stock game "copy building settings" feature is now also copying the automation rules.
+* [Feature] Rules can now be selectively enabled or disabled. The disabled rules stay on the building, but they won't be executed until enabled.
+* [Feature] Rules order can now be changed via the rules editor dialog. Note that it doesn't affect the execution logic. It's a purely cosmetic function.
 
 # v3.3.1 (January 28th, 2026):
 * [Fix] Dynamite detonation doesn't work.

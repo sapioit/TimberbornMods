@@ -61,6 +61,10 @@ sealed class RulesEditorDialog : AbstractDialog {
   /// <summary>The rule rows of the dialog.</summary>
   public IReadOnlyList<RuleRow> RuleRows => _ruleRows;
 
+  /// <summary>The scrolling view that holds the rules.</summary>
+  public ScrollView ContentScrollView => _contentScrollView ??= Root.Q<ScrollView>("Content");
+  ScrollView _contentScrollView;
+
   public RulesEditorDialog WithUiHelper(RulesUIHelper rulesUiHelper) {
     _rulesUiHelper = rulesUiHelper;
     return this;
@@ -120,6 +124,22 @@ sealed class RulesEditorDialog : AbstractDialog {
     _ruleRows.Insert(index, ruleRow);
     _ruleRowsContainer.Insert(index, ruleRow.Root);
     return ruleRow;
+  }
+
+  /// <summary>Swaps the two rows in rules order list.</summary>
+  /// <remarks>
+  /// The rules order does NOT determine the execution ordering! It's purely the representation thing.
+  /// </remarks>
+  public void SwapRows(int from, int to) {
+    if (from < to) {
+      (from, to) = (to, from);
+    }
+    var fromRuleRow = _ruleRows[from];
+    _ruleRows.RemoveAt(from);
+    _ruleRows.Insert(to, fromRuleRow);
+    var fromRuleRowContainer = _ruleRowsContainer[from];
+    _ruleRowsContainer.RemoveAt(from);
+    _ruleRowsContainer.Insert(to, fromRuleRowContainer);
   }
 
   #endregion

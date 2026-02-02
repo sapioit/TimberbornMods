@@ -18,7 +18,7 @@ namespace IgorZ.Automation.Conditions;
 /// <remarks>This logic works only on the set of the objects that has this condition assigned to. It won't check all the
 /// objects being constructed in the scene.
 /// </remarks>
-public sealed class CheckAccessBlockCondition : AutomationConditionBase {
+sealed class CheckAccessBlockCondition : AutomationConditionBase {
   const string BlockingPathNameLocKey = "IgorZ.Automation.CheckAccessBlockCondition.Blocking.Description";
   const string NotBlockingPathNameLocKey = "IgorZ.Automation.CheckAccessBlockCondition.NotBlocking.Description"; 
 
@@ -55,12 +55,16 @@ public sealed class CheckAccessBlockCondition : AutomationConditionBase {
 
   /// <inheritdoc/>
   protected override void OnBehaviorAssigned() {
-    StaticBindings.DependencyContainer.GetInstance<PathCheckingService>().AddCondition(this);
+    if (IsEnabled) {
+      StaticBindings.DependencyContainer.GetInstance<PathCheckingService>().AddCondition(this);
+    }
   }
 
   /// <inheritdoc/>
   protected override void OnBehaviorToBeCleared() {
-    StaticBindings.DependencyContainer.GetInstance<PathCheckingService>().RemoveCondition(this);
+    if (IsEnabled) {
+      StaticBindings.DependencyContainer.GetInstance<PathCheckingService>().RemoveCondition(this);
+    }
   }
 
   #endregion

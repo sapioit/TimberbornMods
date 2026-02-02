@@ -173,6 +173,7 @@ IgorZ.Automation.Scripting.Editor.ConditionLabel,"Если",
 IgorZ.Automation.Scripting.Editor.ConditionMustBeBoolean,"Условие должно быть логическим выражением","A message to show when the condition is not a boolean expression"
 IgorZ.Automation.Scripting.Editor.ConditionMustHaveSignals,"Условие должно включать хотя бы один сигнал","A message to show when the condition does not have any signals"
 IgorZ.Automation.Scripting.Editor.CopyRuleBtn,"Создать копию",
+IgorZ.Automation.Scripting.Editor.DeleteRuleBtn,"Удалить правило",
 IgorZ.Automation.Scripting.Editor.DeletedRule,"Правило удалено","A message to show over the deleted rule"
 IgorZ.Automation.Scripting.Editor.DialogHeader,"Правила автоматизации",
 IgorZ.Automation.Scripting.Editor.DiscardChangesBtn,"Отменить изменения",
@@ -184,9 +185,11 @@ IgorZ.Automation.Scripting.Editor.ImportRulesBtn,"Импортировать п�
 IgorZ.Automation.Scripting.Editor.InvertRuleBtn,"Инвертировать",
 IgorZ.Automation.Scripting.Editor.MoreInfoBtn,"Читать о скриптах"
 IgorZ.Automation.Scripting.Editor.NumberConstantType,"число","Name of the number constant type"
+IgorZ.Automation.Scripting.Editor.PauseRuleBtn,"Выключить правило",
 IgorZ.Automation.Scripting.Editor.PendingEditsNotification,"Некоторые правила в режиме редактирования. Сначала завершите их.",
 IgorZ.Automation.Scripting.Editor.ReadMoreLink,"https://github.com/ihsoft/TimberbornMods/wiki/Automation-(scripting)-ru-RU","Link to the localized wiki page about scripting"
 IgorZ.Automation.Scripting.Editor.ResetChangesBtn,"Сбросить изменения",
+IgorZ.Automation.Scripting.Editor.ResumeRuleBtn,"Включить правило",
 IgorZ.Automation.Scripting.Editor.RulesWithErrorsNotification,"В некоторых правилах есть ошибки. Исправьте их перед сохранением.",
 IgorZ.Automation.Scripting.Editor.SaveRulesBtn,"Сохранить и закрыть",
 IgorZ.Automation.Scripting.Editor.SaveScriptBtn,"Сохранить",

@@ -91,19 +91,24 @@ sealed class ScriptedAction : AutomationActionBase {
 
   /// <inheritdoc/>
   protected override void OnBehaviorAssigned() {
-    base.OnBehaviorAssigned();
-    if (_lastScriptError != null) {
-      Behavior.ReportError(this);
-    }
     ParseAndApply();
+    if (!Condition.IsEnabled) {
+      return;
+    }
+    if (_lastScriptError != null) {
+      Behavior.ReportError(this);  // The error can be a runtime error, loaded from the persistent state.
+      return;
+    }
+    _installedActions = StaticBindings.DependencyContainer.GetInstance<ScriptingService>()
+        .InstallActions(_parsedExpression, Behavior);
   }
 
   /// <inheritdoc/>
   protected override void OnBehaviorToBeCleared() {
-    base.OnBehaviorToBeCleared();
     if (_installedActions != null) {
       var scriptingService = StaticBindings.DependencyContainer.GetInstance<ScriptingService>();
       scriptingService.UninstallActions(_installedActions, Behavior);
+      _installedActions = null;
     }
     ResetScriptError();
   }
@@ -182,18 +187,16 @@ sealed class ScriptedAction : AutomationActionBase {
 
   void ParseAndApply() {
     if (_parsingResult != default) {
-      throw new InvalidOperationException("ParseAndApply should only be called once.");
+      throw new InvalidOperationException($"{nameof(ParseAndApply)} should only be called once.");
     }
     ResetScriptError();
     _parsedExpression = ParseAndValidate(Expression, Behavior, out _parsingResult);
     if (_parsedExpression == null) {
       _lastScriptError = ParseErrorLocKey;
-      Behavior.ReportError(this);
       return;
     }
     Behavior.IncrementStateVersion();
     Expression = StaticBindings.DependencyContainer.GetInstance<LispSyntaxParser>().Decompile(_parsedExpression);
-    _installedActions = StaticBindings.DependencyContainer.GetInstance<ScriptingService>().InstallActions(_parsedExpression, Behavior);
   }
 
   void ReportScriptError(ScriptError.RuntimeError e) {

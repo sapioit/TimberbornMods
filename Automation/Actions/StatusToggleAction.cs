@@ -115,12 +115,13 @@ public class StatusToggleAction : AutomationActionBase {
 
   /// <inheritdoc/>
   protected override void OnBehaviorAssigned() {
-    UpdateStatusState();
+    if (Condition.IsEnabled) {
+      UpdateStatusState();
+    }
   }
 
   /// <inheritdoc/>
   protected override void OnBehaviorToBeCleared() {
-    base.OnBehaviorToBeCleared();
     GetStatusController().HideStatus();
   }
 

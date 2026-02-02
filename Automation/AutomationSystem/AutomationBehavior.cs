@@ -88,7 +88,7 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
     HostedDebugLog.Fine(this, "Adding rule: action={0}", action);
     condition.Behavior = this;
     action.Behavior = this;
-    if (BlockObject.IsFinished || condition.CanRunOnUnfinishedBuildings) {
+    if (condition.IsEnabled && (BlockObject.IsFinished || condition.CanRunOnUnfinishedBuildings)) {
       condition.Activate();
     }
     _actions.Add(action);
