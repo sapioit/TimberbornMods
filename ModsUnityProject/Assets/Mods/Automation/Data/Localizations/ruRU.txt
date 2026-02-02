@@ -1,6 +1,8 @@
 ﻿ID,Text,Comment
 IgorZ.Automation.CancelTool.Description,"Используйте этот инструмент, чтобы отменить автоматизацию для зданий и строительных площадок.",
 IgorZ.Automation.CancelTool.Title,"Отменить автоматизацию",
+IgorZ.Automation.EnableRulesTool.Description,"Используйте этот инструмент, чтобы включить все правила для здания",
+IgorZ.Automation.EnableRulesTool.Title,"Включить все правила",
 IgorZ.Automation.CheckAccessBlockCondition.Blocking.Description,"<YellowHighlight>блокирует путь</YellowHighlight>",
 IgorZ.Automation.CheckAccessBlockCondition.NotBlocking.Description,"<YellowHighlight>не блокирует путь</YellowHighlight>",
 IgorZ.Automation.CheckAccessBlockCondition.NotYetReachable,"Строители не могут добраться до этого места, но дорога строится",
@@ -10,6 +12,8 @@ IgorZ.Automation.DebugPickTool.Description,"Показать компонент�
 IgorZ.Automation.DebugPickTool.DescriptionHint1,"Удерживайте <i>SHIFT</i>, чтобы показать компонент Accessible.",
 IgorZ.Automation.DebugPickTool.DescriptionHint2,"Удерживайте <i>CTRL</i>, чтобы показать ребра NavMesh.",
 IgorZ.Automation.DebugPickTool.Title,"Инструмент отладки",
+IgorZ.Automation.DisableRulesTool.Title,"Выключить все правила",
+IgorZ.Automation.DisableRulesTool.Description,"Используйте этот инструмент, чтобы выключить все правила для здания",
 IgorZ.Automation.ShowStatusAction.AutomationErrorAlert,"Ошибка автоматизации",
 IgorZ.Automation.ShowStatusAction.AutomationErrorDescription,"Некоторые правила автоматизации не могут быть исполнены",
 IgorZ.Automation.ShowStatusAction.HoldCompletionStatusText,"Ожидание завершения строительства других зданий",
