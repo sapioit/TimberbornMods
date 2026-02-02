@@ -203,15 +203,11 @@ sealed class RuleRow {
 
     // Controls.
     _revertChangesBtn.ToggleDisplayStyle(IsModified && !IsNew);
-    var ruleEditable = false;
-    foreach (var provider in _editorProviders) {
-      if (provider.RuleRowBtnLocKey == null || !provider.IsRuleRowBtnEnabled(this)) {
-        continue;
-      }
+    var ruleRowButtonProviders =
+        _editorProviders.Where(provider => provider.RuleRowBtnLocKey != null && provider.IsRuleRowBtnEnabled(this));
+    foreach (var provider in ruleRowButtonProviders) {
       CreateButton(provider.RuleRowBtnLocKey, _ => provider.OnRuleRowBtnAction(this));
-      ruleEditable = true;
     }
-    Root.Q("BottomRowSection").ToggleDisplayStyle(ruleEditable || _originalTemplateFamily != null);
 
     IsInEditMode = false;
     OnStateChanged?.Invoke(this, EventArgs.Empty);
