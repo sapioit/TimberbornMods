@@ -23,7 +23,7 @@ public sealed class SmartPoweredAttraction : BaseComponent, IAwakableComponent, 
 
   /// <inheritdoc/>
   public int UpdateAndGetPowerInput() {
-    if (_mechanicalBuilding.ConsumptionDisabled || _blockableObject && !_blockableObject.IsUnblocked) {
+    if (!_mechanicalNode.Active) {
       if (_powerInputLimiter) {
         _powerInputLimiter.SetDesiredPower(-1);
       }
@@ -40,8 +40,7 @@ public sealed class SmartPoweredAttraction : BaseComponent, IAwakableComponent, 
 
   #region Implementation
 
-  MechanicalBuilding _mechanicalBuilding;
-  BlockableObject _blockableObject;
+  MechanicalNode _mechanicalNode;
   Enterable _enterable;
   PowerInputLimiter _powerInputLimiter;
 
@@ -49,8 +48,7 @@ public sealed class SmartPoweredAttraction : BaseComponent, IAwakableComponent, 
 
   /// <inheritdoc/>
   public void Awake() {
-    _mechanicalBuilding = GetComponent<MechanicalBuilding>();
-    _blockableObject = GetComponent<BlockableObject>();
+    _mechanicalNode = GetComponent<MechanicalNode>();
     _enterable = GetComponent<Enterable>();
     _powerInputLimiter = GetComponent<PowerInputLimiter>();
     _nominalPowerInput = GetComponent<MechanicalNodeSpec>().PowerInput;

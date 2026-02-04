@@ -2,6 +2,7 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bindito.Core;
@@ -13,7 +14,6 @@ using Timberborn.Attractions;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
-using Timberborn.Buildings;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
@@ -32,7 +32,7 @@ sealed class PowerInputLimiter
 
   #region API
 
-  /// <summary>Indicates if the generator is currently suspended.</summary>
+  /// <summary>Indicates if the consumer is currently suspended.</summary>
   public bool IsSuspended { get; private set; }
 
   /// <summary>Indicates that the consumer was suspended due to low batteries charge in the network.</summary>
@@ -96,6 +96,14 @@ sealed class PowerInputLimiter
     }
     if (SmartLogicActive) {
       HandleSmartLogic();
+    }
+
+    // Update adjusted power input if needed.
+    var adjustablePowerInput = GetComponent<IAdjustablePowerInput>();
+    var newInputPower = adjustablePowerInput.UpdateAndGetPowerInput();
+    if (_mechanicalNode.Actuals.PowerInput != newInputPower) {
+      HostedDebugLog.Fine(this, "Adjusting power input: {0} => {1}", _mechanicalNode.Actuals.PowerInput, newInputPower);
+      _mechanicalNode.Actuals.SetPowerInput(newInputPower);
     }
   }
 
@@ -182,7 +190,6 @@ sealed class PowerInputLimiter
   WorkplaceConsumerSettings _workplaceConsumerSettings;
 
   BlockableObject _blockableObject;
-  PausableBuilding _pausableBuilding;
   StatusToggle _shutdownStatus;
 
   int _nominalPowerInput;
@@ -192,7 +199,7 @@ sealed class PowerInputLimiter
 
   int _desiredPower;
 
-  bool SmartLogicActive => Enabled && Automate && !_pausableBuilding.Paused;
+  bool SmartLogicActive => Enabled && Automate && _blockableObject.IsUnblocked;
 
   /// <summary>It must be public for the injection logic to work.</summary>
   [Inject]
@@ -212,8 +219,8 @@ sealed class PowerInputLimiter
     _nominalPowerInput = GetComponent<MechanicalNodeSpec>().PowerInput;
     _desiredPower = _nominalPowerInput;
     _blockableObject = GetComponent<BlockableObject>();
-    _pausableBuilding = GetComponent<PausableBuilding>();
-    _pausableBuilding.PausedChanged += (_, _) => UpdateState();
+    _blockableObject.ObjectBlocked += UpdateStateWhilePaused;
+    _blockableObject.ObjectUnblocked += UpdateStateWhilePaused;
     
     bool showFloatingIcon;
     if (GetComponent<Attraction>()) {
@@ -242,11 +249,21 @@ sealed class PowerInputLimiter
     DisableComponent();
   }
 
+  // Let the normal tick logic updating during teh game. On pause, the update has a purely cosmetic effect.
+  void UpdateStateWhilePaused(object sender, EventArgs args) {
+    if (SmartPowerService.IsGamePaused) {
+      UpdateState();
+    }
+  }
+
   void HandleSmartLogic() {
-    _smartPowerService.GetBatteriesStat(_mechanicalNode.Graph, out var capacity, out var charge);
+    var mechanicalGraph = _mechanicalNode.Graph;
+
+    var batteryCapacity = (float) mechanicalGraph.BatteryCapacity;
+    var batteryCharge = (float) mechanicalGraph.BatteryCharge;
 
     // Shutdown if batteries are low (and present in the network).
-    if (CheckBatteryCharge && capacity > 0 && charge / capacity < MinBatteriesCharge) {
+    if (CheckBatteryCharge && batteryCapacity > 0 && batteryCharge / batteryCapacity < MinBatteriesCharge) {
       LowBatteriesCharge = true;
       if (!IsSuspended) {
         _suspendDelayedAction.Execute(Suspend, true); // Immediately suspend to not drain batteries.
@@ -256,19 +273,18 @@ sealed class PowerInputLimiter
     }
     LowBatteriesCharge = false;
 
-    var currentPower = _mechanicalNode.Graph.CurrentPower;
-    var demand = (float) currentPower.PowerDemand;
-    var supply = (float) currentPower.PowerSupply;
+    var demand = (float) mechanicalGraph.PowerDemand;
+    var supply = (float) mechanicalGraph.PowerSupply;
 
     // Resume if power efficiency has improved.
     if (IsSuspended) {
       var newFlow = supply - demand - _desiredPower;
-      var estimatedCharge = charge + newFlow * BatteriesSettings.BatteryRatioHysteresis;
-      if (CheckBatteryCharge && capacity > 0 && estimatedCharge / capacity < MinBatteriesCharge) {
+      var estimatedCharge = batteryCharge + newFlow * BatteriesSettings.BatteryRatioHysteresis;
+      if (CheckBatteryCharge && batteryCapacity > 0 && estimatedCharge / batteryCapacity < MinBatteriesCharge) {
         return; // If resumed, batteries will be drained too fast (a hysteresis check).
       }
       var noBatteryEfficiency = supply / (demand + _desiredPower);
-      if (noBatteryEfficiency < MinPowerEfficiency && (capacity == 0 || estimatedCharge < 0)) {
+      if (noBatteryEfficiency < MinPowerEfficiency && (batteryCapacity == 0 || estimatedCharge < 0)) {
         return; // No batteries and not enough supply.
       }
       _suspendDelayedAction.Reset();
@@ -276,28 +292,28 @@ sealed class PowerInputLimiter
       return;
     }
 
-    // Suspend if power efficiency has dropped.
-    if (currentPower.PowerEfficiency < MinPowerEfficiency) {
+    // Suspend if power efficiency has dropped and batteries cannot back up.
+    if (batteryCapacity == 0f && mechanicalGraph.PowerEfficiency < MinPowerEfficiency) {
       _resumeDelayedAction.Reset();
       _suspendDelayedAction.Execute(Suspend);
     }
   }
 
   void Suspend() {
-    HostedDebugLog.Fine(
-        this, "Suspend consumer: currentPower={0}, desiredPower={1}", _mechanicalNode.PowerInput, _desiredPower);
+    HostedDebugLog.Fine(this, "Suspend consumer: currentPower={0}, desiredPower={1}",
+                        _mechanicalNode.Actuals.PowerInput, _desiredPower);
     IsSuspended = true;
-    _blockableObject.Block(this);
     _shutdownStatus.Activate();
     _smartPowerService.ReservePower(_mechanicalNode, _desiredPower);
+    _blockableObject.Block(this);
   }
 
   void Resume() {
     HostedDebugLog.Fine(this, "Resume consumer: desiredPower={0}, nominalPower={1}", _desiredPower, _nominalPowerInput);
     IsSuspended = false;
-    _blockableObject.Unblock(this);
     _shutdownStatus.Deactivate();
     _smartPowerService.ReservePower(_mechanicalNode, -1);
+    _blockableObject.Unblock(this);
   }
 
   #endregion

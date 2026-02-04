@@ -191,7 +191,7 @@ abstract class PowerOutputBalancer
   /// </summary>
   protected virtual void Resume() {
     HostedDebugLog.Fine(this, "Resume generator: nominalPower={0}, actualPower={1}",
-                        MechanicalNode._nominalPowerOutput, MechanicalNode.PowerOutput);
+                        MechanicalNode._nominalPowerOutput, MechanicalNode.Actuals.PowerOutput);
     IsSuspended = false;
     _shutdownStatus.Deactivate();
   }
@@ -201,7 +201,7 @@ abstract class PowerOutputBalancer
   /// </summary>
   protected virtual void Suspend() {
     HostedDebugLog.Fine(this, "Suspend generator: nominalPower={0}, actualPower={1}",
-                        MechanicalNode._nominalPowerOutput, MechanicalNode.PowerOutput);
+                        MechanicalNode._nominalPowerOutput, MechanicalNode.Actuals.PowerOutput);
     IsSuspended = true;
     _shutdownStatus.Activate();
   }
@@ -225,7 +225,8 @@ abstract class PowerOutputBalancer
   }
 
   void HandleSmartLogic() {
-    SmartPowerService.GetBatteriesStat(MechanicalNode.Graph, out var capacity, out var charge);
+    var capacity = (float) MechanicalNode.Graph.BatteryCapacity;
+    var charge = (float) MechanicalNode.Graph.BatteryCharge;
     var reservedPower = SmartPowerService.GetReservedPower(MechanicalNode.Graph);
 
     // Keep the batteries charged if there are any. Disregard the supply/demand balance if no suspended consumers.
@@ -245,9 +246,8 @@ abstract class PowerOutputBalancer
       return;
     }
 
-    var currentPower = MechanicalNode.Graph.CurrentPower;
-    var demand = currentPower.PowerDemand + reservedPower;
-    var supply = currentPower.PowerSupply;
+    var demand = MechanicalNode.Graph.PowerDemand + reservedPower;
+    var supply = MechanicalNode.Graph.PowerSupply;
 
     // If the generator is suspended, then it should be resumed only if the demand is greater than the supply.
     if (IsSuspended) {
@@ -259,10 +259,10 @@ abstract class PowerOutputBalancer
     }
 
     // Suspend the generator if the supply is greater than the demand.
-    if (supply - MechanicalNode.PowerOutput >= demand) {
+    if (supply - MechanicalNode.Actuals.PowerOutput >= demand) {
       ResumeDelayedAction.Reset();
       // Inactive generators don't need hysteresis.
-      SuspendDelayedAction.Execute(Suspend, MechanicalNode.PowerOutput == 0);
+      SuspendDelayedAction.Execute(Suspend, MechanicalNode.Actuals.PowerOutput == 0);
     }
   }
 

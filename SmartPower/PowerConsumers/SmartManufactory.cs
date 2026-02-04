@@ -6,7 +6,6 @@ using System;
 using Bindito.Core;
 using IgorZ.SmartPower.Core;
 using Timberborn.BaseComponentSystem;
-using Timberborn.BlockingSystem;
 using Timberborn.EnterableSystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
@@ -70,9 +69,7 @@ public class SmartManufactory : BaseComponent, IAwakableComponent, IAdjustablePo
 
   /// <inheritdoc/>
   public int UpdateAndGetPowerInput() {
-    if (_mechanicalBuilding.ConsumptionDisabled
-        || _blockableObject && !_blockableObject.IsUnblocked
-        || !_manufactory.HasCurrentRecipe) {
+    if (!_mechanicalNode.Active || !_manufactory.HasCurrentRecipe) {
       AllWorkersOut = MissingIngredients = BlockedOutput = NoFuel = StandbyMode = false;
       if (_powerInputLimiter) {
         _powerInputLimiter.SetDesiredPower(-1);
@@ -102,8 +99,7 @@ public class SmartManufactory : BaseComponent, IAwakableComponent, IAdjustablePo
   const string PowerSavingModeLocKey = "IgorZ.SmartPower.MechanicalBuilding.PowerSavingModeStatus";
 
   ILoc _loc;
-  MechanicalBuilding _mechanicalBuilding;
-  BlockableObject _blockableObject;
+  MechanicalNode _mechanicalNode;
   Manufactory _manufactory;
   Enterable _enterable;
   PowerInputLimiter _powerInputLimiter;
@@ -119,9 +115,8 @@ public class SmartManufactory : BaseComponent, IAwakableComponent, IAdjustablePo
 
   /// <inheritdoc/>
   public void Awake() {
-    _mechanicalBuilding = GetComponent<MechanicalBuilding>();
+    _mechanicalNode = GetComponent<MechanicalNode>();
     _nominalPowerInput = GetComponent<MechanicalNodeSpec>().PowerInput;
-    _blockableObject = GetComponent<BlockableObject>();
     _manufactory = GetComponent<Manufactory>();
     _enterable = GetComponent<Enterable>();
     _powerInputLimiter = GetComponent<PowerInputLimiter>();

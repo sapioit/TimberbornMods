@@ -28,7 +28,7 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
     base.Suspend();
     _goodConsumingToggle.PauseConsumption();
     if (MechanicalNode.Graph != null) {
-      MechanicalNode.UpdateOutput(0);
+      MechanicalNode.SetOutputMultiplier(0);
     }
   }
 
@@ -36,8 +36,7 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
   protected override void Resume() {
     _goodConsumingToggle.ResumeConsumption();
     if (MechanicalNode.Graph != null && _goodConsumingBuilding.HoursUntilNoSupply() > 0) {
-      MechanicalNode.Active = true;
-      MechanicalNode.UpdateOutput(1.0f);
+      MechanicalNode.SetOutputMultiplier(1.0f);
     }
     base.Resume();
   }

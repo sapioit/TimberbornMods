@@ -78,35 +78,35 @@ sealed class MechanicalNodeFragment : IEntityPanelFragment {
   }
 
   void UpdateBatteryText() {
-    _smartPowerService.GetBatteriesStat(_mechanicalNode.Graph, out var batteryTotalCapacity, out _);
+    var batteryTotalCapacity = _mechanicalNode.Graph.BatteryCapacity;
     if (batteryTotalCapacity == 0) {
       _batteryTextLabel.ToggleDisplayStyle(visible: false);
       return;
     }
 
-    var currentPower = _mechanicalNode.Graph.CurrentPower;
-    var totalChargeStr = $"{currentPower.BatteryCharge:0} {_loc.T(PowerCapacitySymbolLocKey)}";
+    var graph = _mechanicalNode.Graph;
+    var totalChargeStr = $"{graph.BatteryCharge:0} {_loc.T(PowerCapacitySymbolLocKey)}";
     var batteryCapacityStr = _loc.T(BatteryCapacityLocKey, batteryTotalCapacity, totalChargeStr);
-    var batteryPowerNeed = currentPower.PowerDemand - currentPower.PowerSupply;
+    var batteryPowerNeed = graph.PowerDemand - graph.PowerSupply;
     string batteryStatus = null;
 
-    if (batteryPowerNeed > 0 && currentPower.BatteryCharge > float.Epsilon) {
+    if (batteryPowerNeed > 0 && graph.BatteryCharge > float.Epsilon) {
       // The network is consuming battery power.
-      var timeLeft = currentPower.BatteryCharge / batteryPowerNeed;
+      var timeLeft = graph.BatteryCharge / batteryPowerNeed;
       var flowStr = _loc.T(
           BatteryDischarging,
           $"{batteryPowerNeed} {_loc.T(PowerSymbolLocKey)}",
           $"{timeLeft:0.0}{_loc.T(HourShortLocKey)}");
       batteryStatus = $"{batteryCapacityStr}\n{flowStr}";
-    } else if (batteryPowerNeed < 0 && currentPower.BatteryCharge < batteryTotalCapacity) {
+    } else if (batteryPowerNeed < 0 && graph.BatteryCharge < batteryTotalCapacity) {
       // Some discharged batteries being charged using the excess power.
-      var timeLeft = (batteryTotalCapacity - currentPower.BatteryCharge) / -batteryPowerNeed;
+      var timeLeft = (batteryTotalCapacity - graph.BatteryCharge) / -batteryPowerNeed;
       var flowStr = _loc.T(
           BatteryCharging,
           $"{-batteryPowerNeed} {_loc.T(PowerSymbolLocKey)}",
           $"{timeLeft:0.0}{_loc.T(HourShortLocKey)}");
       batteryStatus = $"{batteryCapacityStr}\n{flowStr}";
-    } else if (batteryPowerNeed > 0 && currentPower.BatteryCharge < float.Epsilon) {
+    } else if (batteryPowerNeed > 0 && graph.BatteryCharge < float.Epsilon) {
       // Batteries depleted.
       batteryStatus = $"{batteryCapacityStr}\n{_loc.T(BatteryDepletedLocKey)}";
     } else {
