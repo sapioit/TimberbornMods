@@ -2,7 +2,6 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-using Bindito.Core;
 using IgorZ.SmartPower.Settings;
 using Timberborn.BlockingSystem;
 
@@ -28,18 +27,12 @@ sealed class SmartWalkerPoweredGenerator : PowerOutputBalancer {
 
   #region Implementation
 
-  WalkerPoweredGeneratorSettings _settings;
   BlockableObject _blockableObject;
 
-  [Inject]
-  public void InjectDependencies(WalkerPoweredGeneratorSettings settings) {
-    _settings = settings;
-  }
-
   public override void Awake() {
-    ShowFloatingIcon = _settings.ShowFloatingIcon.Value;
-    SuspendDelayedAction = SmartPowerService.GetTimeDelayedAction(_settings.SuspendDelayMinutes.Value);
-    ResumeDelayedAction = SmartPowerService.GetTimeDelayedAction(_settings.ResumeDelayMinutes.Value);
+    ShowFloatingIcon = WalkerPoweredGeneratorSettings.ShowFloatingIcon;
+    SuspendDelayedAction = SmartPowerService.GetTimeDelayedAction(WalkerPoweredGeneratorSettings.SuspendDelayMinutes);
+    ResumeDelayedAction = SmartPowerService.GetTimeDelayedAction(WalkerPoweredGeneratorSettings.ResumeDelayMinutes);
     base.Awake();
 
     _blockableObject = GetComponent<BlockableObject>();

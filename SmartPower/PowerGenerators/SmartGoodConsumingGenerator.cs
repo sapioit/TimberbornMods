@@ -2,7 +2,6 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
-using Bindito.Core;
 using IgorZ.SmartPower.Settings;
 using Timberborn.BlockSystem;
 using Timberborn.GoodConsumingBuildingSystem;
@@ -42,7 +41,7 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
   }
 
   public override void Awake() {
-    ShowFloatingIcon = _settings.ShowFloatingIcon.Value;
+    ShowFloatingIcon = GoodConsumingGeneratorSettings.ShowFloatingIcon;
     base.Awake();
 
     _goodConsumingBuilding = GetComponent<GoodConsumingBuilding>();
@@ -53,14 +52,8 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
 
   #region Implementation
 
-  GoodConsumingGeneratorSettings _settings;
   GoodConsumingBuilding _goodConsumingBuilding;
   GoodConsumingToggle _goodConsumingToggle;
-
-  [Inject]
-  public void InjectDependencies(GoodConsumingGeneratorSettings settings) {
-    _settings = settings;
-  }
 
   #endregion
 }
