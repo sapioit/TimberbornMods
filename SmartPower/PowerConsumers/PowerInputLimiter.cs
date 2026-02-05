@@ -185,14 +185,12 @@ sealed class PowerInputLimiter
   const string ShutdownStatusIcon = "IgorZ/status-icon-standby";
   const string PowerShutdownModeLocKey = "IgorZ.SmartPower.PowerInputLimiter.PowerShutdownModeStatus";
 
-  ILoc _loc;
-  SmartPowerService _smartPowerService;
-  AttractionConsumerSettings _attractionConsumerSettings;
-  UnmannedConsumerSettings _unmannedConsumerSettings;
-  WorkplaceConsumerSettings _workplaceConsumerSettings;
+  readonly ILoc _loc;
+  readonly SmartPowerService _smartPowerService;
 
   BlockableObject _blockableObject;
   StatusToggle _shutdownStatus;
+  IAdjustablePowerInput _adjustablePowerInput;
 
   int _nominalPowerInput;
   MechanicalNode _mechanicalNode;
@@ -203,17 +201,9 @@ sealed class PowerInputLimiter
 
   bool SmartLogicActive => Enabled && Automate && _blockableObject.IsUnblocked;
 
-  /// <summary>It must be public for the injection logic to work.</summary>
-  [Inject]
-  public void InjectDependencies(ILoc loc, SmartPowerService smartPowerService,
-                                 AttractionConsumerSettings attractionConsumerSettings,
-                                 UnmannedConsumerSettings unmannedConsumerSettings,
-                                 WorkplaceConsumerSettings workplaceConsumerSettings) {
+  PowerInputLimiter(ILoc loc, SmartPowerService smartPowerService) {
     _loc = loc;
     _smartPowerService = smartPowerService;
-    _attractionConsumerSettings = attractionConsumerSettings;
-    _unmannedConsumerSettings = unmannedConsumerSettings;
-    _workplaceConsumerSettings = workplaceConsumerSettings;
   }
 
   public void Awake() {
@@ -224,22 +214,22 @@ sealed class PowerInputLimiter
     _blockableObject.ObjectBlocked += UpdateStateWhilePaused;
     _blockableObject.ObjectUnblocked += UpdateStateWhilePaused;
     _adjustablePowerInput = GetComponent<IAdjustablePowerInput>();
-    
+
     bool showFloatingIcon;
     if (GetComponent<Attraction>()) {
-      showFloatingIcon = _attractionConsumerSettings.ShowFloatingIcon.Value;
+      showFloatingIcon = AttractionConsumerSettings.ShowFloatingIcon;
       _suspendDelayedAction =
-          _smartPowerService.GetTimeDelayedAction(_attractionConsumerSettings.SuspendDelayMinutes.Value);
+          _smartPowerService.GetTimeDelayedAction(AttractionConsumerSettings.SuspendDelayMinutes);
       _resumeDelayedAction =
-          _smartPowerService.GetTimeDelayedAction(_attractionConsumerSettings.ResumeDelayMinutes.Value);
+          _smartPowerService.GetTimeDelayedAction(AttractionConsumerSettings.ResumeDelayMinutes);
     } else if (GetComponent<Workplace>()) {
-      showFloatingIcon = _workplaceConsumerSettings.ShowFloatingIcon.Value;
+      showFloatingIcon = WorkplaceConsumerSettings.ShowFloatingIcon;
       _suspendDelayedAction =
-          _smartPowerService.GetTimeDelayedAction(_workplaceConsumerSettings.SuspendDelayMinutes.Value);
+          _smartPowerService.GetTimeDelayedAction(WorkplaceConsumerSettings.SuspendDelayMinutes);
       _resumeDelayedAction =
-          _smartPowerService.GetTimeDelayedAction(_workplaceConsumerSettings.ResumeDelayMinutes.Value);
+          _smartPowerService.GetTimeDelayedAction(WorkplaceConsumerSettings.ResumeDelayMinutes);
     } else {
-      showFloatingIcon = _unmannedConsumerSettings.ShowFloatingIcon.Value;
+      showFloatingIcon = UnmannedConsumerSettings.ShowFloatingIcon;
       _suspendDelayedAction = _smartPowerService.GetTickDelayedAction(1);
       _resumeDelayedAction = _smartPowerService.GetTickDelayedAction(1);
     }
