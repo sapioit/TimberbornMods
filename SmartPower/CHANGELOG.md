@@ -1,3 +1,6 @@
+# v1.15.1 (February 4th, 2026)
+* [Fix] Mod crashes on buildings without adjustable power module.
+
 # v1.15.0 (February 3rd, 2026)
 * [Enhancement] Added Simplified Chinese localization.
 * [Change] Update to support game version `1.0.8.1`.

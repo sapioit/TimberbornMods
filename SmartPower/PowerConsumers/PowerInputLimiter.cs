@@ -99,11 +99,13 @@ sealed class PowerInputLimiter
     }
 
     // Update adjusted power input if needed.
-    var adjustablePowerInput = GetComponent<IAdjustablePowerInput>();
-    var newInputPower = adjustablePowerInput.UpdateAndGetPowerInput();
-    if (_mechanicalNode.Actuals.PowerInput != newInputPower) {
-      HostedDebugLog.Fine(this, "Adjusting power input: {0} => {1}", _mechanicalNode.Actuals.PowerInput, newInputPower);
-      _mechanicalNode.Actuals.SetPowerInput(newInputPower);
+    if (_adjustablePowerInput != null) {
+      var newInputPower = _adjustablePowerInput.UpdateAndGetPowerInput();
+      if (_mechanicalNode.Actuals.PowerInput != newInputPower) {
+        HostedDebugLog.Fine(
+            this, "Adjusting power input: {0} => {1}", _mechanicalNode.Actuals.PowerInput, newInputPower);
+        _mechanicalNode.Actuals.SetPowerInput(newInputPower);
+      }
     }
   }
 
@@ -221,6 +223,7 @@ sealed class PowerInputLimiter
     _blockableObject = GetComponent<BlockableObject>();
     _blockableObject.ObjectBlocked += UpdateStateWhilePaused;
     _blockableObject.ObjectUnblocked += UpdateStateWhilePaused;
+    _adjustablePowerInput = GetComponent<IAdjustablePowerInput>();
     
     bool showFloatingIcon;
     if (GetComponent<Attraction>()) {
