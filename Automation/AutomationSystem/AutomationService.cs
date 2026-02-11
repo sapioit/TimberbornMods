@@ -49,6 +49,10 @@ public sealed class AutomationService : ITickableSingleton, ILoadableSingleton {
 
   #region API
 
+  /// <summary>The automation service instance shortcut.</summary>
+  /// <remarks>Don't waste loading time and memory by injecting it. Use directly!</remarks>
+  public static AutomationService Instance { get; private set; }
+
   /// <summary>Ticks since the game load.</summary>
   /// <remarks>Can be used for synchronization and delaying actions.</remarks>
   public static int CurrentTick { get; private set; }
@@ -150,6 +154,7 @@ public sealed class AutomationService : ITickableSingleton, ILoadableSingleton {
   CleanupComponent _cleanupRulesComponent;
 
   AutomationService(EventBus eventBus, Highlighter highlighter, BaseInstantiator baseInstantiator, ILoc loc) {
+    Instance = this;
     EventBus = eventBus;
     BaseInstantiator = baseInstantiator;
     Loc = loc;
