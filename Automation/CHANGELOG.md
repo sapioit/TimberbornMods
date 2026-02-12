@@ -1,4 +1,7 @@
-# v3.4.0 (January 20th, 2026):
+# v3.4.1 (started on February 11th, 2026):
+* [Change] On the building copy (construction or settings), the automation rules are now copied only if the buildings are _of the same type_.
+
+# v3.4.0 (February 2nd, 2026):
 * [Feature] The stock game "copy building settings" feature is now also copying the automation rules.
 * [Feature] Rules can now be selectively enabled or disabled. The disabled rules stay on the building, but they won't be executed until enabled.
 * [Feature] Rules order can now be changed via the rules editor dialog. Note that it doesn't affect the execution logic. It's a purely cosmetic function.

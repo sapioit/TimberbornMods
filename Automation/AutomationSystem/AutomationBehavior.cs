@@ -314,7 +314,7 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
 
   /// <inheritdoc/>
   public void DuplicateFrom(AutomationBehavior source) {
-    if (source.Actions.Count == 0) {
+    if (source.Actions.Count == 0 || Name != source.Name) {
       return;
     }
     HostedDebugLog.Info(this, "Duplicating {0} rules from {1}", source.Actions.Count, source);
