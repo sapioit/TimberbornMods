@@ -44,16 +44,15 @@ sealed class EntityPanelSettings : BaseSettings<EntityPanelSettings> {
 
   public static bool EvalValuesInConditions { get; private set; }
   public ModSetting<bool> EvalValuesInConditionsInternal { get; } =
-    new(false, ModSettingDescriptor.CreateLocalized(EvalValuesInConditionsLocKey));
+      new(false, ModSettingDescriptor.CreateLocalized(EvalValuesInConditionsLocKey));
 
   public static bool EvalValuesInActionArguments { get; private set; }
   public ModSetting<bool> EvalValuesInActionArgumentsInternal { get; } =
-    new(true, ModSettingDescriptor.CreateLocalized(EvalValuesInActionArgumentsLocKey));
+      new(true, ModSettingDescriptor.CreateLocalized(EvalValuesInActionArgumentsLocKey));
 
   public static int MaxRulesShown { get; private set; }
-
   public ModSetting<int> MaxRulesShownInternal { get; } =
-    new(6, ModSettingDescriptor.CreateLocalized(MaxRulesShownLocKey));
+      new(6, ModSettingDescriptor.CreateLocalized(MaxRulesShownLocKey));
 
   // ReSharper restore MemberCanBePrivate.Global
   // ReSharper restore InconsistentNaming
