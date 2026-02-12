@@ -111,7 +111,6 @@ sealed class RuleRow {
       _pauseRuleBtn.ToggleDisplayStyle(!IsInEditMode && _isEnabled);
       _resumeRuleBtn.ToggleDisplayStyle(!IsInEditMode && !_isEnabled);
       CheckIfModified();
-      SwitchToViewMode();
     }
   }
   bool _isEnabled = true;
@@ -210,6 +209,7 @@ sealed class RuleRow {
     }
 
     IsInEditMode = false;
+    IsEnabled = IsEnabled;  // Refresh buttons state. It depends on the edit mode.
     OnStateChanged?.Invoke(this, EventArgs.Empty);
   }
 
