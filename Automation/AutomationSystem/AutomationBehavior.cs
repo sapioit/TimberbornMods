@@ -317,11 +317,13 @@ public sealed class AutomationBehavior : BaseComponent, IAwakableComponent, IIni
     if (source.Actions.Count == 0 || Name != source.Name) {
       return;
     }
-    HostedDebugLog.Info(this, "Duplicating {0} rules from {1}", source.Actions.Count, source);
-    ClearAllRules();
-    foreach (var action in source.Actions) {
-      AddRule(action.Condition.CloneDefinition(), action.CloneDefinition());
-    }
+    AutomationService.Instance.ScheduleLateUpdateOnce("duplication", () => {
+      HostedDebugLog.Info(this, "Duplicating {0} rules from {1}", source.Actions.Count, source);
+      ClearAllRules();
+      foreach (var action in source.Actions) {
+        AddRule(action.Condition.CloneDefinition(), action.CloneDefinition());
+      }
+    });
   }
 
   #endregion

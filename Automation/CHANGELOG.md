@@ -1,5 +1,7 @@
 # v3.4.1 (started on February 11th, 2026):
 * [Change] On the building copy (construction or settings), the automation rules are now copied only if the buildings are _of the same type_.
+* [Fix #136] Rule copying results in "parsing error" in the copied rules.
+* [Fix] When building a copied structure with rules in the finished state (dev mode), the game could crash. 
 
 # v3.4.0 (February 2nd, 2026):
 * [Feature] The stock game "copy building settings" feature is now also copying the automation rules.
