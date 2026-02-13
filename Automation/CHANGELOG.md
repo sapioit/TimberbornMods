@@ -1,4 +1,4 @@
-# v3.4.1 (started on February 11th, 2026):
+# v3.4.1 (February 12th, 2026):
 * [Change] On the building copy (construction or settings), the automation rules are now copied only if the buildings are _of the same type_.
 * [Fix #135] Game crash when trying reordering the rules #135.
 * [Fix #136] Rule copying results in "parsing error" in the copied rules.
