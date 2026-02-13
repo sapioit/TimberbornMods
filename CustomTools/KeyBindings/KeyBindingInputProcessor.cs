@@ -25,10 +25,9 @@ class KeyBindingInputProcessor(
   }
 
   public bool ProcessInput() {
-    var res = TrySelectingTool(PauseToolKeyBindingId, pauseTool.ToolSpec.GroupId, pauseTool)
+    return TrySelectingTool(PauseToolKeyBindingId, pauseTool.ToolSpec.GroupId, pauseTool)
         || TrySelectingTool(ResumeToolKeyBindingId, resumeTool.ToolSpec.GroupId, resumeTool)
         || TrySelectingTool(DebugFinishAllToolKeyBindingId, debugFinishNowTool.ToolSpec.GroupId, debugFinishNowTool);
-    return res;
   }
 
   bool TrySelectingTool(string bindingId, string groupId, ITool tool) {
