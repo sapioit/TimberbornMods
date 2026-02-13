@@ -16,11 +16,11 @@ sealed class Configurator : IConfigurator {
     containerDefinition.MultiBind<IEditorButtonProvider>().To<CopyRuleButtonProvider>().AsSingleton();
     containerDefinition.MultiBind<IEditorButtonProvider>().To<InvertRuleButtonProvider>().AsSingleton();
 
-    containerDefinition.Bind<ExportRulesDialog>().AsSingleton();
+    containerDefinition.Bind<ExportRulesDialog>().AsTransient();
     containerDefinition.Bind<ExpressionDescriber>().AsSingleton();
-    containerDefinition.Bind<ImportRulesDialog>().AsSingleton();
+    containerDefinition.Bind<ImportRulesDialog>().AsTransient();
     containerDefinition.Bind<RuleRow>().AsTransient();
-    containerDefinition.Bind<RulesEditorDialog>().AsSingleton();
-    containerDefinition.Bind<SignalsEditorDialog>().AsSingleton();
+    containerDefinition.Bind<RulesEditorDialog>().AsTransient();
+    containerDefinition.Bind<SignalsEditorDialog>().AsTransient();
   }
 }

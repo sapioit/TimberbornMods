@@ -13,6 +13,7 @@ using IgorZ.Automation.ScriptingEngine.ScriptableComponents.Components;
 using IgorZ.Automation.ScriptingEngineUI;
 using IgorZ.Automation.Settings;
 using IgorZ.TimberDev.UI;
+using IgorZ.TimberDev.Utils;
 using Timberborn.BaseComponentSystem;
 using Timberborn.CoreUI;
 using Timberborn.EntityPanelSystem;
@@ -45,14 +46,10 @@ sealed class AutomationFragment : IEntityPanelFragment, ISignalListener {
   const string ClearSignalsBtnHintLocKey = "IgorZ.Automation.AutomationFragment.ClearSignalsBtnHint";
 
   readonly UiFactory _uiFactory;
-  readonly RulesEditorDialog _rulesEditorDialog;
-  readonly SignalsEditorDialog _signalsEditorDialog;
   readonly CopyRulesTool _copyRulesTool;
   readonly ScriptingService _scriptingService;
   readonly RulesUIHelper _rulesHelper;
   readonly ITooltipRegistrar _tooltipRegistrar;
-  readonly ImportRulesDialog _importRulesDialog;
-  readonly ExportRulesDialog _exportRulesDialog;
 
   VisualElement _root;
 
@@ -77,19 +74,13 @@ sealed class AutomationFragment : IEntityPanelFragment, ISignalListener {
   int _automationBehaviorVersion = -1;
   readonly List<SignalOperator> _signalConditionExpressions = [];
 
-  AutomationFragment(UiFactory uiFactory, RulesEditorDialog rulesEditorDialog, SignalsEditorDialog signalsEditorDialog,
-                     CopyRulesTool copyRulesTool, ScriptingService scriptingService,
-                     RulesUIHelper rulesHelper, ITooltipRegistrar tooltipRegistrar,
-                     ImportRulesDialog importRulesDialog, ExportRulesDialog exportRulesDialog) {
+  AutomationFragment(UiFactory uiFactory, CopyRulesTool copyRulesTool, ScriptingService scriptingService,
+                     RulesUIHelper rulesHelper, ITooltipRegistrar tooltipRegistrar) {
     _uiFactory = uiFactory;
-    _rulesEditorDialog = rulesEditorDialog;
-    _signalsEditorDialog = signalsEditorDialog;
     _copyRulesTool = copyRulesTool;
     _scriptingService = scriptingService;
     _rulesHelper = rulesHelper;
     _tooltipRegistrar = tooltipRegistrar;
-    _importRulesDialog = importRulesDialog;
-    _exportRulesDialog = exportRulesDialog;
   }
 
   #region ISignalListener implementation
@@ -109,15 +100,24 @@ sealed class AutomationFragment : IEntityPanelFragment, ISignalListener {
 
     // Import/Export fragment section.
     var importButton = _root.Q2<Button>("ImportRulesButton");
-    importButton.clicked += () => _importRulesDialog.WithBuilding(_automationBehavior).Show();
+    importButton.clicked += () => {
+      var importRulesDialog = StaticBindings.DependencyContainer.GetInstance<ImportRulesDialog>();
+      importRulesDialog.WithBuilding(_automationBehavior).Show();
+    };
     _tooltipRegistrar.RegisterLocalizable(importButton, ImportRulesBtnHintLocKey);
     var exportButton = _root.Q2<Button>("ExportRulesButton");
-    exportButton.clicked += () => _exportRulesDialog.WithActions(_automationBehavior.Actions).Show();
+    exportButton.clicked += () => {
+      var exportRulesDialog = StaticBindings.DependencyContainer.GetInstance<ExportRulesDialog>(); 
+      exportRulesDialog.WithActions(_automationBehavior.Actions).Show();
+    };
     _tooltipRegistrar.RegisterLocalizable(exportButton, ExportRulesBtnHintLocKey);
 
     // Setup signals fragment section.
     var setupSignalsButton = _root.Q2<Button>("SetupSignalsButton");
-    setupSignalsButton.clicked += () => _signalsEditorDialog.WithUiHelper(_rulesHelper).Show();
+    setupSignalsButton.clicked += () => {
+      var signalsEditorDialog = StaticBindings.DependencyContainer.GetInstance<SignalsEditorDialog>();
+      signalsEditorDialog.WithUiHelper(_rulesHelper).Show();
+    };
     _tooltipRegistrar.RegisterLocalizable(setupSignalsButton, SetupSignalsBtnHintLocKey);
     _copySignalsButton = _root.Q2<Button>("CopySignalsButton");
     _copySignalsButton.clicked += () => _copyRulesTool.StartTool(_rulesHelper, CopyRulesTool.CopyMode.CopySignals);
@@ -134,7 +134,10 @@ sealed class AutomationFragment : IEntityPanelFragment, ISignalListener {
 
     // Setup rules fragment section.
     var setupRulesButton = _root.Q2<Button>("SetupRulesButton");
-    setupRulesButton.clicked += () => _rulesEditorDialog.WithUiHelper(_rulesHelper).Show();
+    setupRulesButton.clicked += () => {
+      var rulesEditorDialog = StaticBindings.DependencyContainer.GetInstance<RulesEditorDialog>();
+      rulesEditorDialog.WithUiHelper(_rulesHelper).Show();
+    };
     _tooltipRegistrar.RegisterLocalizable(setupRulesButton, SetupRulesBtnHintLocKey);
     _copyRulesButton = _root.Q2<Button>("CopyRulesButton");
     _copyRulesButton.clicked += () => _copyRulesTool.StartTool(_rulesHelper, CopyRulesTool.CopyMode.CopyRules);
@@ -236,6 +239,7 @@ sealed class AutomationFragment : IEntityPanelFragment, ISignalListener {
       }
       row.Q2<VisualElement>("Container").SetEnabled(action.Condition.IsActive);
 
+      // FIXME: make all descriptions from the UI helper.
       string conditionText;
       if (EntityPanelSettings.RulesDescriptionStyle == EntityPanelSettings.DescriptionStyle.HumanReadable
           || action.Condition is not ScriptedCondition scriptedCondition) {

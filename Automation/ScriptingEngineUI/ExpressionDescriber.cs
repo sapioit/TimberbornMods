@@ -14,7 +14,7 @@ using Timberborn.Localization;
 namespace IgorZ.Automation.ScriptingEngineUI;
 
 /// <summary>Makes a human-readable description of the parsed expression.</summary>
-sealed class ExpressionDescriber {
+sealed class ExpressionDescriber(ILoc Loc) {
 
   const string AndOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.AndOperator";
   const string OrOperatorLocKey = "IgorZ.Automation.Scripting.Expressions.OrOperator";
@@ -27,12 +27,6 @@ sealed class ExpressionDescriber {
   }
 
   #region Implementation
-
-  readonly ILoc _loc;
-
-  ExpressionDescriber(ILoc loc) {
-    _loc = loc;
-  }
 
   string DescribeExpressionInternal(IExpression expression) {
     return expression switch {
@@ -78,7 +72,7 @@ sealed class ExpressionDescriber {
       try {
         rightValue = op.Right.ValueFn().FormatValue(op.ResultValueDef);
       } catch (ScriptError.BadValue e) {
-        rightValue = _loc.T(e.LocKey);
+        rightValue = Loc.T(e.LocKey);
       }
       sb.Append(rightValue);
     } else {
@@ -106,11 +100,11 @@ sealed class ExpressionDescriber {
   string DescribeLogicalOperator(LogicalOperator op) {
     if (op.OperatorType == LogicalOperator.OpType.Not) {
       var value = DescribeLeft(op.Operands[0], op);
-      return $"{_loc.T(NotOperatorLocKey)} {value}";
+      return $"{Loc.T(NotOperatorLocKey)} {value}";
     }
     var displayName = op.OperatorType switch {
-        LogicalOperator.OpType.And => _loc.T(AndOperatorLocKey),
-        LogicalOperator.OpType.Or => _loc.T(OrOperatorLocKey),
+        LogicalOperator.OpType.And => Loc.T(AndOperatorLocKey),
+        LogicalOperator.OpType.Or => Loc.T(OrOperatorLocKey),
         _ => throw new InvalidOperationException($"Unsupported operator: {op.OperatorType}"),
     };
 
@@ -174,7 +168,7 @@ sealed class ExpressionDescriber {
         try {
           value = operand!.ValueFn();
         } catch (ScriptError.BadValue e) {
-          return _loc.T(e.LocKey);
+          return Loc.T(e.LocKey);
         }
         args[i] = value.FormatValue(op.ActionDef.Arguments[i]);
       } else {

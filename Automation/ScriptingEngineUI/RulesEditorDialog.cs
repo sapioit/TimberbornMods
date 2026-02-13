@@ -62,7 +62,7 @@ sealed class RulesEditorDialog : AbstractDialog {
   public IReadOnlyList<RuleRow> RuleRows => _ruleRows;
 
   /// <summary>The scrolling view that holds the rules.</summary>
-  public ScrollView ContentScrollView => _contentScrollView ??= Root.Q<ScrollView>("Content");
+  public ScrollView ContentScrollView => _contentScrollView ??= Root.Q<ScrollView>();
   ScrollView _contentScrollView;
 
   public RulesEditorDialog WithUiHelper(RulesUIHelper rulesUiHelper) {

@@ -9,8 +9,8 @@
     <engine:VisualElement class="content-row-centered">
         <engine:Instance template="NamedBoxTemplate" style="width: 850px; height: 700px;">
             <AttributeOverrides element-name="Header" text-loc-key="IgorZ.Automation.Scripting.Editor.DialogHeader"/>
-            <engine:VisualElement name="ScrollViewWrapper" class="scroll--green-decorated" style="flex-grow: 1; width: 100%;">
-                <engine:ScrollView name="Content">
+            <engine:VisualElement class="scroll--green-decorated" style="flex-grow: 1; width: 100%;">
+                <engine:ScrollView>
                     <engine:VisualElement style="flex-grow: 1;">
                         <engine:VisualElement name="RuleRowsContainer">
                             <engine:Instance template="RuleRow"/>
