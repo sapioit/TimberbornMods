@@ -28,12 +28,6 @@ public abstract class AbstractLockingTool : AbstractAreaSelectionTool {
   const string SelectingNObjectsLoc = "IgorZ.CustomTools.LockSelectTool.SelectingNObjects";
   const string DescriptionHint = "IgorZ.CustomTools.LockSelectTool.DescriptionHint";
 
-  #region Local fields and properties
-
-  EntityBadgeService _entityBadgeService;
-
-  #endregion
-
   #region CustomTool overrides
 
   /// <inheritdoc/>
@@ -123,23 +117,13 @@ public abstract class AbstractLockingTool : AbstractAreaSelectionTool {
   /// <remarks>If entity name can't be obtained, then the prefab name is returned.</remarks>
   protected string GetEntityNiceName(BaseComponent obj) {
     string niceName;
-    if (obj.TryGetComponent<EntityComponent>(out var component)) {
-      niceName = _entityBadgeService.GetEntityName(component);
+    if (obj.TryGetComponent<LabeledEntity>(out var component)) {
+      niceName = component.DisplayName;
     } else {
       DebugEx.Error("Cannot get entity for: {0}", obj);
       niceName = obj.Name;
     }
     return niceName;
-  }
-
-  #endregion
-
-  #region Local methods
-
-  /// <summary>Injects the dependencies. It has to be public to work.</summary>
-  [Inject]
-  public void InjectDependencies(EntityBadgeService entityBadgeService) {
-    _entityBadgeService = entityBadgeService;
   }
 
   #endregion
