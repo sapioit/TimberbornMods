@@ -14,6 +14,11 @@ namespace IgorZ.CustomTools.Core;
 /// "TemplateCollections/TemplateCollection.BottomBar.CustomTools.blueprint".
 /// </remarks>
 public record CustomToolSpec : ComponentSpec {
+  /// <summary>The tool unique ID.</summary>
+  /// <remarks>Not yet used.</remarks>
+  [Serialize]
+  public string Id { get; init; }
+
   /// <summary>The group to attach this tool to.</summary>
   /// <remarks>This should be a standard group, defined via <see cref="ToolGroupSpec"/></remarks>
   [Serialize]
