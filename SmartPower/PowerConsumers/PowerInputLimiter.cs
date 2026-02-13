@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bindito.Core;
 using IgorZ.SmartPower.Core;
 using IgorZ.SmartPower.Settings;
 using IgorZ.SmartPower.Utils;
@@ -14,6 +13,7 @@ using Timberborn.Attractions;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
+using Timberborn.Buildings;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
@@ -189,6 +189,7 @@ sealed class PowerInputLimiter
   readonly SmartPowerService _smartPowerService;
 
   BlockableObject _blockableObject;
+  PausableBuilding _pausableBuilding;
   StatusToggle _shutdownStatus;
   IAdjustablePowerInput _adjustablePowerInput;
 
@@ -199,7 +200,7 @@ sealed class PowerInputLimiter
 
   int _desiredPower;
 
-  bool SmartLogicActive => Enabled && Automate && _blockableObject.IsUnblocked;
+  bool SmartLogicActive => Enabled && Automate && !_pausableBuilding.Paused;
 
   PowerInputLimiter(ILoc loc, SmartPowerService smartPowerService) {
     _loc = loc;
@@ -211,8 +212,8 @@ sealed class PowerInputLimiter
     _nominalPowerInput = GetComponent<MechanicalNodeSpec>().PowerInput;
     _desiredPower = _nominalPowerInput;
     _blockableObject = GetComponent<BlockableObject>();
-    _blockableObject.ObjectBlocked += UpdateStateWhilePaused;
-    _blockableObject.ObjectUnblocked += UpdateStateWhilePaused;
+    _pausableBuilding = GetComponent<PausableBuilding>();
+    _pausableBuilding.PausedChanged += UpdateStateWhilePaused;
     _adjustablePowerInput = GetComponent<IAdjustablePowerInput>();
 
     bool showFloatingIcon;
@@ -242,7 +243,7 @@ sealed class PowerInputLimiter
     DisableComponent();
   }
 
-  // Let the normal tick logic updating during teh game. On pause, the update has a purely cosmetic effect.
+  // Let the normal tick logic updating during the game. On pause, the update has a purely cosmetic effect.
   void UpdateStateWhilePaused(object sender, EventArgs args) {
     if (SmartPowerService.IsGamePaused) {
       UpdateState();

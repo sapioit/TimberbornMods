@@ -1,3 +1,6 @@
+# v1.15.2 (February 13th, 2026)
+* [Fix] Manufactories in the unpowered network enter suspend/resume cycle.
+
 # v1.15.1 (February 4th, 2026)
 * [Fix] Mod crashes on buildings without adjustable power module.
 
