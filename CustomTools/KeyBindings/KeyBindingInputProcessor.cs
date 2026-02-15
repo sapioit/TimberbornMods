@@ -14,13 +14,14 @@ namespace IgorZ.CustomTools.KeyBindings;
 class KeyBindingInputProcessor(
     DebugFinishNowTool debugFinishNowTool, PauseTool pauseTool, ResumeTool resumeTool,
     ToolService toolService, ToolGroupService toolGroupService, InputService inputService)
-    : ILoadableSingleton, IInputProcessor {
+    : IPostLoadableSingleton, IInputProcessor {
 
   const string PauseToolKeyBindingId = "IgorZ-CustomTools-PauseTool";
   const string ResumeToolKeyBindingId = "IgorZ-CustomTools-ResumeTool";
   const string DebugFinishAllToolKeyBindingId = "IgorZ-CustomTools-DebugFinishNowTool";
 
-  public void Load() {
+  public void PostLoad() {
+    // Need to eb called after all other processors to be able to block the modifiers.
     inputService.AddInputProcessor(this);
   }
 
