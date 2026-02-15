@@ -31,7 +31,9 @@ static class CustomizableInstantiator {
   /// </param>
   /// <param name="patchFn">The method to call on the prefab being patched.</param>
   public static void AddPatcher(string patchId, Action<Blueprint, List<object>> patchFn) {
-    HarmonyPatcher.PatchRepeated(HarmonyPatchId, typeof(BaseInstantiatorPatch));
+    if (!Harmony.HasAnyPatches(HarmonyPatchId)) {
+      HarmonyPatcher.ApplyPatch(HarmonyPatchId, typeof(BaseInstantiatorPatch));
+    }
     BaseInstantiatorPatch.Patchers[patchId] = patchFn;
   }
 

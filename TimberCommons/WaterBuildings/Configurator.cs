@@ -17,7 +17,7 @@ sealed class Configurator : IConfigurator {
     containerDefinition.Bind<AdjustableWaterOutput>().AsTransient();
     containerDefinition.Bind<AdjustableWaterOutputMarker>().AsTransient();
     containerDefinition.MultiBind<TemplateModule>().ToProvider<WaterOutputTemplateModuleProvider>().AsSingleton();
-    HarmonyPatcher.PatchRepeated(PatchId, typeof(WaterOutputPatch), typeof(DecoratorDefinitionPatch));
+    HarmonyPatcher.ApplyPatch(PatchId, typeof(WaterOutputPatch), typeof(DecoratorDefinitionPatch));
   }
 
   class WaterOutputTemplateModuleProvider : IProvider<TemplateModule> {

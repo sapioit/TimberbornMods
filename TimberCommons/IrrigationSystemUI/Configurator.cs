@@ -12,7 +12,7 @@ namespace IgorZ.TimberCommons.IrrigationSystemUI;
 [Context("Game")]
 // ReSharper disable once UnusedType.Global
 sealed class Configurator : IConfigurator {
-  static readonly string PatchId = typeof(Configurator).FullName;
+  static readonly string PatchId = typeof(Configurator).AssemblyQualifiedName;
   static readonly Type[] Patches = [
       typeof(GoodConsumingBuildingFragmentPatch),
   ];
@@ -22,7 +22,7 @@ sealed class Configurator : IConfigurator {
     containerDefinition.Bind<IrrigationTowerFragment>().AsSingleton();
     containerDefinition.Bind<GrowthRateModifierFragment>().AsSingleton();
     containerDefinition.MultiBind<EntityPanelModule>().ToProvider<EntityPanelModuleProvider>().AsSingleton();
-    HarmonyPatcher.PatchRepeated(PatchId, Patches);
+    HarmonyPatcher.ApplyPatch(PatchId, Patches);
   }
 
   /// <summary>UI for the irrigation related components.</summary>
