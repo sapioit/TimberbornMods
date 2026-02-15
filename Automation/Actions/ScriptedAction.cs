@@ -99,15 +99,13 @@ sealed class ScriptedAction : AutomationActionBase {
       Behavior.ReportError(this);  // The error can be a runtime error, loaded from the persistent state.
       return;
     }
-    _installedActions = StaticBindings.DependencyContainer.GetInstance<ScriptingService>()
-        .InstallActions(_parsedExpression, Behavior);
+    _installedActions = ScriptingService.Instance.InstallActions(_parsedExpression, Behavior);
   }
 
   /// <inheritdoc/>
   protected override void OnBehaviorToBeCleared() {
     if (_installedActions != null) {
-      var scriptingService = StaticBindings.DependencyContainer.GetInstance<ScriptingService>();
-      scriptingService.UninstallActions(_installedActions, Behavior);
+      ScriptingService.Instance.UninstallActions(_installedActions, Behavior);
       _installedActions = null;
     }
     ResetScriptError();

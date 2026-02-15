@@ -91,16 +91,14 @@ sealed class ScriptedCondition : AutomationConditionBase, ISignalListener {
       Behavior.ReportError(this);  // The error can be a runtime error, loaded from the persistent state.
       return;
     }
-    _registeredSignals =
-        StaticBindings.DependencyContainer.GetInstance<ScriptingService>().RegisterSignals(_parsedExpression, this);
+    _registeredSignals = ScriptingService.Instance.RegisterSignals(_parsedExpression, this);
     _canRunOnUnfinishedBuildings = _registeredSignals.Select(x => x.OnUnfinished).Aggregate((x, y) => x || y); 
   }
 
   /// <inheritdoc/>
   protected override void OnBehaviorToBeCleared() {
     if (_registeredSignals != null) {
-      var scriptingService = StaticBindings.DependencyContainer.GetInstance<ScriptingService>();
-      scriptingService.UnregisterSignals(_registeredSignals, this);
+      ScriptingService.Instance.UnregisterSignals(_registeredSignals, this);
     }
     ResetScriptError();
   }
