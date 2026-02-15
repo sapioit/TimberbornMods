@@ -54,7 +54,7 @@ sealed class ActionOperator : AbstractOperator {
       actionName = actionName[..^ActOnceNameSuffix.Length];
     }
     ActionName = actionName;
-    ActionDef = context.ScriptingService.GetActionDefinition(ActionName, context.ScriptHost);
+    ActionDef = ScriptingService.Instance.GetActionDefinition(ActionName, context.ScriptHost);
     if (ActionDef.VarArg == null) {
       AssertNumberOfOperandsExact(ActionDef.Arguments.Length);
     } else {
@@ -90,7 +90,7 @@ sealed class ActionOperator : AbstractOperator {
         });
       }
     }
-    var action = context.ScriptingService.GetActionExecutor(ActionName, context.ScriptHost);
+    var action = ScriptingService.Instance.GetActionExecutor(ActionName, context.ScriptHost);
     Execute = () => action(argValues.Select(v => v()).ToArray());
   }
 }

@@ -20,7 +20,7 @@ abstract class ParserBase {
 
   /// <summary>Parses expression for the given context.</summary>
   public ParsingResult Parse(string input, AutomationBehavior scriptHost) {
-    CurrentContext = new ExpressionContext { ScriptHost = scriptHost, ScriptingService = _scriptingService };
+    CurrentContext = new ExpressionContext { ScriptHost = scriptHost };
     try {
       if (input.Contains("{%")) {
         input = Preprocess(input);
@@ -44,7 +44,7 @@ abstract class ParserBase {
   /// Not simply negates the result, but rebuilds the expression so that it returns the inversed result.
   /// </remarks>
   public BoolOperator InvertBooleanExpression(BoolOperator booleanOperator, AutomationBehavior scriptHost) {
-    CurrentContext = new ExpressionContext { ScriptHost = scriptHost, ScriptingService = _scriptingService };
+    CurrentContext = new ExpressionContext { ScriptHost = scriptHost };
     try {
       return InvertBooleanExpressionInternal(booleanOperator);
     } finally {

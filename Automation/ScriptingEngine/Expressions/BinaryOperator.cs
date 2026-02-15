@@ -60,9 +60,9 @@ sealed class BinaryOperator : BoolOperator {
     }
     SignalDef signalDef = null;
     if (left is SignalOperator leftSignal) {
-      signalDef = context.ScriptingService.GetSignalDefinition(leftSignal.SignalName, context.ScriptHost);
+      signalDef = ScriptingService.Instance.GetSignalDefinition(leftSignal.SignalName, context.ScriptHost);
     } else if (right is SignalOperator rightSignal) {
-      signalDef = context.ScriptingService.GetSignalDefinition(rightSignal.SignalName, context.ScriptHost);
+      signalDef = ScriptingService.Instance.GetSignalDefinition(rightSignal.SignalName, context.ScriptHost);
     }
     if (signalDef != null) {
       var otherArgExpr = left is SignalOperator ? right : left;

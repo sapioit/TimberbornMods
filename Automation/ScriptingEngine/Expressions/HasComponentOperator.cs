@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using IgorZ.Automation.AutomationSystem;
 using IgorZ.Automation.ScriptingEngine.Core;
-using IgorZ.Automation.ScriptingEngine.Parser;
 
 namespace IgorZ.Automation.ScriptingEngine.Expressions;
 
@@ -31,13 +30,11 @@ class HasComponentOperator : BoolOperator {
   }
 
   readonly AutomationBehavior _component;
-  readonly ScriptingService _scriptingService;
 
   HasComponentOperator(OpType opType, ExpressionContext context, IList<IExpression> operands) : base(operands) {
     OperatorType = opType;
     AssertNumberOfOperandsRange(1, -1);
     _component = context.ScriptHost;
-    _scriptingService = context.ScriptingService;
 
     var testStrings = new List<string>();
     foreach (var operand in operands) {
@@ -56,7 +53,7 @@ class HasComponentOperator : BoolOperator {
   bool TrySignals(IList<string> names) {
     try {
       foreach (var name in names) {
-        _scriptingService.GetSignalSource(name, _component);
+        ScriptingService.Instance.GetSignalSource(name, _component);
       }
       return true;
     } catch (ScriptError) {
@@ -67,7 +64,7 @@ class HasComponentOperator : BoolOperator {
   bool TryActions(IList<string> names) {
     try {
       foreach (var name in names) {
-        _scriptingService.GetActionExecutor(name, _component);
+        ScriptingService.Instance.GetActionExecutor(name, _component);
       }
       return true;
     } catch (ScriptError) {
