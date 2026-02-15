@@ -7,7 +7,6 @@ using Bindito.Core;
 namespace IgorZ.Automation.CommonTools;
 
 [Context("Game")]
-[Context("MapEditor")]
 // ReSharper disable once UnusedType.Global
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {

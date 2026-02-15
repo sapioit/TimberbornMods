@@ -1,8 +1,11 @@
+# v3.4.2 (started on February 14th, 2026):
+* [Change] No more automation tools in the map editor.
+
 # v3.4.1 (February 12th, 2026):
 * [Change] On the building copy (construction or settings), the automation rules are now copied only if the buildings are _of the same type_.
 * [Fix #135] Game crash when trying reordering the rules #135.
 * [Fix #136] Rule copying results in "parsing error" in the copied rules.
-* [Fix] When building a copied structure with rules in the finished state (dev mode), the game could crash. 
+* [Fix] When placing a copied structure in finished state (dev mode), the game could crash. 
 
 # v3.4.0 (February 2nd, 2026):
 * [Feature] The stock game "copy building settings" feature is now also copying the automation rules.
