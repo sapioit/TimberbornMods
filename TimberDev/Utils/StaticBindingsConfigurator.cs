@@ -8,7 +8,6 @@ using Bindito.Core;
 namespace IgorZ.TimberDev.Utils;
 
 [Context("Game")]
-[Context("MapEditor")]
 [Context("Menu")]
 class StaticBindingsConfigurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
