@@ -7,7 +7,6 @@ using Bindito.Core;
 namespace IgorZ.CustomTools.Tools;
 
 [Context("Game")]
-[Context("MapEditor")]
 sealed class Configurator : IConfigurator {
   public void Configure(IContainerDefinition containerDefinition) {
     containerDefinition.Bind<DebugFinishNowTool>().AsSingleton();

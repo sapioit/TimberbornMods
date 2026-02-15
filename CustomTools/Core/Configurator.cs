@@ -9,7 +9,6 @@ using ConfigurableToolGroups.UI;
 namespace IgorZ.CustomTools.Core;
 
 [Context("Game")]
-[Context("MapEditor")]
 class Configurator : IConfigurator {
 
   public void Configure(IContainerDefinition containerDefinition) {

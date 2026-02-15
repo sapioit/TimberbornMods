@@ -1,4 +1,7 @@
-﻿# v1.2.1 (2/12/2026)
+﻿# v1.2.2 (started on 2/14/2026)
+* [Change] Custom tools will no longer be shown in map editor.
+
+# v1.2.1 (2/12/2026)
 * [Change] Update to support game `v1.0.10.0`.
 
 # v1.2.0 (12/17/2025)
