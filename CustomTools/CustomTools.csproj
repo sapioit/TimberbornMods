@@ -47,14 +47,22 @@
       <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
       <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Timberborn.*.dll" Publicize="true" />
       <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Timberborn.BlueprintSystem.dll" Publicize="false" />
-      <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Timberborn.ToolSystem.dll" Publicize="false" />
       <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Unity*.dll" Publicize="false"/>
       <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\Bindito.*.dll" Publicize="false"/>
       <Reference Include="..\Dependencies\GameRoot\Timberborn_Data\Managed\UnityEngine.UIElementsModule.dll" Publicize="true"/>
     </ItemGroup>
     <ItemGroup>
+      <Compile Include="..\TimberDev\Utils\HarmonyPatcher.cs">
+        <Link>TimberDev\Utils\HarmonyPatcher.cs</Link>
+      </Compile>
       <Compile Include="..\TimberDev\Utils\ReflectionsHelper.cs">
         <Link>TimberDev\Utils\ReflectionsHelper.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\StaticBindings.cs">
+        <Link>TimberDev\Utils\StaticBindings.cs</Link>
+      </Compile>
+      <Compile Include="..\TimberDev\Utils\StaticBindingsConfigurator.cs">
+        <Link>TimberDev\Utils\StaticBindingsConfigurator.cs</Link>
       </Compile>
       <Compile Include="..\UnityDevLite\DebugEx.cs">
         <Link>UnityDevLite\DebugEx.cs</Link>

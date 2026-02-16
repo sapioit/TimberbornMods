@@ -7,5 +7,13 @@
     "DisplayNameLocKey": "IgorZ.CustomTools.DebugFinishNowTool.Title",
     "DescriptionLocKey": "IgorZ.CustomTools.DebugFinishNowTool.Description",
     "DevMode": true
+  },
+  "KeyBindingSpec": {
+    "Id": "IgorZ-CustomTools-DebugFinishNowTool",
+    "GroupId": "IgorZ-CustomTools-BindingsGroupId",
+    "LocKey": "IgorZ.CustomTools.DebugFinishNowTool.Title",
+    "Order": 10,
+    "AllowOtherModifiers": false,
+    "DevModeOnly": true
   }
 }

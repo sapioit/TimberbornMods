@@ -2,6 +2,7 @@
 // Author: igor.zavoychinskiy@gmail.com
 // License: Public Domain
 
+using IgorZ.CustomTools.Tools;
 using Timberborn.BlueprintSystem;
 using Timberborn.ToolSystem;
 using UnityEngine;
@@ -9,10 +10,6 @@ using UnityEngine;
 namespace IgorZ.CustomTools.Core;
 
 /// <summary>Custom tool specification.</summary>
-/// <remarks>
-/// Blueprints that declare this spec must register in
-/// "TemplateCollections/TemplateCollection.BottomBar.CustomTools.blueprint".
-/// </remarks>
 public record CustomToolSpec : ComponentSpec {
   /// <summary>The tool unique ID.</summary>
   /// <remarks>Not yet used.</remarks>
@@ -24,7 +21,7 @@ public record CustomToolSpec : ComponentSpec {
   [Serialize]
   public string GroupId { get; init; }
 
-  /// <summary>The full name of the class type that implements <see cref="ITool"/>.</summary>
+  /// <summary>The full name of the class type that implements <see cref="AbstractCustomTool"/>.</summary>
   /// <remarks>This class must be instantiable via Bindito. It will be used to serve the tool actions.</remarks>
   [Serialize]
   public string Type { get; init; }

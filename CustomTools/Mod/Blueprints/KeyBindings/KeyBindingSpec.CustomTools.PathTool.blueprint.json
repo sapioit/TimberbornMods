@@ -1,0 +1,13 @@
+{
+  "CustomToolBindingSpec": {
+    "BlockObjectBlueprint": "Path"
+  },
+  "KeyBindingSpec": {
+    "Id": "IgorZ-CustomTools-PathTool",
+    "GroupId": "IgorZ-CustomTools-BindingsGroupId",
+    "LocKey": "Building.Path.DisplayName",
+    "Order": 30,
+    "AllowOtherModifiers": false,
+    "DevModeOnly": false
+  }
+}
