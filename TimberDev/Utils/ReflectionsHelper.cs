@@ -27,10 +27,12 @@ public static class ReflectionsHelper {
   /// <param name="baseType">
   /// If provided, then <paramref name="typeId"/> type will be verified for being a descendant.
   /// </param>
+  /// <param name="needDefaultConstructor">If <c>true</c> then type is required to have a default constructor.</param>
   /// <param name="throwOnError">
   /// If <c>true</c> then method throws when the type cannot be found. Otherwise, <c>null</c> is returned.
   /// </param>
-  public static Type GetType(string typeId, Type baseType = null, bool throwOnError = true) {
+  public static Type GetType(string typeId, Type baseType = null,
+                             bool needDefaultConstructor = true, bool throwOnError = true) {
     if (string.IsNullOrEmpty(typeId)) {
       throw new ArgumentNullException(nameof(typeId));
     }
@@ -40,7 +42,7 @@ public static class ReflectionsHelper {
     string text = null;
     if (type == null) {
       text = $"Cannot find type for typeId: {typeId}";
-    } else if (type.GetConstructor(Type.EmptyTypes) == null) {
+    } else if (needDefaultConstructor && type.GetConstructor(Type.EmptyTypes) == null) {
       text = $"No default constructor in: {type}";
     } else if (baseType != null && !baseType.IsAssignableFrom(type)) {
       text = $"Incompatible types: {baseType} is not assignable from {type}";
