@@ -118,7 +118,8 @@ public sealed class CustomToolsService(
         DebugEx.Error("Custom tool spec specifies unknown group ID: {0}", toolSpec);
         hasLoadErrors = true;
       }
-      var toolType = ReflectionsHelper.GetType(toolSpec.Type, typeof(AbstractCustomTool), throwOnError: false);
+      var toolType = ReflectionsHelper.GetType(toolSpec.Type, typeof(AbstractCustomTool),
+                                               needDefaultConstructor: false, throwOnError: false);
       if (toolType == null) {
         DebugEx.Error("Custom tool spec requests unknown type: {0}", toolSpec);
         hasLoadErrors = true;
