@@ -12,7 +12,6 @@
     "GroupId": "IgorZ-CustomTools-BindingsGroupId",
     "LocKey": "IgorZ.CustomTools.ResumeTool.Title",
     "Order": 12,
-    "AllowOtherModifiers": false,
     "DevModeOnly": false
   }
 }
