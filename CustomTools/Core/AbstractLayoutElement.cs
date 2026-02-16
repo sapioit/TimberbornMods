@@ -79,7 +79,8 @@ abstract class AbstractLayoutElement(
     foreach (var childItem in childItems) {
       if (childItem.ToolSpec != null) {
         var customToolSpec = childItem.ToolSpec;
-        var toolType = ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool));
+        var toolType =
+            ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool), needDefaultConstructor: false);
         var toolInstance = (AbstractCustomTool)_container.GetInstance(toolType);
         toolInstance.InitializeTool(customToolSpec);
         DebugEx.Info("Created tool '{0}' in group '{1}'", toolType, groupId);
