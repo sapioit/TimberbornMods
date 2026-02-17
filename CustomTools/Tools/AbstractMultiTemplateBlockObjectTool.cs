@@ -111,6 +111,11 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
   }
 
   /// <inheritdoc/>
+  public override string GetWarningText() {
+    return _previewPlacer.WarningText;
+  }
+
+  /// <inheritdoc/>
   public override void Enter() {
     _inputService.AddInputProcessor(this);
     _eventBus.Register(this);
