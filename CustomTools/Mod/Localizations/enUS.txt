@@ -1,4 +1,5 @@
 ID,Text,Comment
+IgorZ.CustomTools.BlockObjectTool.UndoHint,"Press <i>Ctrl+Z</i> to undo the last change",
 IgorZ.CustomTools.FourTemplatesBlockObjectTool.ShiftDescriptionHint,"Hold <i>SHIFT</i>: {0}",
 IgorZ.CustomTools.FourTemplatesBlockObjectTool.CtrlDescriptionHint,"Hold <i>CTRL</i>: {0}",
 IgorZ.CustomTools.FourTemplatesBlockObjectTool.AltDescriptionHint,"Hold <i>ALT</i>: {0}",

@@ -4,9 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Timberborn.BlockSystem;
 using Timberborn.EntitySystem;
-using UnityEngine.UIElements;
 
 namespace IgorZ.CustomTools.Tools;
 
@@ -42,7 +42,7 @@ sealed class FourTemplatesBlockObjectTool
     if (_fourTemplatesToolSpec.AltModifierTemplate != null) {
       bullets.Add(Loc.T(AltDescriptionHintLocKey, GetTemplateDescription(ModeType.AltModifier)));
     }
-    DescriptionBullets = bullets.ToArray();
+    DescriptionBullets = DescriptionBullets == null ? bullets.ToArray() : bullets.Concat(DescriptionBullets).ToArray();
   }
 
   string GetTemplateDescription(ModeType mode) {
