@@ -12,5 +12,6 @@ sealed class Configurator : IConfigurator {
     containerDefinition.Bind<DebugFinishNowTool>().AsSingleton();
     containerDefinition.Bind<PauseTool>().AsSingleton();
     containerDefinition.Bind<ResumeTool>().AsSingleton();
+    containerDefinition.Bind<FourTemplatesBlockObjectTool>().AsTransient();
   }
 }

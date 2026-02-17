@@ -1,4 +1,7 @@
 ﻿ID,Text,Comment
+IgorZ.CustomTools.FourTemplatesBlockObjectTool.ShiftDescriptionHint,"Зажмите <i>SHIFT</i>: {0}",
+IgorZ.CustomTools.FourTemplatesBlockObjectTool.CtrlDescriptionHint,"Зажмите <i>CTRL</i>: {0}",
+IgorZ.CustomTools.FourTemplatesBlockObjectTool.AltDescriptionHint,"Зажмите <i>ALT</i>: {0}",
 IgorZ.CustomTools.ToolGroup.Main.DisplayName,"Инструменты",
 IgorZ.CustomTools.LockSelectTool.DescriptionHint,"Удерживайте <i>SHIFT</i>, чтобы выделять здания только одного типа.",
 IgorZ.CustomTools.LockSelectTool.SelectingNObjects,"Выделено: {0} (x{1})","The plural form of TimberDev_Utils.Tools.LockSelectTool.SelectingObject"
