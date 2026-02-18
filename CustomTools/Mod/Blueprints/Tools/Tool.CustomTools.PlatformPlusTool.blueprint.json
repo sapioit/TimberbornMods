@@ -1,6 +1,6 @@
 {
   "CustomToolSpec": {
-    "Id": "CustomTools-FourTemplatesBlockObjectTool",
+    "Id": "CustomTools-PlatformPlusTool",
     "GroupId": "CustomToolsToolGroup",
     "Order": 30,
     "Type": "IgorZ.CustomTools.Tools.FourTemplatesBlockObjectTool",
