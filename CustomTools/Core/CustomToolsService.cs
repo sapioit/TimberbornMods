@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Bindito.Core;
+using IgorZ.CustomTools.KeyBindings;
 using IgorZ.CustomTools.Tools;
 using IgorZ.TimberDev.Utils;
 using Timberborn.BlockObjectTools;
@@ -25,18 +26,33 @@ public sealed class CustomToolsService(
 
   #region API
 
-  /// <summary>All custom tool groups.</summary>
+  /// <summary>All custom tool group specs.</summary>
   public ImmutableArray<CustomToolGroupSpec> CustomGroupSpecs { get; private set; }
 
-  /// <summary>All custom tools.</summary>
+  /// <summary>All custom tool specs.</summary>
   public ImmutableArray<CustomToolSpec> CustomToolSpecs { get; private set; }
+
+  /// <summary>All custom tools instances by their IDs.</summary>
+  public ImmutableDictionary<string, AbstractCustomTool> AllCustomTools => _allCustomTools.ToImmutableDictionary();
+  readonly Dictionary<string, AbstractCustomTool> _allCustomTools = [];
 
   /// <summary>Mapping of blockobject tools to the blueprint name that they place.</summary>
   public ImmutableDictionary<string, BlockObjectTool> BlockObjectTools { get; private set; }
 
+  /// <summary>Activates an arbitrary tool by its type.</summary>
+  /// <remarks>
+  /// The instance will be obtained via Bindito. If the type is no singleton, a new instance will be created and
+  /// activated.
+  /// </remarks>
+  public void SelectToolByType(string toolTypeName) {
+    var toolType = ReflectionsHelper.GetType(toolTypeName, typeof(ITool), needDefaultConstructor: false);
+    SelectTool((ITool)container.GetInstance(toolType));
+  }
+
   /// <summary>Activates the custom tool.</summary>
-  public void SelectTool(AbstractCustomTool tool) {
-    SelectTool(tool, tool.ToolSpec.GroupId);
+  public void SelectToolById(string customToolId) {
+    var customTool = _allCustomTools[customToolId];
+    SelectTool(customTool, customTool.ToolSpec.GroupId);
   }
 
   /// <summary>Activates the generic game tool.</summary>
@@ -65,6 +81,18 @@ public sealed class CustomToolsService(
       toolGroupService.EnterToolGroup(toolGroupSpec);
     }
     toolService.SwitchTool(tool);
+  }
+      
+  internal AbstractCustomTool GetOrCreateCustomTool(CustomToolSpec customToolSpec) {
+    if (!_allCustomTools.TryGetValue(customToolSpec.Id, out var toolInstance)) {
+      var toolType =
+          ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool), needDefaultConstructor: false);
+      toolInstance = (AbstractCustomTool)container.GetInstance(toolType);
+      toolInstance.InitializeTool(customToolSpec);
+      _allCustomTools[customToolSpec.Id] = toolInstance;
+      DebugEx.Info("Created tool '{0}' in group '{1}'", toolType, customToolSpec.GroupId);
+    }
+    return toolInstance;
   }
 
   #endregion
@@ -107,8 +135,19 @@ public sealed class CustomToolsService(
 
     // Load and verify the tool specs.
     CustomToolSpecs = specService.GetSpecs<CustomToolSpec>().ToImmutableArray();
+    HashSet<string> uniqueIds = [];
     DebugEx.Info("Loaded {0} custom tool specs", CustomGroupSpecs.Length);
     foreach (var toolSpec in CustomToolSpecs) {
+      if (toolSpec.Id == null) {
+        DebugEx.Error("Custom tool spec doesn't have ID: {0}", toolSpec);
+        hasLoadErrors = true;
+        continue;
+      }
+      if (!uniqueIds.Add(toolSpec.Id)) {
+        DebugEx.Error("Custom tool spec specifies non-unique ID: {0}", toolSpec);
+        hasLoadErrors = true;
+        continue;
+      }
       if (toolSpec.GroupId == null) {
         DebugEx.Error("Custom tool spec doesn't have group ID: {0}", toolSpec);
         hasLoadErrors = true;

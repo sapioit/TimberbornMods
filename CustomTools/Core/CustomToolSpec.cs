@@ -11,8 +11,7 @@ namespace IgorZ.CustomTools.Core;
 
 /// <summary>Custom tool specification.</summary>
 public record CustomToolSpec : ComponentSpec {
-  /// <summary>The tool unique ID.</summary>
-  /// <remarks>Not yet used.</remarks>
+  /// <summary>required. The tool unique ID.</summary>
   [Serialize]
   public string Id { get; init; }
 
