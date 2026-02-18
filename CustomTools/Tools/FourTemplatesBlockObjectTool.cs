@@ -34,20 +34,16 @@ sealed class FourTemplatesBlockObjectTool
     }
     var bullets = new List<string>();
     if (_fourTemplatesToolSpec.ShiftModifierTemplate != null) {
-      bullets.Add(Loc.T(ShiftDescriptionHintLocKey, GetTemplateDescription(ModeType.ShiftModifier)));
+      bullets.Add(
+          Loc.T(ShiftDescriptionHintLocKey, GetTemplateDisplayName(GetTemplateForMode(ModeType.ShiftModifier))));
     }
     if (_fourTemplatesToolSpec.CtrlModifierTemplate != null) {
-      bullets.Add(Loc.T(CtrlDescriptionHintLocKey, GetTemplateDescription(ModeType.CtrlModifier)));
+      bullets.Add(Loc.T(CtrlDescriptionHintLocKey, GetTemplateDisplayName(GetTemplateForMode(ModeType.CtrlModifier))));
     }
     if (_fourTemplatesToolSpec.AltModifierTemplate != null) {
-      bullets.Add(Loc.T(AltDescriptionHintLocKey, GetTemplateDescription(ModeType.AltModifier)));
+      bullets.Add(Loc.T(AltDescriptionHintLocKey, GetTemplateDisplayName(GetTemplateForMode(ModeType.AltModifier))));
     }
     DescriptionBullets = DescriptionBullets == null ? bullets.ToArray() : bullets.Concat(DescriptionBullets).ToArray();
-  }
-
-  string GetTemplateDescription(ModeType mode) {
-    var template = GetTemplateForMode(mode);
-    return Loc.T(template.GetSpec<LabeledEntitySpec>().DisplayNameLocKey);
   }
 
   /// <inheritdoc/>

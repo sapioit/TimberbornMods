@@ -70,6 +70,11 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
   }
   T _currentMode;
 
+  /// <summary>Returns a localized display name string for the template.</summary>
+  protected string GetTemplateDisplayName(ComponentSpec template) {
+    return Loc.T(template.GetSpec<LabeledEntitySpec>().DisplayNameLocKey);
+  }
+
   /// <summary>A shortcut to the templates service.</summary>
   /// <param name="name">The full name of the template.</param>
   protected PlaceableBlockObjectSpec GetTemplate(string name) {
