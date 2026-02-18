@@ -4,8 +4,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Timberborn.BlockSystem;
+using Timberborn.EntitySystem;
+using Timberborn.ToolSystemUI;
+using UnityEngine.UIElements;
 
 namespace IgorZ.CustomTools.Tools;
 
@@ -23,10 +25,13 @@ sealed class FourTemplatesBlockObjectTool
     AltModifier,
   }
 
+  /// <inheritdoc/>
+  protected override bool NeedEntityHeader => true;
+
   FourTemplatesToolSpec _fourTemplatesToolSpec;
 
+  /// <inheritdoc/>
   protected override void Initialize() {
-    base.Initialize();
     _fourTemplatesToolSpec = ToolSpec.GetSpec<FourTemplatesToolSpec>();
     if (_fourTemplatesToolSpec == null) {
       throw new Exception($"FourTemplatesToolSpec not found on: {ToolSpec.Id}");
@@ -42,8 +47,22 @@ sealed class FourTemplatesBlockObjectTool
     if (_fourTemplatesToolSpec.AltModifierTemplate != null) {
       bullets.Add(Loc.T(AltDescriptionHintLocKey, GetTemplateDisplayName(GetTemplateForMode(ModeType.AltModifier))));
     }
-    DescriptionBullets = DescriptionBullets == null ? bullets.ToArray() : bullets.Concat(DescriptionBullets).ToArray();
-    CurrentMode = ModeType.NoModifier;
+    DescriptionBullets = bullets.ToArray();
+    base.Initialize();
+    CurrentMode = default;
+  }
+
+  /// <inheritdoc/>
+  protected override void OnModeUpdated() {
+    var labeledEntitySpec = Template.GetSpec<LabeledEntitySpec>();
+    DescriptionHeaderElement.Q<Image>("Icon").sprite = labeledEntitySpec.Icon.Asset;
+  }
+
+  /// <inheritdoc/>
+  public override ToolDescription DescribeTool() {
+    var res = base.DescribeTool();
+    OnModeUpdated();
+    return res;
   }
 
   /// <inheritdoc/>
