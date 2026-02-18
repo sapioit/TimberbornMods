@@ -1,9 +1,11 @@
 ﻿# v1.3.0 (started on 2/14/2026)
 * [Change] Custom tools will no longer be shown in map editor.
 * [Feature] Introduce ability to define custom bindings.
-* [Feature] Add "Path" and "Demolish building" custom key bindings. You can set them up via the game settings UI.
-* [Feature] Add "Adjustable Platform" tool. Now, you can choose what kind of platform you're going to place. It can also be bound to a hot key.
-* [Feature] Changes, made by the "Adjustable Platform" tool, can be undone. Don't exit the tool, and `Ctrl+Z` hotkey will do the trick.
+* [Feature] Added "Demolish building" custom key bindings. You can it up via the game settings UI.
+* [Feature] Added "Adjustable Platform" tool. Now, you can choose what kind of platform you're going to place without switching the tool. It can be bound to a hot key.
+* [Feature] Added "Levee or Dam" tool. It allows placing either of the elements without switching the tool. It can be bound to a hot key.
+* [Feature] Added "Path+" tool. It's a regular "path" tool, except it supports the undo action. It can be bound to a hot key.
+* [Feature] Changes, made by the "Adjustable Platform", "Levee or Dam", and "Path+" tools, can be undone. Don't exit the tool, and `Ctrl+Z` hotkey will do the trick.
 
 # v1.2.1 (2/12/2026)
 * [Change] Update to support game `v1.0.10.0`.

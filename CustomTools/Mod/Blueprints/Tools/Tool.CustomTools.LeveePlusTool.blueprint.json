@@ -1,0 +1,22 @@
+{
+  "CustomToolSpec": {
+    "Id": "CustomTools-LeveePlusTool",
+    "GroupId": "CustomToolsToolGroup",
+    "Order": 31,
+    "Type": "IgorZ.CustomTools.Tools.FourTemplatesBlockObjectTool",
+    "Icon": "Sprites/BottomBar/IgorZ.CustomTools/tool-levee-plus",
+    "DisplayNameLocKey": "IgorZ.CustomTools.LeveePlusTool.Title",
+    "DescriptionLocKey": "Building.Levee.Description",
+  },
+  "FourTemplatesToolSpec": {
+    "NoModifierTemplate": "Levee",
+    "ShiftModifierTemplate": "Dam",
+    "FactionNeutral": true
+  },
+  "KeyBindingSpec": {
+    "Id": "IgorZ-CustomTools-LeveePlusTool",
+    "GroupId": "IgorZ-CustomTools-BindingsGroupId",
+    "LocKey": "IgorZ.CustomTools.LeveePlusTool.Title",
+    "Order": 21,
+  }
+}
