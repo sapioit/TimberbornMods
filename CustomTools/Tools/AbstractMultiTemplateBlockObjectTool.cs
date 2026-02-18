@@ -248,7 +248,7 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
     }
     _keyBindingInputProcessor.ConsumeKeyBinding(keyBindingEvent.KeyBinding.Id);
     var sequence = _placementHistory.Pop();
-    DebugEx.Info("Undoing {0} placements...", sequence.Count);
+    DebugEx.Info("Undoing {0} placements from tool {1}...", sequence.Count, ToolSpec.Id);
     foreach (var component in sequence) {
       _entityService.Delete(component);
     }
