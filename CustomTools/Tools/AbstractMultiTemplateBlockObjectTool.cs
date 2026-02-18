@@ -77,9 +77,13 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
       _previewPlacer?.HideAllPreviews();
       Template = GetTemplateForMode(_currentMode);
       _previewPlacer = _previewPlacerFactory.Create(Template);
+      OnModeUpdated();
     }
   }
   T _currentMode;
+
+  /// <summary>The callback that is called when the mode has changed.</summary>
+  protected virtual void OnModeUpdated() {}
 
   /// <summary>Returns a localized display name string for the template.</summary>
   protected string GetTemplateDisplayName(ComponentSpec template) {
@@ -136,9 +140,11 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
 
   /// <inheritdoc/>
   public override void Enter() {
+    _defaultMode = CurrentMode;
     _inputService.AddInputProcessor(this);
     _eventBus.Register(this);
   }
+  T _defaultMode;
 
   /// <inheritdoc/>
   public override void Exit() {
@@ -148,6 +154,7 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
     _placedAnythingThisFrame = false;
     _placementHistory.Clear();
     _eventBus.Unregister(this);
+    CurrentMode = _defaultMode;
   }
 
   #endregion
