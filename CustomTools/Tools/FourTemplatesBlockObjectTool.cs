@@ -62,7 +62,7 @@ sealed class FourTemplatesBlockObjectTool
   }
 
   /// <inheritdoc/>
-  protected override ModeType GetCurrentMode() {
+  protected override ModeType SelectMode() {
     if (IsShiftHeld && _fourTemplatesToolSpec.ShiftModifierTemplate != null) {
       return ModeType.ShiftModifier;
     }

@@ -59,7 +59,7 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
   /// frames, the logic is cheap. If the mode is changed, then there will be stuff updated.
   /// </remarks>
   /// <seealso cref="GetTemplateForMode"/>
-  protected abstract T GetCurrentMode();
+  protected abstract T SelectMode();
 
   /// <summary>Tells if the currently selected template wa researched and unblocked for building.</summary>
   protected bool IsTemplateUnlocked =>
@@ -112,7 +112,7 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
 
   /// <inheritdoc/>
   public virtual bool ProcessInput() {
-    CurrentMode = GetCurrentMode();
+    CurrentMode = SelectMode();
     return _areaPicker.PickBlockObjectArea(
         Template, _previewPlacement.Orientation, _previewPlacement.FlipMode, PreviewCallback, ActionCallback);
   }
