@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Timberborn.BlockSystem;
-using Timberborn.EntitySystem;
 
 namespace IgorZ.CustomTools.Tools;
 
@@ -44,6 +43,7 @@ sealed class FourTemplatesBlockObjectTool
       bullets.Add(Loc.T(AltDescriptionHintLocKey, GetTemplateDisplayName(GetTemplateForMode(ModeType.AltModifier))));
     }
     DescriptionBullets = DescriptionBullets == null ? bullets.ToArray() : bullets.Concat(DescriptionBullets).ToArray();
+    CurrentMode = ModeType.NoModifier;
   }
 
   /// <inheritdoc/>

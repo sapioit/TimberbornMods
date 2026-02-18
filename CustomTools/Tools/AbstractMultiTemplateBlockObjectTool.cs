@@ -5,19 +5,25 @@
 using System;
 using System.Collections.Generic;
 using Bindito.Core;
+using IgorZ.CustomTools.Core;
 using IgorZ.CustomTools.KeyBindings;
 using Timberborn.AreaSelectionSystem;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockObjectTools;
 using Timberborn.BlockSystem;
+using Timberborn.BlueprintSystem;
+using Timberborn.Buildings;
 using Timberborn.ConstructionGuidelines;
 using Timberborn.ConstructionMode;
 using Timberborn.Coordinates;
+using Timberborn.Debugging;
 using Timberborn.EntitySystem;
 using Timberborn.GameFactionSystem;
 using Timberborn.InputSystem;
+using Timberborn.ScienceSystem;
 using Timberborn.SingletonSystem;
 using Timberborn.TemplateSystem;
+using Timberborn.ToolSystem;
 using Timberborn.UISound;
 using UnityDev.Utils.LogUtilsLite;
 
@@ -36,9 +42,13 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
 
   const string BlockObjectPlacedSoundName = "UI.BlockObjectPlaced";
   const string UndoPlacementsKeyBinding = "IgorZ-CustomTools-Undo";
-  const string UndoHintLocKey = "IgorZ.CustomTools.BlockObjectTool.UndoHint"; 
+  const string UndoHintLocKey = "IgorZ.CustomTools.BlockObjectTool.UndoHint";
+  const string TemplateIsUnlockedLocKey = "IgorZ.CustomTools.MultiTemplateBlockObjectTool.TemplateIsUnlocked";
 
   #region API
+
+  /// <summary>The currently selected template.</summary>
+  protected PlaceableBlockObjectSpec Template { get; private set; }
 
   /// <summary>Returns the placeable spec for the mode.</summary>
   protected abstract PlaceableBlockObjectSpec GetTemplateForMode(T mode);
@@ -51,21 +61,22 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
   /// <seealso cref="GetTemplateForMode"/>
   protected abstract T GetCurrentMode();
 
+  /// <summary>Tells if the currently selected template wa researched and unblocked for building.</summary>
+  protected bool IsTemplateUnlocked =>
+      _devModeManager.Enabled || _buildingUnlockingService.Unlocked(Template.GetSpec<BuildingSpec>());
+
   /// <summary>The current mode of this tool.</summary>
-  /// <remarks>
-  /// You can't change it directly. If the mode needs to be changed, it must be reported from
-  /// <see cref="GetCurrentMode"/>.
-  /// </remarks>
+  /// <remarks>The descendants must set the initial state from <see cref="Initialize"/> method.</remarks>
   protected T CurrentMode {
     get => _currentMode;
-    private set {
+    set {
       if (value.Equals(_currentMode) && _previewPlacer != null) {
         return;
       }
       _currentMode = value;
       _previewPlacer?.HideAllPreviews();
-      _template = GetTemplateForMode(_currentMode);
-      _previewPlacer = _previewPlacerFactory.Create(_template);
+      Template = GetTemplateForMode(_currentMode);
+      _previewPlacer = _previewPlacerFactory.Create(Template);
     }
   }
   T _currentMode;
@@ -103,7 +114,7 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
   public virtual bool ProcessInput() {
     CurrentMode = GetCurrentMode();
     return _areaPicker.PickBlockObjectArea(
-        _template, _previewPlacement.Orientation, _previewPlacement.FlipMode, PreviewCallback, Place);
+        Template, _previewPlacement.Orientation, _previewPlacement.FlipMode, PreviewCallback, ActionCallback);
   }
 
   #endregion
@@ -112,12 +123,15 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
 
   /// <inheritdoc/>
   protected override void Initialize() {
+    base.Initialize();
     DescriptionBullets = [Loc.T(UndoHintLocKey)];
   }
 
   /// <inheritdoc/>
   public override string GetWarningText() {
-    return _previewPlacer.WarningText;
+    return !IsTemplateUnlocked
+        ? Loc.T(TemplateIsUnlockedLocKey, GetTemplateDisplayName(Template))
+        : _previewPlacer.WarningText;
   }
 
   /// <inheritdoc/>
@@ -150,8 +164,12 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
   FactionService _factionService;
   EventBus _eventBus;
   EntityService _entityService;
+  KeyBindingInputProcessor _keyBindingInputProcessor;
+  CustomToolsService _customToolsService;
+  ToolUnlockingService _toolUnlockingService;
+  BuildingUnlockingService _buildingUnlockingService;
+  DevModeManager _devModeManager;
 
-  PlaceableBlockObjectSpec _template;
   PreviewPlacer _previewPlacer;
   bool _placedAnythingThisFrame;
   readonly Stack<List<BaseComponent>> _placementHistory = [];
@@ -162,7 +180,10 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
       InputService inputService, TemplateNameMapper templateNameMapper,
       PreviewPlacerFactory previewPlacerFactory, BlockObjectPlacerService blockObjectPlacerService,
       AreaPicker areaPicker, UISoundController uiSoundController, PreviewPlacement previewPlacement,
-      FactionService factionService, EventBus eventBus, EntityService entityService) {
+      FactionService factionService, EventBus eventBus, EntityService entityService,
+      KeyBindingInputProcessor keyBindingInputProcessor, CustomToolsService customToolsService,
+      ToolUnlockingService toolUnlockingService, 
+      BuildingUnlockingService buildingUnlockingService, DevModeManager devModeManager) {
     _inputService = inputService;
     _templateNameMapper = templateNameMapper;
     _previewPlacerFactory = previewPlacerFactory;
@@ -173,24 +194,38 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
     _factionService = factionService;
     _eventBus = eventBus;
     _entityService = entityService;
+    _keyBindingInputProcessor = keyBindingInputProcessor;
+    _customToolsService = customToolsService;
+    _toolUnlockingService = toolUnlockingService;
+    _buildingUnlockingService = buildingUnlockingService;
+    _devModeManager = devModeManager;
   }
 
   void PreviewCallback(IEnumerable<Placement> placements) {
     if (_placedAnythingThisFrame) { 
       _placedAnythingThisFrame = false; 
     } else {
-      ShowPreviews(placements);
+      _previewPlacer.ShowPreviews(placements);
     }
   }
 
-  void ShowPreviews(IEnumerable<Placement> placements) {
-    _previewPlacer.ShowPreviews(placements);
+  void ActionCallback(IEnumerable<Placement> placements) {
+    var blockObjectTool = _customToolsService.BlockObjectTools.GetValueOrDefault(Template.Blueprint.Name);
+    if (IsTemplateUnlocked || blockObjectTool == null) {
+      Place(placements);
+      return;
+    }
+    _toolUnlockingService.TryToUnlock(blockObjectTool, () => Place(placements), _previewPlacer.HideAllPreviews);
   }
 
   void Place(IEnumerable<Placement> placements) {
+    if (!IsTemplateUnlocked) {
+      _uiSoundController.PlayCantDoSound();
+      return;
+    }
     _placedAnythingThisFrame = false;
     var buildableCoordinates = _previewPlacer.GetBuildableCoordinates(placements);
-    var spec = _template.GetSpec<BlockObjectSpec>();
+    var spec = Template.GetSpec<BlockObjectSpec>();
     var blockObjectPlacer = _blockObjectPlacerService.GetMatchingPlacer(spec);
     var historyRecord = new List<BaseComponent>();
     foreach (var placement in buildableCoordinates) {
@@ -211,6 +246,7 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
     if (_placementHistory.Count == 0 || keyBindingEvent.KeyBinding.Id != UndoPlacementsKeyBinding) {
       return;
     }
+    _keyBindingInputProcessor.ConsumeKeyBinding(keyBindingEvent.KeyBinding.Id);
     var sequence = _placementHistory.Pop();
     DebugEx.Info("Undoing {0} placements...", sequence.Count);
     foreach (var component in sequence) {
