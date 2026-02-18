@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bindito.Core;
 using IgorZ.CustomTools.Core;
 using IgorZ.CustomTools.KeyBindings;
@@ -128,7 +129,9 @@ public abstract class AbstractMultiTemplateBlockObjectTool<T>
   /// <inheritdoc/>
   protected override void Initialize() {
     base.Initialize();
-    DescriptionBullets = [Loc.T(UndoHintLocKey)];
+    DescriptionBullets = DescriptionBullets == null
+        ? [Loc.T(UndoHintLocKey)]
+        : DescriptionBullets.Concat([Loc.T(UndoHintLocKey)]).ToArray();
   }
 
   /// <inheritdoc/>
