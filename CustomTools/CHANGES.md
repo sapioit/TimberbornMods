@@ -2,8 +2,8 @@
 * [Change] Custom tools will no longer be shown in map editor.
 * [Feature] Introduce ability to define custom bindings.
 * [Feature] Add "Path" and "Demolish building" custom key bindings. You can set them up via the game settings UI.
-* [Feature] Add "Platform+" tool. Now, you can choose what kind of platform you're going to place! It can also be bound to a hot key.
-* [Feature] Changes, made by the "Platform+" tool, can be undone! Don't exit the tool, and `Ctrl+Z` hotkey will do the trick.
+* [Feature] Add "Adjustable Platform" tool. Now, you can choose what kind of platform you're going to place. It can also be bound to a hot key.
+* [Feature] Changes, made by the "Adjustable Platform" tool, can be undone. Don't exit the tool, and `Ctrl+Z` hotkey will do the trick.
 
 # v1.2.1 (2/12/2026)
 * [Change] Update to support game `v1.0.10.0`.
