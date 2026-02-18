@@ -6,17 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IgorZ.CustomTools.Core;
-using IgorZ.CustomTools.Tools;
-using IgorZ.TimberDev.Utils;
 using Timberborn.InputSystem;
 using Timberborn.KeyBindingSystem;
 using Timberborn.SingletonSystem;
-using Timberborn.ToolSystem;
 using UnityDev.Utils.LogUtilsLite;
 
 namespace IgorZ.CustomTools.KeyBindings;
 
-/// <summary>The main controller class for the keybidings halding.</summary>
+/// <summary>The main controller class for the keybindings handling.</summary>
 /// <remarks>
 /// The only usage of this class for the client code would be consuming events via <see cref="ConsumeKeyBinding"/>.
 /// </remarks>
@@ -26,7 +23,7 @@ public class KeyBindingInputProcessor(
 
   /// <summary>Specifies that the binding is consumed and the further bindings check should be stopped.</summary>
   /// <remarks>
-  /// Only one ID can be consumed during the same tick. Noramlly, this methid is called from the listeners of
+  /// Only one ID can be consumed during the same tick. Normally, this method is called from the listeners of
   /// <see cref="CustomToolKeyBindingEvent"/>.
   /// </remarks>
   /// <param name="keyBindingId"></param>
@@ -81,10 +78,8 @@ public class KeyBindingInputProcessor(
     var bindingSpec = pressedKeyBinding._keyBindingDefinition.KeyBindingSpec;
     var customToolSpec = bindingSpec.GetSpec<CustomToolSpec>();
     if (customToolSpec != null) {
-      var customToolInstance = (AbstractCustomTool)StaticBindings.DependencyContainer.GetInstance(
-          ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool)));
-      customToolsService.SelectTool(customToolInstance);
-      _blockOnBindingId = pressedKeyBinding.Id;
+      customToolsService.SelectToolById(customToolSpec.Id);
+      ConsumeKeyBinding(pressedKeyBinding.Id);
       return true;
     }
 
@@ -92,25 +87,21 @@ public class KeyBindingInputProcessor(
     if (customToolBindingSpec == null) {
       return false;
     }
-    _blockOnBindingId = pressedKeyBinding.Id;
-    ITool toolToSelect = null;
-    if (customToolBindingSpec.Type != null) {
-      toolToSelect = (ITool)StaticBindings.DependencyContainer.GetInstance(
-          ReflectionsHelper.GetType(customToolBindingSpec.Type, typeof(ITool), needDefaultConstructor: false));
-    } else if (customToolBindingSpec.BlockObjectBlueprint != null) {
+    if (customToolBindingSpec.BlockObjectBlueprint != null) {
       if (!customToolsService.BlockObjectTools.TryGetValue(
               customToolBindingSpec.BlockObjectBlueprint, out var blockObjectTool)) {
         var allBlueprints = customToolsService.BlockObjectTools.Keys.OrderBy(x => x);
         DebugEx.Warning("All known BlockObjects blueprints:\n{0}", DebugEx.C2S(allBlueprints, separator: "\n"));
-        throw new InvalidOperationException($"Cannot find tool for blueprint: {customToolBindingSpec.BlockObjectBlueprint}");
+        throw new InvalidOperationException(
+            $"Cannot find tool for blueprint: {customToolBindingSpec.BlockObjectBlueprint}");
       }
-      toolToSelect = blockObjectTool;
-    }
-    if (toolToSelect != null) {
-      customToolsService.SelectTool(toolToSelect);
+      customToolsService.SelectTool(blockObjectTool);
+      ConsumeKeyBinding(pressedKeyBinding.Id);
+    } else if (customToolBindingSpec.Type != null) {
+      customToolsService.SelectToolByType(customToolBindingSpec.Type);
+      ConsumeKeyBinding(pressedKeyBinding.Id);
     } else {
-      var bindingEvent = new CustomToolKeyBindingEvent { KeyBinding = pressedKeyBinding };
-      eventBus.Post(bindingEvent);
+      eventBus.Post(new CustomToolKeyBindingEvent { KeyBinding = pressedKeyBinding });
     }
     return true;
   }

@@ -5,12 +5,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Bindito.Core;
 using ConfigurableToolGroups.Services;
 using ConfigurableToolGroups.UI;
-using IgorZ.CustomTools.Tools;
-using IgorZ.TimberDev.Utils;
 using Timberborn.BottomBarSystem;
 using Timberborn.ToolButtonSystem;
 using Timberborn.ToolSystem;
@@ -57,13 +53,6 @@ abstract class AbstractLayoutElement(
     public string ParentGroupId => GroupSpec?.ParentGroupId ?? ToolSpec?.GroupId;
   }
 
-  IContainer _container;
-
-  [Inject]
-  public void InjectDependencies(IContainer container) {
-    _container = container;
-  }
-
   ModdableToolGroupButton ToolGroupButtonWithItems(
       CustomToolGroupSpec customGroupSpec, ModdableToolGroupButton parent, ToolButtonOrGroup[] items) {
     var groupButton = CreateToolGroupButton(customGroupSpec, parent);
@@ -78,12 +67,7 @@ abstract class AbstractLayoutElement(
     }
     foreach (var childItem in childItems) {
       if (childItem.ToolSpec != null) {
-        var customToolSpec = childItem.ToolSpec;
-        var toolType =
-            ReflectionsHelper.GetType(customToolSpec.Type, typeof(AbstractCustomTool), needDefaultConstructor: false);
-        var toolInstance = (AbstractCustomTool)_container.GetInstance(toolType);
-        toolInstance.InitializeTool(customToolSpec);
-        DebugEx.Info("Created tool '{0}' in group '{1}'", toolType, groupId);
+        var toolInstance = customToolsService.GetOrCreateCustomTool(childItem.ToolSpec);
         groupButton.AddChildTool(toolInstance, toolInstance.ToolSpec.Icon.Asset);
       } else if (childItem.GroupSpec != null) {
         groupButton.AddChildGroup(ToolGroupButtonWithItems(childItem.GroupSpec, groupButton, items));
