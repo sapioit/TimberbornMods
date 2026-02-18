@@ -14,7 +14,7 @@ namespace IgorZ.CustomTools.KeyBindings;
 /// </remarks>
 public record CustomToolBindingSpec : ComponentSpec {
   /// <summary>Optional. The full name of the class type that implements <see cref="ITool"/>.</summary>
-  /// <remarks>This class must be instantiable via Bindito. It will be used to serve the tool actions.</remarks>
+  /// <remarks>This class must be instantiable via Bindito.</remarks>
   [Serialize]
   public string Type { get; init; }
 
