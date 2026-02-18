@@ -14,4 +14,7 @@ namespace IgorZ.CustomTools.KeyBindings;
 public record CustomToolKeyBindingEvent {
   /// <summary>The binding that was pressed.</summary>
   public KeyBinding KeyBinding { get; init; }
+
+  /// <summary>The custom binding spec of the binding.</summary>
+  public CustomToolBindingSpec CustomToolBindingSpec  { get; init; }
 }
