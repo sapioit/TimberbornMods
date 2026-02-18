@@ -156,18 +156,23 @@ public sealed class CustomToolsService(
       if (!groupIds.Contains(toolSpec.GroupId)) {
         DebugEx.Error("Custom tool spec specifies unknown group ID: {0}", toolSpec);
         hasLoadErrors = true;
+        continue;
       }
-      var toolType = ReflectionsHelper.GetType(toolSpec.Type, typeof(AbstractCustomTool),
-                                               needDefaultConstructor: false, throwOnError: false);
+      var toolType = ReflectionsHelper.GetType(
+          toolSpec.Type, typeof(AbstractCustomTool), needDefaultConstructor: false, throwOnError: false);
       if (toolType == null) {
         DebugEx.Error("Custom tool spec requests unknown type: {0}", toolSpec);
         hasLoadErrors = true;
         continue;
       }
-      var toolInstance = (AbstractCustomTool)container.GetInstance(toolType);
-      if (toolInstance == null) {
-        DebugEx.Error("Custom tool spec type is not instantiable (forgot Bind?): {0}", toolSpec);
-        hasLoadErrors = true;
+      var customToolBindingSpec = toolSpec.GetSpec<CustomToolBindingSpec>();
+      if (customToolBindingSpec != null) {
+        var bindingToolType = ReflectionsHelper.GetType(
+            customToolBindingSpec.Type, typeof(AbstractCustomTool), needDefaultConstructor: false, throwOnError: false);
+        if (bindingToolType == null) {
+          DebugEx.Error("Custom tool binding spec requests unknown type: {0}", customToolBindingSpec);
+          hasLoadErrors = true;
+        }
       }
     }
 
