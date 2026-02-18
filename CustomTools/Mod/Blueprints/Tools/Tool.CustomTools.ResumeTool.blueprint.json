@@ -1,5 +1,6 @@
 {
   "CustomToolSpec": {
+    "Id": "CustomTools-ResumeTool",
     "GroupId": "CustomToolsToolGroup",
     "Order": 21,
     "Type": "IgorZ.CustomTools.Tools.ResumeTool",
