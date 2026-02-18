@@ -124,7 +124,7 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
   #region IToolDescriptor implementation
 
   /// <inheritdoc/>
-  public ToolDescription DescribeTool() {
+  public virtual ToolDescription DescribeTool() {
     var description = !string.IsNullOrEmpty(DescriptionTitle)
         ? new ToolDescription.Builder(DescriptionTitle)
         : new ToolDescription.Builder();
