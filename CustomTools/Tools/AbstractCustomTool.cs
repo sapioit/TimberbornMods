@@ -6,6 +6,7 @@ using System;
 using System.Text;
 using Bindito.Core;
 using IgorZ.CustomTools.Core;
+using IgorZ.TimberDev.Utils;
 using Timberborn.CoreUI;
 using Timberborn.Localization;
 using Timberborn.ToolSystem;
@@ -45,6 +46,14 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
   /// </summary>
   /// <remarks>If <c>null</c> or empty, then the title will not be shown.</remarks>
   protected virtual string DescriptionTitle => Loc.T(ToolSpec.DisplayNameLocKey);
+
+  /// <summary>Tells if the tool header should be shown in an entity element.</summary>
+  /// <remarks>Entity header will have tool icon and text. By default, only text is shown in a compact view.</remarks>
+  protected virtual bool NeedEntityHeader => false;
+
+  /// <summary>The entity header element.</summary>
+  /// <remarks>This element is created on initialization if <see cref="NeedEntityHeader"/> is specified.</remarks>
+  protected VisualElement DescriptionHeaderElement { get; private set; }
 
   /// <summary>
   /// The localized text to present as the tool description. If not overriden, then the string from the
@@ -103,7 +112,16 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
   }
 
   /// <summary>Initializes the tool. Do all logic here instead of the constructor.</summary>
+  /// <remarks>
+  /// In a usual case, the base initializers are called in the reversed order. I.e. the descendant does its
+  /// initialization and, maybe, changes settings of the base class. Then, the base method is called to complete its
+  /// part of initialization, based on the adjustments.
+  /// </remarks>
   protected virtual void Initialize() {
+    if (NeedEntityHeader) {
+      var visualElementLoader = StaticBindings.DependencyContainer.GetInstance<VisualElementLoader>();
+      DescriptionHeaderElement = visualElementLoader.LoadVisualElement("Game/EntityDescription/DescriptionHeader");
+    }
   }
 
   #endregion
@@ -125,9 +143,19 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
 
   /// <inheritdoc/>
   public virtual ToolDescription DescribeTool() {
-    var description = !string.IsNullOrEmpty(DescriptionTitle)
-        ? new ToolDescription.Builder(DescriptionTitle)
-        : new ToolDescription.Builder();
+    ToolDescription.Builder builder;
+    if (DescriptionHeaderElement != null) {
+      if (DescriptionTitle != null) {
+        DescriptionHeaderElement.Q<Label>("Title").text = DescriptionTitle;
+      }
+      DescriptionHeaderElement.Q<Image>("Icon").sprite = ToolSpec.Icon.Asset;
+      builder = new ToolDescription.Builder();
+      builder.AddSection(DescriptionHeaderElement);
+    } else {
+      builder = !string.IsNullOrEmpty(DescriptionTitle)
+          ? new ToolDescription.Builder(DescriptionTitle)
+          : new ToolDescription.Builder();
+    }
     var descriptionText = new StringBuilder();
     if (!string.IsNullOrEmpty(DescriptionMainSection)) {
       descriptionText.Append(DescriptionMainSection);
@@ -137,21 +165,21 @@ public abstract class AbstractCustomTool : IDevModeTool, IToolDescriptor {
         descriptionText.Append("\n" + SpecialStrings.RowStarter + descriptionBullet);
       }
     }
-    description.AddSection(descriptionText.ToString());
+    builder.AddSection(descriptionText.ToString());
     if (DescriptionVisualSections != null) {
       foreach (var visualSection in DescriptionVisualSections) {
-        description.AddSection(visualSection);
+        builder.AddSection(visualSection);
       }
     }
     if (DescriptionHintSection != null) {
-      description.AddPrioritizedSection(DescriptionHintSection);
+      builder.AddPrioritizedSection(DescriptionHintSection);
     }
     if (DescriptionExternalSections != null) {
       foreach (var externalSection in DescriptionExternalSections) {
-        description.AddExternalSection(externalSection);
+        builder.AddExternalSection(externalSection);
       }
     }
-    return description.Build();
+    return builder.Build();
   }
 
   #endregion
