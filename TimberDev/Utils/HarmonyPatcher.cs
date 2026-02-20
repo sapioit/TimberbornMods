@@ -39,7 +39,7 @@ static class HarmonyPatcher {
       processor.Patch();
     }
     HarmonyPatcherUnpatcher.Patches.Add((patchId, processors));
-    DebugEx.Fine("Harmony patch applied: {0}", patchId);
+    DebugEx.Info("Harmony patch applied: {0}", patchId);
   }
 }
 
@@ -57,7 +57,7 @@ sealed class HarmonyPatcherUnpatcher : IUnloadableSingleton {
   public void Unload() {
     for (var i = Patches.Count - 1; i >= 0; i--) {
       var patch = Patches[i];
-      DebugEx.Fine("Removing Harmony patch: {0}", patch.patchId);
+      DebugEx.Info("Removing Harmony patch: {0}", patch.patchId);
       for (var j = patch.processors.Count - 1; j >= 0; j--) {
         patch.processors[j].Unpatch();
       }
