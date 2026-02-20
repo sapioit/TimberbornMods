@@ -50,7 +50,8 @@ public class KeyBindingInputProcessor(
     if (PressedKeyBindings.Count > 0) {
       for (var i = PressedKeyBindings.Count - 1; i >= 0; i--) {
         // Execute the first matched binding and ignore all others. They will be blocked anyway.
-        if (ProcessBindingPress(PressedKeyBindings[i])) {
+        var keyBinding = PressedKeyBindings[i];
+        if (keyBinding.IsDown && ProcessBindingPress(keyBinding)) {
           break;
         }
       }
