@@ -100,6 +100,9 @@ public class KeyBindingInputProcessor(
     } else if (customToolBindingSpec.Type != null) {
       customToolsService.SelectToolByType(customToolBindingSpec.Type);
       ConsumeKeyBinding(pressedKeyBinding.Id);
+    } else if (customToolBindingSpec.CustomToolId != null) {
+      customToolsService.SelectToolById(customToolBindingSpec.CustomToolId);
+      ConsumeKeyBinding(pressedKeyBinding.Id);
     } else {
       eventBus.Post(new CustomToolKeyBindingEvent {
           KeyBinding = pressedKeyBinding,

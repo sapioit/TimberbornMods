@@ -21,4 +21,8 @@ public record CustomToolBindingSpec : ComponentSpec {
   /// <summary>Optional. The blueprint that a blockobject tool places.</summary>
   [Serialize]
   public string BlockObjectBlueprint { get; init; }
+
+  /// <summary>Optional. The ID of a custom tool to activate.</summary>
+  [Serialize]
+  public string CustomToolId { get; init; }
 }

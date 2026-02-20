@@ -51,7 +51,10 @@ public sealed class CustomToolsService(
 
   /// <summary>Activates the custom tool.</summary>
   public void SelectToolById(string customToolId) {
-    var customTool = _allCustomTools[customToolId];
+    if (!_allCustomTools.TryGetValue(customToolId, out var customTool)) {
+      DebugEx.Warning("Custom tool ID '{0}' not found", customToolId);
+      return;
+    }
     SelectTool(customTool, customTool.ToolSpec.GroupId);
   }
 
