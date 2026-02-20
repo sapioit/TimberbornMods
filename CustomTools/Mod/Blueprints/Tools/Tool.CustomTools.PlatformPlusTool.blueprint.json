@@ -8,6 +8,12 @@
     "DisplayNameLocKey": "IgorZ.CustomTools.PlatformPlusTool.Title",
     "DescriptionLocKey": "Building.Platform.Description",
   },
+  "CustomToolFeatureLimiterSpec": {
+    "AllowedFactions": [
+      "Folktails",
+      "IronTeeth"
+    ]
+  },
   "FourTemplatesToolSpec": {
     "NoModifierTemplate": "Platform",
     "ShiftModifierTemplate": "DoublePlatform",

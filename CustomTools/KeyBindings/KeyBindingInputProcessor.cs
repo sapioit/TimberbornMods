@@ -18,7 +18,8 @@ namespace IgorZ.CustomTools.KeyBindings;
 /// The only usage of this class for the client code would be consuming events via <see cref="ConsumeKeyBinding"/>.
 /// </remarks>
 public class KeyBindingInputProcessor(
-    CustomToolsService customToolsService, EventBus eventBus, InputService inputService)
+    CustomToolsService customToolsService, EventBus eventBus, InputService inputService,
+    FeatureLimiterService featureLimiterService)
     : IPostLoadableSingleton, IInputProcessor {
 
   /// <summary>Specifies that the binding is consumed and the further bindings check should be stopped.</summary>

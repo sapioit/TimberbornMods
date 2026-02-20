@@ -19,9 +19,10 @@ using UnityDev.Utils.LogUtilsLite;
 
 namespace IgorZ.CustomTools.Core;
 
-/// <summary>Basic service for the custom tools functionality.</summary>
+/// <summary>Basic service for the custom tools' functionality.</summary>
 public sealed class CustomToolsService(
-    ISpecService specService, IContainer container, ToolService toolService, ToolGroupService toolGroupService)
+    ISpecService specService, IContainer container, ToolService toolService, ToolGroupService toolGroupService,
+    FeatureLimiterService featureLimiterService)
     : ILoadableSingleton, IPostLoadableSingleton {
 
   #region API
@@ -137,7 +138,9 @@ public sealed class CustomToolsService(
     }
 
     // Load and verify the tool specs.
-    CustomToolSpecs = specService.GetSpecs<CustomToolSpec>().ToImmutableArray();
+    CustomToolSpecs = specService.GetSpecs<CustomToolSpec>()
+        .Where(spec => featureLimiterService.IsAllowed(spec))
+        .ToImmutableArray();
     HashSet<string> uniqueIds = [];
     DebugEx.Info("Loaded {0} custom tool specs", CustomGroupSpecs.Length);
     foreach (var toolSpec in CustomToolSpecs) {

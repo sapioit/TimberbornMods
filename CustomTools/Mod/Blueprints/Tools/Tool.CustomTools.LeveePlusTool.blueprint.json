@@ -10,11 +10,13 @@
   },
   "CustomToolFeatureLimiterSpec": {
     "AllowedFactions": [
-      "Folktails"
+      "Folktails",
+      "IronTeeth"
     ]
-  }
+  },
   "FourTemplatesToolSpec": {
     "NoModifierTemplate": "Levee",
-    "ShiftModifierTemplate": "Dam"
+    "ShiftModifierTemplate": "Dam",
+    "FactionNeutral": true
   },
 }
