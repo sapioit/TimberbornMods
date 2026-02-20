@@ -9,12 +9,6 @@
     "DescriptionLocKey": "Building.Path.Description",
   },
   "FourTemplatesToolSpec": {
-    "NoModifierTemplate": "Path",
-  },
-  "KeyBindingSpec": {
-    "Id": "IgorZ-CustomTools-PathPlusTool",
-    "GroupId": "IgorZ-CustomTools-BindingsGroupId",
-    "LocKey": "IgorZ.CustomTools.PathPlusTool.Title",
-    "Order": 22,
+    "NoModifierTemplate": "Path"
   }
 }

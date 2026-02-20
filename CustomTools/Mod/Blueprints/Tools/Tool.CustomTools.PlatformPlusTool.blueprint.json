@@ -13,11 +13,5 @@
     "ShiftModifierTemplate": "DoublePlatform",
     "AltModifierTemplate": "TriplePlatform",
     "FactionNeutral": true
-  },
-  "KeyBindingSpec": {
-    "Id": "IgorZ-CustomTools-PlatformPlusTool",
-    "GroupId": "IgorZ-CustomTools-BindingsGroupId",
-    "LocKey": "IgorZ.CustomTools.PlatformPlusTool.Title",
-    "Order": 20,
   }
 }

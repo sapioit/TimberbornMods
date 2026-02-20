@@ -76,15 +76,7 @@ public class KeyBindingInputProcessor(
   string _blockOnBindingId;
 
   bool ProcessBindingPress(KeyBinding pressedKeyBinding) {
-    var bindingSpec = pressedKeyBinding._keyBindingDefinition.KeyBindingSpec;
-    var customToolSpec = bindingSpec.GetSpec<CustomToolSpec>();
-    if (customToolSpec != null) {
-      customToolsService.SelectToolById(customToolSpec.Id);
-      ConsumeKeyBinding(pressedKeyBinding.Id);
-      return true;
-    }
-
-    var customToolBindingSpec = bindingSpec.GetSpec<CustomToolBindingSpec>();
+    var customToolBindingSpec = pressedKeyBinding._keyBindingDefinition.KeyBindingSpec.GetSpec<CustomToolBindingSpec>();
     if (customToolBindingSpec == null) {
       return false;
     }
