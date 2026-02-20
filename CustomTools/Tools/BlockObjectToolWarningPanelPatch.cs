@@ -3,15 +3,13 @@
 // License: Public Domain
 
 using HarmonyLib;
-using IgorZ.CustomTools.Tools;
 using Timberborn.BlockObjectToolsUI;
 using Timberborn.ToolSystem;
 
-// ReSharper disable UnusedType.Global
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Local
 
-namespace IgorZ.CustomTools.Patches;
+namespace IgorZ.CustomTools.Tools;
 
 [HarmonyPatch(typeof(BlockObjectToolWarningPanel))]
 static class BlockObjectToolWarningPanelPatch {
