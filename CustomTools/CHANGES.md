@@ -1,4 +1,4 @@
-﻿# v1.3.0 (started on 2/14/2026)
+﻿# v1.3.0 (2/18/2026)
 * [Change] Custom tools will no longer be shown in map editor.
 * [Feature] Introduce ability to define custom bindings.
 * [Feature] Added "Demolish building" custom key bindings. You can it up via the game settings UI.
