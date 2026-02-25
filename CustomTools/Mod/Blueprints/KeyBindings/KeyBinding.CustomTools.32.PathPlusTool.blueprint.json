@@ -1,11 +1,11 @@
 {
   "CustomToolBindingSpec": {
-    "CustomToolId": "CustomTools-PathPlusTool",
+    "CustomToolId": "CustomTools-PathPlusTool"
   },
   "KeyBindingSpec": {
     "Id": "IgorZ-CustomTools-PathPlusTool",
     "GroupId": "IgorZ-CustomTools-BindingsGroupId",
     "LocKey": "IgorZ.CustomTools.PathPlusTool.Title",
-    "Order": 22,
+    "Order": 32
   }
 }

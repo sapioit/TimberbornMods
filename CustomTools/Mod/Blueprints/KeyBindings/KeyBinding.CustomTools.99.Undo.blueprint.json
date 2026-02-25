@@ -5,7 +5,7 @@
     "Id": "IgorZ-CustomTools-Undo",
     "GroupId": "IgorZ-CustomTools-BindingsGroupId",
     "LocKey": "KeyBinding.UndoChanges",
-    "Order": 100,
+    "Order": 99,
     "AllowOtherModifiers": false,
     "DevModeOnly": false
   },

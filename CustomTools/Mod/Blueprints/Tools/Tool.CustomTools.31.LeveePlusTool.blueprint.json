@@ -6,7 +6,7 @@
     "Type": "IgorZ.CustomTools.Tools.FourTemplatesBlockObjectTool",
     "Icon": "Sprites/BottomBar/IgorZ.CustomTools/tool-levee-plus",
     "DisplayNameLocKey": "IgorZ.CustomTools.LeveePlusTool.Title",
-    "DescriptionLocKey": "Building.Levee.Description",
+    "DescriptionLocKey": "Building.Levee.Description"
   },
   "CustomToolFeatureLimiterSpec": {
     "AllowedFactions": [
@@ -18,5 +18,5 @@
     "NoModifierTemplate": "Levee",
     "ShiftModifierTemplate": "Dam",
     "FactionNeutral": true
-  },
+  }
 }

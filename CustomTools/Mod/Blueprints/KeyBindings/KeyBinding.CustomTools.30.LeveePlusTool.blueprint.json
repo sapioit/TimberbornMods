@@ -1,11 +1,11 @@
 {
   "CustomToolBindingSpec": {
-    "CustomToolId": "CustomTools-LeveePlusTool",
+    "CustomToolId": "CustomTools-LeveePlusTool"
   },
   "KeyBindingSpec": {
     "Id": "IgorZ-CustomTools-LeveePlusTool",
     "GroupId": "IgorZ-CustomTools-BindingsGroupId",
     "LocKey": "IgorZ.CustomTools.LeveePlusTool.Title",
-    "Order": 21,
+    "Order": 30
   }
 }

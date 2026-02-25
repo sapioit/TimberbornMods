@@ -6,7 +6,7 @@
     "Type": "IgorZ.CustomTools.Tools.FourTemplatesBlockObjectTool",
     "Icon": "Sprites/BottomBar/IgorZ.CustomTools/tool-platform-plus",
     "DisplayNameLocKey": "IgorZ.CustomTools.PlatformPlusTool.Title",
-    "DescriptionLocKey": "Building.Platform.Description",
+    "DescriptionLocKey": "Building.Platform.Description"
   },
   "CustomToolFeatureLimiterSpec": {
     "AllowedFactions": [
