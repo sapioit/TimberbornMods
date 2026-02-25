@@ -14,6 +14,7 @@ sealed class BatteriesSettings : BaseSettings<BatteriesSettings> {
 
   const string HeaderStringLocKey = "IgorZ.SmartPower.Settings.BatteriesSection";
   const string ShowBatteryVitalsLocKey = "IgorZ.SmartPower.Settings.Batteries.ShowBatteryVitals";
+  const string BatteryCapacityAsPctLocKey = "IgorZ.SmartPower.Settings.Batteries.BatteryCapacityAsPct";
   const string BatteryRatioHysteresisLocKey = "IgorZ.SmartPower.Settings.Batteries.BatteryRatioHysteresis";
   const string BatteryRatioHysteresisTooltipLocKey = "IgorZ.SmartPower.Settings.Batteries.BatteryRatioHysteresisTooltip";
 
@@ -26,6 +27,13 @@ sealed class BatteriesSettings : BaseSettings<BatteriesSettings> {
   public static bool ShowBatteryVitals { get; private set; }
   public ModSetting<bool> ShowBatteryVitalsInternal { get; } =
       new(true, ModSettingDescriptor.CreateLocalized(ShowBatteryVitalsLocKey));
+
+  public static bool BatteryCapacityAsPct { get; private set; }
+  public ModSetting<bool> BatteryCapacityAsPctInternal { get; } =
+      new(true,
+          ModSettingDescriptor
+              .CreateLocalized(BatteryCapacityAsPctLocKey)
+              .SetEnableCondition(() => ShowBatteryVitals));
 
   public static float BatteryRatioHysteresis { get; private set; }
   public ModSetting<int> BatteryRatioHysteresisInternal { get; } =
@@ -57,6 +65,7 @@ sealed class BatteriesSettings : BaseSettings<BatteriesSettings> {
   BatteriesSettings(ISettings settings, ModSettingsOwnerRegistry modSettingsOwnerRegistry,
                     ModRepository modRepository) : base(settings, modSettingsOwnerRegistry, modRepository) {
     InstallSettingCallback(ShowBatteryVitalsInternal, v => ShowBatteryVitals = v);
+    InstallSettingCallback(BatteryCapacityAsPctInternal, v => BatteryCapacityAsPct = v);
     InstallSettingCallback(BatteryRatioHysteresisInternal, v => BatteryRatioHysteresis = v);
   }
 

@@ -10,6 +10,7 @@ using Timberborn.CoreUI;
 using Timberborn.EntityPanelSystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace IgorZ.SmartPower.NetworkUI;
@@ -21,6 +22,7 @@ sealed class MechanicalNodeFragment : IEntityPanelFragment {
   const string HourShortLocKey = "Time.HourShort";
 
   const string BatteryCapacityLocKey = "IgorZ.SmartPower.BatteryCapacity";
+  const string BatteryCapacityPctLocKey = "IgorZ.SmartPower.BatteryCapacityPct";
   const string BatteryCharging = "IgorZ.SmartPower.BatteryCharging";
   const string BatteryDischarging = "IgorZ.SmartPower.BatteryDischarging";
   const string BatteryNotUsedLocKey = "IgorZ.SmartPower.BatteryNotUsed";
@@ -86,7 +88,13 @@ sealed class MechanicalNodeFragment : IEntityPanelFragment {
 
     var graph = _mechanicalNode.Graph;
     var totalChargeStr = $"{graph.BatteryCharge:0} {_loc.T(PowerCapacitySymbolLocKey)}";
-    var batteryCapacityStr = _loc.T(BatteryCapacityLocKey, batteryTotalCapacity, totalChargeStr);
+    string batteryCapacityStr;
+    if (BatteriesSettings.BatteryCapacityAsPct) {
+      var chargePct = Mathf.RoundToInt(100.0f * graph.BatteryCharge / batteryTotalCapacity);
+      batteryCapacityStr = _loc.T(BatteryCapacityPctLocKey, totalChargeStr, chargePct);
+    } else {
+      batteryCapacityStr = _loc.T(BatteryCapacityLocKey, batteryTotalCapacity, totalChargeStr);
+    }
     var batteryPowerNeed = graph.PowerDemand - graph.PowerSupply;
     string batteryStatus = null;
 

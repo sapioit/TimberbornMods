@@ -1,5 +1,6 @@
 ID,Text,Comment
 IgorZ.SmartPower.BatteryCapacity,"Заряд батарей: {0} / {1}",
+IgorZ.SmartPower.BatteryCapacityPct,"Заряд батарей: {0} ({1}%)",
 IgorZ.SmartPower.BatteryCharging,"Батареи заряжаются: <GreenHighlight>🡅</GreenHighlight>{0} ({1})",
 IgorZ.SmartPower.BatteryDischarging,"Батареи рязряжаются: <RedHighlight>🡇</RedHighlight>{0} ({1})",
 IgorZ.SmartPower.BatteryNotUsed,"<GreenHighlight>Батареи не используются</GreenHighlight>",
@@ -29,7 +30,8 @@ IgorZ.SmartPower.Settings.Debug.VerboseLogging,"Детальные журнал�
 IgorZ.SmartPower.Settings.Debug.VerboseLoggingTooltip,"В журналы игры будет записываться больше полезной информации, но это может повлиять на производительность игры."
 IgorZ.SmartPower.Settings.BatteriesSection,"Батареи",
 IgorZ.SmartPower.Settings.Batteries.ShowBatteryVitals,"Показывать состояние батарей",
-IgorZ.SmartPower.Settings.Batteries.BatteryRatioHysteresis,"Гистерезис актвиации потребителей (часы)",
+IgorZ.SmartPower.Settings.Batteries.BatteryCapacityAsPct,"Отображать заряд в процентах",
+IgorZ.SmartPower.Settings.Batteries.BatteryRatioHysteresis,"Гистерезис активации потребителей (часы)",
 IgorZ.SmartPower.Settings.Batteries.BatteryRatioHysteresisTooltip,"Выключенные потребители не будут включаться если не смогут проработать на батареях не менее указанного значения.",
 IgorZ.SmartPower.Settings.WalkerPoweredGeneratorSection,"Генераторы на бобровой тяге",
 IgorZ.SmartPower.Settings.GoodConsumingGeneratorSection,"Генераторы, потребляющие ресурсы",

@@ -1,4 +1,5 @@
 # v1.15.3 (started on February 24th, 2026)
+* [Enhancement] Added a new UI mode for batteries charge: show in percent. It's enabled by default, but can be disabled via settings.
 * [Fix] Engines continue working even if there is no fuel.
 
 # v1.15.2 (February 13th, 2026)
