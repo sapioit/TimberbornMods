@@ -1,3 +1,6 @@
+# v1.15.3 (started on February 24th, 2026)
+* [Fix] Engines continue working even if there is no fuel.
+
 # v1.15.2 (February 13th, 2026)
 * [Fix] Manufactories in the unpowered network enter suspend/resume cycle.
 

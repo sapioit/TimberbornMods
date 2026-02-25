@@ -65,7 +65,7 @@ abstract class PowerOutputBalancer
 
   /// <summary>Updates the suspend state of the consumer to the current power state.</summary>
   /// <remarks>Call it when settings have been changed.</remarks>
-  public void UpdateState() {
+  public virtual void UpdateState() {
     if (!Enabled) {
       return;
     }

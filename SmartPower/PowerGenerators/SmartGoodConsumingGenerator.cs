@@ -40,6 +40,12 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
     base.Resume();
   }
 
+  /// <inheritdoc/>
+  public override void UpdateState() {
+    base.UpdateState();
+    MechanicalNode.SetOutputMultiplier(_goodConsumingBuilding.IsConsuming ? 1.0f : 0f);
+  }
+
   public override void Awake() {
     ShowFloatingIcon = GoodConsumingGeneratorSettings.ShowFloatingIcon;
     base.Awake();
