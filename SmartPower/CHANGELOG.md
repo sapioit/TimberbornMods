@@ -2,6 +2,7 @@
 * [Enhancement] Automation On/Off state is now copied between the buildings with the other settings.
 * [Enhancement] Stock game copy/duplicate building functionality now copies the SmartPower settings.
 * [Fix] In some setups engines can enter endless start/stop loop.
+* [Fix] Unfinished engines always load with automation mode enabled, even if it was disabled before saving.
 
 # v1.15.3 (February 25th, 2026)
 * [Enhancement] Added a new UI mode for batteries charge: show in percent. It's enabled by default, but can be disabled via settings.

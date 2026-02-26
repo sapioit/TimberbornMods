@@ -3,24 +3,12 @@
 // License: Public Domain
 
 using IgorZ.SmartPower.Settings;
-using Timberborn.BlockSystem;
 using Timberborn.DuplicationSystem;
 using Timberborn.GoodConsumingBuildingSystem;
 
 namespace IgorZ.SmartPower.PowerGenerators;
 
-sealed class SmartGoodConsumingGenerator
-    : PowerOutputBalancer, IUnfinishedStateListener, IDuplicable<SmartGoodConsumingGenerator> {
-
-  #region IUnfinishedStateListener implementation
-
-  public void OnEnterUnfinishedState() {
-    Automate = true;  // Enable for all new generators.
-  }
-  public void OnExitUnfinishedState() {
-  }
-
-  #endregion
+sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IDuplicable<SmartGoodConsumingGenerator> {
 
   #region PowerOutputBalancer overrides
 
@@ -54,6 +42,7 @@ sealed class SmartGoodConsumingGenerator
   /// <inheritdoc/>
   public override void Awake() {
     ShowFloatingIcon = GoodConsumingGeneratorSettings.ShowFloatingIcon;
+    Automate = true;
     base.Awake();
 
     _goodConsumingBuilding = GetComponent<GoodConsumingBuilding>();
