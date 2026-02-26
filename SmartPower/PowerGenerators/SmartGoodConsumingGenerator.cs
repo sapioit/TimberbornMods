@@ -41,11 +41,15 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
   }
 
   /// <inheritdoc/>
-  public override void UpdateState() {
-    base.UpdateState();
-    MechanicalNode.SetOutputMultiplier(_goodConsumingBuilding.IsConsuming ? 1.0f : 0f);
+  protected override void OnAfterSmartLogic() {
+    // We can't know if our component ticks before or after GoodConsumingBuilding, so repeat the IsConsuming logic.
+    var isConsuming = !_goodConsumingBuilding.ConsumptionPaused
+        && _goodConsumingBuilding._blockableObject.IsUnblocked
+        && _goodConsumingBuilding.HasSupplies();
+    MechanicalNode.SetOutputMultiplier(isConsuming ? 1.0f : 0f);
   }
 
+  /// <inheritdoc/>
   public override void Awake() {
     ShowFloatingIcon = GoodConsumingGeneratorSettings.ShowFloatingIcon;
     base.Awake();

@@ -1,3 +1,6 @@
+# v1.15.4 (started on February 25th, 2026)
+* [Fix] In some setups engines can enter endless start/stop loop.
+
 # v1.15.3 (February 25th, 2026)
 * [Enhancement] Added a new UI mode for batteries charge: show in percent. It's enabled by default, but can be disabled via settings.
 * [Fix] Engines continue working even if there is no fuel.

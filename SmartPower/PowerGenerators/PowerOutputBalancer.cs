@@ -65,7 +65,7 @@ abstract class PowerOutputBalancer
 
   /// <summary>Updates the suspend state of the consumer to the current power state.</summary>
   /// <remarks>Call it when settings have been changed.</remarks>
-  public virtual void UpdateState() {
+  public void UpdateState() {
     if (!Enabled) {
       return;
     }
@@ -75,6 +75,7 @@ abstract class PowerOutputBalancer
     if (Automate && !_pausableBuilding.Paused) {
       HandleSmartLogic();
     }
+    OnAfterSmartLogic();
   }
 
   #endregion
@@ -205,6 +206,14 @@ abstract class PowerOutputBalancer
     IsSuspended = true;
     _shutdownStatus.Activate();
   }
+
+  /// <summary>Executes every tick right after the smart logic is executed.</summary>
+  /// <remarks>
+  /// At this point all decisions are made and the building's running state is updated. When handling logic in this
+  /// method, keep in mind that it's basically undetermined when the component will tick compared to other components
+  /// in the same building.
+  /// </remarks>
+  protected virtual void OnAfterSmartLogic() {}
 
   #endregion
 
