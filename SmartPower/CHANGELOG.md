@@ -1,3 +1,6 @@
+# v1.15.5 (February 26th, 2026)
+* [Fix] Engines without fuel enter suspended state instead of disabling automation.
+
 # v1.15.4 (February 26th, 2026)
 * [Enhancement] Automation On/Off state is now copied between the buildings with the other settings.
 * [Enhancement] Stock game copy/duplicate building functionality now copies the SmartPower settings.

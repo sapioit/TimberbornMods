@@ -71,11 +71,10 @@ abstract class PowerOutputBalancer
     if (!Enabled) {
       return;
     }
-    if (IsSuspended && (!Automate || _pausableBuilding.Paused)) {
-      Resume();
-    }
-    if (Automate && !_pausableBuilding.Paused) {
+    if (Automate && CanBeAutomated && !_pausableBuilding.Paused) {
       HandleSmartLogic();
+    } else if (IsSuspended) {
+      Resume();
     }
     OnAfterSmartLogic();
   }
@@ -187,6 +186,13 @@ abstract class PowerOutputBalancer
   /// <summary>Action that is used to resume generator.</summary>
   /// <remarks>If not set before the base `Awake` method is executed, then there will be no delay.</remarks>
   protected TickDelayedAction SuspendDelayedAction;
+
+  /// <summary>Tells if the generator can be automated.</summary>
+  /// <remarks>
+  /// If false, then the generator will return to the normal stock game behavior regardless to all other settings.
+  /// </remarks>
+  /// <seealso cref="Automate"/>
+  protected abstract bool CanBeAutomated { get; }
 
   /// <summary>The place where all components get their dependencies.</summary>
   public virtual void Awake() {

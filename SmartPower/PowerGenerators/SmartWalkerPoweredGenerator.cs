@@ -13,6 +13,9 @@ sealed class SmartWalkerPoweredGenerator : PowerOutputBalancer, IDuplicable<Smar
   #region PowerOutputBalancer overrides
 
   /// <inheritdoc/>
+  protected override bool CanBeAutomated => true;
+
+  /// <inheritdoc/>
   protected override void Suspend() {
     base.Suspend();
     _blockableObject.Block(this);

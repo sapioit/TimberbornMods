@@ -31,6 +31,9 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IDuplicable<Smar
   }
 
   /// <inheritdoc/>
+  protected override bool CanBeAutomated => _goodConsumingBuilding.HasSupplies();
+
+  /// <inheritdoc/>
   protected override void OnAfterSmartLogic() {
     // We can't know if our component ticks before or after GoodConsumingBuilding, so repeat the IsConsuming logic.
     var isConsuming = !_goodConsumingBuilding.ConsumptionPaused
