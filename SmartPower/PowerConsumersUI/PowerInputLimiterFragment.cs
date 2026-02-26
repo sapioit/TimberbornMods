@@ -131,10 +131,7 @@ sealed class PowerInputLimiterFragment : IEntityPanelFragment {
     var affectedBuildings = 0;
     foreach (var balancer in _powerInputLimiter.AllLimiters.Where(x => x != _powerInputLimiter)) {
       affectedBuildings++;
-      balancer.MinPowerEfficiency = _powerInputLimiter.MinPowerEfficiency;
-      balancer.CheckBatteryCharge = _powerInputLimiter.CheckBatteryCharge;
-      balancer.MinBatteriesCharge = _powerInputLimiter.MinBatteriesCharge;
-      balancer.UpdateState();
+      balancer.DuplicateFrom(_powerInputLimiter);
     }
     _applyToAllUpdater = new TimedUpdater(1.0f, startNow: true);
     _applyToAllBuildingsButton.text = _uiFactory.T(AppliedToBuildingsLocKey, affectedBuildings);

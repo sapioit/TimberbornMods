@@ -1,4 +1,6 @@
 # v1.15.4 (started on February 25th, 2026)
+* [Enhancement] Automation On/Off state is now copied between the buildings with the other settings.
+* [Enhancement] Stock game copy/duplicate building functionality now copies the SmartPower settings.
 * [Fix] In some setups engines can enter endless start/stop loop.
 
 # v1.15.3 (February 25th, 2026)

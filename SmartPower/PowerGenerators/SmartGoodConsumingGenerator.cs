@@ -4,11 +4,13 @@
 
 using IgorZ.SmartPower.Settings;
 using Timberborn.BlockSystem;
+using Timberborn.DuplicationSystem;
 using Timberborn.GoodConsumingBuildingSystem;
 
 namespace IgorZ.SmartPower.PowerGenerators;
 
-sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedStateListener {
+sealed class SmartGoodConsumingGenerator
+    : PowerOutputBalancer, IUnfinishedStateListener, IDuplicable<SmartGoodConsumingGenerator> {
 
   #region IUnfinishedStateListener implementation
 
@@ -56,6 +58,15 @@ sealed class SmartGoodConsumingGenerator : PowerOutputBalancer, IUnfinishedState
 
     _goodConsumingBuilding = GetComponent<GoodConsumingBuilding>();
     _goodConsumingToggle = _goodConsumingBuilding.GetGoodConsumingToggle();
+  }
+
+  #endregion
+
+  #region IDuplicable implementation. Need to be called from descendants when the building is duplicated.
+
+  /// <summary>Copies settings from a source of the same type.</summary>
+  public void DuplicateFrom(SmartGoodConsumingGenerator source) {
+    base.DuplicateFrom(source);
   }
 
   #endregion

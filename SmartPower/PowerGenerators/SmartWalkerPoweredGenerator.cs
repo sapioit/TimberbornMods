@@ -4,10 +4,11 @@
 
 using IgorZ.SmartPower.Settings;
 using Timberborn.BlockingSystem;
+using Timberborn.DuplicationSystem;
 
 namespace IgorZ.SmartPower.PowerGenerators;
 
-sealed class SmartWalkerPoweredGenerator : PowerOutputBalancer {
+sealed class SmartWalkerPoweredGenerator : PowerOutputBalancer, IDuplicable<SmartWalkerPoweredGenerator> {
 
   #region PowerOutputBalancer overrides
 
@@ -21,6 +22,15 @@ sealed class SmartWalkerPoweredGenerator : PowerOutputBalancer {
   protected override void Resume() {
     base.Resume();
     _blockableObject.Unblock(this);
+  }
+
+  #endregion
+
+  #region IDuplicable implementation. Need to be called from descendants when the building is duplicated.
+
+  /// <summary>Copies settings from a source of the same type.</summary>
+  public void DuplicateFrom(SmartWalkerPoweredGenerator source) {
+    base.DuplicateFrom(source);
   }
 
   #endregion

@@ -14,6 +14,7 @@ using Timberborn.BaseComponentSystem;
 using Timberborn.BlockingSystem;
 using Timberborn.BlockSystem;
 using Timberborn.Buildings;
+using Timberborn.DuplicationSystem;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
@@ -28,7 +29,8 @@ using UnityEngine;
 namespace IgorZ.SmartPower.PowerConsumers;
 
 sealed class PowerInputLimiter
-    : TickableComponent, IAwakableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity {
+    : TickableComponent, IAwakableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity,
+      IDuplicable<PowerInputLimiter> {
 
   #region API
 
@@ -171,11 +173,24 @@ sealed class PowerInputLimiter
     if (!entityLoader.TryGetComponent(PowerInputLimiterKey, out var state)) {
       return;
     }
-    Automate = state.GetValueOrDefault(AutomateKey);
+    Automate = state.GetValueOrDefault(AutomateKey, Automate);
     MinPowerEfficiency = state.GetValueOrDefault(MinPowerEfficiencyKey, MinPowerEfficiency);
-    CheckBatteryCharge = state.GetValueOrDefault(CheckBatteryChargeKey);
+    CheckBatteryCharge = state.GetValueOrDefault(CheckBatteryChargeKey, CheckBatteryCharge);
     MinBatteriesCharge = state.GetValueOrDefault(MinBatteriesChargeKey, MinBatteriesCharge);
     IsSuspended = state.GetValueOrDefault(IsSuspendedKey);
+  }
+
+  #endregion
+
+  #region IDuplicable implementation.
+
+    /// <inheritdoc/>
+  public void DuplicateFrom(PowerInputLimiter source) {
+    Automate = source.Automate;
+    MinPowerEfficiency = source.MinPowerEfficiency;
+    CheckBatteryCharge = source.CheckBatteryCharge;
+    MinBatteriesCharge = source.MinBatteriesCharge;
+    UpdateState();
   }
 
   #endregion

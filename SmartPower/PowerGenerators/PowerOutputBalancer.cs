@@ -11,6 +11,7 @@ using IgorZ.TimberDev.Utils;
 using Timberborn.BaseComponentSystem;
 using Timberborn.BlockSystem;
 using Timberborn.Buildings;
+using Timberborn.DuplicationSystem;
 using Timberborn.EntitySystem;
 using Timberborn.Localization;
 using Timberborn.MechanicalSystem;
@@ -24,7 +25,8 @@ using UnityEngine;
 namespace IgorZ.SmartPower.PowerGenerators;
 
 abstract class PowerOutputBalancer
-    : TickableComponent, IAwakableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity {
+    : TickableComponent, IAwakableComponent, IPersistentEntity, IFinishedStateListener, IPostInitializableEntity,
+      IDuplicable<PowerOutputBalancer> {
 
   const float MaxBatteryChargeRatio = 0.9f;
   const float MinBatteryChargeRatio = 0.65f;
@@ -138,10 +140,26 @@ abstract class PowerOutputBalancer
     if (!entityLoader.TryGetComponent(AutomationBehaviorKey, out var state)) {
       return;
     }
-    Automate = state.GetValueOrDefault(AutomateKey);
-    ChargeBatteriesThreshold = state.GetValueOrDefault(ChargeBatteriesThresholdKey, MaxBatteryChargeRatio);
-    DischargeBatteriesThreshold = state.GetValueOrDefault(DischargeBatteriesThresholdKey, MinBatteryChargeRatio);
+    Automate = state.GetValueOrDefault(AutomateKey, Automate);
+    ChargeBatteriesThreshold = state.GetValueOrDefault(ChargeBatteriesThresholdKey, ChargeBatteriesThreshold);
+    DischargeBatteriesThreshold = state.GetValueOrDefault(DischargeBatteriesThresholdKey, DischargeBatteriesThreshold);
     IsSuspended = state.GetValueOrDefault(IsSuspendedKey);
+  }
+
+  #endregion
+
+  #region IDuplicable implementation. Need to be called from descendants when the building is duplicated.
+
+  /// <summary>Copies settings of the base type.</summary>
+  /// <remarks>
+  /// The game will call the duplication method only on the final component. So, if descendants need to be properly
+  /// copied, they need to define a method for own type, even if it only calls this one.
+  /// </remarks>
+  public void DuplicateFrom(PowerOutputBalancer source) {
+    Automate = source.Automate;
+    DischargeBatteriesThreshold = source.DischargeBatteriesThreshold;
+    ChargeBatteriesThreshold = source.ChargeBatteriesThreshold;
+    UpdateState();
   }
 
   #endregion

@@ -114,9 +114,7 @@ sealed class PowerOutputBalancerFragment : IEntityPanelFragment {
     var affectedGenerators = 0;
     foreach (var balancer in _balancer.AllBalancers.Where(x => x != _balancer)) {
       affectedGenerators++;
-      balancer.ChargeBatteriesThreshold = _balancer.ChargeBatteriesThreshold;
-      balancer.DischargeBatteriesThreshold = _balancer.DischargeBatteriesThreshold;
-      balancer.UpdateState();
+      balancer.DuplicateFrom(_balancer);
     }
     _applyToAllUpdater = new TimedUpdater(1.0f, startNow: true);
     _applyToAllGeneratorsButton.text = _uiFactory.T(AppliedToGeneratorsLocKey, affectedGenerators);
