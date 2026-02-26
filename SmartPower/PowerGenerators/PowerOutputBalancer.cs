@@ -46,6 +46,10 @@ abstract class PowerOutputBalancer
   /// <summary>Indicates if the generator is currently suspended.</summary>
   public bool IsSuspended { get; private set; }
 
+  /// <summary>Indicates whether the generator should automatically pause/unpause based on power demand.</summary>
+  /// <seealso cref="UpdateState"/>
+  public bool Automate { get; set; }
+
   /// <summary>The minimum level to let the batteries discharge to.</summary>
   /// <seealso cref="UpdateState"/>
   public float DischargeBatteriesThreshold { get; set; } = MinBatteryChargeRatio;
@@ -53,10 +57,6 @@ abstract class PowerOutputBalancer
   /// <summary>The maximum level to which this generator should charge the batteries.</summary>
   /// <seealso cref="UpdateState"/>
   public float ChargeBatteriesThreshold { get; set; } = MaxBatteryChargeRatio;
-
-  /// <summary>Indicates whether the generator should automatically pause/unpause based on power demand.</summary>
-  /// <seealso cref="UpdateState"/>
-  public bool Automate { get; set; }
 
   /// <summary>Returns the same balancers in the network.</summary>
   public IEnumerable<PowerOutputBalancer> AllBalancers => MechanicalNode.Graph.Nodes
