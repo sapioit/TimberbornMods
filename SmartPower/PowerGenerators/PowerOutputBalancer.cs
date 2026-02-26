@@ -125,7 +125,7 @@ abstract class PowerOutputBalancer
   static readonly PropertyKey<bool> IsSuspendedKey = new("IsSuspended");
 
   /// <inheritdoc/>
-  public void Save(IEntitySaver entitySaver) {
+  public virtual void Save(IEntitySaver entitySaver) {
     var saver = entitySaver.GetComponent(AutomationBehaviorKey);
     saver.Set(AutomateKey, Automate);
     saver.Set(ChargeBatteriesThresholdKey, ChargeBatteriesThreshold);
@@ -134,7 +134,7 @@ abstract class PowerOutputBalancer
   }
 
   /// <inheritdoc/>
-  public void Load(IEntityLoader entityLoader) {
+  public virtual void Load(IEntityLoader entityLoader) {
     if (!entityLoader.TryGetComponent(AutomationBehaviorKey, out var state)) {
       return;
     }
