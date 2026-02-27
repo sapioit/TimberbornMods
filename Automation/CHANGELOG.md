@@ -1,4 +1,6 @@
-# v3.4.2 (started on February 14th, 2026):
+# v3.5.0 (started on February 27th, 2026):
+* [Feature #128] New signal `Workplace.AssignedWorkers` to track the number of workers assigned to the workplace.
+* [Feature] New action `Workplace.SetPriority` to set the workplace priority.
 * [Change] No more automation tools in the map editor.
 
 # v3.4.1 (February 12th, 2026):
