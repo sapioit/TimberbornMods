@@ -86,7 +86,7 @@ sealed class StreamGaugeScriptableComponent : ScriptableComponentBase {
       DisplayName = Loc.T(ContaminationSignalLocKey),
       Result = new ValueDef {
           ValueType = ScriptValue.TypeEnum.Number,
-          ValueFormatter = x => x.AsFloat.ToString("P0"),
+          ValueFormatter = x => x.AsFloat.ToString("0.00"),
           ValueValidator = ValueDef.RangeCheckValidatorFloat(0f, 1f),
           ValueUiHint = GetArgumentMaxValueHint(1f),
       },
